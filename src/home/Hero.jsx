@@ -55,11 +55,11 @@ export const SCENES = [
     bubble: { who: "Question 2 sur 3", text: "« Pourquoi ce poste vous intéresse-t-il ? »", rec: 38 }, bubbleTop: "6%", card: "reperes",
   },
   {
-    ending: "sans jugement.", src: "ressources/se-presenter-en-deux-minutes.webp", pos: "40% 50%", alt: "Une femme assise à une table chez elle, souriante, une tablette à la main.", label: "Un échauffement chez soi, rien n'est enregistré",
+    ending: "sans jugement.", src: "heros-echauffement.webp", pos: "40% 50%", alt: "Une femme parle devant son ordinateur portable, chez elle.", label: "Un échauffement chez soi, rien n'est enregistré",
     bubble: { who: "Consigne 2 sur 7", text: "« Redites-la un peu plus lentement. »" }, bubbleTop: "56%", card: "warmup",
   },
   {
-    ending: "avec vos mots.", src: "ressources/parler-de-ses-experiences-methode-sar.webp", pos: "66% 50%", alt: "Un homme explique avec les mains, assis face à une collègue.", label: "Votre réponse mise par écrit, avec vos mots",
+    ending: "avec vos mots.", src: "heros-transcription.webp", pos: "66% 50%", alt: "Un homme explique quelque chose en faisant un geste de la main.", label: "Votre réponse mise par écrit, avec vos mots",
     bubble: { who: "Mise par écrit", text: "« J'ai travaillé deux ans à l'accueil d'une mairie. »", live: 12 }, bubbleTop: "58%", card: "transcript",
   },
   {

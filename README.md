@@ -51,6 +51,8 @@ Au premier enregistrement analysé, le navigateur télécharge le modèle de tra
 
 ### Crédits photos
 
+Les scènes `heros-echauffement.webp` et `heros-transcription.webp` sont des images générées avec OpenAI ImageGen. Elles représentent des personnes fictives. Leur utilisation suit les [conditions d’OpenAI applicables aux images générées](https://openai.com/policies/terms-of-use/).
+
 Photos provisoires issues d'[Unsplash](https://unsplash.com), utilisées sous la [licence Unsplash](https://unsplash.com/license) (usage gratuit, attribution non obligatoire mais faite ici), recadrées et converties en WebP :
 
 | Fichier (`public/img/`) | Auteur | Photo |

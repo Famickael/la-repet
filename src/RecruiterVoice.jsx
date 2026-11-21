@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { T, TY, RAD, GAP, Btn, Icon, I } from "./ui.jsx";
 import { prefersReduced } from "./lib/a11y.js";
+import { pickFrenchVoice, speechSettings } from "./lib/voice.js";
 
-/* Recruteur oral, sans visage : la question est lue par la synthèse vocale française de l'appareil
-   (speechSynthesis, voix fr-FR, aucun service externe). Indicateur discret pendant la lecture,
+/* Recruteur oral, sans visage : la question est lue par la meilleure voix française installée sur
+   l'appareil (speechSynthesis, voix locales seulement, aucun service externe ; choix dans lib/voice.js). Indicateur discret pendant la lecture,
    sous-titre mot à mot (événements « boundary », repli minuté sinon), boutons « Réécouter »
    et « Couper le son ». Mouvement réduit : pas d'animation, sous-titre complet d'un coup.
    Aucune voix française : repli silencieux, la question reste affichée. */
@@ -13,12 +14,11 @@ const readMuted = () => { try { return localStorage.getItem(MUTE_KEY) === "1"; }
 const writeMuted = v => { try { localStorage.setItem(MUTE_KEY, v ? "1" : "0"); } catch { /* stockage indisponible */ } };
 export const reducedMotion = () => prefersReduced();
 
-/* Voix française de l'appareil, ou null. Les voix arrivent parfois après le premier appel (voiceschanged). */
+/* Meilleure voix française locale de l'appareil, ou null. Les voix arrivent parfois après le premier appel (voiceschanged). */
 function frenchVoice() {
   const s = typeof window !== "undefined" && window.speechSynthesis;
   if (!s) return null;
-  const vs = s.getVoices() || [];
-  return vs.find(v => /^fr[-_]FR/i.test(v.lang)) || vs.find(v => /^fr\b/i.test(v.lang)) || null;
+  return pickFrenchVoice(s.getVoices() || []);
 }
 function waitVoice(ms = 800) {
   return new Promise(res => {
@@ -56,7 +56,8 @@ export default function RecruiterVoice({ label = "Question du recruteur", text, 
     const reduced = reducedMotion();
     const words = text.split(/\s+/);
     const u = new SpeechSynthesisUtterance(text);
-    u.voice = voice; u.lang = voice.lang || "fr-FR"; u.rate = 0.95;
+    const { rate, pitch } = speechSettings(voice);
+    u.voice = voice; u.lang = voice.lang || "fr-FR"; u.rate = rate; u.pitch = pitch;
     let gotBoundary = false;
     setSpeaking(true); onSpeaking?.(true); setShown(reduced ? text : "");
     u.onboundary = e => {

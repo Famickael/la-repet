@@ -28,6 +28,7 @@ jobs:
       - run: npm run test:analysis
       - run: node tests/assistant.test.mjs
       - run: npm run test:store
+      - run: npm run test:voice
       - run: npm run test:content
       - run: npm run test:proxy
       - run: npm run test:design

@@ -46,6 +46,7 @@ npm run build
 npm run test:analysis
 node tests/assistant.test.mjs
 npm run test:store    # données locales (stockage simulé)
+npm run test:voice    # choix de la voix qui lit les questions (voix locales seulement)
 npm run test:content  # élision, formats, articles, textes de la démo
 npm run test:design   # référentiel UI/UX (docs/design-system.md, section 11), bloquant
 npm run test:site     # pages publiques et passe axe-core, si Chromium est disponible

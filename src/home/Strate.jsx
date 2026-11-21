@@ -67,7 +67,7 @@ export function Strate() {
 
   if (stacked) {
     return (
-      <section className="rs-pad rs-section" style={{ maxWidth: W.page, margin: "0 auto", padding: "80px 24px 0" }}>
+      <section id="comment-ca-marche" className="rs-pad rs-section" style={{ maxWidth: W.page, margin: "0 auto", padding: "80px 24px 0" }}>
         {head}
         <ol style={{ listStyle: "none", margin: "32px 0 0", padding: 0, display: "grid", gap: 48 }}>
           {STEPS.map((s, i) => (
@@ -86,7 +86,7 @@ export function Strate() {
   }
 
   return (
-    <section ref={sec} className="rs-strate" aria-label="Quatre étapes, de votre première réponse à l'échange avec votre coach" style={{ height: `calc(100vh + ${N * 85}vh)` }}>
+    <section ref={sec} id="comment-ca-marche" className="rs-strate" aria-label="Quatre étapes, de votre première réponse à l'échange avec votre coach" style={{ height: `calc(100vh + ${N * 85}vh)` }}>
       <div className="rs-panel">
         <div className="rs-pad" style={{ maxWidth: W.page, width: "100%", margin: "0 auto", padding: "0 24px", display: "flex", flexDirection: "column", gap: 32, height: "100%", justifyContent: "center", minHeight: 0 }}>
           {head}

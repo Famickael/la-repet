@@ -15,7 +15,7 @@ import { LinkCards, LinkChips } from "./LinkCards.jsx";
 export const USECASES = [
   { href: "#/cas-d-usage/beneficiaires", icon: I.user, title: "Personnes accompagnées", short: "Personnes accompagnées",
     text: "Demandeurs d'emploi et collaborateurs en mobilité : s'entraîner à voix haute, quand on veut, et décider de ce que voit son coach." },
-  { href: "#/cas-d-usage/coachs", icon: I.users, tone: "appui", title: "Coachs", short: "Coachs",
+  { href: "#/cas-d-usage/coachs", icon: I.users, tone: "coach", title: "Coachs", short: "Coachs",
     text: "Créer un parcours, relire les réponses reçues, nuancer l'assistant et préparer le débriefing." },
   { href: "#/cas-d-usage/commanditaires", icon: I.building, title: "Commanditaires", short: "Commanditaires",
     text: "Acteurs publics de l'emploi et entreprises : nous confier un accompagnement, recevoir un bilan d'ensemble." },
@@ -44,8 +44,8 @@ function Hub({ go }) {
         </Section>
         <Section eyebrow="Exemples" title="Deux scénarios d'usage" sub="Des situations types, décrites dans le centre de ressources. Aucun résultat n'a été mesuré.">
           <LinkCards cols={2} items={[
-            { href: "#/ressources/scenario-atelier-collectif", icon: I.users, tag: "Scénario d'usage", tone: "ai", title: "Un atelier collectif", text: "Un atelier hebdomadaire qui s'appuie sur les répétitions faites à la maison pour parler de moments concrets.", cta: "Lire le scénario" },
-            { href: "#/ressources/scenario-accompagnement-a-distance", icon: I.monitor, tag: "Scénario d'usage", tone: "ai", title: "Un accompagnement à distance", text: "Garder le fil entre deux rendez-vous espacés, quand la personne accompagnée habite loin de l'agence.", cta: "Lire le scénario" },
+            { href: "#/ressources/scenario-atelier-collectif", icon: I.users, tag: "Scénario d'usage", tone: "coach", title: "Un atelier collectif", text: "Un atelier hebdomadaire qui s'appuie sur les répétitions faites à la maison pour parler de moments concrets.", cta: "Lire le scénario" },
+            { href: "#/ressources/scenario-accompagnement-a-distance", icon: I.monitor, tag: "Scénario d'usage", tone: "coach", title: "Un accompagnement à distance", text: "Garder le fil entre deux rendez-vous espacés, quand la personne accompagnée habite loin de l'agence.", cta: "Lire le scénario" },
           ]} />
         </Section>
         <FinalBand title="Un projet d'accompagnement ?" text="Acteur public de l'emploi ou entreprise : parlons de vos besoins.">

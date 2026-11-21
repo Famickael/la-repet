@@ -11,7 +11,7 @@ export function LinkCards({ items, cols = 3 }) {
         <Reveal key={x.href} delay={(i % 3) * 70} style={{ height: "100%" }}>
           <a href={x.href} className="rs-card-btn" style={{ height: "100%", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12, padding: 24 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-              <IconTile icon={x.icon} c={x.tone === "ai" ? T.violet : x.tone === "appui" ? T.accent : T.primary} bg={x.tone === "ai" ? T.violetBg : x.tone === "appui" ? T.accentBg : T.primaryBg} />
+              <IconTile icon={x.icon} c={x.tone === "ai" ? T.violet : x.tone === "coach" ? T.coach : T.primary} bg={x.tone === "ai" ? T.violetBg : x.tone === "coach" ? T.coachBg : T.primaryBg} />
               {x.tag && <Tag tone={x.tone || "primary"}>{x.tag}</Tag>}
             </div>
             <h3 style={{ ...TY.h2, color: T.navy, margin: 0 }}>{x.title}</h3>

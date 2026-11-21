@@ -32,6 +32,8 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 | Sarcelle sur fond sombre | `T.accentLt` | `#7FD6CF` | Texte ou icône d'appui posé sur `navy` ou sur la vidéo | Sur fond clair |
 | Assistant (IA) et points à explorer | `T.violet` | `#5C4BB9` | Bouton `ai`, étiquette `ai`, repère « À explorer », encart « ce que fait l'assistant », chargement de l'analyse | Liens, actions sans IA, icônes génériques, statut |
 | Assistant, dégradé seulement | `T.lavender` | `#736BDE` | Sélection de texte, illustrations | Texte, fond sous texte blanc (4,3:1) |
+| Coach et accompagnement | `T.coach` **nouveau** | `#13795A` | Tout ce qui signale le côté coach ou l'accompagnement humain : pastille « Avec votre coach », ton `coach` des étiquettes et des cartes de liens (« Coachs », scénarios d'accompagnement), encart « Conseil » des articles, dégradé `GRAD_COACH` | Action, point d'appui, validation |
+| Coach, fin de dégradé | `T.coachDk` **nouveau** | `#0F5E46` | Fin de `GRAD_COACH` (texte blanc 7,8:1) | Texte sur fond clair hors dégradé |
 | Validation (décor) | `T.success` | `#41C77A` | Pastille pleine décorative, point « en ligne », illustration | Texte, icône porteuse de sens sur fond clair (2,2:1) |
 | Validation (lisible) | `T.successDk` **nouveau** | `#1E7A4A` | Texte, icône et coche de validation, étape terminée du rail | Bouton |
 | Attention, en attente | `T.warningDk` **nouveau** | `#8A5A0A` | Texte et icône des messages et étiquettes d'attente | Fond |
@@ -52,6 +54,16 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 | En-tête translucide | `T.glass` **nouveau** | `rgba(248,250,252,.9)` | Fond de l'en-tête collant (avec flou d'arrière-plan) | Ailleurs |
 | Fond uni de la caméra | `T.studio` **nouveau** | `#DCE6F2` | Couleur de remplacement du fond de l'aperçu caméra (échauffement) | Interface |
 
+#### Les verts : un rôle chacun (v3.5, demande du propriétaire)
+
+| Vert | Jetons | Rôle unique | Exemples |
+|---|---|---|---|
+| Sarcelle | `accent`, `accentDk`, `accentLt`, `accentBg` | Action principale (`objective`) et points d'appui de l'analyse | « Lancer ma première répétition », repère « Point d'appui », étape en cours du rail et de la strate, « Entretiens à relire » |
+| Émeraude | `coach`, `coachDk`, `coachBg`, `GRAD_COACH` (= `GRAD_DOOR_GREEN`) | Coach et accompagnement humain | Pastille « Avec votre coach », barre `topbar="coach"`, porte « Vous êtes coach », carte « Coachs », scénarios d'accompagnement, encart « Conseil » |
+| Vert de validation | `success` (décor), `successDk` (lisible), `successBg` | Fait, reçu, envoyé, prêt | Étiquettes `success`, `Notice tone="success"`, étapes terminées du rail, rond de confirmation, « Rapports envoyés » |
+
+Aucun autre vert. Le dégradé coach ne mélange plus la sarcelle et le vert de validation. Seule exception : les icônes du bandeau d'engagements du pied de page (section 1.5, validée par le propriétaire). Un cadenas ou une icône de confidentialité n'est pas une validation : il prend `primary`.
+
 **Pourquoi** : une couleur qui a deux rôles n'en signale plus aucun. Aujourd'hui « Se connecter » est bleu, « Accéder à mon espace » sarcelle, « Démarrer l'enregistrement » bleu clair : la personne ne peut pas apprendre où est la suite.
 
 `T.ink` (doublon de `navy`) est supprimé. Le blanc s'écrit `T.surface`, jamais `"#fff"`.
@@ -64,6 +76,7 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 | `T.accentBg` | `#ECF5F4` | Étiquette et pastille « Point d'appui », rangée « à traiter », observation d'appui active |
 | `T.violetBg` **nouveau** | `#F2F1F9` | Étiquette `ai`, encart sur l'assistant, observation « à explorer » active |
 | `T.successBg` | `#E9F8F0` | Message de succès, rond de confirmation |
+| `T.coachBg` **nouveau** | `#E7F4EE` | Étiquette `coach`, pastille d'icône des cartes « coach », encart « Conseil » |
 | `T.warningBg` | `#FFF6E8` | Message d'attention, étiquette d'attente |
 | `T.errorBg` | `#FFECEF` | Message d'erreur |
 
@@ -75,11 +88,11 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 |---|---|---|
 | `GRAD` (= `GRAD_PREMIUM`) **modifié** | `primary` 0 %, `blueDk` 50 %, `violet` 100 % | `GradHead`, en-tête de modale, bandeau d'appel final. Milieu en `blueDk` et non `blue` : le texte blanc y passe de 3,4:1 à 4,5:1 |
 | `GRAD_MAIN` | `blue` vers `violet` | Barre supérieure de 4 px des cartes côté bénéficiaire (`topbar`) |
-| `GRAD_COACH` | `blue` vers `accent` | Barre supérieure des cartes côté coach (`topbar="coach"`) |
+| `GRAD_COACH` **modifié** | `coach` vers `coachDk` | Barre supérieure des cartes côté coach (`topbar="coach"`) et porte « Vous êtes coach » de l'accueil : le seul dégradé vert |
 | `GRAD_AI` **modifié** | `blueDk` vers `violet` | Bouton `ai`, barre `topbar="ai"`, indicateur de chargement de l'analyse |
 | `GRAD_SOFT` | `primary` 8 % vers `violet` 7 % | `GradHead soft` et en-tête de modale `soft` uniquement |
 | `GRAD_NIGHT` **nouveau** | `navy`, `primaryDk` 60 %, `violet` | Fond de scène vidéo simulée (accueil) et fond d'attente de l'enregistreur |
-| `GRAD_DOOR_BLUE`, `GRAD_DOOR_GREEN`, `GRAD_DOOR_VIOLET` **nouveau** | `primary` vers `primaryDk` ; `accent` vers `successDk` ; `violet` vers `primaryDk` | Portes d'entrée de l'accueil (« Par où commencer ? ») : bleu pour la personne accompagnée, vert pour le coach, violet pour le commanditaire. Carte entièrement cliquable, sans bouton bordé, texte blanc (AA sur tout le dégradé), flèche dans une pastille `ON.chip` |
+| `GRAD_DOOR_BLUE`, `GRAD_DOOR_GREEN`, `GRAD_DOOR_VIOLET` **nouveau** | `primary` vers `primaryDk` ; `GRAD_DOOR_GREEN` = `GRAD_COACH` ; `violet` vers `primaryDk` | Portes d'entrée de l'accueil (« Par où commencer ? ») : bleu pour la personne accompagnée, vert pour le coach, violet pour le commanditaire. Carte entièrement cliquable, sans bouton bordé, texte blanc (AA sur tout le dégradé), flèche dans une pastille `ON.chip` |
 
 #### Profondeur et marque (v3.1, pages publiques)
 
@@ -145,6 +158,7 @@ Seuils : 4,5:1 pour le texte, 3:1 pour le texte de 24 px et plus (ou 19 px gras)
 | `accent` | 5,2 | 5,0 | `accentBg` 4,7 | OK |
 | `violet` | 6,6 | 6,4 | `violetBg` 5,9 | OK |
 | `successDk` | 5,3 | | `successBg` 4,9 | OK |
+| `coach` | 5,4 | 5,1 | `coachBg` 4,8 | OK |
 | `warningDk` | 5,9 | | `warningBg` 5,5 | OK |
 | `errorDk` | 5,4 | 5,2 | `errorBg` 4,7 | OK |
 | `surface` (blanc) | | | sur `primary` 6,4 · `primaryDk` 8,5 · `accent` 5,2 · `accentDk` 6,8 · `violet` 6,6 · `errorDk` 5,4 · `successDk` 5,3 · `blueDk` 4,5 · `navy` 11,4 | OK |
@@ -367,6 +381,7 @@ Hauteur 24, padding 0 × 12, `RAD.pill`, `TY.tag`, icône 12 facultative. Non cl
 |---|---|---|
 | `primary` | `primary` / `primaryBg` | Contexte, rôle, étape (« Coach », « Entraînement », « S'entraîne ») |
 | `appui` | `accent` / `accentBg` | « Point d'appui » uniquement |
+| `coach` | `coach` / `coachBg` | Côté coach, accompagnement humain (« Avec votre coach ») |
 | `ai` | `violet` / `violetBg` | Assistant, « À explorer » |
 | `success` | `successDk` / `successBg` | Fait, reçu, envoyé |
 | `warning` | `warningDk` / `warningBg` | En attente d'une action (« À relire ») |
@@ -560,7 +575,7 @@ Décrire, ne jamais noter. Formulation positive, appui avant exploration. Un bou
 4. Rayon ou ombre hors des jetons `RAD` et `SH`.
 5. `input`, `textarea`, `select` ou `button` natif hors de `ui.jsx`.
 6. Deux actions pleines colorées sur le même écran.
-7. Violet sans rapport avec l'assistant ; sarcelle hors action principale et points d'appui ; vert `success` ou rouge `error` en texte.
+7. Violet sans rapport avec l'assistant ; sarcelle hors action principale et points d'appui ; vert `coach` hors côté coach et accompagnement ; vert `success` ou rouge `error` en texte.
 8. `div` cliquable, `transition: all`, emoji utilisé comme icône, `&nbsp;` pour espacer une icône.
 
 ---
@@ -592,7 +607,7 @@ Décrire, ne jamais noter. Formulation positive, appui avant exploration. Un bou
 | M1 | une transition est écrite à la main | `transition:\s*["'\`]` sans `MO.` ; tout `transition` contenant `all` | aucune |
 | K1 | un élément natif de formulaire ou un bouton natif est utilisé | `<(input\|textarea\|select\|button)\b` | `<input type="file">` s'il apparaît un jour |
 | K2 | `<Btn kind=` vaut autre chose que `objective`, `ai`, `primary`, `secondary`, `ghost`, `danger`, `white`, `ghostDark`, `dangerSolid` ; `size` autre que `sm`, `md`, `lg` | valeur littérale ou branches d'un ternaire | aucune |
-| K3 | `<Tag tone=` vaut autre chose que `primary`, `appui`, `ai`, `success`, `warning`, `error`, `muted` | idem, y compris les tons renvoyés par `lib/store.js` (`tone: "…"`) | aucune |
+| K3 | `<Tag tone=` vaut autre chose que `primary`, `appui`, `coach`, `ai`, `success`, `warning`, `error`, `muted` | idem, y compris les tons renvoyés par `lib/store.js` (`tone: "…"`) | aucune |
 | K4 | un élément non interactif porte `onClick` | `<(div\|span\|p\|li)\b[^>]*\bonClick=` | voile de modale dans `ui.jsx` |
 | K5 | une icône est espacée à la main | `&nbsp;\s*<Icon` ou `<Icon[^>]*/>\s*&nbsp;` | aucune |
 | L1 | un tiret cadratin ou un emoji figure dans une chaîne | le caractère U+2014 ; `\p{Extended_Pictographic}` (drapeau `u`) | aucune ; s'applique aussi à `docs/*.md` pour le tiret |
@@ -773,6 +788,7 @@ Dégradés : `GRAD` et `GRAD_AI` recomposés selon 1.3, `GRAD_NIGHT` ajouté, `G
 | 2026-11-21 | « Mon espace » : première vue sans défilement, en-tête de page retiré (`h1` masqué visuellement), carte coach repliée sous un lien sur mobile ; textes « Écrivez le code d'accès donné par votre coach ou votre conseiller. » et « Votre code suffit : pas de compte, pas de mot de passe. Gardez-le pour vous. » | Demande du propriétaire, panel bénéficiaire |
 | 2026-11-21 | Nouveaux menus : À propos (sans sous-menu), Solutions, Cas d'usage, Ressources ; un seul sous-menu visible, délai d'intention et bascule sans chevauchement ; « Mon compte » en menu déroulant sous le bouton (dans le menu mobile sur les pages publiques) ; « Demander de l'aide » en session ; bouton d'accessibilité retiré de l'en-tête | Demande du propriétaire |
 | 2026-11-21 | Accueil : phrase « Un entretien, ça se prépare à voix haute » remontée juste sous le héros et le bandeau ; bandeau en quatre engagements (« Sans frais pour vous », « Démarrage rapide », « Sécurisé », « Confidentiel », icônes `gift`, `zap`, `shield`, `eyeOff`, chacun précisé en une ligne) ; mini FAQ retirée ; héros sans « Voir comment ça marche » ni ligne sur le compte ; pastille « Sans jugement » ; « Nous contacter » et « Demander de l'aide » de l'en-tête au style `navlink` | Demande du propriétaire |
+| 2026-11-21 | Verts (v3.5) : un rôle par vert. Nouveau rôle « coach et accompagnement » (`coach`, `coachDk`, `coachBg`, ton `coach` de `Tag`) ; `GRAD_COACH` recomposé (`coach` vers `coachDk`) et `GRAD_DOOR_GREEN` = `GRAD_COACH` ; pastille « Avec votre coach », carte « Coachs », scénarios d'accompagnement et encart « Conseil » en vert coach ; cadenas de la scène du héros en `primary` ; aside « Commanditaires » de « Nous contacter » en barre de marque | Demande du propriétaire : un seul rôle par vert, même vert partout côté coach |
 | 2026-11-21 | Accueil : pastilles « Avec votre coach » (ton `appui`, sarcelle de `GRAD_COACH`, et non le vert de validation), « Assistant IA » (ton `ai`), « Sans note » ; bandeau de réassurance (trois puces) sous le héros ; « Ce que La Répét' ne fait pas » sur quatre cartes (`rs-g4`) | Demande du propriétaire, panel bénéficiaires |
 
 | 2026-11-21 | Écran de chargement (v3.5) : sortie en trois temps (écart des bulles 0,6 s, pause 0,3 s, fondu 0,6 s) ; la sortie attend une page immobile (polices, images visibles, animations d'entrée terminées) ; barre de défilement réservée dès `index.html`. Cause du sursaut : quand le JavaScript arrivait tard, l'animation d'entrée du héros et des lignes de la scène se jouait pendant le fondu. Vérifié image par image à 1280 et 390 px, clair et sombre, réseau ralenti | Demande du propriétaire : sursaut à la fin du chargement, voir la séparation du logo |

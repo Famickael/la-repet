@@ -95,7 +95,7 @@ export default function Demo({ go }) {
           </form>
           </Card>
 
-          <Card pad="lg" topbar="coach" as="aside" style={{ display: "grid", gap: 24, alignContent: "start" }}>
+          <Card pad="lg" topbar as="aside" style={{ display: "grid", gap: 24, alignContent: "start" }}>
             <div style={{ display: "grid", gap: 12 }}>
               <div><Tag tone="primary">Commanditaires</Tag></div>
               <h2 style={{ ...TY.h2, color: T.navy, margin: 0 }}>Comment nous travaillons ensemble</h2>

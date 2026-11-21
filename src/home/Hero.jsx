@@ -16,8 +16,8 @@ export function Hero({ openSpace }) {
         <div className="rs-hero">
           <div className="up" style={{ display: "grid", gap: 24, justifyItems: "start" }}>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {/* Teinte coach (sarcelle de GRAD_COACH, ton « appui ») et violet de l'assistant (docs/design-system.md, 5.4) */}
-              <Tag tone="appui" icon={I.users}>Avec votre coach</Tag>
+              {/* Vert du rôle « coach et accompagnement » (ton coach, même vert que GRAD_COACH) et violet de l'assistant (docs/design-system.md, 1.1 et 5.4) */}
+              <Tag tone="coach" icon={I.users}>Avec votre coach</Tag>
               <Tag tone="ai" icon={I.sparkle}>Assistant IA</Tag>
               <Tag tone="primary">Sans jugement</Tag>
             </div>
@@ -141,7 +141,7 @@ export const WarmupCard = () => (
   <div style={{ background: T.surface, borderRadius: RAD.md, padding: 16, boxShadow: SH.glow, display: "grid", gap: 8 }}>
     <div className="rs-line" style={{ display: "flex", alignItems: "center", gap: 8, ...TY.overline, color: T.primary, ...lineStyle(0, 3) }}><Icon d={I.mic} s={12} c={T.primary} /> Échauffement · rien n'est enregistré</div>
     <div className="rs-line" style={{ ...TY.h4, color: T.navy, ...lineStyle(1, 3) }}>« Merci de me recevoir aujourd'hui. »</div>
-    <div className="rs-line" style={{ display: "flex", alignItems: "center", gap: 8, ...TY.small, color: T.body, ...lineStyle(2, 3) }}><Icon d={I.lock} s={16} c={T.successDk} /> Chez vous, quand vous voulez</div>
+    <div className="rs-line" style={{ display: "flex", alignItems: "center", gap: 8, ...TY.small, color: T.body, ...lineStyle(2, 3) }}><Icon d={I.lock} s={16} c={T.primary} /> Chez vous, quand vous voulez</div>
   </div>
 );
 

@@ -82,7 +82,7 @@ function ArticleCard({ a }) {
       </div>
       <div style={{ padding: 24, display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-          <Tag tone={a.type === "cas" ? "ai" : "primary"}>{TYPES[a.type]}</Tag>
+          <Tag tone={a.type === "cas" ? "coach" : "primary"}>{TYPES[a.type]}</Tag>
           <span style={{ ...TY.caption, color: T.muted }}>{catTitle(a.category)}</span>
         </div>
         <h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>{a.title}</h3>
@@ -126,7 +126,7 @@ function inline(text) {
 }
 
 const CALLOUT = {
-  conseil: { label: "Conseil", icon: I.bulb, fg: T.accent, bg: T.accentBg },
+  conseil: { label: "Conseil", icon: I.bulb, fg: T.coach, bg: T.coachBg },   // conseil d'accompagnement : vert coach
   exemple: { label: "Exemple", icon: I.chat, fg: T.primary, bg: T.primaryBg },
   attention: { label: "Point d'attention", icon: I.info, fg: T.warningDk, bg: T.warningBg },
   "a-retenir": { label: "À retenir", icon: I.check, fg: T.primary, bg: T.primaryBg },

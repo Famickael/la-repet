@@ -463,6 +463,7 @@ Remplace 1000, 920, 820, 720, 680, 640, 580, 560, 460.
 - Point de rupture principal : 760 px (autres seuils de `GStyle` : 1023 px pour le menu repliable, 360 px pour les très petits écrans, hauteur 520 px en paysage). Sous 760 px : une colonne, gouttière latérale 16, cartes en `pad` mobile, groupes de boutons en pleine largeur, titres en taille mobile. Aucun défilement horizontal de page.
 - En-tête collant de 64 (mobile 56), `z-index` 50 ; modale 100 (`Z.nav`, `Z.modal`).
 - Impression : en-tête, pied et éléments `.noprint` masqués, fond blanc.
+- **Pied de page complet** (`src/app/Footer.jsx`) : engagements (icônes colorées, exception de la section 1.5) sur une ligne en haut, répartis sur la largeur ; dessous, une seule rangée de quatre blocs, la présentation (logo et brief) à gauche, à côté des groupes « Vos données », « Le site », « Informations légales ». Colonnes 3/2/2/2 (`.rp-fgrid`), gouttières 24 × 40 ; 1023 px et moins : deux colonnes (la présentation à côté de « Vos données ») ; 560 px et moins : présentation sur toute la largeur, groupes sur deux colonnes ; sous 760 px, 64 px d'espace sous le pied pour que les boutons flottants ne masquent pas les derniers liens. Pied réduit des espaces inchangé.
 
 ---
 
@@ -760,4 +761,5 @@ Dégradés : `GRAD` et `GRAD_AI` recomposés selon 1.3, `GRAD_NIGHT` ajouté, `G
 | 2026-11-21 | Écran de chargement (v3.4) : barre violette de 3 px sous le logo ; sortie en un seul mouvement de 0,8 s (fondu du calque et écart des deux bulles) ; calque de `100vw` (plus de décalage à l'apparition de la barre de défilement) ; retrait après l'écran d'attente de page éventuel ; fondu simple en mouvement réduit, retrait de secours rétabli en mouvement réduit ; durée minimale inchangée (2,5 s). Vérifié image par image (valeurs relevées à chaque image) | Demande du propriétaire : sursaut à la fin du chargement, barre de progression |
 
 Ajouter une ligne à chaque évolution d'une règle ou d'une échelle.
+| 2026-11-21 | Pied de page : logo et brief passent sous les engagements, à côté des groupes de liens, sur une rangée de quatre blocs (3/2/2/2), deux colonnes en tablette ; espace réservé sous le pied sur mobile | Demande du propriétaire : moins d'espace vide, brief à côté de « Vos données » |
 | 2026-11-21 | Options d'accessibilité (v3.4) : languette en demi-cercle au bord gauche (bas à gauche sur mobile) qui s'allonge au survol et au focus, panneau qui se déploie depuis elle par `clip-path` (plus de `Modal`), menu refait en quatre groupes avec interrupteurs visibles et état, focus retenu, Échap et clic extérieur ; bouton de l'en-tête masqué ; exception de taille de cible documentée (8 bis) | Demande du propriétaire |

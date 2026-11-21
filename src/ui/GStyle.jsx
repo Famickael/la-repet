@@ -113,6 +113,13 @@ export const GStyle = () => (
     .rp-icbtn-outline:hover{border-color:${T.primary}}
     .rp-icbtn-plain{border:none;background:transparent}
     .rp-icbtn-plain:hover,.rp-icbtn-plain[aria-expanded=true]{background:${T.primaryBg}}
+    /* Pied de page : présentation et trois groupes de liens sur une rangée (3/2/2/2), engagements répartis sur la largeur */
+    .rp-fgrid{display:grid;grid-template-columns:minmax(0,3fr) repeat(3,minmax(0,2fr));gap:24px 40px}
+    footer .rp-trust{justify-content:space-between;row-gap:0!important}
+    @media (max-width:1023px){ .rp-fgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 32px} footer .rp-trust{justify-content:flex-start;column-gap:24px!important} }
+    @media (max-width:560px){ .rp-fgrid{gap:16px 24px} .rp-fbrief{grid-column:1/-1} }
+    /* Mobile : espace sous le pied de page pour que la languette d'accessibilité et « Revenir en haut » ne masquent pas les derniers liens */
+    @media (max-width:760px){ .rp-foot{padding-bottom:64px} }
     .rp-icbtn-dark{border:1px solid ${ON.line};background:${ON.chip}}
     .rp-icbtn:disabled{cursor:not-allowed;background:${T.line};color:${T.muted}!important;border-color:${T.line}}
     /* Tuiles à cocher et bascules (état sélectionné de 1.6) */

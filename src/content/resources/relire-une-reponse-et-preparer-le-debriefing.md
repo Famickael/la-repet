@@ -3,7 +3,7 @@ title: Relire un entretien et préparer le débriefing
 category: coachs
 type: guide
 summary: Créer un parcours, relire un entretien avec des notes horodatées, nuancer l'assistant et renvoyer un rapport qui prépare l'atelier.
-image: ressources/relire-une-prise-et-preparer-le-debriefing.webp
+image: ressources/relire-une-reponse-et-preparer-le-debriefing.webp
 imageAlt: Un coach à lunettes prend des notes dans un carnet devant son ordinateur portable.
 date: 2026-11-20
 readingTime: 7

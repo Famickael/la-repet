@@ -50,4 +50,4 @@ Dans ce scénario, l'atelier se transformerait progressivement :
 
 ## Pour aller plus loin
 
-Le guide [Relire un entretien et préparer le débriefing](#/ressources/relire-une-prise-et-preparer-le-debriefing) détaille les gestes de relecture côté coach.
+Le guide [Relire un entretien et préparer le débriefing](#/ressources/relire-une-reponse-et-preparer-le-debriefing) détaille les gestes de relecture côté coach.

@@ -44,4 +44,4 @@ Le coach pourrait recueillir ce que les personnes souhaitent conserver juste apr
 
 ## Pour aller plus loin
 
-Le guide [Se présenter en deux minutes](#/ressources/se-presenter-en-deux-minutes) propose une trame pour choisir un exemple et le relier au poste. Si vous préparez un échange après la répétition, consultez aussi [Animer un débriefing à partir d’une réponse enregistrée](#/ressources/animer-un-debriefing-a-partir-d-une-prise).
+Le guide [Se présenter en deux minutes](#/ressources/se-presenter-en-deux-minutes) propose une trame pour choisir un exemple et le relier au poste. Si vous préparez un échange après la répétition, consultez aussi [Animer un débriefing à partir d’une réponse enregistrée](#/ressources/animer-un-debriefing-a-partir-d-une-reponse).

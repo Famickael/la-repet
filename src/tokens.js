@@ -88,6 +88,10 @@ export const GRAD = GRAD_PREMIUM;
 export const GRAD_MAIN = `linear-gradient(135deg, ${FIX.blue} 0%, ${FIX.violet} 100%)`;
 export const GRAD_COACH = `linear-gradient(135deg, ${FIX.accent} 0%, ${FIX.success} 100%)`;   // vert : côté coach
 export const GRAD_AI = `linear-gradient(135deg, ${FIX.blueDk} 0%, ${FIX.violet} 100%)`;
+/* Portes d'entrée de l'accueil (« Par où commencer ? ») : un dégradé par public, texte blanc AA sur tout le dégradé. */
+export const GRAD_DOOR_BLUE = `linear-gradient(135deg, ${FIX.primary} 0%, ${FIX.primaryDk} 100%)`;   // personne accompagnée
+export const GRAD_DOOR_GREEN = `linear-gradient(135deg, ${FIX.accent} 0%, ${FIX.successDk} 100%)`;  // coach
+export const GRAD_DOOR_VIOLET = `linear-gradient(135deg, ${FIX.violet} 0%, ${FIX.primaryDk} 100%)`; // commanditaire
 export const GRAD_SOFT = `linear-gradient(135deg, rgba(56,96,151,.08), rgba(92,75,185,.07))`;
 /* Bordure animée du panneau de l'assistant (bleu vers violet, rôle IA). */
 export const GRAD_AI_BORDER = `linear-gradient(120deg, ${FIX.blueDk} 0%, ${FIX.violet} 50%, ${FIX.blueDk} 100%)`;

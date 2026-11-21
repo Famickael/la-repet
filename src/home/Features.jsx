@@ -1,5 +1,7 @@
 import React from "react";
 import { T, HL, RAD, SH, W, Tag, Btn, Card, I, Icon, TY, Section, IconTile, Accordion, Link } from "../ui.jsx";
+import { ON, GRAD_DOOR_BLUE, GRAD_DOOR_GREEN, GRAD_DOOR_VIOLET } from "../tokens.js";
+import { spaceHash } from "../app/router.js";
 import { FAQ_COST, FAQ_TIME, FAQ_EMPLOYER, FAQ_ACCOUNT } from "../content/faq.js";
 import { useReducedMotion, useInView, Reveal } from "../motion.jsx";
 import { Pin } from "./shared.jsx";
@@ -110,24 +112,29 @@ export function NotDo() {
   );
 }
 
-/* ─── Pour qui ─── */
+/* ─── Portes d'entrée ───
+   Trois cartes entièrement cliquables, un dégradé par public (bleu : personne accompagnée, vert : coach,
+   violet : commanditaire), flèche à droite. L'adresse suit la session ouverte (src/app/router.js, spaceHash). */
 export function ForWho({ go, openSpace }) {
-  /* Boutons d'accès : l'espace de la session ouverte s'il y en a une (src/app/router.js, spaceHash). */
   const doors = [
-    { top: true, t: "Vous avez un code d'accès", d: "Votre coach vous a donné un code d'accès de 6 caractères. Il ouvre votre espace.", b: <Btn kind="secondary" onClick={() => openSpace("benef")} iconRight={I.arrow}>Ouvrir mon espace</Btn> },
-    { top: "coach", t: "Vous êtes coach", d: "Créez un parcours et transmettez le code d'accès. Relisez les réponses que l'on vous envoie. Préparez vos débriefings.", b: <Btn kind="secondary" onClick={() => openSpace("coach")}>Me connecter à l'espace coach</Btn> },
-    { top: "ai", t: "Vous portez un projet d'accompagnement", d: "Acteur public de l'emploi ou entreprise : confiez-nous l'accompagnement de demandeurs d'emploi ou de collaborateurs en mobilité.", b: <Btn kind="secondary" onClick={() => go("#/demo")}>Parler de votre projet</Btn> },
+    { bg: GRAD_DOOR_BLUE, t: "Vous avez un code d'accès", d: "Votre coach vous a donné un code d'accès de 6\u00a0caractères. Il ouvre votre espace.", cta: "Ouvrir mon espace", href: () => spaceHash("benef"), on: () => openSpace("benef") },
+    { bg: GRAD_DOOR_GREEN, t: "Vous êtes coach", d: "Créez un parcours et transmettez le code d'accès. Relisez les réponses que l'on vous envoie. Préparez vos débriefings.", cta: "Me connecter à l'espace coach", href: () => spaceHash("coach"), on: () => openSpace("coach") },
+    { bg: GRAD_DOOR_VIOLET, t: "Vous portez un projet d'accompagnement", d: "Acteur public de l'emploi ou entreprise\u00a0: confiez-nous l'accompagnement de demandeurs d'emploi ou de collaborateurs en mobilité.", cta: "Parler de votre projet", href: () => "#/demo", on: () => go("#/demo") },
   ];
   return (
-    <Section eyebrow="Pour qui" title="Par où commencer ?">
+    <Section title={"Par où commencer\u202f?"}>
       <div className="rs-g3">
         {doors.map((x, i) => (
           <Reveal key={x.t} delay={i * 90} style={{ height: "100%" }}>
-            <Card topbar={x.top} style={{ height: "100%", display: "flex", flexDirection: "column", gap: 12 }}>
-              <h3 style={{ ...TY.h2, margin: "8px 0 0", color: T.navy }}>{x.t}</h3>
-              <p style={{ ...TY.body, color: T.body, margin: 0, flex: 1 }}>{x.d}</p>
-              <div>{x.b}</div>
-            </Card>
+            <a className="rs-door" href={x.href()} onClick={e => { e.preventDefault(); x.on(); }}
+              style={{ background: x.bg, color: ON.text, borderRadius: RAD.lg, boxShadow: SH.sm, padding: 24, height: "100%", display: "flex", flexDirection: "column", gap: 12, textDecoration: "none" }}>
+              <h3 style={{ ...TY.h2, margin: 0, color: ON.text }}>{x.t}</h3>
+              <p style={{ ...TY.body, color: ON.text, margin: 0, flex: 1 }}>{x.d}</p>
+              <span style={{ ...TY.bodyStrong, color: ON.text, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, minHeight: 44 }}>
+                {x.cta}
+                <span className="rs-door-arrow" aria-hidden style={{ width: 40, height: 40, borderRadius: "50%", background: ON.chip, display: "grid", placeItems: "center", flexShrink: 0 }}><Icon d={I.arrow} s={20} /></span>
+              </span>
+            </a>
           </Reveal>
         ))}
       </div>

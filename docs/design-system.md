@@ -79,6 +79,7 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 | `GRAD_AI` **modifié** | `blueDk` vers `violet` | Bouton `ai`, barre `topbar="ai"`, indicateur de chargement de l'analyse |
 | `GRAD_SOFT` | `primary` 8 % vers `violet` 7 % | `GradHead soft` et en-tête de modale `soft` uniquement |
 | `GRAD_NIGHT` **nouveau** | `navy`, `primaryDk` 60 %, `violet` | Fond de scène vidéo simulée (accueil) et fond d'attente de l'enregistreur |
+| `GRAD_DOOR_BLUE`, `GRAD_DOOR_GREEN`, `GRAD_DOOR_VIOLET` **nouveau** | `primary` vers `primaryDk` ; `accent` vers `successDk` ; `violet` vers `primaryDk` | Portes d'entrée de l'accueil (« Par où commencer ? ») : bleu pour la personne accompagnée, vert pour le coach, violet pour le commanditaire. Carte entièrement cliquable, sans bouton bordé, texte blanc (AA sur tout le dégradé), flèche dans une pastille `ON.chip` |
 
 #### Profondeur et marque (v3.1, pages publiques)
 

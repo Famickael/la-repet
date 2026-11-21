@@ -440,7 +440,8 @@ async function run(b, vw, vh, opts = {}) {
   check(p.url().endsWith("#/coach"), `[${tag}] session coach : « Lancer ma première répétition » ne mène pas à l'espace coach (${p.url()})`);
   for (const [h, btn] of [["#/", "Me connecter à l'espace coach"], ["#/cas-d-usage/coachs", "Me connecter à l'espace coach"], ["#/cas-d-usage/beneficiaires", "Lancer ma première répétition"]]) {
     await visit(h);
-    await p.getByRole("button", { name: btn }).first().click(); await p.waitForTimeout(900);
+    /* Accueil : portes d'entrée entièrement cliquables (liens) ; ailleurs, boutons. */
+    await p.locator("button, a.rs-door").filter({ hasText: btn }).first().click(); await p.waitForTimeout(900);
     check(p.url().endsWith("#/coach"), `[${tag}] session coach : « ${btn} » (${h}) ne mène pas à l'espace coach (${p.url()})`);
   }
   await visit("#/ressources");

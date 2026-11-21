@@ -1,6 +1,6 @@
 /* Page d'accueil (ARC-10). Ordre recommandé par le panel bénéficiaires (21 novembre 2026, section 5) : héros,
    bandeau de réassurance, strate des quatre étapes, ce que La Répét' ne fait pas, phrase, outils, mini FAQ,
-   portes d'entrée, bandeau final. Un fichier par section dans ce dossier. */
+   portes d'entrée (le bandeau final est retiré à la demande du propriétaire). Un fichier par section dans ce dossier. */
 import React, { useEffect, useRef } from "react";
 import { W } from "../ui.jsx";
 import { useReducedMotion } from "../motion.jsx";
@@ -8,7 +8,6 @@ import { Hero } from "./Hero.jsx";
 import { Strate } from "./Strate.jsx";
 import { Phrase } from "./Phrase.jsx";
 import { Features, ForWho, NotDo, Reassurance, MiniFaq } from "./Features.jsx";
-import { FinalBand } from "./FinalBand.jsx";
 
 /* Le détail par public est dans « Cas d'usage », le détail de l'outil dans « Solutions ». */
 
@@ -27,7 +26,6 @@ export default function Home({ go, openSpace }) {
         <Features />
         <MiniFaq go={go} />
         <ForWho go={go} openSpace={openSpace} />
-        <FinalBand openSpace={openSpace} go={go} />
       </div>
     </main>
   );

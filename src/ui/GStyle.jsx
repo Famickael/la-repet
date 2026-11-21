@@ -314,6 +314,12 @@ export const GStyle = () => (
     .rs-art-side{position:-webkit-sticky;position:sticky;top:${HEADER_H + 32}px}
     /* Grilles */
     .rs-g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:${GAP.grid}px}
+    .rs-door{transition:transform ${MO.base} ${MO.ease},box-shadow ${MO.base} ${MO.ease}}
+    .rs-door:hover{transform:translateY(-3px);box-shadow:${SH.lg}}
+    .rs-door:hover .rs-door-arrow{transform:translateX(3px)}
+    .rs-door-arrow{transition:transform ${MO.base} ${MO.ease}}
+    .rs-door:focus-visible{outline:3px solid ${T.navy};outline-offset:3px}
+    @media (prefers-reduced-motion: reduce){.rs-door,.rs-door-arrow{transition:none}.rs-door:hover,.rs-door:hover .rs-door-arrow{transform:none}}
     .rs-g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:${GAP.grid}px}
     .rs-g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:${GAP.grid}px}
     .rs-split{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:64px;align-items:center}

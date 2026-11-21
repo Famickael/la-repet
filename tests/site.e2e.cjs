@@ -66,18 +66,24 @@ async function run(b, vw, vh, opts = {}) {
   check(await dot.getAttribute("aria-current") === "true", `[${tag}] le point de navigation des scènes ne change pas la scène`);
   await shot("01a-heros-scene2", false);
   await shot("01z-accueil-complet");
-  /* Fond de l'accueil (souris) : le pointeur repousse le violet et le bleu et dégage une zone claire sous lui ;
-     en mouvement réduit, rien ne bouge. */
+  /* Fond de l'accueil (souris) : rien ne suit le pointeur ; le violet et le bleu reçoivent toujours des décalages
+     opposés (transform seulement) : ils glissent en sens contraires quand la souris traverse l'écran et s'écartent
+     du pointeur quand il s'approche de l'un d'eux. En mouvement réduit, rien ne bouge. */
   if (!mobile) {
     await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300);
-    const hb = await p.getByRole("heading", { level: 1 }).first().boundingBox();
-    await p.mouse.move(hb.x + 40, hb.y + 40); await p.mouse.move(hb.x + hb.width / 2, hb.y + hb.height / 2, { steps: 10 }); await p.waitForTimeout(1500);
-    const g = await p.locator(".rs-glow").evaluate(el => Object.fromEntries(["--clear", "--px", "--vx", "--vy", "--bx", "--by"].map(k => [k, el.style.getPropertyValue(k)])));
-    if (opts.reduced) check(!g["--clear"], `[${tag}] fond de l'accueil : la zone claire ne doit pas apparaître en mouvement réduit`);
+    const masses = () => p.evaluate(() => ["i", "b"].map(s => { const m = new DOMMatrix(getComputedStyle(document.querySelector(".rs-glow " + s)).transform); return [m.m41, m.m42]; }));
+    const at = async (x, y) => { await p.mouse.move(x, y, { steps: 6 }); await p.waitForTimeout(1500); return masses(); };
+    check(await p.locator(".rs-glow *").count() === 3, `[${tag}] fond de l'accueil : aucun élément ne doit suivre le pointeur (deux masses dans leur conteneur de dérive)`);
+    const pos = { centre: await at(vw / 2, vh / 2), gauche: await at(20, vh / 2), droite: await at(vw - 20, vh / 2), haut: await at(vw / 2, 100), bas: await at(vw / 2, vh - 20) };
+    const rel = k => pos[k].map((m, i) => [m[0] - pos.centre[i][0], m[1] - pos.centre[i][1]]);
+    if (opts.reduced) check(Object.keys(pos).every(k => rel(k).flat().every(v => v === 0)), `[${tag}] fond de l'accueil : rien ne doit bouger en mouvement réduit (${JSON.stringify(pos)})`);
     else {
-      const px = parseFloat(g["--px"]) / 100 * vw, pointer = hb.x + hb.width / 2;
-      check(g["--clear"] === "1" && Math.abs(px - pointer) < vw * 0.05, `[${tag}] fond de l'accueil : zone claire absente sous le pointeur (${JSON.stringify(g)})`);
-      check(parseFloat(g["--vx"]) > 72 || parseFloat(g["--vy"]) < 18, `[${tag}] fond de l'accueil : le violet n'est pas repoussé par le pointeur (${JSON.stringify(g)})`);
+      const [g, d, h, bas] = ["gauche", "droite", "haut", "bas"].map(rel);
+      check([g, d, h, bas].every(([v, b]) => Math.abs(v[0] + b[0]) < 2 && Math.abs(v[1] + b[1]) < 2), `[${tag}] fond de l'accueil : le violet et le bleu ne reçoivent pas des décalages opposés (${JSON.stringify(pos)})`);
+      check(d[0][0] - g[0][0] > 40 && d[1][0] - g[1][0] < -40, `[${tag}] fond de l'accueil : le violet et le bleu ne glissent pas en sens contraires quand la souris va de gauche à droite (${JSON.stringify([g, d])})`);
+      check(h[0][1] < -15 && h[1][1] > 15, `[${tag}] fond de l'accueil : souris en haut, le violet doit monter et le bleu descendre (${JSON.stringify(h)})`);
+      check(bas[1][0] < -15 && bas[1][1] > 0 && bas[0][0] > 15 && bas[0][1] < 0, `[${tag}] fond de l'accueil : souris en bas, le bleu doit s'écarter vers le bas à gauche et le violet vers le haut à droite (${JSON.stringify(bas)})`);
+      check([g, d, h, bas].every(([v]) => Math.abs(v[0]) <= vw * 0.2 && Math.abs(v[1]) <= vh * 0.2), `[${tag}] fond de l'accueil : amplitude trop forte (${JSON.stringify(pos)})`);
       await shot("01y-accueil-souris", false);
     }
   }
@@ -93,6 +99,7 @@ async function run(b, vw, vh, opts = {}) {
     await shot("02b-phrase-fin", false);
     // Strate épinglée : le panneau reste en place, l'étape active change
     const st = p.locator("section.rs-strate");
+    await p.mouse.move(vw / 2, vh / 2);
     const top = await st.evaluate(el => el.getBoundingClientRect().top + scrollY);
     const h = await st.evaluate(el => el.offsetHeight);
     const range = h - vh;

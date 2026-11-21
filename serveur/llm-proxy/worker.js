@@ -24,7 +24,12 @@ const DEFAULTS = {
   MAX_OUTPUT_TOKENS: 4096,                 // plafond absolu de jetons en sortie, quelle que soit la tâche
   MAX_BODY_BYTES: 65536,                   // taille maximale de la requête du navigateur
   MAX_MESSAGES: 20,                        // nombre maximal de messages transmis
-  UPSTREAM_TIMEOUT_MS: 25000,
+  /* Délais d'attente du fournisseur, par tâche : 2 s de moins que le navigateur (src/lib/llm.js, LLM_TIMEOUT_MS :
+     20 s, 20 s, 30 s), pour que le proxy réponde toujours avant que le navigateur abandonne. */
+  TIMEOUT_MS_CHAT: 18000,
+  TIMEOUT_MS_COACH: 18000,
+  TIMEOUT_MS_FEEDBACK: 28000,
+  UPSTREAM_TIMEOUT_MS: 28000,              // plafond absolu, quelle que soit la tâche
   RATE_LIMIT_PER_IP_PER_MINUTE: 10,
   RATE_LIMIT_PER_IP_PER_DAY: 200,
   RATE_LIMIT_GLOBAL_PER_DAY: 1000,
@@ -37,6 +42,9 @@ const DEFAULTS = {
 
 const cfg = (env, k) => (env && env[k] !== undefined && env[k] !== "" ? env[k] : DEFAULTS[k]);
 const num = (env, k) => { const n = Number(cfg(env, k)); return Number.isFinite(n) && n >= 0 ? n : Number(DEFAULTS[k]); };
+
+export const upstreamTimeout = (env, task) =>
+  Math.min(num(env, task === "feedback" ? "TIMEOUT_MS_FEEDBACK" : task === "coach" ? "TIMEOUT_MS_COACH" : "TIMEOUT_MS_CHAT"), num(env, "UPSTREAM_TIMEOUT_MS"));
 
 /* Schéma du retour attendu par src/lib/analysis.js (reconcile) : synthèse et dimensions. */
 const FEEDBACK_JSON_SCHEMA = {
@@ -272,7 +280,7 @@ export async function handle(request, env = {}) {
 
   let res;
   try {
-    res = await fetch(url, { ...init, signal: AbortSignal.timeout(num(env, "UPSTREAM_TIMEOUT_MS")) });
+    res = await fetch(url, { ...init, signal: AbortSignal.timeout(upstreamTimeout(env, task)) });
   } catch (e) {
     console.log(JSON.stringify({ task, model, outcome: "reseau", detail: String(e?.name || e) }));
     return fail(504, "Fournisseur injoignable", origin);

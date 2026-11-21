@@ -164,7 +164,7 @@ Une variable vide laisse le site en mode entièrement local. Ce n'est pas un sec
 | Taille maximale de la requête | `MAX_BODY_BYTES` | 65 536 octets (le site coupe la transcription à 8 000 caractères : une requête de retour pèse au plus environ 15 000 octets) |
 | Nombre de messages transmis | `MAX_MESSAGES` | 20 |
 | Plafond de jetons en sortie | `MAX_OUTPUT_TOKENS` (et `MAX_TOKENS_CHAT`, `_COACH`, `_FEEDBACK`) | 4096 (1024, 2048, 4096) |
-| Délai du fournisseur | `UPSTREAM_TIMEOUT_MS` | 25 000 ms |
+| Délai du fournisseur | `TIMEOUT_MS_CHAT`, `TIMEOUT_MS_COACH`, `TIMEOUT_MS_FEEDBACK` (plafond `UPSTREAM_TIMEOUT_MS`) | 18 000, 18 000, 28 000 ms (28 000). Le navigateur abandonne 2 s plus tard (20, 20 et 30 s, `src/lib/llm.js`) : le proxy répond toujours avant lui |
 | Débit par adresse IP | `RATE_LIMIT_PER_IP_PER_MINUTE`, `RATE_LIMIT_PER_IP_PER_DAY` | 10 par minute, 200 par jour |
 | Débit global | `RATE_LIMIT_GLOBAL_PER_DAY` | 1 000 par jour |
 

@@ -37,7 +37,7 @@ export function Sent({ p, go, series, nextQuestion }) {
         ? <Btn kind="objective" onClick={nextQuestion} iconRight={I.arrow}>Question suivante ({series.i + 2} sur {series.n})</Btn>
         : <Btn kind="objective" onClick={() => go("pick", { queue: null, selection: null, preselect: null })} icon={I.redo}>M'entraîner encore</Btn>}
     </>}>
-      {p.counselor || "Votre coach"} va regarder votre réponse et ajouter ses remarques. Son rapport arrivera dans votre espace. {PHRASES.sameDevice || "Vous y revenez avec le même code."} {PHRASES.sent}
+      {p.counselor || "Votre coach"} va regarder votre réponse et ajouter ses remarques. Son rapport arrivera dans votre espace. Vous en parlerez aussi lors de votre prochain rendez-vous. {PHRASES.sameDevice || "Vous y revenez avec le même code."} {PHRASES.sent}
     </Confirm>
   );
 }

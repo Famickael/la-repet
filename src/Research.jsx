@@ -1,10 +1,11 @@
 import React from "react";
-import { T, TY, W, GAP, Card, IconTile, Icon, I, PageHero, Section, Notice, Btn } from "./ui.jsx";
-import { Reveal } from "./motion.jsx";
+import { T, TY, W, GAP, Card, I, PageHero, Section, Notice, Link } from "./ui.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
-/* « L'IA et la recherche » (#/a-propos/ia-et-recherche) : ce que fait l'IA dans La Répét', ce qu'elle ne fait pas,
-   et ce que disent les études sur l'entraînement aux entretiens avec un interlocuteur virtuel.
+/* « Recherche en accompagnement » (#/solutions/recherche, menu Solutions ; ancienne page « L'IA et la recherche »,
+   #/a-propos/ia-et-recherche redirigée) : ce que disent les études sur l'entraînement aux entretiens avec un
+   interlocuteur virtuel, leurs limites, et les choix de conception qui en découlent. Ce que fait l'assistant est
+   détaillé dans « Usage de l'IA » (src/AiUsage.jsx).
    Règle : ne citer que les sources listées ci-dessous, sans leur faire dire plus qu'elles ne disent, sans chiffre. */
 
 const SOURCES = [
@@ -17,30 +18,14 @@ const SOURCES = [
 ];
 const Ref = ({ n }) => <a href={SOURCES[n - 1][1]} target="_blank" rel="noopener" className="rp-link" style={{ ...TY.link }} aria-label={`Source ${n} : ${SOURCES[n - 1][0]} (nouvel onglet)`}>[{n}]</a>;
 
-const DOES = [
-  [I.mic, "Mettre votre réponse par écrit", "Votre voix devient un texte, sur votre appareil. Ce texte sert à repérer vos exemples, vos pauses et les petits mots répétés."],
-  [I.sparkle, "Décrire votre réponse", "L'assistant produit des repères descriptifs, placés au bon moment : rythme de parole, pauses, exemples, construction, regard."],
-  [I.chat, "Répondre à vos questions", "L'assistant de préparation d'entretien répond à partir d'une liste préparée à l'avance. Il rappelle qu'il est un programme."],
-];
-const DOESNT = [
-  [I.ban, "Aucune note", "Pas de score, pas de classement, pas de jauge."],
-  [I.shield, "Aucune émotion devinée", "Les expressions du visage ne sont jamais lues. Rien n'est dit sur ce que vous ressentez."],
-  [I.user, "Aucune décision", "Le retour n'a aucune conséquence sur vos droits ni sur votre accompagnement. Votre coach garde la main."],
-];
-
 export default function Research({ go, openSpace }) {
   return (
     <main>
-      <PageHero eyebrow="À propos" title="L'IA et la recherche" lead="Ce que fait l'IA dans La Répét', ce qu'elle ne fait pas, et ce que disent les études sur l'entraînement aux entretiens avec un interlocuteur virtuel." />
+      <PageHero eyebrow="Solutions" title="Recherche en accompagnement" lead="Ce que disent les études sur l'entraînement aux entretiens avec un interlocuteur virtuel, ce qu'elles ne disent pas, et les choix de conception que nous en tirons.">
+        <p style={{ ...TY.body, color: T.body, margin: 0 }}>Ce que fait l'assistant, et ce qu'il ne fait pas : <Link href="#/solutions/usage-de-l-ia">usage de l'IA</Link>.</p>
+      </PageHero>
       <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
-        <Section first eyebrow="Dans La Répét'" title="Ce que fait l'IA">
-          <div className="rs-g3">{DOES.map(([ic, t, d], i) => <Reveal key={t} delay={i * 80} style={{ height: "100%" }}><Card style={{ height: "100%", display: "grid", gap: 12, alignContent: "start" }}><IconTile icon={ic} /><h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>{t}</h3><p style={{ ...TY.body, color: T.body, margin: 0 }}>{d}</p></Card></Reveal>)}</div>
-        </Section>
-        <Section eyebrow="Nos engagements" title="Ce qu'elle ne fait pas">
-          <div className="rs-g3">{DOESNT.map(([ic, t, d], i) => <Reveal key={t} delay={i * 80} style={{ height: "100%" }}><Card style={{ height: "100%", display: "grid", gap: 12, alignContent: "start" }}><IconTile icon={ic} /><h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>{t}</h3><p style={{ ...TY.body, color: T.body, margin: 0 }}>{d}</p></Card></Reveal>)}</div>
-        </Section>
-
-        <Section eyebrow="Ce que disent les études" title="S'entraîner avec un interlocuteur virtuel" sub="Plusieurs équipes ont étudié l'entraînement aux entretiens d'embauche avec un recruteur simulé. Voici ce que leurs travaux permettent de dire, et ce qu'ils ne permettent pas de dire.">
+        <Section first eyebrow="Ce que disent les études" title="S'entraîner avec un interlocuteur virtuel" sub="Plusieurs équipes ont étudié l'entraînement aux entretiens d'embauche avec un recruteur simulé. Voici ce que leurs travaux permettent de dire, et ce qu'ils ne permettent pas de dire.">
           <div style={{ display: "grid", gap: GAP.grid, maxWidth: W.read }}>
             <article style={{ display: "grid", gap: 8 }}>
               <h3 style={{ ...TY.h2, color: T.navy, margin: 0 }}>Les essais VR-JIT</h3>

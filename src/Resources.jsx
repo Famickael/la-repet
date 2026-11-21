@@ -1,31 +1,24 @@
-import React, { useMemo, useRef, useState } from "react";
-import { T, GAP, GRAD_PAGE, RAD, SH, Btn, Tag, Icon, I, TY, W, img, Eyebrow, Section, PageHero, Chip, IconTile, Input } from "./ui.jsx";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { T, GAP, GRAD_PAGE, RAD, SH, Btn, Tag, Icon, I, TY, W, img, Eyebrow, Section, PageHero, Chip, IconTile, Input, Link } from "./ui.jsx";
 import { Reveal, scrollToTarget } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { dateLong } from "./lib/format.js";
-import { useTitle } from "./lib/hooks.js";
+import { applySeo, seoArticle } from "./lib/seo.js";
 import { ARTICLES, CATEGORIES, TYPES, findArticle, findCategory, search, norm } from "./content/resources.js";
 
-const TYPES_PL = { guide: "Guides", cas: "Scénarios d'usage" };
-
-/* Centre de ressources à deux niveaux :
-   #/ressources              catégories, articles à la une, recherche et filtre, glossaire
-   #/ressources/c/CATEGORIE  liste d'une catégorie, filtre par type
-   #/ressources/SLUG         article : gabarit « guide » (blog) ou « cas » (scénario d'usage)
+/* Centre de ressources, une seule page (menu Ressources, sans sous-pages de catégorie) :
+   #/ressources              recherche, « À la une » juste dessous, puis toutes les ressources filtrables par thème
+   #/ressources/SLUG         ressource : gabarit « guide » (blog) ou « cas » (scénario d'usage), adresse partageable
+   #/ressources/c/CATEGORIE  ancienne adresse : redirigée vers #/ressources, thème présélectionné (src/app/router.js)
+   #/ressources/faq          questions fréquentes : page dédiée (src/Faq.jsx)
    Le contenu est dans src/content/resources/*.md (voir docs/briefs/chatgpt-ressources.md). */
 
 export default function Resources({ go, openSpace, slug, cat }) {
-  /* Titre du document : celui de l'article ou de la catégorie (A11Y-06). */
-  useTitle(slug ? findArticle(slug)?.title || "Ressource introuvable" : cat ? findCategory(cat)?.title || "Ressource introuvable" : "Ressources");
-  if (slug) {
-    const a = findArticle(slug);
-    return a ? <Article a={a} go={go} openSpace={openSpace} /> : <NotFound go={go} />;
-  }
-  if (cat) {
-    const c = findCategory(cat);
-    return c ? <CategoryView c={c} go={go} openSpace={openSpace} /> : <NotFound go={go} />;
-  }
-  return <Hub go={go} openSpace={openSpace} />;
+  /* Titre du document et description : ceux de l'article (A11Y-06, src/lib/seo.js). */
+  const a = slug ? findArticle(slug) : null;
+  useEffect(() => { if (slug) applySeo("#/ressources", seoArticle(a?.title || "Ressource introuvable", a?.summary)); }, [slug]); // eslint-disable-line
+  if (slug) return a ? <Article a={a} go={go} openSpace={openSpace} /> : <NotFound go={go} />;
+  return <Hub go={go} openSpace={openSpace} cat={findCategory(cat) ? cat : ""} />;
 }
 
 const iconOf = k => I[k] || I.book;
@@ -33,50 +26,29 @@ const catTitle = id => findCategory(id)?.title || id;
 const fmtDate = dateLong; // src/lib/format.js
 const wrap = { maxWidth: W.page, margin: "0 auto", padding: "0 24px" };
 
-/* ─── Niveau 1 : le hub ─── */
-function Hub({ go, openSpace }) {
+/* ─── La page Ressources ─── */
+function Hub({ go, openSpace, cat }) {
   const [q, setQ] = useState("");
-  const [fcat, setFcat] = useState("");
+  const [fcat, setFcat] = useState(cat);
   const results = useMemo(() => search(q).filter(a => !fcat || a.category === fcat), [q, fcat]);
   const featured = ARTICLES.filter(a => a.featured).slice(0, 3);
   return (
     <main>
       <PageHero eyebrow="Ressources" title="Des conseils pour préparer votre entretien"
-        lead="Des conseils concrets pour préparer un entretien. Des guides pour utiliser La Répét'. Des exemples d'usage de notre accompagnement.">
+        lead="Des conseils concrets, des guides pour utiliser La Répét' et des exemples d'usage de notre accompagnement.">
         <SearchBox q={q} setQ={setQ} go={go} />
+        <p style={{ ...TY.small, color: T.body, margin: 0 }}>Une question sur La Répét' ? <Link href="#/ressources/faq">Lire les questions fréquentes</Link></p>
       </PageHero>
 
       <div className="rs-pad" style={wrap}>
-        <section className="rs-section" aria-labelledby="rs-themes" style={{ paddingTop: GAP.block + 16 }}>
-          <h2 id="rs-themes" className="rs-sr">Thèmes</h2>
-          <div className="rs-g3">
-            {CATEGORIES.map((c, i) => {
-              const n = ARTICLES.filter(a => a.category === c.id).length;
-              return (
-                <Reveal key={c.id} delay={(i % 3) * 70} style={{ height: "100%" }}>
-                  <a href={`#/ressources/c/${c.id}`} className="rs-card-btn" style={{ height: "100%", textDecoration: "none" }}>
-                    <div style={{ position: "relative", aspectRatio: "16 / 9", background: T.primaryBg }}>
-                      <img src={img(`categories/${c.id}.webp`)} alt="" width={800} height={450} loading="lazy" decoding="async" style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }} />
-                    </div>
-                    <div style={{ padding: 24, display: "grid", gap: 8 }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <IconTile icon={iconOf(c.icon)} />
-                        <h3 style={{ ...TY.h2, color: T.navy, margin: 0 }}>{c.title}</h3>
-                      </div>
-                      <p style={{ ...TY.body, color: T.body, margin: 0 }}>{c.desc}</p>
-                      <span style={{ ...TY.label, color: T.primary, display: "inline-flex", alignItems: "center", gap: 8 }}>{n} ressource{n > 1 ? "s" : ""} <Icon d={I.arrow} s={16} /></span>
-                    </div>
-                  </a>
-                </Reveal>
-              );
-            })}
-          </div>
-        </section>
-
         {featured.length > 0 && (
-          <Section eyebrow="À la une" title="Pour bien commencer">
+          <section className="rs-section" aria-labelledby="rs-une" style={{ paddingTop: GAP.block }}>
+            <div style={{ display: "grid", gap: 4, marginBottom: GAP.grid }}>
+              <Eyebrow>À la une</Eyebrow>
+              <h2 id="rs-une" style={{ ...TY.h2, color: T.navy, margin: 0 }}>Pour bien commencer</h2>
+            </div>
             <div className="rs-g3">{featured.map(a => <ArticleCard key={a.slug} a={a} />)}</div>
-          </Section>
+          </section>
         )}
 
         <Section id="toutes" eyebrow="Rechercher" title={q ? `Résultats pour « ${q} »` : "Toutes les ressources"}>
@@ -118,39 +90,6 @@ function ArticleCard({ a }) {
         <span style={{ ...TY.caption, color: T.muted, display: "inline-flex", alignItems: "center", gap: 4 }}><Icon d={I.clock} s={16} c={T.muted} /> {a.readingTime} min de lecture</span>
       </div>
     </a>
-  );
-}
-
-/* ─── Niveau 2 : une catégorie ─── */
-function CategoryView({ c, go, openSpace }) {
-  const all = ARTICLES.filter(a => a.category === c.id);
-  const types = Object.keys(TYPES).filter(t => all.some(a => a.type === t));
-  const [ft, setFt] = useState("");
-  const list = all.filter(a => !ft || a.type === ft);
-  return (
-    <main>
-      <PageHero eyebrow={<Crumbs items={[["#/ressources", "Ressources"]]} />} title={c.title} lead={c.desc} />
-      <div className="rs-pad" style={wrap}>
-        <section className="rs-section" style={{ paddingTop: 48 }}>
-          {types.length > 1 && (
-            <div className="rs-chips" role="group" aria-label="Filtrer par type" style={{ marginBottom: 24 }}>
-              <Chip pressed={!ft} onClick={() => setFt("")}>Tous les types</Chip>
-              {types.map(t => <Chip key={t} pressed={ft === t} onClick={() => setFt(ft === t ? "" : t)}>{TYPES_PL[t]}</Chip>)}
-            </div>
-          )}
-          <p role="status" style={{ ...TY.small, color: T.muted, margin: "0 0 16px" }}>{list.length} ressource{list.length > 1 ? "s" : ""}</p>
-          {list.length ? <div className="rs-g3">{list.map(a => <ArticleCard key={a.slug} a={a} />)}</div>
-            : <Empty text="Aucune ressource de ce type pour l'instant dans ce thème." />}
-        </section>
-        <section className="rs-section" style={{ paddingTop: 80 }}>
-          <Eyebrow>Autres thèmes</Eyebrow>
-          <div className="rs-chips" style={{ marginTop: 16 }}>
-            {CATEGORIES.filter(x => x.id !== c.id).map(x => <a key={x.id} href={`#/ressources/c/${x.id}`} className="rs-chip" style={{ textDecoration: "none" }}><Icon d={iconOf(x.icon)} s={16} /> {x.title}</a>)}
-          </div>
-        </section>
-        <FinalBand title="Passer de la lecture à la pratique" text="Le plus utile reste de s'entraîner à voix haute. Votre code suffit." openSpace={openSpace} go={go} />
-      </div>
-    </main>
   );
 }
 
@@ -247,8 +186,8 @@ function Article({ a, go, openSpace }) {
         <header style={{ background: GRAD_PAGE }}>
           <div className="rs-pad" style={{ ...wrap, padding: "48px 24px 0" }}>
             <div className="up" style={{ display: "grid", gap: 16, maxWidth: W.read }}>
-              <div style={{ ...TY.small }}><Crumbs items={[["#/ressources", "Ressources"], [`#/ressources/c/${a.category}`, catTitle(a.category)]]} /></div>
-              <div><Tag tone={cas ? "ai" : "primary"}>{TYPES[a.type]}</Tag></div>
+              <div style={{ ...TY.small }}><Crumbs items={[["#/ressources", "Ressources"]]} /></div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}><Tag tone={cas ? "ai" : "primary"}>{TYPES[a.type]}</Tag><span style={{ ...TY.caption, color: T.muted }}>{catTitle(a.category)}</span></div>
               <h1 className="ty-xl" style={{ ...TY.pageTitle, color: T.navy, margin: 0 }}>{a.title}</h1>
               <p className="ty-lead" style={{ ...TY.lead, color: T.body, margin: 0 }}>{a.summary}</p>
               {meta}

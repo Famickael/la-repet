@@ -173,7 +173,7 @@ function Conversation({ poste, context, ctxKey }) {
         <Input id="asst-panel-input" value={text} onChange={e => setText(e.target.value)} placeholder="Par exemple : comment parler de mes qualités ?" autoComplete="off" maxLength={400} style={{ flex: 1, minWidth: 0 }} />
         <Btn kind="ai" type="submit" disabled={!text.trim() || typing} aria-label="Envoyer la question" icon={I.send} style={{ width: 48, padding: 0 }} />
       </form>
-      <div style={{ ...TY.caption, color: T.muted }}>Une question sur le site ? <Link href="#/a-propos/faq" target="_blank" rel="noopener">Questions fréquentes (nouvel onglet)</Link></div>
+      <div style={{ ...TY.caption, color: T.muted }}>Une question sur le site ? <Link href="#/ressources/faq" target="_blank" rel="noopener">Questions fréquentes (nouvel onglet)</Link></div>
     </div>
   </>);
 }

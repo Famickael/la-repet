@@ -125,9 +125,10 @@ src/
   App.jsx             coquille : route courante, transitions, titre, focus, pages chargées à la demande (React.lazy)
   app/                router.js (routes par ancre, titres), Nav.jsx (en-tête, sous-menus, menu mobile), AccountMenu.jsx, Espace.jsx
                       (« Mon espace », page introuvable), Footer.jsx, ToTop.jsx
-                      routes : #/, #/a-propos(/faq), #/solutions(/demandeurs-emploi|collaborateurs|coachs|commanditaires), #/ressources, #/ressources/c/CATEGORIE,
-                      #/ressources/SLUG, #/demo, #/espace, #/s/CODE(/questions|reponse|retour/ID|envoi/ID|recapitulatif…), #/coach(/parcours/CODE|relecture/CODE/ID), #/vos-donnees(/video|assistant|droits|appareil|notice|coachs),
-                      #/conditions, #/mentions-legales, #/accessibilite, #/a-propos/ia-et-recherche ; #/fonctionnement redirige vers #/solutions
+                      routes : #/, #/a-propos (organisme, texte d'exemple), #/solutions(/usage-de-l-ia|recherche|fonctionnalites),
+                      #/cas-d-usage(/beneficiaires(/demandeurs-emploi|collaborateurs)|coachs|commanditaires), #/ressources, #/ressources/SLUG, #/ressources/faq(/section),
+                      #/demo, #/espace, #/s/CODE(/questions|reponse|retour/ID|envoi/ID|recapitulatif…), #/coach(/parcours/CODE|relecture/CODE/ID), #/vos-donnees(/video|assistant|droits|appareil|notice|coachs),
+                      #/conditions, #/mentions-legales, #/accessibilite ; anciennes adresses (#/fonctionnement, #/solutions/<public>, #/ressources/c/…, #/a-propos/faq, #/a-propos/ia-et-recherche) redirigées (REDIRECTS, router.js)
   Home.jsx            accueil : héros (accroche qui change, scènes photo + interface en boucle), phrase qui se colore au défilement,
                       strate épinglée « un seul dispositif » en quatre temps, cartes animées, parti pris, portes d'entrée, bandeau final
   About.jsx           « À propos » : mission, pourquoi, parti pris, cadre réglementaire, pour qui, construction, FAQ en accordéons

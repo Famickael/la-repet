@@ -53,7 +53,7 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     const q = await ctx.newPage();
     await q.goto(BASE + "#/s/CASAAA");
     await q.getByRole("button", { name: "Ouvrir", exact: true }).first().click();
-    await q.getByRole("button", { name: "Reprendre mon envoi" }).click();
+    await q.getByRole("button", { name: "Annuler l'envoi" }).click();
     await p.getByText("La personne a repris cette réponse").waitFor({ timeout: 5000 });
     check(await p.getByRole("button", { name: /Envoyer le rapport/ }).count() === 0, "BUG-02 : le bouton d'envoi du rapport reste affiché après la reprise");
     const st = await p.evaluate(k => JSON.parse(localStorage.getItem(k)), KEY);
@@ -91,7 +91,7 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     await p.goto(BASE + "#/s/CASAAA");
     await p.getByRole("button", { name: "Ouvrir", exact: true }).first().click();
     await p.getByRole("button", { name: "Mon compte" }).click();
-    await p.getByRole("dialog", { name: "Mon compte" }).getByRole("button", { name: /Retirer mon/ }).click();
+    await p.getByRole("navigation", { name: "Mon compte" }).getByRole("button", { name: /Retirer mon/ }).click();
     await p.getByRole("button", { name: "Tout supprimer" }).click();
     await p.getByRole("heading", { name: "Avant de commencer" }).waitFor({ timeout: 5000 });
     await p.getByRole("checkbox").first().click();
@@ -250,7 +250,7 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     await p.getByText("En résumé.").waitFor({ timeout: 5000 });
     /* Rechargement sur un écran qui dépend d'un état en mémoire : retour à l'espace avec un message. */
     await p.evaluate(() => { history.replaceState(null, "", "#/s/CASAAA/reponse"); location.reload(); });
-    await p.getByText("Cet écran ne peut pas être rouvert").waitFor({ timeout: 8000 });
+    await p.getByText("La page a été rechargée").waitFor({ timeout: 8000 });
     /* Côté coach */
     const q = await ctx.newPage();
     await q.goto(BASE + "#/coach");
@@ -272,8 +272,8 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     await q.getByRole("heading", { name: /Bonjour Lou/ }).waitFor({ timeout: 5000 });
     /* Écriture brute dans le stockage par un troisième acteur, sans événement vers les deux pages */
     await p.evaluate(k => { const st = JSON.parse(localStorage.getItem(k)); st.parcours.CASBBB = { code: "CASBBB", prenom: "Noa", poste: "", createdAt: new Date().toISOString(), consent: null }; localStorage.setItem(k, JSON.stringify(st)); }, KEY);
-    await q.getByRole("combobox", { name: "Métier visé" }).fill("plombier");
-    await q.getByRole("combobox", { name: "Métier visé" }).press("Enter");
+    await q.getByRole("combobox", { name: "Métier ou poste visé" }).fill("plombier");
+    await q.getByRole("combobox", { name: "Métier ou poste visé" }).press("Enter");
     await q.waitForTimeout(300);
     const st = await q.evaluate(k => JSON.parse(localStorage.getItem(k)), KEY);
     check(!!st.parcours.CASBBB, "ARC-08 : le parcours écrit par un autre onglet a été écrasé");

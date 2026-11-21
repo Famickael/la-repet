@@ -1,28 +1,32 @@
-/* Page d'accueil (ARC-10) : héros, phrase, strate « un seul dispositif », outils, parti pris, portes d'entrée, bandeau final.
-   Un fichier par section dans ce dossier. */
+/* Page d'accueil (ARC-10). Ordre recommandé par le panel bénéficiaires (21 novembre 2026, section 5) : héros,
+   bandeau de réassurance, strate des quatre étapes, ce que La Répét' ne fait pas, phrase, outils, mini FAQ,
+   portes d'entrée, bandeau final. Un fichier par section dans ce dossier. */
 import React, { useEffect, useRef } from "react";
 import { W } from "../ui.jsx";
 import { useReducedMotion } from "../motion.jsx";
 import { Hero } from "./Hero.jsx";
 import { Strate } from "./Strate.jsx";
 import { Phrase } from "./Phrase.jsx";
-import { Features, ForWho, NotDo } from "./Features.jsx";
+import { Features, ForWho, NotDo, Reassurance, MiniFaq } from "./Features.jsx";
 import { FinalBand } from "./FinalBand.jsx";
 
-/* Page d'accueil : héros (accroche qui change, scènes en boucle), strate épinglée en quatre étapes,
-   parti pris, portes d'entrée, bandeau final. Le détail par public est sur la page Solutions. */
+/* Le détail par public est dans « Cas d'usage », le détail de l'outil dans « Solutions ». */
+
+const wrap = { maxWidth: W.page, margin: "0 auto", padding: "0 24px" };
 
 export default function Home({ go, openSpace }) {
   return (
     <main className="rs-home" style={{ position: "relative", isolation: "isolate" }}>
       <MouseGlow />
-      <Hero go={go} />
-      <Phrase />
+      <Hero openSpace={openSpace} />
+      <div className="rs-pad" style={wrap}><Reassurance /></div>
       <Strate />
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={wrap}><NotDo /></div>
+      <Phrase />
+      <div className="rs-pad" style={wrap}>
         <Features />
-        <NotDo />
-        <ForWho go={go} />
+        <MiniFaq go={go} />
+        <ForWho go={go} openSpace={openSpace} />
         <FinalBand openSpace={openSpace} go={go} />
       </div>
     </main>

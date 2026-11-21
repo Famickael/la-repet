@@ -13,7 +13,8 @@
     "test:design": "node tests/design-lint.mjs",
     "test:cas": "node tests/run-e2e.mjs tests/e2e-cas-limites.cjs",
     "test:store": "node tests/store.test.mjs",
-    "test:content": "node tests/content.test.mjs"
+    "test:content": "node tests/content.test.mjs",
+    "test:proxy": "node tests/proxy.test.mjs"
   },
   "dependencies": {
     "@huggingface/transformers": "3.8.1",

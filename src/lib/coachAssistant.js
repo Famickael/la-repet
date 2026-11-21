@@ -15,7 +15,7 @@
 import { textCompliant } from "./compliance.js";
 import { dePoste } from "./text.js";
 import { stripAccents } from "./text.js";
-import { llmEnabled, llmComplete } from "./llm.js";
+import { llmEnabled, llmComplete, LLM_TIMEOUT_MS } from "./llm.js";
 
 /* ─── Garde-fou ─── */
 /* Jugement sur la personne ou appréciation chiffrée ou globale : refusé, en plus des règles d'isCompliant. */
@@ -450,7 +450,7 @@ export async function coachSuggest(ctx) {
   const dim = (ctx.dims || []).find(d => d.id === ctx.dimId);
   const facts = (ctx.dims || []).map(d => `- ${d.titre} (${d.type === "appui" ? "point d'appui" : "à explorer"}) : ${d.observation || ""}`).join("\n");
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 15000);
+  const timer = setTimeout(() => ctrl.abort(), LLM_TIMEOUT_MS.coach);
   try {
     const content = await llmComplete("coach", {
         messages: [

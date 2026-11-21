@@ -15,7 +15,7 @@
 import { textCompliant } from "./compliance.js";
 import { fillPoste } from "./text.js";
 import { stripAccents } from "./text.js";
-import { llmEnabled, llmComplete } from "./llm.js";
+import { llmEnabled, llmComplete, LLM_TIMEOUT_MS } from "./llm.js";
 
 /* Garde-fou de l'assistant : il peut parler du trac quand la personne en parle, jamais qualifier la personne ni noter. */
 export const assistantCompliant = t => textCompliant(t, "assistant") && !/\u2014/.test(t);
@@ -649,7 +649,7 @@ export async function askAssistant(history, { context = "warmup", poste, memory 
   if (!llmEnabled()) return { ...local, source: "local" };
 
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 15000);
+  const timer = setTimeout(() => ctrl.abort(), LLM_TIMEOUT_MS.chat);
   try {
     const content = await llmComplete("chat", {
         messages: [

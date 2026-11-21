@@ -1,6 +1,6 @@
 import React from "react";
 import { T, HL, RAD, SH, W, Tag, Btn, Card, I, Icon, TY, Section, IconTile, Accordion, Link } from "../ui.jsx";
-import { FAQ_TIME, FAQ_EMPLOYER, FAQ_ACCOUNT } from "../content/faq.js";
+import { FAQ_COST, FAQ_TIME, FAQ_EMPLOYER, FAQ_ACCOUNT } from "../content/faq.js";
 import { useReducedMotion, useInView, Reveal } from "../motion.jsx";
 import { Pin } from "./shared.jsx";
 
@@ -136,8 +136,9 @@ export function ForWho({ go, openSpace }) {
 }
 
 /* ─── Bandeau de réassurance, sous le héros (rapport du panel, section 5, bloc 2) ───
-   Durée, appareil, vidéo, employeur. La phrase sur le coût pour la personne attend la validation du propriétaire. */
+   Coût, durée et appareil, vidéo, employeur. La gratuité pour la personne est validée par le propriétaire. */
 export const REASSURE = [
+  [I.check, "Sans frais pour vous : c'est compris dans votre accompagnement."],
   [I.clock, "3 minutes au plus par réponse. Un téléphone suffit."],
   [I.lock, "Votre vidéo reste sur votre appareil."],
   [I.building, "Votre employeur ne voit pas vos réponses."],
@@ -145,7 +146,7 @@ export const REASSURE = [
 export function Reassurance() {
   return (
     <section aria-label="L'essentiel" className="rs-reassure">
-      <ul className="rs-g3" style={{ listStyle: "none", margin: 0, padding: "16px 24px", background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, boxShadow: SH.xs }}>
+      <ul className="rs-g4" style={{ listStyle: "none", margin: 0, padding: "16px 24px", background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, boxShadow: SH.xs }}>
         {REASSURE.map(([ic, t]) => (
           <li key={t} style={{ display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}>
             <IconTile icon={ic} />
@@ -159,6 +160,7 @@ export function Reassurance() {
 
 /* ─── Mini FAQ de la personne accompagnée (rapport du panel, section 5, bloc 7) ─── */
 const HOME_FAQ = [
+  FAQ_COST,
   FAQ_TIME,
   FAQ_EMPLOYER,
   ["Puis-je m'entraîner sur téléphone, ou sans caméra ?", "Oui. Un téléphone suffit. Sans caméra, vous répondez en voix seule : l'assistant ne décrit alors pas votre regard."],

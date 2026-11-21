@@ -184,7 +184,7 @@ Combinaisons **interdites** (mesurées dans le code actuel) : blanc sur `blue` 3
 
 ## 2. Typographie
 
-Trois familles, sans exception : **Outfit** (`FD`, la police du logo) pour les titres (`h1` à `h4`, `display`, `xl`, `pageTitle`, `quote`, intertitres des articles), **Inter** (`FB`) pour le texte et l'interface, **JetBrains Mono** (`FM`) pour les chiffres, codes et horodatages.
+Trois familles, sans exception : **Manrope** (`FD`) pour les titres (`h1` à `h4`, `display`, `xl`, `pageTitle`, `quote`, intertitres des articles), **Inter** (`FB`) pour le texte et l'interface, **JetBrains Mono** (`FM`) pour les chiffres, codes et horodatages.
 
 **Règle** : hors de `tokens.js`, il est interdit d'écrire `font:`, `fontSize`, `fontWeight`, `fontFamily`, `lineHeight` ou `letterSpacing`. On écrit `style={{ ...TY.h2, color: T.navy }}` ou `<Txt v="h2">`. **Pourquoi** : le code actuel contient 91 combinaisons taille/graisse/interlignage différentes, dont sept tailles de titre de page (24, 26, 27, 28, 30, 32, 34) et des demi-pixels (10,5 · 11,5 · 12,5 · 13,5 · 14,5 · 15,5).
 
@@ -192,12 +192,12 @@ Trois familles, sans exception : **Outfit** (`FD`, la police du logo) pour les t
 
 | Niveau | Jeton | Famille | Graisse | Taille / interligne | Espacement | Mobile (≤ 760 px) | Usage unique |
 |---|---|---|---|---|---|---|---|
-| Titre d'accroche | `TY.display` | Outfit | 800 | 54 / 1,05 | -0,035em | 38 | Titre du héros de l'accueil, une fois dans le site |
-| Titre de section éditoriale | `TY.xl` | Outfit | 800 | 32 / 1,15 | -0,03em | 26 | `h2` des pages Accueil et Fonctionnement, bandeau d'appel final |
-| Titre de page | `TY.h1` | Outfit | 800 | 28 / 1,15 | -0,02em | 24 | Le `h1` de chaque écran d'application, titre de `GradHead`, titre d'étape du défilement de l'accueil |
-| Titre de section | `TY.h2` | Outfit | 800 | 20 / 1,25 | -0,01em | 20 | Sections d'un écran (« Mes prises »), titre de modale, titre d'une carte vedette |
-| Titre de carte | `TY.h3` | Outfit | 700 | 16 / 1,3 | 0 | 16 | Cartes de grille, observation, nom dans une liste, état vide |
-| Titre de bloc | `TY.h4` | Outfit | 700 | 14 / 1,4 | 0 | 14 | Intitulé d'un bloc dans une carte, question d'une prise dans une liste |
+| Titre d'accroche | `TY.display` | Manrope | 800 | 54 / 1,05 | -0,035em | 38 | Titre du héros de l'accueil, une fois dans le site |
+| Titre de section éditoriale | `TY.xl` | Manrope | 800 | 32 / 1,15 | -0,03em | 26 | `h2` des pages Accueil et Fonctionnement, bandeau d'appel final |
+| Titre de page | `TY.h1` | Manrope | 800 | 28 / 1,15 | -0,02em | 24 | Le `h1` de chaque écran d'application, titre de `GradHead`, titre d'étape du défilement de l'accueil |
+| Titre de section | `TY.h2` | Manrope | 800 | 20 / 1,25 | -0,01em | 20 | Sections d'un écran (« Mes prises »), titre de modale, titre d'une carte vedette |
+| Titre de carte | `TY.h3` | Manrope | 700 | 16 / 1,3 | 0 | 16 | Cartes de grille, observation, nom dans une liste, état vide |
+| Titre de bloc | `TY.h4` | Manrope | 700 | 14 / 1,4 | 0 | 14 | Intitulé d'un bloc dans une carte, question d'une prise dans une liste |
 | Surtitre | `TY.overline` | Inter | 700 | 11 / 1,3 | 0,08em, capitales | 11 | Au-dessus d'un titre ou d'une valeur ; jamais plus de 4 mots |
 | Chapeau | `TY.lead` | Inter | 400 | 18 / 1,6 | 0 | 16 | Paragraphe sous `display` ou `xl` |
 | Corps de lecture | `TY.bodyLg` | Inter | 400 | 16 / 1,6 | 0 | 16 | Ce que la personne doit lire attentivement : mot du coach, synthèse, phrase sous un `h1` |
@@ -214,11 +214,11 @@ Trois familles, sans exception : **Outfit** (`FD`, la police du logo) pour les t
 | Code saisi | `TY.code` | JetBrains Mono | 700 | 24 / 1 | 0,25em | 24 | Champ du code à 6 caractères |
 | Horodatage | `TY.time` | JetBrains Mono | 700 | 11 / 1 | 0 | 11 | Pastille « 0:03 », numéro d'étape |
 | Mono | `TY.mono` | JetBrains Mono | 500 | 12 / 1,5 | 0 | 12 | Code dans une liste, durée, lien affiché, message technique |
-| Titre de page secondaire | `TY.pageTitle` | Outfit | 800 | 38 / 1,1 | -0,03em | 26 | `h1` de `PageHero` et titre d'article (rendu validé) |
-| Citation | `TY.quote` | Outfit | 700 | 20 / 1,45 | 0 | 18 | Citation d'article |
+| Titre de page secondaire | `TY.pageTitle` | Manrope | 800 | 38 / 1,1 | -0,03em | 26 | `h1` de `PageHero` et titre d'article (rendu validé) |
+| Citation | `TY.quote` | Manrope | 700 | 20 / 1,45 | 0 | 18 | Citation d'article |
 | Mise en avant | `TY.strong` | | 700 | | | | `<strong>` dans un paragraphe |
 
-Tailles autorisées (px) : **11, 12, 13, 14, 16, 18, 20, 24, 26, 28, 32, 38, 54**. Graisses autorisées : Outfit 700 et 800 ; Inter 400, 600, 700 ; JetBrains Mono 500 et 700. Toute autre valeur est une erreur (Inter 500 disparaît : `body` ou `bodyStrong`).
+Tailles autorisées (px) : **11, 12, 13, 14, 16, 18, 20, 24, 26, 28, 32, 38, 54**. Graisses autorisées : Manrope 700 et 800 ; Inter 400, 600, 700 ; JetBrains Mono 500 et 700. Toute autre valeur est une erreur (Inter 500 disparaît : `body` ou `bodyStrong`).
 
 Règles d'emploi :
 - Un seul `h1` par écran, et l'ordre des niveaux HTML suit l'ordre visuel (le composant `Txt` sépare la balise `as` du style `v`).
@@ -641,7 +641,7 @@ export const T = { /* jetons existants */
   overlay: "rgba(27,58,102,.45)", videoBg: "#000000",
 };                                  // supprimer T.ink
 export const ON = { text: "#FFFFFF", chip: "rgba(255,255,255,.2)", line: "rgba(255,255,255,.3)", glow: "rgba(255,255,255,.16)", scrim: "rgba(0,0,0,.5)" };
-export const FD = "'Outfit', 'Segoe UI', sans-serif", FB = "'Inter', 'Segoe UI', sans-serif", FM = "'JetBrains Mono', monospace";
+export const FD = "'Manrope', 'Segoe UI', sans-serif", FB = "'Inter', 'Segoe UI', sans-serif", FM = "'JetBrains Mono', monospace";
 export const SIZES = [11, 12, 13, 14, 16, 18, 20, 24, 26, 28, 32, 38, 54];
 export const WEIGHTS = { [FD]: [700, 800], [FB]: [400, 600, 700], [FM]: [500, 700] };
 export const TY = {
@@ -789,6 +789,7 @@ Dégradés : `GRAD` et `GRAD_AI` recomposés selon 1.3, `GRAD_NIGHT` ajouté, `G
 | 2026-11-21 | Nouveaux menus : À propos (sans sous-menu), Solutions, Cas d'usage, Ressources ; un seul sous-menu visible, délai d'intention et bascule sans chevauchement ; « Mon compte » en menu déroulant sous le bouton (dans le menu mobile sur les pages publiques) ; « Demander de l'aide » en session ; bouton d'accessibilité retiré de l'en-tête | Demande du propriétaire |
 | 2026-11-21 | Accueil : phrase « Un entretien, ça se prépare à voix haute » remontée juste sous le héros et le bandeau ; bandeau en quatre engagements (« Sans frais pour vous », « Démarrage rapide », « Sécurisé », « Confidentiel », icônes `gift`, `zap`, `shield`, `eyeOff`, chacun précisé en une ligne) ; mini FAQ retirée ; héros sans « Voir comment ça marche » ni ligne sur le compte ; pastille « Sans jugement » ; « Nous contacter » et « Demander de l'aide » de l'en-tête au style `navlink` | Demande du propriétaire |
 | 2026-11-21 | Verts (v3.5) : un rôle par vert. Nouveau rôle « coach et accompagnement » (`coach`, `coachDk`, `coachBg`, ton `coach` de `Tag`) ; `GRAD_COACH` recomposé (`coach` vers `coachDk`) et `GRAD_DOOR_GREEN` = `GRAD_COACH` ; pastille « Avec votre coach », carte « Coachs », scénarios d'accompagnement et encart « Conseil » en vert coach ; cadenas de la scène du héros en `primary` ; aside « Commanditaires » de « Nous contacter » en barre de marque | Demande du propriétaire : un seul rôle par vert, même vert partout côté coach |
+| 2026-11-21 | Titres : retour à la police précédente à la demande du propriétaire. **Manrope** 700 et 800 (`FONT_STACKS.display`, donc `FD`), mêmes graisses et mêmes interlettrages qu'avant (`display` -0,035em, `xl` et `pageTitle` -0,03em, `h1` -0,02em, `h2` -0,01em) ; fichiers `public/fonts/manrope-latin-{700,800}-normal.woff2` restaurés, préchargement de Manrope 800 dans `index.html` ; Outfit retirée du site (fichier 700 supprimé, `@font-face` et préchargement retirés), Outfit 800 gardée pour l'image d'aperçu de lien (`scripts/og-image.html`) ; crédits des mentions légales et `public/fonts/LICENCES.txt` mis à jour | Demande du propriétaire : titres en Outfit gras non retenus |
 | 2026-11-21 | Accueil : pastilles « Avec votre coach » (ton `appui`, sarcelle de `GRAD_COACH`, et non le vert de validation), « Assistant IA » (ton `ai`), « Sans note » ; bandeau de réassurance (trois puces) sous le héros ; « Ce que La Répét' ne fait pas » sur quatre cartes (`rs-g4`) | Demande du propriétaire, panel bénéficiaires |
 
 | 2026-11-21 | Écran de chargement (v3.5) : sortie en trois temps (écart des bulles 0,6 s, pause 0,3 s, fondu 0,6 s) ; la sortie attend une page immobile (polices, images visibles, animations d'entrée terminées) ; barre de défilement réservée dès `index.html`. Cause du sursaut : quand le JavaScript arrivait tard, l'animation d'entrée du héros et des lignes de la scène se jouait pendant le fondu. Vérifié image par image à 1280 et 390 px, clair et sombre, réseau ralenti | Demande du propriétaire : sursaut à la fin du chargement, voir la séparation du logo |

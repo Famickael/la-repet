@@ -123,7 +123,7 @@ export const HL = {
 
 /* Typographie (section 2). */
 /* Familles : variables CSS, pour l'option « police lisible » (Atkinson Hyperlegible). */
-export const FONT_STACKS = { display: "'Outfit', 'Segoe UI', sans-serif", body: "'Inter', 'Segoe UI', sans-serif", lisible: "'Atkinson Hyperlegible', 'Inter', 'Segoe UI', sans-serif" };
+export const FONT_STACKS = { display: "'Manrope', 'Segoe UI', sans-serif", body: "'Inter', 'Segoe UI', sans-serif", lisible: "'Atkinson Hyperlegible', 'Inter', 'Segoe UI', sans-serif" };
 export const FD = "var(--ff-d)";
 export const FB = "var(--ff-b)";
 export const FM = "'JetBrains Mono', monospace";

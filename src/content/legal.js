@@ -250,7 +250,7 @@ export const FULL = {
     ] },
     { h: "Qui héberge ce site ?", p: [`${hostLine()}.`] },
     { h: "Exemples.", p: ["Les noms de personnes dans les exemples et les illustrations sont inventés."] },
-    { h: "Polices de caractères.", p: ["Outfit, Inter, JetBrains Mono et Atkinson Hyperlegible, sous licence SIL Open Font License 1.1, servies par ce site."] },
+    { h: "Polices de caractères.", p: ["Manrope, Inter, JetBrains Mono et Atkinson Hyperlegible, sous licence SIL Open Font License 1.1, servies par ce site. Outfit, sous la même licence, pour l'image d'aperçu des liens."] },
     { h: "Photos.", p: ["Photos issues d'Unsplash, sous la licence Unsplash."] },
     { h: "Vos données. Accessibilité.", p: ["Voir « Vos données » et « Accessibilité »."] },
   ],

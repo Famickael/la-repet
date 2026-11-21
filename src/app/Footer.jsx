@@ -13,9 +13,9 @@ export function Footer({ compact = false }) {
     [I.shield, "Aucune émotion devinée", T.accent, "#/vos-donnees/assistant"],
   ];
   const groups = [
-    ["Vos données", [["#/vos-donnees", "Vos données"], ["#/vos-donnees/video", "Que devient ma vidéo ?"], ["#/vos-donnees/assistant", "L'assistant et l'IA"], ["#/vos-donnees/droits", "Vos droits"]]],
-    ["Le site", [["#/a-propos", "À propos"], ["#/solutions", "Solutions"], ["#/ressources", "Ressources"], ["#/a-propos/faq", "Questions fréquentes"], ["#/demo", "Demander une prise en main"]]],
-    ["Informations légales", [["#/conditions", "Conditions d'utilisation"], ["#/mentions-legales", "Mentions légales"], ["#/accessibilite", "Accessibilité : non conforme"]]],
+    ["Vos données", [["#/vos-donnees", "Vos données"], ["#/vos-donnees/video", "Que devient ma vidéo ?"], ["#/vos-donnees/assistant", "L'assistant et l'IA"], ["#/vos-donnees/droits", "Vos droits"]]],
+    ["Le site", [["#/a-propos", "À propos"], ["#/solutions", "Solutions"], ["#/ressources", "Ressources"], ["#/ressources/faq", "Questions fréquentes"], ["#/demo", "Nous contacter"]]],
+    ["Informations légales", [["#/conditions", "Conditions d'utilisation"], ["#/mentions-legales", "Mentions légales"], ["#/accessibilite", "Accessibilité : non conforme"]]],
   ];
   const lk = { ...TY.caption, ...TY.link, minHeight: 44, display: "inline-flex", alignItems: "center" };
   const trustList = (
@@ -24,26 +24,29 @@ export function Footer({ compact = false }) {
     </ul>
   );
   if (compact) return (
-    <footer className="noprint" style={{ position: "relative", zIndex: 1, borderTop: `1px solid ${T.line}`, background: T.surface, marginTop: GAP.section / 2 }}>
+    <footer className="noprint rp-foot" style={{ position: "relative", zIndex: 1, borderTop: `1px solid ${T.line}`, background: T.surface, marginTop: GAP.section / 2 }}>
       <div className="rp-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "12px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "4px 24px" }}>
         {trustList}
         <nav aria-label="Informations" style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-          {[["#/vos-donnees", "Vos données"], ["#/mentions-legales", "Mentions légales"], ["#/accessibilite", "Accessibilité : non conforme"]].map(([h, l]) => <Link key={h} href={h} style={lk}>{l}</Link>)}
+          {[["#/vos-donnees", "Vos données"], ["#/mentions-legales", "Mentions légales"], ["#/accessibilite", "Accessibilité : non conforme"]].map(([h, l]) => <Link key={h} href={h} style={lk}>{l}</Link>)}
         </nav>
       </div>
     </footer>
   );
+  /* Pied complet (référentiel 6) : engagements en haut, puis une rangée de quatre blocs, présentation (logo et brief)
+     à gauche des trois groupes de liens. Colonnes 3/2/2/2 ; tablette (1023 px et moins) : deux colonnes, la présentation
+     à côté de « Vos données » ; petit mobile (560 px et moins) : présentation, puis groupes sur deux colonnes. */
   return (
-    <footer className="noprint" style={{ position: "relative", zIndex: 1, borderTop: `1px solid ${T.line}`, background: T.surface, marginTop: GAP.section / 2 }}>
-      <div className="rp-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "24px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20 }}>
-        <div style={{ display: "grid", gap: 12, maxWidth: 360 }}>
-          <RepetLogo s={14} tagline={false} />
-          <p style={{ ...TY.caption, color: T.body, margin: 0 }}>La Répét' aide à préparer l'entretien d'embauche. On répète à voix haute, l'assistant décrit sans noter, votre coach vous accompagne.</p>
-        </div>
+    <footer className="noprint rp-foot" style={{ position: "relative", zIndex: 1, borderTop: `1px solid ${T.line}`, background: T.surface, marginTop: GAP.section / 2 }}>
+      <div className="rp-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "12px 24px" }}>
         {trustList}
       </div>
       <div style={{ borderTop: `1px solid ${T.lineLt}` }}>
-        <div className="rp-pad rp-fgroups" style={{ maxWidth: W.page, margin: "0 auto", padding: "16px 24px 24px", display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: 24 }}>
+        <div className="rp-pad rp-fgrid" style={{ maxWidth: W.page, margin: "0 auto", padding: "24px 24px 32px" }}>
+          <div className="rp-fbrief" style={{ display: "grid", gap: 12, alignContent: "start", maxWidth: 360 }}>
+            <RepetLogo s={14} tagline={false} />
+            <p style={{ ...TY.caption, color: T.body, margin: 0 }}>La Répét' est l'outil d'entraînement de notre organisme d'accompagnement. On répète son entretien à voix haute, l'assistant décrit sans noter, votre coach vous accompagne.</p>
+          </div>
           {groups.map(([t, links]) => (
             <nav key={t} aria-label={t}>
               <h2 style={{ ...TY.overline, color: T.muted, margin: "0 0 4px" }}>{t}</h2>

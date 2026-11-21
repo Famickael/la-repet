@@ -4,7 +4,7 @@ Ce brief explique comment écrire et publier de nouveaux articles pour le centre
 
 ## 1. Le contexte en trois phrases
 
-La Répét' est un outil d'entraînement à l'entretien d'embauche utilisé par des organismes d'accompagnement vers l'emploi. La personne accompagnée s'entraîne seule face à sa caméra, un assistant décrit sa réponse **sans jamais la noter**, puis un coach relit ce qu'on lui envoie et prépare un débriefing. Les lecteurs sont des personnes en recherche d'emploi (souvent peu à l'aise avec l'exercice), des coachs et conseillers, et des équipes d'organismes (direction, DSI, juridique).
+La Répét' est l'outil d'entraînement aux entretiens d'un organisme d'accompagnement : elle n'est pas vendue comme un logiciel, elle outille l'accompagnement que l'organisme mène pour des commanditaires publics (retour à l'emploi, insertion) ou privés (mobilité et évolution des collaborateurs). La personne accompagnée, demandeur d'emploi ou collaborateur d'entreprise, s'entraîne seule face à sa caméra, un assistant décrit sa réponse **sans jamais la noter**, puis un coach de l'organisme relit ce qu'on lui envoie et prépare un débriefing. Les lecteurs sont des personnes en recherche d'emploi ou en mobilité (souvent peu à l'aise avec l'exercice), des coachs, et des commanditaires (acteurs publics de l'emploi, entreprises). Ne jamais nommer le fournisseur du modèle d'IA : on écrit « assistant IA ».
 
 ## 2. Où et comment déposer un article
 
@@ -22,7 +22,7 @@ La Répét' est un outil d'entraînement à l'entretien d'embauche utilisé par 
 | `visio` | Entretien en visio | Matériel, cadre, regard, téléphone, entretien différé enregistré |
 | `guides` | Guides La Répét' | Prise en main de l'outil côté personne accompagnée |
 | `coachs` | Pour les coachs | Parcours, relecture, notes horodatées, animation d'atelier, débriefing |
-| `organismes` | Pour les organismes | Déploiement, hébergement, cadre juridique, pilotage par indicateurs agrégés |
+| `commanditaires` | Pour les commanditaires | Confier un accompagnement (acteurs publics, entreprises), publics accompagnés, confidentialité, bilan d'ensemble, cadre juridique. Pas de discours de logiciel, de tarif ni de licence |
 
 Une nouvelle catégorie demande une modification du code (`CATEGORIES` dans `src/content/resources.js`) : ne pas en créer sans accord.
 
@@ -156,9 +156,9 @@ Longueur visée : **800 à 1 400 mots** pour un `guide` (5 à 7 minutes de lectu
 | `animer-un-debriefing-a-partir-d-une-prise` | coachs | guide |
 | `ecrire-une-note-horodatee-utile` | coachs | guide |
 | `scenario-preparation-job-dating` | coachs | cas |
-| `piloter-avec-des-indicateurs-agreges` | organismes | guide |
-| `mener-l-analyse-d-impact-avant-deploiement` | organismes | guide |
-| `scenario-pilote-sur-un-site` | organismes | cas |
+| `rendre-compte-sans-surveiller` | commanditaires | guide |
+| `accompagner-une-mobilite-interne` | commanditaires | guide |
+| `scenario-preparer-un-entretien-professionnel` | commanditaires | cas |
 
 ## 8. Pour publier
 

@@ -15,9 +15,9 @@ export function Share({ p, take, go, setModal }) {
         <Txt v="body" color={T.body}>{PHRASES.share} {PHRASES.sameDevice}</Txt>
       </div>
       <Summary items={SUMMARY.envoi} style={{ gap: 8 }} />
-      <div><Link onClick={() => setModal("video")}>Que devient ma vidéo ?</Link></div>
+      <div><Link onClick={() => setModal("video")}>Que devient ma vidéo ?</Link></div>
       <Field id="note" label="Un message pour votre coach (facultatif)">
-        <Textarea id="note" value={note} onChange={e => setNote(e.target.value)} placeholder="Par exemple : j'ai l'impression de parler trop vite, qu'en pensez-vous ?" />
+        <Textarea id="note" value={note} onChange={e => setNote(e.target.value)} placeholder="Par exemple : j'ai l'impression de parler trop vite, qu'en pensez-vous ?" />
       </Field>
       <div className="rp-actions" style={actions}>
         <Back onClick={() => go("report")}>Je la garde pour moi</Back>
@@ -37,7 +37,7 @@ export function Sent({ p, go, series, nextQuestion }) {
         ? <Btn kind="objective" onClick={nextQuestion} iconRight={I.arrow}>Question suivante ({series.i + 2} sur {series.n})</Btn>
         : <Btn kind="objective" onClick={() => go("pick", { queue: null, selection: null, preselect: null })} icon={I.redo}>M'entraîner encore</Btn>}
     </>}>
-      {p.counselor || "Votre coach"} va regarder votre réponse et ajouter ses remarques. Son rapport arrivera dans votre espace. {PHRASES.sameDevice || "Vous y revenez avec le même code."} {PHRASES.sent}
+      {p.counselor || "Votre coach"} va regarder votre réponse et ajouter ses remarques. Son rapport arrivera dans votre espace. Vous en parlerez aussi lors de votre prochain rendez-vous. {PHRASES.sameDevice || "Vous y revenez avec le même code."} {PHRASES.sent}
     </Confirm>
   );
 }

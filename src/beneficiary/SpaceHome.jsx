@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { T, TY, RAD, SH, PAD, GAP, W, Card, Tag, Btn, Link, IconBtn, IconTile, I, GradHead, Txt, Notice, Empty } from "../ui.jsx";
 import { PHRASES, PAGES } from "../content/legal.js";
 import { hasMedia, isAudio } from "../lib/takes.js";
-import { dateFr, dur, openView, stack, wrap } from "./shared.jsx";
+import { dateFr, dur, openView, stack, wrap, downloadData, downloadAllMedia } from "./shared.jsx";
 import { JobField } from "./JobField.jsx";
 
 /* ─── Espace personnel ─── */
@@ -12,7 +12,7 @@ export function Home({ p, takes, go, counselor }) {
     <div style={{ ...wrap(W.read), ...stack(GAP.block) }}>
       <Card pad="none" level={2}>
         <GradHead tag={counselor ? `Accompagnement avec ${counselor}` : "Votre espace"} title={`Bonjour ${p.prenom}`}
-          sub="Indiquez le métier que vous visez. Puis choisissez : un échauffement ou un entraînement." />
+          sub="Indiquez le métier ou le poste que vous visez. Puis choisissez : un échauffement ou un entraînement." />
         <div className="rp-pad-md" style={{ padding: PAD.md, ...stack(GAP.grid) }}>
           <JobField p={p} />
           <div className="rp-stack" style={{ gap: GAP.stack }}>
@@ -34,7 +34,7 @@ export function Home({ p, takes, go, counselor }) {
 
       {reports.length > 0 && (
         <Notice tone="success">
-          {counselor || "Votre coach"} vous a envoyé {reports.length > 1 ? `${reports.length} rapports` : "un rapport"}. Ouvrez la réponse marquée « Rapport reçu » pour le lire.
+          {counselor || "Votre coach"} vous a envoyé {reports.length > 1 ? `${reports.length} rapports` : "un rapport"}. Ouvrez la réponse marquée « Rapport reçu » pour le lire.
         </Notice>
       )}
 
@@ -61,10 +61,36 @@ export function Home({ p, takes, go, counselor }) {
         )}
       </section>
 
+      <MyData p={p} takes={takes} />
+
       <Notice tone="info" icon={I.shield}>
         {PHRASES.noTracking} {PHRASES.sharedDevice} <Link href={PAGES.hub.route}>Vos données</Link>
       </Notice>
     </div>
+  );
+}
+
+/* Mes données (C9) : export JSON lisible, puis vidéos à part. */
+function MyData({ p, takes }) {
+  const [status, setStatus] = useState("");
+  const [busy, setBusy] = useState(false);
+  const media = takes.filter(hasMedia).length;
+  const getMedia = async () => {
+    setBusy(true); setStatus("Téléchargement des enregistrements…");
+    const n = await downloadAllMedia(takes).catch(() => 0);
+    setBusy(false);
+    setStatus(n ? `${n} enregistrement${n > 1 ? "s" : ""} enregistré${n > 1 ? "s" : ""} dans vos téléchargements.` : "Aucun enregistrement n'a pu être téléchargé.");
+  };
+  return (
+    <section aria-labelledby="mes-donnees" style={stack(12)}>
+      <Txt v="h2" as="h2" id="mes-donnees" color={T.navy}>Mes données</Txt>
+      <Txt v="small" color={T.body}>Un fichier lisible avec votre parcours, vos réponses, leurs textes, les retours de l'assistant et les rapports de votre coach. Il est créé sur cet appareil : rien n'est envoyé. Les vidéos et enregistrements de voix se téléchargent à part.</Txt>
+      <div className="rp-actions" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <Btn kind="secondary" size="sm" icon={I.download} onClick={() => setStatus(downloadData(p.code) ? "Le fichier de vos données est dans vos téléchargements." : "Le fichier n'a pas pu être créé.")}>Télécharger mes données</Btn>
+        {media > 0 && <Btn kind="ghost" size="sm" icon={I.download} disabled={busy} onClick={getMedia}>{media > 1 ? `Télécharger mes ${media} enregistrements` : "Télécharger mon enregistrement"}</Btn>}
+      </div>
+      <div role="status" aria-live="polite" style={{ ...TY.small, color: T.body }}>{status}</div>
+    </section>
   );
 }
 

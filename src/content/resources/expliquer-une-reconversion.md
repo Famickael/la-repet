@@ -24,7 +24,7 @@ Vous pouvez mentionner votre métier précédent en une phrase, puis préciser c
 Prenez une tâche de l’annonce et cherchez un geste que vous avez déjà réalisé dans un autre cadre. Cela peut être contrôler une livraison, tenir un planning, reformuler une consigne ou transmettre une information. Notez le contexte, ce que vous faisiez et le résultat que vous pouviez constater. Puis expliquez où vous retrouvez ce geste dans le poste proposé.
 
 > [!exemple] Passer de la restauration à la logistique
-> « En restauration, je vérifiais les livraisons et je rangeais les produits selon leur date et leur emplacement. Quand il manquait quelque chose, je le signalais à la personne qui suivait les commandes. Je souhaite travailler dans la logistique et je retrouve dans votre annonce le contrôle des marchandises et la transmission des écarts. »
+> « En restauration, je vérifiais les livraisons et je rangeais les produits selon leur date et leur emplacement. Quand il manquait quelque chose, je le signalais à la personne qui suivait les commandes. Je souhaite travailler dans la logistique et je retrouve dans votre annonce le contrôle des marchandises et la transmission des écarts. »
 
 Une compétence peut aussi venir d’un stage, d’un projet collectif ou d’une activité hors emploi. Choisissez l’exemple dans lequel vous pouvez expliquer votre rôle. Si le geste ressemble à une mission du poste mais se fait avec un outil différent, nommez la différence. Vous donnerez à l’employeur une façon concrète de situer ce que vous connaissez déjà.
 
@@ -43,7 +43,7 @@ Si vous n’avez pas encore eu l’occasion de voir le travail sur place, dites 
 Relisez les attentes et distinguez celles que vous pouvez illustrer de celles que vous découvrez. Vous pouvez dire où vous en êtes sur un outil, une pratique ou une qualification. Si vous préparez une formation, donnez le statut exact de la démarche. Si vous devez encore vérifier les modalités d’une qualification, indiquez ce que vous savez et posez la question qui vous permettra d’avancer.
 
 > [!exemple] Apprendre un logiciel de suivi
-> « J’ai déjà tenu un registre et transmis les écarts sur un tableau partagé. Je découvre encore votre logiciel de suivi. Comment une nouvelle personne apprend-elle à enregistrer une livraison et à corriger une erreur dans cet outil ? »
+> « J’ai déjà tenu un registre et transmis les écarts sur un tableau partagé. Je découvre encore votre logiciel de suivi. Comment une nouvelle personne apprend-elle à enregistrer une livraison et à corriger une erreur dans cet outil ? »
 
 Vous pouvez aussi demander quelles tâches sont confiées les premières semaines, à qui adresser une question et comment l’équipe vérifie que les consignes sont comprises. Les réponses vous aideront à vous représenter votre arrivée et à décrire ce que vous pouvez apporter dès le début.
 

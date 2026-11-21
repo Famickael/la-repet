@@ -118,7 +118,7 @@ export default function WarmupStage({ setModal }) {
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transform: "scaleX(-1)", display: showCanvas ? "block" : "none" }} />
 
         {(phase === "idle" || phase === "error") && (
-          <StageIdle title={phase === "error" ? error?.title : "Voulez-vous vous voir ?"} text={phase === "error" ? error?.text : "Activez la caméra pour vous voir pendant que vous parlez. Ou restez en voix seule."} onCamera={() => open(false)} onVoice={() => open(true)} voiceLabel="Rester en voix seule" pad={20} />
+          <StageIdle title={phase === "error" ? error?.title : "Voulez-vous vous voir ?"} text={phase === "error" ? error?.text : "Activez la caméra pour vous voir pendant que vous parlez. Ou restez en voix seule."} onCamera={() => open(false)} onVoice={() => open(true)} voiceLabel="Rester en voix seule" pad={20} />
         )}
 
         {phase === "audio" && (
@@ -151,7 +151,7 @@ export default function WarmupStage({ setModal }) {
         <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "space-between" }}>
           {phase === "video" ? (
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
-              <span id="bg-label" style={{ ...TY.label, color: T.navy }}>Arrière-plan :</span>
+              <span id="bg-label" style={{ ...TY.label, color: T.navy }}>Arrière-plan :</span>
               <RadioGroup aria-labelledby="bg-label" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {opt("none", "Normal")}{opt("blur", "Flou")}{opt("color", "Couleur unie")}
               </RadioGroup>
@@ -170,7 +170,7 @@ export default function WarmupStage({ setModal }) {
       {setModal && (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 8, flexWrap: "wrap", ...TY.caption, color: T.muted }}>
           <Icon d={I.lock} s={16} /> {PHRASES.warmup}
-          <Btn kind="ghost" size="sm" icon={I.shield} onClick={() => setModal("video")}>Que devient ma vidéo ?</Btn>
+          <Btn kind="ghost" size="sm" icon={I.shield} onClick={() => setModal("video")}>Que devient ma vidéo ?</Btn>
         </div>
       )}
     </div>

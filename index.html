@@ -4,17 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <!--csp-->
-    <meta name="description" content="La Répét' : entraînement autonome à l'entretien d'embauche, avec un retour qui décrit sans noter et un coach qui garde la main." />
+    <!-- Référencement et aperçus de lien : docs/seo.md. Titres et descriptions par page : src/lib/seo.js.
+         Les robots d'aperçu (LinkedIn, WhatsApp, Slack…) n'exécutent pas le JavaScript et ignorent l'ancre (#/…) :
+         tout lien partagé affiche l'aperçu ci-dessous. Adresses absolues : à changer avec le nom de domaine. -->
+    <!-- SITE FERMÉ À L'INDEXATION. Pour l'ouvrir (liste de contrôle complète : docs/seo.md, section 2) : retirer
+         cette balise, remplacer public/robots.txt par sa version d'ouverture, déclarer le site dans Search Console. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Préparez un entretien d'embauche ou de mobilité : vous répétez à votre rythme, un retour décrit votre réponse sans la noter et votre coach garde la main." />
+    <link rel="canonical" href="https://famickael.github.io/la-repet/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="La Répét'" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="S'entraîner aux entretiens avec un coach" />
+    <meta property="og:description" content="Vous répétez à votre rythme, un retour décrit votre réponse sans la noter, et votre coach garde la main." />
+    <meta property="og:url" content="https://famickael.github.io/la-repet/" />
+    <meta property="og:image" content="https://famickael.github.io/la-repet/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Logo La Répét' sur un dégradé bleu et violet, avec la phrase : Répétez votre entretien, avec votre coach. Un retour qui décrit, sans noter." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image:alt" content="Logo La Répét' sur un dégradé bleu et violet, avec la phrase : Répétez votre entretien, avec votre coach. Un retour qui décrit, sans noter." />
     <meta name="theme-color" content="#F8FAFC" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0E141E" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <!-- Données structurées (schema.org) : nom du site et organisme. Valeurs d'exemple de src/content/organisme.js,
+         à remplacer en même temps que lui ; ni adresse, ni téléphone, ni numéro d'immatriculation tant qu'ils sont fictifs. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://famickael.github.io/la-repet/#site",
+            "name": "La Répét'",
+            "url": "https://famickael.github.io/la-repet/",
+            "inLanguage": "fr-FR",
+            "description": "Entraînement aux entretiens d'embauche et de mobilité, avec un retour qui décrit sans noter et un coach qui garde la main.",
+            "publisher": { "@id": "https://famickael.github.io/la-repet/#organisme" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://famickael.github.io/la-repet/#organisme",
+            "name": "Organisme d'accompagnement (nom à remplacer)",
+            "url": "https://famickael.github.io/la-repet/",
+            "logo": "https://famickael.github.io/la-repet/icons/icon-512.png",
+            "description": "Organisme d'accompagnement vers l'emploi et la mobilité professionnelle, dont les coachs utilisent La Répét'."
+          }
+        ]
+      }
+    </script>
     <!-- Polices et masques du logo découverts avant le JavaScript (PERF-03, PERF-07) -->
-    <link rel="preload" href="./fonts/manrope-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/outfit-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="./fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="./fonts/fonts.css" />
     <link rel="preload" href="./img/logo/bulles.png" as="image" crossorigin />
     <link rel="preload" href="./img/logo/lettres.png" as="image" crossorigin />
-    <title>La Répét' · S'entraîner à l'entretien d'embauche</title>
+    <title>S'entraîner aux entretiens avec un coach · La Répét'</title>
     <script>
       /* Options d'accessibilité appliquées avant tout affichage (thème, animations) : pas de flash clair en thème sombre.
          Même clé que src/lib/a11y.js ; le reste des réglages est appliqué par src/main.jsx avant le premier rendu. */
@@ -26,28 +75,48 @@
       } catch (e) {}
     </script>
     <style>
-      /* Écran de chargement : visible avant le JavaScript, retiré par src/Loader.jsx. */
+      /* Écran de chargement : visible avant le JavaScript, retiré par src/Loader.jsx (référentiel, section 7).
+         Calque de 100vw : le logo reste immobile quand la barre de défilement apparaît sous lui.
+         Sortie en un seul mouvement (.rpl-out, 0,8 s, courbe douce) : fondu du calque et écart des deux bulles. */
       html,body{background:#F8FAFC;margin:0}
-      #rp-loader{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:#F8FAFC;opacity:1;transition:opacity .7s cubic-bezier(.45,0,.55,1);will-change:opacity;animation:rpl-gone .3s ease 10s forwards}
+      #rp-loader{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;z-index:1000;display:grid;place-items:center;background:#F8FAFC;opacity:1;transition:opacity .8s cubic-bezier(.45,0,.55,1);will-change:opacity;animation:rpl-gone .3s ease 10s forwards}
       #rp-loader.rpl-out{opacity:0;pointer-events:none}
-      #rp-loader svg{width:88px;height:auto;overflow:visible}
+      .rpl-box{display:grid;justify-items:center;gap:24px}
+      #rp-loader svg{width:88px;height:auto;overflow:visible;display:block}
       .rpl-l{animation:rpl-l 1.3s cubic-bezier(.45,0,.55,1) both}
       .rpl-r{animation:rpl-r 1.3s cubic-bezier(.45,0,.55,1) both}
+      .rpl-lx,.rpl-rx{transition:transform .8s cubic-bezier(.45,0,.55,1)}
+      .rpl-out .rpl-lx{transform:translate(-30px,12px)}
+      .rpl-out .rpl-rx{transform:translate(30px,-12px)}
+      .rpl-dots{transition:opacity .4s cubic-bezier(.45,0,.55,1)}
+      .rpl-out .rpl-dots{opacity:0}
       .rpl-d{animation:rpl-d 1s ease-in-out 1.25s infinite both}
       .rpl-d2{animation-delay:1.4s}.rpl-d3{animation-delay:1.55s}
+      /* Barre de chargement : 3 px, violet de la marque (T.violet), piste T.line ; progresse jusqu'à 90 % pendant la durée minimale, Loader.jsx la complète */
+      .rpl-bar{width:112px;height:3px;border-radius:2px;background:#E7EBF2;overflow:hidden;transition:opacity .35s ease .25s}
+      .rpl-bar i{display:block;height:100%;background:#5C4BB9;border-radius:inherit;transform-origin:left center;transform:scaleX(0);animation:rpl-bar 2.4s cubic-bezier(.3,.55,.35,1) forwards}
+      .rpl-out .rpl-bar{opacity:0}
       @keyframes rpl-l{from{opacity:0;transform:translate(-22px,10px)}to{opacity:1;transform:none}}
       @keyframes rpl-r{from{opacity:0;transform:translate(22px,-10px)}to{opacity:1;transform:none}}
       @keyframes rpl-d{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-5px)}}
+      @keyframes rpl-bar{to{transform:scaleX(.9)}}
       @keyframes rpl-gone{to{opacity:0;visibility:hidden}}
       html.rp-boot-dark,html.rp-boot-dark body,html.rp-boot-dark #rp-loader{background:#0E141E}
-      /* Couleurs du logo = jetons de src/tokens.js (blue, violet, navy), clair puis sombre */
+      /* Couleurs du logo = jetons de src/tokens.js (blue, violet, navy, line), clair puis sombre */
       .rpl-s1{stop-color:#3893CD}.rpl-s2{stop-color:#5C4BB9}
       html.rp-boot-dark #rp-loader circle{fill:#E8EEF8}
       html.rp-boot-dark .rpl-s1{stop-color:#5AAEE0}html.rp-boot-dark .rpl-s2{stop-color:#B4A9F5}
-      html[data-motion=reduce] #rp-loader{transition:none}
+      html.rp-boot-dark .rpl-bar{background:#2B3649}html.rp-boot-dark .rpl-bar i{background:#B4A9F5}
+      /* Mouvement réduit : écran statique, sans barre, sortie en fondu simple de 0,4 s (prioritaire sur la règle globale de GStyle) */
+      html[data-motion=reduce] #rp-loader{transition:opacity .4s ease!important;transition-duration:.4s!important;animation-duration:.3s!important;animation-delay:10s!important}
+      html[data-motion=reduce] .rpl-l,html[data-motion=reduce] .rpl-r,html[data-motion=reduce] .rpl-d{animation:none}
+      html[data-motion=reduce] .rpl-lx,html[data-motion=reduce] .rpl-rx,html[data-motion=reduce] .rpl-dots{transition:none;transform:none;opacity:1}
+      html[data-motion=reduce] .rpl-bar{visibility:hidden}
       @media (prefers-reduced-motion: reduce){
-        #rp-loader{transition:none}
+        #rp-loader{transition:opacity .4s ease!important;transition-duration:.4s!important;animation-duration:.3s!important;animation-delay:10s!important}
         .rpl-l,.rpl-r,.rpl-d{animation:none}
+        .rpl-lx,.rpl-rx,.rpl-dots{transition:none;transform:none!important;opacity:1!important}
+        .rpl-bar{visibility:hidden}
       }
     </style>
     <noscript><style>#rp-loader{display:none}</style></noscript>
@@ -55,16 +124,21 @@
   <body>
     <div id="rp-loader" role="status">
       <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">Chargement de La Répét'</span>
+      <div class="rpl-box">
       <svg viewBox="0 0 204 172" aria-hidden="true" focusable="false">
         <defs>
           <linearGradient id="rpl-g" gradientUnits="userSpaceOnUse" x1="0" y1="172" x2="204" y2="0"><stop class="rpl-s1" offset="0" /><stop class="rpl-s2" offset="1" /></linearGradient>
         </defs>
-        <g class="rpl-r"><path fill="url(#rpl-g)" d="M88 16H150A50 50 0 0 1 200 66V86A50 50 0 0 1 150 136H122V122H134A30 30 0 0 0 134 62H88Z" /></g>
-        <g class="rpl-l"><path fill="url(#rpl-g)" d="M88 44H54A50 50 0 0 0 38 141.4L40 166L67 144H112A6 6 0 0 0 118 138V122H82A30 30 0 0 1 82 62H88Z" /></g>
-        <circle class="rpl-d" cx="88" cy="92" r="6.5" fill="#1B3A66" />
-        <circle class="rpl-d rpl-d2" cx="108" cy="92" r="6.5" fill="#1B3A66" />
-        <circle class="rpl-d rpl-d3" cx="128" cy="92" r="6.5" fill="#1B3A66" />
+        <g class="rpl-r"><g class="rpl-rx"><path fill="url(#rpl-g)" d="M88 16H150A50 50 0 0 1 200 66V86A50 50 0 0 1 150 136H122V122H134A30 30 0 0 0 134 62H88Z" /></g></g>
+        <g class="rpl-l"><g class="rpl-lx"><path fill="url(#rpl-g)" d="M88 44H54A50 50 0 0 0 38 141.4L40 166L67 144H112A6 6 0 0 0 118 138V122H82A30 30 0 0 1 82 62H88Z" /></g></g>
+        <g class="rpl-dots">
+          <circle class="rpl-d" cx="88" cy="92" r="6.5" fill="#1B3A66" />
+          <circle class="rpl-d rpl-d2" cx="108" cy="92" r="6.5" fill="#1B3A66" />
+          <circle class="rpl-d rpl-d3" cx="128" cy="92" r="6.5" fill="#1B3A66" />
+        </g>
       </svg>
+      <div class="rpl-bar" aria-hidden="true"><i></i></div>
+      </div>
     </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

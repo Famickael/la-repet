@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { T, TY, GAP, W, Card, Tag, Btn, I, Txt, Notice, Input, Chip, RadioGroup } from "../ui.jsx";
 import { openAssistant, nudgeAssistant } from "../lib/bus.js";
 import { saveWarmupDebrief, loadWarmupDebrief } from "../lib/store.js";
-import { WORK_TOPICS, questionsForTopics } from "../lib/questions.js";
+import { topicsFor, interviewType, questionsForTopics } from "../lib/questions.js";
 import { FEELINGS, feelingAck } from "../lib/assistant.js";
 import { actions, stack, wrap } from "./shared.jsx";
 
@@ -31,21 +31,21 @@ export function WarmupDebrief({ p, go, again }) {
         <div style={stack(12)}>
           <div><Tag tone="success">Échauffement terminé</Tag></div>
           <Txt v="h1" as="h1" color={T.navy}>Quatre questions rapides</Txt>
-          <Txt v="body" color={T.body}>Répondez si vous voulez. Vos réponses restent sur cet appareil : votre coach ne les voit pas.</Txt>
+          <Txt v="body" color={T.body}>Répondez si vous voulez. Vos réponses restent sur cet appareil : votre coach ne les voit pas.</Txt>
         </div>
 
         <section style={stack(12)}>
-          {q(1, "Comment vous sentez-vous après cet échauffement ?", "dq1")}
+          {q(1, "Comment vous sentez-vous après cet échauffement ?", "dq1")}
           <RadioGroup aria-labelledby="dq1" className="rs-chips">
             {FEELINGS.map(f => <Chip key={f.id} role="radio" on={feeling === f.id} onClick={() => setFeeling(v => (v === f.id ? null : f.id))}>{f.label}</Chip>)}
           </RadioGroup>
           <div aria-live="polite">
-            {feeling && <Notice tone="ai" icon={I.chat}><strong style={{ color: T.violet }}>Assistant :</strong> {feelingAck(feeling)}</Notice>}
+            {feeling && <Notice tone="ai" icon={I.chat}><strong style={{ color: T.violet }}>Assistant :</strong> {feelingAck(feeling)}</Notice>}
           </div>
         </section>
 
         <section style={stack(12)}>
-          {q(2, "Qu'avez-vous pensé de cet échauffement ?", "dq2")}
+          {q(2, "Qu'avez-vous pensé de cet échauffement ?", "dq2")}
           <RadioGroup aria-labelledby="dq2" className="rs-chips">
             {OPINIONS.map(o => <Chip key={o} role="radio" on={opinion === o} onClick={() => setOpinion(v => (v === o ? null : o))}>{o}</Chip>)}
           </RadioGroup>
@@ -54,17 +54,17 @@ export function WarmupDebrief({ p, go, again }) {
         </section>
 
         <section style={stack(12)}>
-          {q(3, "Qu'aimeriez-vous travailler ensuite ?", "dq3")}
+          {q(3, "Qu'aimeriez-vous travailler ensuite ?", "dq3")}
           <div role="group" aria-labelledby="dq3" className="rs-chips">
-            {WORK_TOPICS.map(t => <Chip key={t.id} role="checkbox" on={work.includes(t.id)} onClick={() => toggleWork(t.id)}>{t.label}</Chip>)}
+            {topicsFor(interviewType(p)).map(t => <Chip key={t.id} role="checkbox" on={work.includes(t.id)} onClick={() => toggleWork(t.id)}>{t.label}</Chip>)}
           </div>
           <p style={{ ...TY.caption, color: T.muted, margin: 0 }}>
-            {pre.length ? `${pre.length > 1 ? `${pre.length} questions seront déjà choisies` : "1 question sera déjà choisie"} pour votre entraînement. Vous pourrez changer.` : "Vos choix serviront à vous proposer des questions pour l'entraînement."}
+            {pre.length ? `${pre.length > 1 ? `${pre.length} questions seront déjà choisies` : "1 question sera déjà choisie"} pour votre entraînement. Vous pourrez changer.` : "Vos choix serviront à vous proposer des questions pour l'entraînement."}
           </p>
         </section>
 
         <section style={stack(8)}>
-          <h2 style={{ ...TY.h3, color: T.navy, margin: 0 }}>4. Avez-vous une question ?</h2>
+          <h2 style={{ ...TY.h3, color: T.navy, margin: 0 }}>4. Avez-vous une question ?</h2>
           <div><Btn kind="secondary" size="sm" icon={I.chat} onClick={() => openAssistant("debrief")}>Poser ma question à l'assistant</Btn></div>
         </section>
 

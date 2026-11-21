@@ -40,7 +40,7 @@ export function Review({ s, p, take, back }) {
     if (target === "comment" && dimId) {
       const next = { ...comments, [dimId]: (comments[dimId] || "").trim() ? `${comments[dimId].trim()} ${text}` : text };
       setComments(next); saveDraft({ comments: next });
-      return `en remarque sur « ${(A.dimensions.find(d => d.id === dimId) || {}).titre || "l'observation"} »`;
+      return `en remarque sur « ${(A.dimensions.find(d => d.id === dimId) || {}).titre || "l'observation"} »`;
     }
     if (target === "note") {
       const t = playerRef.current ? playerRef.current.currentTime : 0;
@@ -93,7 +93,7 @@ export function Review({ s, p, take, back }) {
           {take.note && (
             <Card style={stack(8)}>
               <div style={{ ...TY.label, color: T.body }}>Le message de {p.prenom}</div>
-              <p style={{ ...TY.body, color: T.navy, margin: 0, fontStyle: "italic" }}>« {take.note} »</p>
+              <p style={{ ...TY.body, color: T.navy, margin: 0, fontStyle: "italic" }}>« {take.note} »</p>
             </Card>
           )}
           <Transcript take={take} onSeek={t => seek(t)} />
@@ -107,17 +107,17 @@ export function Review({ s, p, take, back }) {
           </Card>
           <div style={{ ...stack(4), marginTop: 8 }}>
             <h2 style={{ ...TY.h4, color: T.navy, margin: 0 }}>Repères de l'assistant</h2>
-            <Txt v="caption" color={T.muted}>Nuancez, contextualisez ou contredisez : votre lecture prime sur celle de l'assistant.</Txt>
+            <Txt v="caption" color={T.muted}>Nuancez, contextualisez ou contredisez : votre lecture prime sur celle de l'assistant.</Txt>
           </div>
           {A.dimensions.length === 0 && <Card><Txt v="small" color={T.body}>{noFeedback(take) ? "La personne a choisi de ne pas recevoir le retour de l'assistant." : A.synthese || "L'assistant n'a pas de repère pour cet entretien."}</Txt></Card>}
           {A.dimensions.map(d => (
             <div key={d.id} style={stack(8)}>
               <DimCard d={d} active={active === d.id} onClick={() => seek(d.t, d.id)} />
-              <Input value={comments[d.id] || ""} onChange={e => setComments(c => ({ ...c, [d.id]: e.target.value }))} onBlur={() => saveDraft()} placeholder="Votre remarque sur ce repère (facultatif)" aria-label={`Votre remarque sur le repère : ${d.titre}`} />
+              <Input value={comments[d.id] || ""} onChange={e => setComments(c => ({ ...c, [d.id]: e.target.value }))} onBlur={() => saveDraft()} placeholder="Votre remarque sur ce repère (facultatif)" aria-label={`Votre remarque sur le repère : ${d.titre}`} />
             </div>
           ))}
           <Btn kind="objective" full onClick={send} disabled={empty} icon={I.send} aria-describedby="review-send-h">{take.report ? "Renvoyer le rapport" : "Envoyer le rapport"}</Btn>
-          <Txt v="caption" color={T.muted} style={{ textAlign: "center" }} id="review-send-h">{empty ? "Écrivez au moins un mot pour la personne : une introduction, une remarque ou un commentaire. " : ""}Rien n'est transmis tant que vous n'avez pas envoyé le rapport. Vos saisies sont enregistrées en brouillon.</Txt>
+          <Txt v="caption" color={T.muted} style={{ textAlign: "center" }} id="review-send-h">{empty ? "Écrivez au moins un mot pour la personne : une introduction, une remarque ou un commentaire. " : ""}Rien n'est transmis tant que vous n'avez pas envoyé le rapport. Vos saisies sont enregistrées en brouillon.</Txt>
         </div>
       </div>
       <div><Back onClick={back} /></div>

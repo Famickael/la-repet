@@ -15,9 +15,9 @@ Avant un entretien, vous pouvez avoir beaucoup d’informations sur l’employeu
 
 ## Relire l’annonce comme une description du travail
 
-Gardez une copie de l’annonce. Notez l’intitulé exact, le lieu et les tâches décrites. Pour chaque tâche qui revient ou semble importante, demandez-vous ce qu’elle donnerait pendant une journée de travail. Si le texte dit « réceptionner les livraisons », vous pouvez chercher où elles arrivent, comment elles sont contrôlées et à qui signaler un écart. Vous n’avez pas besoin de trouver ces trois réponses avant l’entretien. Elles vous donnent des questions précises à poser.
+Gardez une copie de l’annonce. Notez l’intitulé exact, le lieu et les tâches décrites. Pour chaque tâche qui revient ou semble importante, demandez-vous ce qu’elle donnerait pendant une journée de travail. Si le texte dit « réceptionner les livraisons », vous pouvez chercher où elles arrivent, comment elles sont contrôlées et à qui signaler un écart. Vous n’avez pas besoin de trouver ces trois réponses avant l’entretien. Elles vous donnent des questions précises à poser.
 
-- Soulignez un verbe d’action, par exemple « accueillir », « contrôler » ou « organiser ».
+- Soulignez un verbe d’action, par exemple « accueillir », « contrôler » ou « organiser ».
 - Repérez les conditions annoncées, comme les horaires, les déplacements ou le travail en équipe.
 - Associez une expérience que vous êtes à l’aise de raconter à l’une des tâches.
 - Entourez ce qui manque pour savoir comment le poste s’exerce.
@@ -31,25 +31,25 @@ Sur le site de la structure, commencez par les pages qui décrivent ses activit�
 Une page d’une collectivité, d’un réseau professionnel ou d’un partenaire peut aider à situer une organisation dont le site est peu fourni. Distinguez ce que vous avez lu de ce que vous en déduisez. Si vous voyez qu’un magasin propose le retrait de commandes, vous savez que le service existe. Vous pouvez demander si l’équipe du poste prépare aussi ces commandes.
 
 > [!conseil] Garder une trace simple
-> Notez l’information, la page où vous l’avez trouvée et la question qu’elle vous inspire. Par exemple, « Le site mentionne des livraisons le matin. Les personnes à ce poste participent-elles à la réception ? »
+> Notez l’information, la page où vous l’avez trouvée et la question qu’elle vous inspire. Par exemple, « Le site mentionne des livraisons le matin. Les personnes à ce poste participent-elles à la réception ? »
 
 ## Relier un détail concret à votre expérience
 
-Pour répondre à « Pourquoi souhaitez-vous travailler ici ? », choisissez un élément que vous comprenez et qui a un rapport avec le poste. Expliquez ce qu’il vous intéresse d’y faire, puis appuyez votre réponse sur une situation. Cette situation peut venir d’un emploi, d’une formation, d’un stage ou d’une activité bénévole. Une seule image précise de votre travail peut suffire à donner du contenu à la réponse.
+Pour répondre à « Pourquoi souhaitez-vous travailler ici ? », choisissez un élément que vous comprenez et qui a un rapport avec le poste. Expliquez ce qu’il vous intéresse d’y faire, puis appuyez votre réponse sur une situation. Cette situation peut venir d’un emploi, d’une formation, d’un stage ou d’une activité bénévole. Une seule image précise de votre travail peut suffire à donner du contenu à la réponse.
 
 > [!exemple] Un exemple pour un poste d’accueil
-> « J’ai vu que votre antenne accueille des personnes sur rendez-vous et pendant une permanence. Dans une association, je recevais les visiteurs et je vérifiais quel membre de l’équipe pouvait répondre à leur demande. J’aimerais comprendre comment vous organisez ici l’accueil quand plusieurs personnes arrivent en même temps. »
+> « J’ai vu que votre antenne accueille des personnes sur rendez-vous et pendant une permanence. Dans une association, je recevais les visiteurs et je vérifiais quel membre de l’équipe pouvait répondre à leur demande. J’aimerais comprendre comment vous organisez ici l’accueil quand plusieurs personnes arrivent en même temps. »
 
-Si le lien avec votre expérience est indirect, précisez la tâche que vous connaissez et celle que vous viendriez apprendre. « J’ai déjà préparé des commandes à partir d’une liste papier. J’aimerais apprendre à utiliser votre outil de suivi » donne un point de départ commun. Le nom ou l’histoire de l’entreprise peut compléter la réponse lorsqu’un détail éclaire votre choix.
+Si le lien avec votre expérience est indirect, précisez la tâche que vous connaissez et celle que vous viendriez apprendre. « J’ai déjà préparé des commandes à partir d’une liste papier. J’aimerais apprendre à utiliser votre outil de suivi » donne un point de départ commun. Le nom ou l’histoire de l’entreprise peut compléter la réponse lorsqu’un détail éclaire votre choix.
 
 ## Préparer des questions qui comptent pour vous
 
 Apportez quelques questions qui vous aideront à vous représenter le travail. Vous pouvez les classer selon ce que vous avez besoin de savoir avant de vous engager. Si votre trajet dépend du premier bus, vérifiez d’abord les heures de prise de poste. Si vous découvrez le secteur, demandez comment les nouvelles personnes apprennent le métier pendant les premières semaines.
 
-- « Comment s’organise une journée habituelle sur ce site ? »
-- « Quelles tâches la personne recrutée apprend-elle en premier ? »
-- « Avec qui travaille-t-on quand une livraison arrive en même temps qu’une commande ? »
-- « Quelles sont les prochaines étapes du recrutement ? »
+- « Comment s’organise une journée habituelle sur ce site ? »
+- « Quelles tâches la personne recrutée apprend-elle en premier ? »
+- « Avec qui travaille-t-on quand une livraison arrive en même temps qu’une commande ? »
+- « Quelles sont les prochaines étapes du recrutement ? »
 
 Vous pouvez reprendre une réponse entendue pendant l’entretien pour poser une question plus précise. Si l’on vous explique que le travail varie selon la saison, demandez à quoi ressemble cette variation pour l’équipe qui vous recrute.
 

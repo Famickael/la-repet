@@ -20,7 +20,7 @@ Relisez l’invitation et l’annonce. Un entretien peut se dérouler dans un bu
 Les photos publiques de l’employeur peuvent donner quelques repères, à condition de regarder ce qu’elles montrent. Une photo de salon professionnel renseigne sur un événement précis. Une présentation d’équipe sur le terrain peut aider à comprendre comment les personnes s’habillent pendant une journée de travail. Si vous n’avez que l’annonce, notez les questions auxquelles la personne qui vous reçoit pourra répondre.
 
 > [!conseil] Poser une question avant le rendez-vous
-> « Bonjour, je prépare notre entretien. Le rendez-vous comprend-il une visite du site ou une mise en situation ? Y a-t-il des consignes concernant la tenue ou les chaussures ? »
+> « Bonjour, je prépare notre entretien. Le rendez-vous comprend-il une visite du site ou une mise en situation ? Y a-t-il des consignes concernant la tenue ou les chaussures ? »
 
 ## Choisir selon les activités prévues
 

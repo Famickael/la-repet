@@ -24,12 +24,18 @@ require("fs").mkdirSync(SC, { recursive: true });
     try { await p.getByRole("button", { name: t }).first().click({ timeout: 15000 }); }
     catch (e) { await p.screenshot({ path: `${SC}/echec.png`, fullPage: true }).catch(() => {}); throw new Error(`bouton « ${t} » : ${e.message.split("\n")[0]}`); }
   };
+  /* « Mon espace » sur mobile : la carte coach est repliée sous un lien qui la déplie (référentiel 6). */
+  const coachForm = async () => {
+    await p.locator("#espace-code").waitFor({ timeout: 15000 });
+    const t = p.getByRole("button", { name: /Vous êtes coach/ });
+    if (await t.isVisible()) await t.click();
+  };
 
   await p.goto(BASE); await shot("01-accueil");
   await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight / 3)); await p.waitForTimeout(900); await shot("01b-accueil-defilement");
   await p.goto(BASE + "#/fonctionnement"); await p.waitForTimeout(400); await shot("01c-fonctionnement");
   await p.goto(BASE + "#/"); await click("Mon compte"); await shot("01d-mon-espace");
-  await shot("01e-connexion-coach"); await click("Se connecter");
+  await coachForm(); await shot("01e-connexion-coach"); await click("Se connecter");
   await click("Créer un parcours");
   await p.getByPlaceholder("Prénom et initiale").fill("Alex D."); await p.getByPlaceholder(/agent d'accueil/).fill("agent d'accueil");
   await click("Créer le parcours"); await shot("02-code");
@@ -55,7 +61,7 @@ require("fs").mkdirSync(SC, { recursive: true });
   await p.getByRole("button", { name: "Fermer la bulle" }).click();
 
   // Espace : choix du métier (combobox) et bulles d'information
-  const job = p.getByRole("combobox", { name: "Métier visé" });
+  const job = p.getByRole("combobox", { name: "Métier ou poste visé" });
   await job.fill(""); await job.type("serv");
   await p.getByRole("option", { name: "serveur(se)", exact: true }).waitFor();
   await shot("03b-espace-metier");
@@ -71,7 +77,7 @@ require("fs").mkdirSync(SC, { recursive: true });
   await click("Changer de phrase");
   const ph2 = await phrase.textContent();
   if (ph1 === ph2) throw new Error("la phrase d'échauffement n'a pas changé");
-  await click("Consigne suivante"); await see(/Consigne 2 sur/);
+  await click("Consigne suivante"); await see(/Consigne\s2\ssur/);
   await click("Activer la caméra"); await p.waitForTimeout(800);
   await p.getByRole("radio", { name: "Flou" }).click(); await p.waitForTimeout(2500);
   await shot("03d-echauffement");
@@ -121,7 +127,7 @@ require("fs").mkdirSync(SC, { recursive: true });
   await p.getByText("Lire mon retour").first().click(); await p.waitForTimeout(500);
   await click("Une question sur ce retour ? Demandez à l'assistant");
   await panel().waitFor();
-  await panel().getByRole("button", { name: "Je parle trop vite, que faire ?" }).click(); await see(/120 à 160 mots/);
+  await panel().getByRole("button", { name: "Je parle trop vite, que faire ?" }).click(); await see(/120\sà\s160\smots/);
   await shot("06b-rapport-q1");
   await closePanel("button");
   await click("Question suivante (2 sur 2)");
@@ -132,8 +138,8 @@ require("fs").mkdirSync(SC, { recursive: true });
   await p.locator("[title*='Exemples concrets']").first().click().catch(() => {});
   await click("Envoyer à mon coach");
   await p.locator("textarea").fill("Je parle peut-être trop vite ?"); await click("Envoyer à mon coach"); await shot("08-envoye");
-  await click("Mon compte"); await p.getByRole("dialog", { name: "Mon compte" }).getByRole("button", { name: "Se déconnecter" }).waitFor(); await shot("08b-mon-compte");
-  await p.getByRole("dialog", { name: "Mon compte" }).getByRole("button", { name: "Se déconnecter" }).click(); await click("Mon compte"); await click("Se connecter"); await p.waitForTimeout(300); await shot("09-liste-conseiller");
+  await click("Mon compte"); await p.getByRole("navigation", { name: "Mon compte" }).getByRole("button", { name: "Se déconnecter" }).waitFor(); await shot("08b-mon-compte");
+  await p.getByRole("navigation", { name: "Mon compte" }).getByRole("button", { name: "Se déconnecter" }).click(); await click("Mon compte"); await coachForm(); await click("Se connecter"); await p.waitForTimeout(300); await shot("09-liste-conseiller");
   await click("Relire"); await click("Relire et annoter"); await p.waitForTimeout(800);
   await p.getByPlaceholder("Votre remarque", { exact: true }).fill("Belle entrée en matière."); await click("Ajouter");
   await p.locator("textarea").fill("Alex, ta présentation est claire. On en parle jeudi.");

@@ -11,17 +11,17 @@ author: Équipe La Répét'
 order: 3
 ---
 
-Avoir le trac avant un entretien est très courant, y compris chez les personnes expérimentées. Le but n'est pas de le faire disparaître, mais de l'empêcher de prendre toute la place. La préparation pratique y contribue beaucoup : moins d'imprévus, c'est plus d'attention disponible pour l'échange.
+Avoir le trac avant un entretien est très courant, y compris chez les personnes expérimentées. Le but n'est pas de le faire disparaître, mais de l'empêcher de prendre toute la place. La préparation pratique y contribue beaucoup : moins d'imprévus, c'est plus d'attention disponible pour l'échange.
 
 ## Les jours qui précèdent
 
-- **Renseignez-vous sur la structure** : son activité, ses clients ou usagers, ses valeurs affichées. Notez deux ou trois éléments qui vous parlent.
+- **Renseignez-vous sur la structure** : son activité, ses clients ou usagers, ses valeurs affichées. Notez deux ou trois éléments qui vous parlent.
 - **Relisez l'offre** et soulignez ce qui est demandé. Pour chaque point, cherchez un exemple tiré de votre parcours.
-- **Entraînez-vous à voix haute**. Répéter dans sa tête ne suffit pas : c'est en parlant que l'on repère les phrases qui accrochent.
-- **Préparez vos documents** : plusieurs exemplaires de votre CV, la convocation, une pièce d'identité si elle est demandée, de quoi noter.
+- **Entraînez-vous à voix haute**. Répéter dans sa tête ne suffit pas : c'est en parlant que l'on repère les phrases qui accrochent.
+- **Préparez vos documents** : plusieurs exemplaires de votre CV, la convocation, une pièce d'identité si elle est demandée, de quoi noter.
 
 > [!conseil] Une répétition générale
-> La veille, faites une répétition complète : présentation, deux ou trois questions, vos questions au recruteur. Avec La Répét', vous pouvez l'enregistrer puis vous revoir ou lire le retour, et recommencer autant que vous le souhaitez.
+> La veille, faites une répétition complète : présentation, deux ou trois questions, vos questions au recruteur. Avec La Répét', vous pouvez l'enregistrer puis vous revoir ou lire le retour, et recommencer autant que vous le souhaitez.
 
 ## Préparer sa tenue
 
@@ -29,7 +29,7 @@ Il n'existe pas de tenue universelle. Le plus sûr est de vous habiller comme le
 
 - Choisissez une tenue **propre, repassée et dans laquelle vous êtes à l'aise**. Ce n'est pas le jour pour étrenner des chaussures neuves.
 - Préparez-la la veille, avec un plan de secours.
-- En cas de doute, demandez à votre coach : il connaît souvent les usages du secteur.
+- En cas de doute, demandez à votre coach : il connaît souvent les usages du secteur.
 
 ## Préparer le trajet
 
@@ -46,10 +46,10 @@ Il n'existe pas de tenue universelle. Le plus sûr est de vous habiller comme le
 
 ## Pendant l'entretien
 
-- **Vous avez le droit de prendre un temps** avant de répondre. « Laissez-moi réfléchir un instant » est une phrase tout à fait acceptable.
+- **Vous avez le droit de prendre un temps** avant de répondre. « Laissez-moi réfléchir un instant » est une phrase tout à fait acceptable.
 - **Vous pouvez demander de répéter ou de reformuler** une question que vous n'avez pas comprise.
-- Si vous perdez le fil, dites-le simplement et reprenez : « Je reviens à votre question. »
-- Posez votre stylo, gardez les pieds au sol : des gestes simples qui aident à se sentir stable.
+- Si vous perdez le fil, dites-le simplement et reprenez : « Je reviens à votre question. »
+- Posez votre stylo, gardez les pieds au sol : des gestes simples qui aident à se sentir stable.
 
 > [!a-retenir] À retenir
 > Le trac est normal. Ce qui le réduit le plus, c'est d'avoir déjà dit ses réponses à voix haute, plusieurs fois, et d'avoir écarté les imprévus pratiques.

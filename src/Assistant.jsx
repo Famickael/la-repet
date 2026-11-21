@@ -16,7 +16,7 @@ const NUDGE_KEY = "larepet.nudges";
 const readNudges = () => { try { return JSON.parse(sessionStorage.getItem(NUDGE_KEY) || "null") || { off: false, seen: [] }; } catch { return { off: false, seen: [] }; } };
 const writeNudges = v => { try { sessionStorage.setItem(NUDGE_KEY, JSON.stringify(v)); } catch { /* stockage indisponible */ } };
 
-const INTRO = "Bonjour ! Je suis l'assistant de préparation d'entretien. Je suis un programme, pas une personne. Posez-moi une question, puis demandez-moi un exemple si vous voulez.";
+const INTRO = "Bonjour ! Je suis l'assistant de préparation d'entretien. Je suis un programme, pas une personne. Posez-moi une question, puis demandez-moi un exemple si vous voulez.";
 
 export default function AssistantDock({ poste, context = "general" }) {
   const [open, setOpen] = useState(false);
@@ -59,7 +59,7 @@ export default function AssistantDock({ poste, context = "general" }) {
     </DockPanel>
     {!open && !recording && bubble && (
       <div className="rp-ai-bubble noprint" role="status">
-        <Link onClick={() => { setBubble(false); setOpen(true); }} style={{ ...TY.small, ...TY.link, color: T.navy, textDecoration: "none", textAlign: "left" }}>Une question pour préparer votre entretien ?</Link>
+        <Link onClick={() => { setBubble(false); setOpen(true); }} style={{ ...TY.small, ...TY.link, color: T.navy, textDecoration: "none", textAlign: "left" }}>Une question pour préparer votre entretien ?</Link>
         <IconBtn icon={I.close} label="Fermer la bulle" tone="muted" size={16} onClick={dismissBubble} />
       </div>
     )}
@@ -149,7 +149,7 @@ function Conversation({ poste, context, ctxKey }) {
       <div role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation avec l'assistant" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {msgs.map((m, i) => (
           <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start" }}>
-            <div style={bubble(m.role === "user")}><span className="rp-sr">{m.role === "user" ? "Vous : " : "Assistant : "}</span>{m.content}</div>
+            <div style={bubble(m.role === "user")}><span className="rp-sr">{m.role === "user" ? "Vous : " : "Assistant : "}</span>{m.content}</div>
           </div>
         ))}
         {typing && (
@@ -170,10 +170,10 @@ function Conversation({ poste, context, ctxKey }) {
       <div style={{ ...TY.caption, color: T.body }}>{PHRASES.assistantChat} {PHRASES.noPersonal}</div>
       <form onSubmit={e => { e.preventDefault(); send(); }} style={{ display: "flex", gap: 8 }}>
         <label htmlFor="asst-panel-input" className="rp-sr">Votre question à l'assistant</label>
-        <Input id="asst-panel-input" value={text} onChange={e => setText(e.target.value)} placeholder="Par exemple : comment parler de mes qualités ?" autoComplete="off" maxLength={400} style={{ flex: 1, minWidth: 0 }} />
+        <Input id="asst-panel-input" value={text} onChange={e => setText(e.target.value)} placeholder="Par exemple : comment parler de mes qualités ?" autoComplete="off" maxLength={400} style={{ flex: 1, minWidth: 0 }} />
         <Btn kind="ai" type="submit" disabled={!text.trim() || typing} aria-label="Envoyer la question" icon={I.send} style={{ width: 48, padding: 0 }} />
       </form>
-      <div style={{ ...TY.caption, color: T.muted }}>Une question sur le site ? <Link href="#/a-propos/faq" target="_blank" rel="noopener">Questions fréquentes (nouvel onglet)</Link></div>
+      <div style={{ ...TY.caption, color: T.muted }}>Une question sur le site ? <Link href="#/ressources/faq" target="_blank" rel="noopener">Questions fréquentes (nouvel onglet)</Link></div>
     </div>
   </>);
 }

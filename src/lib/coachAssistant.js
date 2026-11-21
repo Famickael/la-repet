@@ -15,6 +15,7 @@
 import { textCompliant } from "./compliance.js";
 import { dePoste } from "./text.js";
 import { stripAccents } from "./text.js";
+import { llmEnabled, llmComplete, LLM_TIMEOUT_MS } from "./llm.js";
 
 /* ─── Garde-fou ─── */
 /* Jugement sur la personne ou appréciation chiffrée ou globale : refusé, en plus des règles d'isCompliant. */
@@ -46,10 +47,10 @@ export function questionKind(q) {
   return "generique";
 }
 const JOB_FAMILIES = [
-  ["accueil", ["accueil", "hote", "standard", "receptionn", "secretaire", "assistant administratif"], "Dans un métier d'accueil, le recruteur imagine déjà vos échanges avec le public : une réponse posée et claire l'aide à vous y projeter."],
+  ["accueil", ["accueil", "hote", "standard", "receptionn", "secretaire", "assistant administratif"], "Dans un métier d'accueil, le recruteur imagine déjà vos échanges avec le public : une réponse posée et claire l'aide à vous y projeter."],
   ["vente", ["vend", "caiss", "commerc", "conseill", "magasin", "employe libre"], "Dans la vente, une réponse claire et appuyée sur une situation de clientèle parle directement au recruteur."],
   ["soin", ["soign", "infirm", "auxiliaire", "aide a domicile", "aide-soignant", "puericult", "accompagnant"], "Dans les métiers du soin et de l'aide, les situations vécues auprès des personnes sont les exemples que le recruteur retient le mieux."],
-  ["restauration", ["serveu", "cuisin", "restaur", "plonge", "barman", "commis"], "En restauration, le recruteur cherche des exemples de service, de rythme et de travail en équipe : ce sont de bons appuis pour vos réponses."],
+  ["restauration", ["serveu", "cuisin", "restaur", "plonge", "barman", "commis"], "En restauration, le recruteur cherche des exemples de service, de rythme et de travail en équipe : ce sont de bons appuis pour vos réponses."],
   ["logistique", ["prepar", "magasinier", "cariste", "logisti", "manutention", "chauffeur", "livreu"], "En logistique, les exemples précis (volumes, consignes, sécurité) rendent une réponse concrète et facile à retenir."],
   ["batiment", ["macon", "electric", "plomb", "peintre", "batiment", "menuisi", "agent d'entretien", "jardin"], "Dans le bâtiment et l'entretien, décrire un chantier ou une tâche précise montre concrètement ce que vous savez faire."],
   ["bureau", ["comptab", "gestion", "informati", "developpeu", "administr", "assistant", "chargé", "charge"], "Dans un métier de bureau, une réponse structurée en quelques étapes reflète la façon dont vous organisez votre travail."],
@@ -63,7 +64,7 @@ const jobHook = poste => { const f = JOB_FAMILIES.find(([id]) => id === jobFamil
 
 /* Phrases de liaison selon la question posée : pourquoi l'astuce compte pour cette question-là (3 par catégorie). */
 const KIND_HOOKS = {
-  presentation: ["Sur une présentation, cela aide le recruteur à retenir les étapes de votre parcours.", "La présentation ouvre souvent l'entretien : c'est un bon moment pour poser ce repère.", "En deux minutes de présentation, ce point fait gagner en clarté."],
+  presentation: ["Sur une présentation, cela aide le recruteur à retenir les étapes de votre parcours.", "La présentation ouvre souvent l'entretien : c'est un bon moment pour poser ce repère.", "En deux minutes de présentation, ce point fait gagner en clarté."],
   motivation: ["Sur la motivation, cela rend votre intérêt pour le poste concret et vérifiable.", "Quand on parle de son intérêt pour un poste, ce repère aide le recruteur à suivre votre raisonnement.", "Pour une question de motivation, ce point relie votre projet au poste proposé."],
   experience: ["Quand on raconte une expérience, cela aide le recruteur à visualiser la situation.", "Pour un récit d'expérience, ce repère met en valeur ce que vous avez fait, vous.", "Sur une question d'expérience, ce point rend le récit facile à suivre du début à la fin."],
   qualites: ["Sur les qualités, cela transforme une qualité annoncée en qualité démontrée.", "Pour parler d'un axe de progrès, ce repère montre comment vous avancez concrètement.", "Quand on parle de ses qualités, ce point donne au recruteur une preuve à retenir."],
@@ -90,22 +91,22 @@ export const TIPS = {
       "Le rythme de votre réponse permet de bien entendre les informations importantes.",
       "Vous prenez le temps de terminer vos phrases, ce qui rend la réponse facile à suivre.",
       "Votre rythme correspond à ce que l'on observe souvent dans un échange d'entretien.",
-      "Vous ralentissez sur les informations clés : elles ressortent bien.",
+      "Vous ralentissez sur les informations clés : elles ressortent bien.",
       "Le rythme choisi donne de la place à chaque exemple.",
       "Votre réponse se déroule sans précipitation, phrase après phrase.",
-      "Vous gardez le même rythme en début et en fin de réponse : l'ensemble est homogène.",
+      "Vous gardez le même rythme en début et en fin de réponse : l'ensemble est homogène.",
     ],
     explorer: [
-      "Vous pouvez ralentir légèrement sur les chiffres, les dates et les noms : ce sont les informations que le recruteur retient.",
-      "Une piste : marquer un temps après chaque idée importante, le temps d'une respiration.",
+      "Vous pouvez ralentir légèrement sur les chiffres, les dates et les noms : ce sont les informations que le recruteur retient.",
+      "Une piste : marquer un temps après chaque idée importante, le temps d'une respiration.",
       "Essayez de lire votre première phrase à voix haute deux fois, la seconde un peu plus lentement, puis enregistrez-vous.",
-      "Vous pouvez viser des phrases plus courtes : une idée par phrase aide à poser le rythme.",
-      "Une astuce : imaginer que vous expliquez votre réponse à quelqu'un qui prend des notes.",
+      "Vous pouvez viser des phrases plus courtes : une idée par phrase aide à poser le rythme.",
+      "Une astuce : imaginer que vous expliquez votre réponse à quelqu'un qui prend des notes.",
       "Vous pouvez repérer dans le texte de la réponse le passage le plus rapide et le refaire seul, plus posément.",
-      "Essayez de commencer la réponse un peu plus lentement que d'habitude : le reste suit souvent ce premier rythme.",
-      "Une piste : souligner trois mots clés avant de répondre et les dire en ralentissant.",
-      "Vous pouvez vous chronométrer : une présentation de deux minutes laisse le temps de poser chaque étape.",
-      "Une astuce simple : terminer chaque phrase par un vrai point, à l'oral, avant de commencer la suivante.",
+      "Essayez de commencer la réponse un peu plus lentement que d'habitude : le reste suit souvent ce premier rythme.",
+      "Une piste : souligner trois mots clés avant de répondre et les dire en ralentissant.",
+      "Vous pouvez vous chronométrer : une présentation de deux minutes laisse le temps de poser chaque étape.",
+      "Une astuce simple : terminer chaque phrase par un vrai point, à l'oral, avant de commencer la suivante.",
       "Vous pouvez refaire la même question en visant une phrase de moins, dite plus lentement.",
       "Si le rythme accélère en fin de réponse, préparer sa phrase de conclusion à l'avance aide à le garder.",
     ],
@@ -124,17 +125,17 @@ export const TIPS = {
       "Votre réponse garde un déroulé continu, avec des respirations bien placées.",
     ],
     explorer: [
-      "Un silence de quelques secondes est courant en entretien : vous pouvez le présenter avec une phrase comme « Laissez-moi réfléchir un instant ».",
-      "Une piste : préparer deux ou trois mots repères par question pour retrouver le fil après une pause.",
+      "Un silence de quelques secondes est courant en entretien : vous pouvez le présenter avec une phrase comme « Laissez-moi réfléchir un instant ».",
+      "Une piste : préparer deux ou trois mots repères par question pour retrouver le fil après une pause.",
       "Vous pouvez noter sur une feuille les étapes de votre réponse et les garder sous les yeux pendant l'entraînement.",
-      "Une astuce : reformuler la question à voix haute laisse le temps de rassembler ses idées.",
+      "Une astuce : reformuler la question à voix haute laisse le temps de rassembler ses idées.",
       "Vous pouvez essayer de placer les pauses entre deux idées plutôt qu'au milieu d'une phrase.",
-      "Une piste : terminer une idée, respirer, puis annoncer la suivante (« Ensuite… »).",
+      "Une piste : terminer une idée, respirer, puis annoncer la suivante (« Ensuite… »).",
       "Vous pouvez revoir le moment de la plus longue pause et préparer une phrase de reprise pour ce passage.",
-      "Une astuce : s'entraîner avec la même question trois fois de suite, les pauses se raccourcissent souvent d'elles-mêmes.",
-      "Vous pouvez boire une gorgée d'eau avant de répondre : c'est accepté en entretien et cela laisse un temps de préparation.",
-      "Une piste : préparer une phrase d'ouverture fixe pour chaque question fréquente, le reste vient plus facilement.",
-      "Si une pause vient d'un oubli, vous pouvez dire simplement « Je reviens à mon exemple » et reprendre.",
+      "Une astuce : s'entraîner avec la même question trois fois de suite, les pauses se raccourcissent souvent d'elles-mêmes.",
+      "Vous pouvez boire une gorgée d'eau avant de répondre : c'est accepté en entretien et cela laisse un temps de préparation.",
+      "Une piste : préparer une phrase d'ouverture fixe pour chaque question fréquente, le reste vient plus facilement.",
+      "Si une pause vient d'un oubli, vous pouvez dire simplement « Je reviens à mon exemple » et reprendre.",
       "Vous pouvez vous enregistrer en son seulement pour vous concentrer sur l'enchaînement des idées.",
     ],
   },
@@ -142,9 +143,9 @@ export const TIPS = {
     appui: [
       "Vous citez une situation précise, que le recruteur peut facilement retenir.",
       "Votre exemple contient un détail concret (un lieu, une durée, un chiffre) qui rend la réponse vivante.",
-      "Vous décrivez ce que vous avez fait, vous, dans la situation : c'est ce que le recruteur cherche à entendre.",
+      "Vous décrivez ce que vous avez fait, vous, dans la situation : c'est ce que le recruteur cherche à entendre.",
       "Votre réponse s'appuie sur une expérience vécue, pas seulement sur des qualités annoncées.",
-      "Vous expliquez le résultat de votre action : l'exemple va jusqu'au bout.",
+      "Vous expliquez le résultat de votre action : l'exemple va jusqu'au bout.",
       "L'exemple choisi est en lien direct avec le poste visé.",
       "Vous datez votre expérience, ce qui la rend vérifiable et concrète.",
       "Votre exemple illustre bien la qualité dont vous parlez.",
@@ -152,23 +153,23 @@ export const TIPS = {
       "Le détail chiffré de votre exemple donne une idée claire de votre expérience.",
     ],
     explorer: [
-      "Vous pouvez ajouter un exemple vécu : une situation, ce que vous avez fait, et ce qui en est ressorti.",
-      "Une piste : la méthode « situation, action, résultat » aide à construire un exemple en trois phrases.",
+      "Vous pouvez ajouter un exemple vécu : une situation, ce que vous avez fait, et ce qui en est ressorti.",
+      "Une piste : la méthode « situation, action, résultat » aide à construire un exemple en trois phrases.",
       "Vous pouvez préparer à l'avance trois exemples tirés de vos expériences, à réutiliser selon les questions.",
-      "Une astuce : ajouter un chiffre ou une durée (« pendant deux ans », « une vingtaine de clients par jour ») rend l'exemple concret.",
+      "Une astuce : ajouter un chiffre ou une durée (« pendant deux ans », « une vingtaine de clients par jour ») rend l'exemple concret.",
       "Vous pouvez remplacer une qualité annoncée par une situation où elle s'est vue.",
-      "Une piste : un exemple peut venir d'une expérience bénévole, d'un stage ou de la vie quotidienne.",
-      "Vous pouvez préciser votre rôle dans l'exemple : ce que vous avez fait, vous, plutôt que l'équipe.",
-      "Une astuce : terminer l'exemple par ce que vous en avez retiré pour le poste visé.",
+      "Une piste : un exemple peut venir d'une expérience bénévole, d'un stage ou de la vie quotidienne.",
+      "Vous pouvez préciser votre rôle dans l'exemple : ce que vous avez fait, vous, plutôt que l'équipe.",
+      "Une astuce : terminer l'exemple par ce que vous en avez retiré pour le poste visé.",
       "Vous pouvez choisir un exemple récent, plus facile à raconter avec des détails.",
-      "Une piste : noter pour chaque expérience passée une réussite et une difficulté surmontée.",
-      "Vous pouvez relier explicitement l'exemple à la question posée (« C'est pour cela que ce poste m'intéresse »).",
-      "Une astuce : un exemple court et précis vaut souvent mieux qu'une longue liste d'expériences.",
+      "Une piste : noter pour chaque expérience passée une réussite et une difficulté surmontée.",
+      "Vous pouvez relier explicitement l'exemple à la question posée (« C'est pour cela que ce poste m'intéresse »).",
+      "Une astuce : un exemple court et précis vaut souvent mieux qu'une longue liste d'expériences.",
     ],
   },
   "petits-mots": {
     appui: [
-      "Les petits mots de liaison restent rares : la réponse est fluide.",
+      "Les petits mots de liaison restent rares : la réponse est fluide.",
       "Votre réponse va droit au but, sans mots de remplissage.",
       "Vous enchaînez vos phrases sans hésitation marquée.",
       "Les quelques petits mots présents ne gênent pas la compréhension.",
@@ -176,22 +177,22 @@ export const TIPS = {
       "Les transitions entre vos idées sont claires et directes.",
       "Votre réponse garde un fil continu, avec très peu de petits mots répétés.",
       "Vous commencez vos phrases directement par l'idée principale.",
-      "Le texte de votre réponse se lit facilement : les mots de remplissage sont peu nombreux.",
-      "Vous passez d'une idée à l'autre avec des mots de liaison utiles (« ensuite », « par exemple »).",
+      "Le texte de votre réponse se lit facilement : les mots de remplissage sont peu nombreux.",
+      "Vous passez d'une idée à l'autre avec des mots de liaison utiles (« ensuite », « par exemple »).",
     ],
     explorer: [
-      "Vous pouvez remplacer un « euh » par un court silence : à l'oral, il passe presque toujours inaperçu.",
-      "Une piste : relire le texte de la réponse et entourer les petits mots qui reviennent, pour les repérer à l'oreille.",
-      "Vous pouvez préparer quelques mots de liaison utiles (« ensuite », « par exemple », « pour finir ») qui remplacent les hésitations.",
-      "Une astuce : s'enregistrer sur une seule phrase et la redire jusqu'à ce qu'elle sorte sans petit mot.",
-      "Vous pouvez ralentir légèrement : les petits mots apparaissent souvent quand le rythme accélère.",
-      "Une piste : préparer la première phrase de chaque réponse mot pour mot, c'est là que les hésitations sont les plus fréquentes.",
-      "Vous pouvez vous entraîner avec un proche qui lève la main à chaque « du coup » : le repère devient vite naturel.",
-      "Une astuce : marquer une pause plutôt que de dire « voilà » en fin de phrase.",
+      "Vous pouvez remplacer un « euh » par un court silence : à l'oral, il passe presque toujours inaperçu.",
+      "Une piste : relire le texte de la réponse et entourer les petits mots qui reviennent, pour les repérer à l'oreille.",
+      "Vous pouvez préparer quelques mots de liaison utiles (« ensuite », « par exemple », « pour finir ») qui remplacent les hésitations.",
+      "Une astuce : s'enregistrer sur une seule phrase et la redire jusqu'à ce qu'elle sorte sans petit mot.",
+      "Vous pouvez ralentir légèrement : les petits mots apparaissent souvent quand le rythme accélère.",
+      "Une piste : préparer la première phrase de chaque réponse mot pour mot, c'est là que les hésitations sont les plus fréquentes.",
+      "Vous pouvez vous entraîner avec un proche qui lève la main à chaque « du coup » : le repère devient vite naturel.",
+      "Une astuce : marquer une pause plutôt que de dire « voilà » en fin de phrase.",
       "Vous pouvez travailler une seule expression à la fois, celle qui revient le plus souvent.",
-      "Une piste : terminer la réponse par une phrase de conclusion préparée évite les « voilà, euh » de fin.",
-      "Vous pouvez réécouter la réponse en ne suivant que les petits mots : les repérer est déjà la moitié du travail.",
-      "Une astuce : respirer avant de commencer une nouvelle idée laisse moins de place aux mots d'attente.",
+      "Une piste : terminer la réponse par une phrase de conclusion préparée évite les « voilà, euh » de fin.",
+      "Vous pouvez réécouter la réponse en ne suivant que les petits mots : les repérer est déjà la moitié du travail.",
+      "Une astuce : respirer avant de commencer une nouvelle idée laisse moins de place aux mots d'attente.",
     ],
   },
   structure: {
@@ -201,25 +202,25 @@ export const TIPS = {
       "Votre réponse se termine par une phrase qui résume votre propos.",
       "Les étapes de votre réponse s'enchaînent dans un ordre logique.",
       "Vos phrases ont une longueur qui permet de bien suivre le raisonnement.",
-      "Vous revenez à la question posée en fin de réponse : le lien est clair.",
+      "Vous revenez à la question posée en fin de réponse : le lien est clair.",
       "Vous organisez votre réponse dans le temps, du passé vers le projet.",
       "Chaque partie de la réponse apporte une information nouvelle.",
       "Votre réponse tient en quelques idées bien distinctes.",
       "Vous concluez en reliant votre propos au poste visé.",
     ],
     explorer: [
-      "Vous pouvez annoncer le plan en une phrase (« Je vais vous parler de mon parcours, puis de ce qui m'amène ici »).",
-      "Une piste : préparer une phrase de conclusion qui revient au poste visé.",
-      "Vous pouvez découper la réponse en trois temps : hier, aujourd'hui, demain.",
-      "Une astuce : une idée par phrase rend la réponse plus facile à suivre.",
+      "Vous pouvez annoncer le plan en une phrase (« Je vais vous parler de mon parcours, puis de ce qui m'amène ici »).",
+      "Une piste : préparer une phrase de conclusion qui revient au poste visé.",
+      "Vous pouvez découper la réponse en trois temps : hier, aujourd'hui, demain.",
+      "Une astuce : une idée par phrase rend la réponse plus facile à suivre.",
       "Vous pouvez raccourcir les phrases les plus longues repérées dans le texte de la réponse.",
-      "Une piste : commencer par la réponse directe à la question, puis donner les détails.",
-      "Vous pouvez utiliser des mots repères (« d'abord », « ensuite », « enfin ») pour signaler les étapes.",
-      "Une astuce : relire la question avant de conclure, pour vérifier que la réponse y répond bien.",
+      "Une piste : commencer par la réponse directe à la question, puis donner les détails.",
+      "Vous pouvez utiliser des mots repères (« d'abord », « ensuite », « enfin ») pour signaler les étapes.",
+      "Une astuce : relire la question avant de conclure, pour vérifier que la réponse y répond bien.",
       "Vous pouvez préparer une trame courte pour les questions les plus fréquentes et vous y tenir à l'entraînement.",
-      "Une piste : terminer par une phrase tournée vers la suite (« C'est ce que j'aimerais apporter dans ce poste »).",
-      "Vous pouvez viser deux minutes pour une présentation : cela oblige à choisir l'essentiel.",
-      "Une astuce : écrire les trois idées principales sur un papier, puis répondre sans regarder.",
+      "Une piste : terminer par une phrase tournée vers la suite (« C'est ce que j'aimerais apporter dans ce poste »).",
+      "Vous pouvez viser deux minutes pour une présentation : cela oblige à choisir l'essentiel.",
+      "Une astuce : écrire les trois idées principales sur un papier, puis répondre sans regarder.",
     ],
   },
   regard: {
@@ -228,7 +229,7 @@ export const TIPS = {
       "Vous revenez vers l'écran après chaque moment de réflexion.",
       "Votre visage reste bien dans le cadre tout au long de la réponse.",
       "Votre regard accompagne les moments importants de la réponse.",
-      "Vous gardez la caméra à hauteur des yeux : le cadrage est stable.",
+      "Vous gardez la caméra à hauteur des yeux : le cadrage est stable.",
       "Les moments où le regard s'éloigne restent courts.",
       "Vous regardez vers l'écran au début et à la fin de la réponse, deux moments que le recruteur remarque.",
       "Votre installation (lumière, cadrage) permet de bien voir votre visage.",
@@ -237,17 +238,17 @@ export const TIPS = {
     ],
     explorer: [
       "Vous pouvez placer la caméra à hauteur des yeux, en surélevant l'ordinateur ou le téléphone.",
-      "Une piste : coller un petit repère à côté de la caméra pour y revenir naturellement.",
+      "Une piste : coller un petit repère à côté de la caméra pour y revenir naturellement.",
       "Vous pouvez garder vos notes en haut de l'écran, près de la caméra, plutôt que sur la table.",
-      "Une astuce : regarder la caméra au début et à la fin de chaque réponse, c'est ce que le recruteur remarque le plus.",
-      "Vous pouvez vérifier la lumière : face à une fenêtre plutôt que dos à elle.",
-      "Une piste : regarder ailleurs pour réfléchir est courant ; l'essentiel est de revenir vers l'écran pour la suite.",
+      "Une astuce : regarder la caméra au début et à la fin de chaque réponse, c'est ce que le recruteur remarque le plus.",
+      "Vous pouvez vérifier la lumière : face à une fenêtre plutôt que dos à elle.",
+      "Une piste : regarder ailleurs pour réfléchir est courant ; l'essentiel est de revenir vers l'écran pour la suite.",
       "Vous pouvez vous entraîner en visio avec un proche pour vous habituer à parler à la caméra.",
-      "Une astuce : réduire la fenêtre de votre propre image évite de la regarder pendant la réponse.",
+      "Une astuce : réduire la fenêtre de votre propre image évite de la regarder pendant la réponse.",
       "Vous pouvez reculer légèrement pour que le visage et les épaules soient dans le cadre.",
-      "Une piste : pendant un entretien en présentiel, regarder chaque recruteur à tour de rôle si plusieurs personnes sont présentes.",
+      "Une piste : pendant un entretien en présentiel, regarder chaque recruteur à tour de rôle si plusieurs personnes sont présentes.",
       "Vous pouvez stabiliser le téléphone sur un support pour garder le même cadrage.",
-      "Une astuce : relire la question sur une feuille posée derrière l'écran, à hauteur des yeux.",
+      "Une astuce : relire la question sur une feuille posée derrière l'écran, à hauteur des yeux.",
     ],
   },
   repetitions: {
@@ -260,9 +261,9 @@ export const TIPS = {
     ],
     explorer: [
       "Vous pouvez préparer deux ou trois synonymes pour les mots qui reviennent souvent.",
-      "Une piste : reprendre quelques mots de l'annonce, qui sont aussi ceux du recruteur.",
-      "Vous pouvez remplacer un mot général (« faire », « chose ») par un verbe d'action précis (« organiser », « accueillir »).",
-      "Une astuce : relire le texte de la réponse et surligner le mot le plus fréquent.",
+      "Une piste : reprendre quelques mots de l'annonce, qui sont aussi ceux du recruteur.",
+      "Vous pouvez remplacer un mot général (« faire », « chose ») par un verbe d'action précis (« organiser », « accueillir »).",
+      "Une astuce : relire le texte de la réponse et surligner le mot le plus fréquent.",
       "Vous pouvez lister les tâches du métier visé avec leurs mots exacts avant de vous entraîner.",
     ],
   },
@@ -270,7 +271,7 @@ export const TIPS = {
     appui: ["Le son est clair et permet de bien comprendre la réponse."],
     explorer: [
       "Vous pouvez vous rapprocher du micro ou choisir une pièce moins bruyante pour la prochaine réponse.",
-      "Une piste : faire un court essai de son avant de répondre, puis réécouter.",
+      "Une piste : faire un court essai de son avant de répondre, puis réécouter.",
       "Vous pouvez couper les sources de bruit (télévision, fenêtre) le temps de l'enregistrement.",
     ],
   },
@@ -278,15 +279,15 @@ export const TIPS = {
 
 /* Astuces liées à la question posée (indépendantes de l'observation). */
 export const KIND_TIPS = {
-  presentation: ["Une présentation peut suivre trois temps : votre parcours, ce que vous savez faire, ce qui vous amène vers ce poste.", "Vous pouvez terminer la présentation par une phrase qui relie votre parcours au poste visé.", "Une astuce : préparer la première phrase de la présentation mot pour mot."],
-  motivation: ["Vous pouvez citer un élément précis de l'annonce ou de l'entreprise qui vous intéresse.", "Une piste : relier votre intérêt pour le poste à une expérience que vous avez vécue.", "Vous pouvez expliquer ce que vous aimeriez apporter, en plus de ce que le poste vous apporte."],
-  experience: ["La méthode « situation, action, résultat » aide à raconter une expérience en trois phrases.", "Vous pouvez préciser ce que vous avez fait, vous, dans la situation racontée.", "Une astuce : terminer le récit par ce que l'expérience vous a appris pour le poste."],
-  qualites: ["Vous pouvez illustrer chaque qualité par un exemple vécu.", "Pour un axe de progrès, une piste : dire ce que vous mettez déjà en place pour avancer.", "Vous pouvez choisir des qualités en lien direct avec les missions du poste."],
-  situation: ["En mise en situation, vous pouvez décrire les étapes dans l'ordre : ce que vous faites d'abord, puis ensuite.", "Une piste : dire à qui vous feriez appel si la situation dépasse votre rôle.", "Vous pouvez vous appuyer sur une situation proche déjà vécue."],
-  parcours: ["Vous pouvez présenter les faits en une ou deux phrases, puis parler de ce que vous en retirez.", "Une piste : préparer une phrase de transition vers votre projet actuel.", "Vous pouvez citer ce que vous avez fait pendant la période (formation, bénévolat, démarches)."],
-  questions: ["Vous pouvez préparer deux questions sur le poste ou l'équipe.", "Une piste : demander comment se passe une journée type dans le poste.", "Vous pouvez demander quelles sont les prochaines étapes du recrutement."],
-  accueil: ["Vous pouvez préparer une réponse courte sur la façon dont vous avez connu l'offre.", "Une piste : remercier le recruteur en une phrase avant de commencer.", "Vous pouvez enchaîner sur ce qui vous a donné envie de répondre à l'annonce."],
-  generique: ["Vous pouvez reprendre la même question à l'entraînement en visant une seule amélioration à la fois.", "Une piste : réécouter la réponse le lendemain, avec un regard neuf.", "Vous pouvez noter les questions qui vous semblent les plus difficiles et les travailler en premier."],
+  presentation: ["Une présentation peut suivre trois temps : votre parcours, ce que vous savez faire, ce qui vous amène vers ce poste.", "Vous pouvez terminer la présentation par une phrase qui relie votre parcours au poste visé.", "Une astuce : préparer la première phrase de la présentation mot pour mot."],
+  motivation: ["Vous pouvez citer un élément précis de l'annonce ou de l'entreprise qui vous intéresse.", "Une piste : relier votre intérêt pour le poste à une expérience que vous avez vécue.", "Vous pouvez expliquer ce que vous aimeriez apporter, en plus de ce que le poste vous apporte."],
+  experience: ["La méthode « situation, action, résultat » aide à raconter une expérience en trois phrases.", "Vous pouvez préciser ce que vous avez fait, vous, dans la situation racontée.", "Une astuce : terminer le récit par ce que l'expérience vous a appris pour le poste."],
+  qualites: ["Vous pouvez illustrer chaque qualité par un exemple vécu.", "Pour un axe de progrès, une piste : dire ce que vous mettez déjà en place pour avancer.", "Vous pouvez choisir des qualités en lien direct avec les missions du poste."],
+  situation: ["En mise en situation, vous pouvez décrire les étapes dans l'ordre : ce que vous faites d'abord, puis ensuite.", "Une piste : dire à qui vous feriez appel si la situation dépasse votre rôle.", "Vous pouvez vous appuyer sur une situation proche déjà vécue."],
+  parcours: ["Vous pouvez présenter les faits en une ou deux phrases, puis parler de ce que vous en retirez.", "Une piste : préparer une phrase de transition vers votre projet actuel.", "Vous pouvez citer ce que vous avez fait pendant la période (formation, bénévolat, démarches)."],
+  questions: ["Vous pouvez préparer deux questions sur le poste ou l'équipe.", "Une piste : demander comment se passe une journée type dans le poste.", "Vous pouvez demander quelles sont les prochaines étapes du recrutement."],
+  accueil: ["Vous pouvez préparer une réponse courte sur la façon dont vous avez connu l'offre.", "Une piste : remercier le recruteur en une phrase avant de commencer.", "Vous pouvez enchaîner sur ce qui vous a donné envie de répondre à l'annonce."],
+  generique: ["Vous pouvez reprendre la même question à l'entraînement en visant une seule amélioration à la fois.", "Une piste : réécouter la réponse le lendemain, avec un regard neuf.", "Vous pouvez noter les questions qui vous semblent les plus difficiles et les travailler en premier."],
 };
 
 /* Repère « Petits mots répétés » : identifiant « petits-mots », ancien « appui » encore lu (ARC-19). */
@@ -309,12 +310,12 @@ export function entriesFor(dimId0, type, { question, poste } = {}) {
 /* ─── Formulations positives non évaluatives (en plus de celles des observations « appui ») ─── */
 const POSITIVE_GENERIC = [
   "Vous répondez directement à la question posée.",
-  "Vous avez pris le temps de vous entraîner sur cette question : c'est la meilleure façon de progresser.",
+  "Vous avez pris le temps de vous entraîner sur cette question : c'est la meilleure façon de progresser.",
   "Votre réponse contient plusieurs éléments que l'on peut garder pour le prochain entretien.",
   "Vous parlez de votre expérience avec des mots précis.",
   "On comprend bien ce que vous avez fait dans votre parcours.",
   "Vous reliez votre réponse au poste visé.",
-  "Vous avez choisi de m'envoyer cette réponse : c'est une bonne base pour en parler ensemble.",
+  "Vous avez choisi de m'envoyer cette réponse : c'est une bonne base pour en parler ensemble.",
   "Votre réponse donne envie d'en savoir plus sur votre expérience.",
 ];
 
@@ -324,15 +325,15 @@ export function introIdeas({ prenom, question, poste, dims = [] }) {
   const hi = p ? `${p}, ` : "";
   const ap = dims.find(d => d.type === "appui");
   const ex = dims.find(d => d.type === "explorer");
-  const q = question ? `« ${question} »` : "cette question";
+  const q = question ? `« ${question} »` : "cette question";
   const job = poste ? ` pour le poste ${dePoste(poste)}` : "";
   return keep([
     `${hi}merci de m'avoir envoyé votre réponse à ${q}. Je l'ai regardée avec attention et je vous propose quelques repères pour la suite.`,
-    `${hi}j'ai relu votre réponse à ${q}. ${ap ? `Je retiens d'abord un point d'appui : ${ap.titre.toLowerCase()}. ` : ""}Vous trouverez mes remarques à côté de chaque repère.`,
-    `${hi}merci pour cet entraînement${job}. ${ex ? `Je vous propose de travailler en priorité sur un point : ${ex.titre.toLowerCase()}. ` : ""}Nous pourrons en reparler ensemble lors de notre prochain rendez-vous.`,
-    `${hi}vous avez fait la démarche de vous entraîner et de m'envoyer votre réponse : c'est précieux. Voici ce que j'ai observé, avec une ou deux pistes concrètes.`,
-    `${hi}voici mon retour sur votre réponse à ${q}. Les repères de l'assistant sont complétés par mes remarques : prenez ce qui vous est utile.`,
-    `${hi}j'ai regardé votre vidéo. J'ai ajouté des remarques à certains moments précis : cliquez sur un repère pour revoir le passage.`,
+    `${hi}j'ai relu votre réponse à ${q}. ${ap ? `Je retiens d'abord un point d'appui : ${ap.titre.toLowerCase()}. ` : ""}Vous trouverez mes remarques à côté de chaque repère.`,
+    `${hi}merci pour cet entraînement${job}. ${ex ? `Je vous propose de travailler en priorité sur un point : ${ex.titre.toLowerCase()}. ` : ""}Nous pourrons en reparler ensemble lors de notre prochain rendez-vous.`,
+    `${hi}vous avez fait la démarche de vous entraîner et de m'envoyer votre réponse : c'est précieux. Voici ce que j'ai observé, avec une ou deux pistes concrètes.`,
+    `${hi}voici mon retour sur votre réponse à ${q}. Les repères de l'assistant sont complétés par mes remarques : prenez ce qui vous est utile.`,
+    `${hi}j'ai regardé votre vidéo. J'ai ajouté des remarques à certains moments précis : cliquez sur un repère pour revoir le passage.`,
     `${hi}merci pour votre envoi. Mon conseil pour la prochaine fois tient en une phrase, vous la trouverez plus bas. Le reste est déjà une bonne base.`,
     `${hi}votre réponse${job} nous donne de quoi travailler ensemble. Je vous propose de la refaire après avoir lu mes remarques, puis de me renvoyer la nouvelle version si vous le souhaitez.`,
   ]);
@@ -347,8 +348,8 @@ export function debriefIdeas({ question, poste, dims = [] }) {
     "Revoir ensemble le premier moment de la vidéo et demander ce que la personne referait de la même façon.",
     "Proposer de refaire la même question en direct, en visant une seule piste à la fois.",
     "Inviter le groupe à relever un point d'appui chez chaque participant avant de parler des pistes.",
-    "Construire ensemble un exemple avec la méthode « situation, action, résultat » à partir de l'expérience de la personne.",
-    "Faire un jeu de rôle court : un participant joue le recruteur et pose la question, un autre observe un seul repère.",
+    "Construire ensemble un exemple avec la méthode « situation, action, résultat » à partir de l'expérience de la personne.",
+    "Faire un jeu de rôle court : un participant joue le recruteur et pose la question, un autre observe un seul repère.",
     "Comparer deux versions de la même réponse (avant et après l'atelier) en réécoutant seulement la première phrase.",
     "Terminer l'atelier en demandant à chacun la piste qu'il travaillera avant le prochain entraînement.",
     `Préparer en binôme les deux questions que la personne pourrait poser au recruteur${poste ? ` pour un poste ${dePoste(poste)}` : ""}.`,
@@ -424,15 +425,15 @@ export function localSuggestions(ctx) {
 }
 
 /* ─── Modèle de langage facultatif ─── */
-export const COACH_SYSTEM_PROMPT = `Tu aides un coach en insertion professionnelle à rédiger le rapport qu'il renverra à une personne qui s'est entraînée seule à l'entretien d'embauche avec l'outil « La Répét' ».
-Tu proposes des formulations que le coach relira et adaptera : il garde toujours la main.
-Règles strictes :
+export const COACH_SYSTEM_PROMPT = `Tu aides un coach en insertion professionnelle à rédiger le rapport qu'il renverra à une personne qui s'est entraînée seule à l'entretien d'embauche avec l'outil « La Répét' ».
+Tu proposes des formulations que le coach relira et adaptera : il garde toujours la main.
+Règles strictes :
 - Écris en français, au vouvoiement, en t'adressant à la personne accompagnée, avec un ton positif, concret et non évaluatif. N'utilise pas de tiret cadratin.
-- Décris des faits observables (rythme, pauses, exemples concrets, petits mots répétés, structure, direction du regard) et propose des pistes présentées comme des conventions qui varient selon les secteurs (« vous pouvez… »).
-- Aucune note, aucun score, aucun classement, aucune appréciation globale (« bien », « excellent », « insuffisant »).
+- Décris des faits observables (rythme, pauses, exemples concrets, petits mots répétés, structure, direction du regard) et propose des pistes présentées comme des conventions qui varient selon les secteurs (« vous pouvez… »).
+- Aucune note, aucun score, aucun classement, aucune appréciation globale (« bien », « excellent », « insuffisant »).
 - Ne déduis et ne commente jamais l'état émotionnel, l'attitude ou la personnalité de la personne (interdit par l'article 5(1)(f) du règlement européen sur l'IA). Aucun jugement sur la personne.
-- N'invente aucun fait sur la personne : appuie-toi seulement sur les observations, la question et le métier fournis.
-- Réponds par une liste de 2 à 4 propositions, une par ligne, chacune commençant par « - », de une à trois phrases.`;
+- N'invente aucun fait sur la personne : appuie-toi seulement sur les observations, la question et le métier fournis.
+- Réponds par une liste de 2 à 4 propositions, une par ligne, chacune commençant par « - », de une à trois phrases.`;
 
 const MODE_ASK = {
   tips: "Propose des astuces concrètes à ajouter au rapport, en lien avec l'observation choisie, la question et le métier.",
@@ -445,27 +446,20 @@ const MODE_ASK = {
 /* Suggestions : modèle de langage si configuré (sortie filtrée ligne par ligne), sinon ou en cas d'écart, moteur local. */
 export async function coachSuggest(ctx) {
   const local = ctx.mode === "rephrase" ? rephraseResult(ctx.text) : { ...localSuggestions(ctx), source: "local" };
-  const endpoint = import.meta.env?.VITE_LLM_ENDPOINT;
-  if (!endpoint || (ctx.mode === "rephrase" && !String(ctx.text || "").trim())) return { ...local, source: "local" };
+  if (!llmEnabled() || (ctx.mode === "rephrase" && !String(ctx.text || "").trim())) return { ...local, source: "local" };
   const dim = (ctx.dims || []).find(d => d.id === ctx.dimId);
-  const facts = (ctx.dims || []).map(d => `- ${d.titre} (${d.type === "appui" ? "point d'appui" : "à explorer"}) : ${d.observation || ""}`).join("\n");
+  const facts = (ctx.dims || []).map(d => `- ${d.titre} (${d.type === "appui" ? "point d'appui" : "à explorer"}) : ${d.observation || ""}`).join("\n");
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 15000);
+  const timer = setTimeout(() => ctrl.abort(), LLM_TIMEOUT_MS.coach);
   try {
-    const res = await fetch(endpoint, {
-      method: "POST", signal: ctrl.signal, headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: import.meta.env.VITE_LLM_MODEL || "mistral-small-latest",
+    const content = await llmComplete("coach", {
         messages: [
           { role: "system", content: COACH_SYSTEM_PROMPT },
-          { role: "user", content: `${MODE_ASK[ctx.mode]}\nQuestion posée : ${ctx.question || "non précisée"}\nMétier visé : ${ctx.poste || "non précisé"}\nObservations de l'assistant :\n${facts || "aucune"}${dim ? `\nObservation choisie : ${dim.titre}` : ""}${ctx.mode === "rephrase" ? `\nRemarque du coach : ${String(ctx.text).slice(0, 1200)}` : ""}` },
+          { role: "user", content: `${MODE_ASK[ctx.mode]}\nQuestion posée : ${ctx.question || "non précisée"}\nMétier visé : ${ctx.poste || "non précisé"}\nObservations de l'assistant :\n${facts || "aucune"}${dim ? `\nObservation choisie : ${dim.titre}` : ""}${ctx.mode === "rephrase" ? `\nRemarque du coach : ${String(ctx.text).slice(0, 1200)}` : ""}` },
         ],
         max_tokens: 500,
-      }),
-    });
-    if (!res.ok) throw new Error(res.status);
-    const data = await res.json();
-    const raw = (data.choices?.[0]?.message?.content ?? "").replace(/\u2014/g, ",");
+    }, { signal: ctrl.signal });
+    const raw = content.replace(/\u2014/g, ",");
     const lines = raw.split(/\n+/).map(l => l.replace(/^\s*(?:[-*•]|\d+[.)])\s*/, "").trim()).filter(Boolean);
     const items = lines.filter(coachCompliant).slice(0, 4).map(text => ({ text, dimId: ctx.dimId, internal: ctx.mode === "debrief" }));
     if (!items.length) throw new Error("aucune proposition conforme");
@@ -481,7 +475,7 @@ function rephraseResult(text) {
   const r = rephrase(text);
   const items = r.text ? [{ text: r.text }] : [];
   const note = r.removed.length
-    ? `${r.removed.length === 1 ? "Une phrase a été écartée" : `${r.removed.length} phrases ont été écartées`} : elle${r.removed.length > 1 ? "s" : ""} portai${r.removed.length > 1 ? "ent" : "t"} un jugement sur la personne, une note ou un ressenti supposé. Vous pouvez la réécrire en décrivant un fait observable.`
+    ? `${r.removed.length === 1 ? "Une phrase a été écartée" : `${r.removed.length} phrases ont été écartées`} : elle${r.removed.length > 1 ? "s" : ""} portai${r.removed.length > 1 ? "ent" : "t"} un jugement sur la personne, une note ou un ressenti supposé. Vous pouvez la réécrire en décrivant un fait observable.`
     : "";
   return { items, note };
 }

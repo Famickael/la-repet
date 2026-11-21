@@ -12,16 +12,19 @@ export function duration(s) {
   return n < 60 ? `${n} s` : `${Math.floor(n / 60)} min ${String(n % 60).padStart(2, "0")}`;
 }
 
+/* Insécable entre le jour et le mois (« 12 mars »), et avant l'année (RED-11) : jamais coupés en fin de ligne. */
+const nbspDay = t => t.replace(/^(\d+) (\S+) (?=\d{4}\b)/, "$1\u00A0$2\u00A0").replace(/^(\d+) /, "$1\u00A0");
+
 /* Date et heure : « 21 novembre à 14:05 ». Chaîne vide si la date manque ou n'est pas valide. */
 export function dateTime(iso) {
   if (!iso) return "";
   const d = new Date(iso);
-  return isNaN(d) ? "" : d.toLocaleString("fr-FR", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+  return isNaN(d) ? "" : nbspDay(d.toLocaleString("fr-FR", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }));
 }
 
 /* Date seule : « 21 novembre 2026 ». */
 export function dateLong(iso) {
   if (!iso) return "";
   const d = new Date(iso);
-  return isNaN(d) ? "" : d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+  return isNaN(d) ? "" : nbspDay(d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }));
 }

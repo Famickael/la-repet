@@ -1,0 +1,58 @@
+# robots.txt de La Répét' (docs/seo.md)
+#
+# IMPORTANT : sur GitHub Pages, ce fichier est servi à https://famickael.github.io/la-repet/robots.txt. Les robots
+# ne lisent que le robots.txt placé à la racine de l'hôte (https://famickael.github.io/robots.txt), qui n'appartient
+# pas à ce dépôt. Ce fichier ne prend donc effet qu'avec un nom de domaine propre (le site servi à la racine).
+# Aujourd'hui, c'est la balise <meta name="robots" content="noindex, nofollow"> d'index.html qui ferme le site.
+#
+# ÉTAT ACTUEL : site fermé à l'indexation.
+# Les robots d'aperçu de lien de X et de Facebook suivent robots.txt, et un Disallow général fait échouer l'aperçu
+# LinkedIn (« blocked by robots.txt ») : sans exception, un lien partagé n'aurait plus d'aperçu. Ces robots, et
+# celui de WhatsApp par prudence, restent donc autorisés. Slack ne lit pas robots.txt.
+# Rappel : un robot exclu ici ne lit pas la page, donc ne voit pas le noindex. Pour retirer une adresse déjà
+# indexée, laisser la page accessible avec noindex, pas Disallow.
+
+User-agent: LinkedInBot
+User-agent: Twitterbot
+User-agent: facebookexternalhit
+User-agent: WhatsApp
+Allow: /
+
+User-agent: *
+Disallow: /
+
+# ---------------------------------------------------------------------------------------------------------------
+# VERSION PRÊTE POUR L'OUVERTURE (liste de contrôle : docs/seo.md, section 2)
+# Remplacer tout ce qui précède par les lignes ci-dessous, sans le « # » de début, et adapter l'adresse du plan du
+# site au nom de domaine retenu.
+#
+# User-agent: *
+# Allow: /
+#
+# Sitemap: https://famickael.github.io/la-repet/sitemap.xml
+#
+# ---------------------------------------------------------------------------------------------------------------
+# ROBOTS D'IA : DÉCISION À PRENDRE PAR LE PROPRIÉTAIRE (docs/seo.md, section 2.3)
+# Ces règles ne changent rien au référencement dans Google ou Bing. Elles disent seulement si les textes publics
+# du site (articles de Ressources, pages de présentation) peuvent servir à entraîner des modèles d'IA ou à
+# répondre dans des moteurs de réponse. Aucun espace personnel n'est concerné : il n'existe que sur l'appareil.
+#
+# Option A : tout accepter (rien à ajouter).
+#
+# Option B : refuser l'entraînement des modèles, accepter d'être cité dans les réponses (avec lien) :
+# User-agent: GPTBot
+# User-agent: ClaudeBot
+# User-agent: Google-Extended
+# User-agent: CCBot
+# User-agent: Applebot-Extended
+# Disallow: /
+#
+# Option C : tout refuser, entraînement et moteurs de réponse (le site n'est plus cité par ces outils) :
+# ajouter à l'option B :
+# User-agent: OAI-SearchBot
+# User-agent: Claude-SearchBot
+# User-agent: PerplexityBot
+# Disallow: /
+#
+# Les visites faites à la demande d'une personne (ChatGPT-User, Claude-User, Perplexity-User) ne suivent pas
+# toujours robots.txt : OpenAI et Perplexity l'indiquent dans leur documentation.

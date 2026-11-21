@@ -24,7 +24,7 @@ export function CopyBtn({ text, label }) {
     <span style={{ display: "inline-grid", gap: 4, justifyItems: "center" }}>
       <Btn kind="secondary" size="sm" onClick={copy} icon={st === "ok" ? I.check : I.copy}>{st === "ok" ? "Copié" : label}</Btn>
       <span role="status" className={st === "fail" ? undefined : "rp-sr"} style={{ ...TY.caption, color: T.body }}>
-        {st === "ok" ? "Copié dans le presse-papiers." : st === "fail" ? `La copie automatique n'a pas fonctionné. Sélectionnez puis copiez : ${text}` : ""}
+        {st === "ok" ? "Copié dans le presse-papiers." : st === "fail" ? `La copie automatique n'a pas fonctionné. Sélectionnez puis copiez : ${text}` : ""}
       </span>
     </span>
   );

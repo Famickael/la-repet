@@ -102,4 +102,25 @@ S.updateTake(id3, { shared: true, sharedAt: new Date().toISOString() });
 const d2 = JSON.parse(mem.get(KEY)); d2.takes[id3].shared = false; mem.set(KEY, JSON.stringify(d2));
 assert.equal(S.sendReport(id3, { intro: "x", notes: [], comments: {} }), false, "rapport refusé d'après l'état du stockage");
 
+// C9 (B7) : export lisible des données de la personne, vidéos à part
+const code4 = S.createParcours({ prenom: "Lou", poste: "cariste", warmup: false, type: "mobilite" });
+S.updateParcours(code4, { consent: { at: "2026-11-21T10:00:00.000Z", local: true, ai: true, version: "3" } });
+const id4 = await S.createTake({ code: code4, question: "Présentez-vous.", duration: 31.6, blob: { type: "audio/webm" }, transcript: "Bonjour, je suis cariste.",
+  segments: [{ start: 0, end: 3.2, text: "Bonjour, je suis cariste." }], gaze: null,
+  analysis: { source: "llm", synthese: "Vos points d'appui : exemples concrets.", dimensions: [{ id: "exemples", titre: "Exemples concrets", type: "appui", t: 65, observation: "o", conseil: "c" }] } });
+S.updateTake(id4, { shared: true, sharedAt: "2026-11-21T11:00:00.000Z", note: "Merci" });
+assert.equal(S.sendReport(id4, { intro: "Bonjour Lou", comments: { exemples: "Très concret." }, notes: [{ id: "n1", t: 75, text: "Bon exemple" }], sentAt: "2026-11-22T09:00:00.000Z", by: "Sophie M." }), true);
+const ex = S.exportData(code4);
+assert.equal(ex.parcours.prenom, "Lou"); assert.equal(ex.parcours.typeEntretien, "mobilité"); assert.equal(ex.parcours.accord.retourDeLAssistant, true);
+assert.equal(ex.reponses.length, 1);
+const r4 = ex.reponses[0];
+assert.equal(r4.texteDeLaReponse, "Bonjour, je suis cariste."); assert.equal(r4.texteHorodate[0].fin, "0:03");
+assert.equal(r4.enregistrement, "voix"); assert.match(r4.fichierEnregistrement, /\.webm$/);
+assert.equal(r4.retourDeLAssistant.reperes[0].moment, "1:05"); assert.equal(r4.retourDeLAssistant.reperes[0].nature, "point d'appui");
+assert.equal(r4.rapportDuCoach.introduction, "Bonjour Lou"); assert.equal(r4.rapportDuCoach.remarquesSurLesReperes[0].repere, "Exemples concrets");
+assert.equal(r4.rapportDuCoach.notesHorodatees[0].moment, "1:15"); assert.equal(r4.messageAuCoach, "Merci");
+assert.ok(!JSON.stringify(ex).includes(id3), "seules les réponses de ce parcours sont exportées");
+assert.ok(await S.loadMediaBlob(id4), "l'enregistrement se télécharge à part");
+assert.equal(S.exportData("INCONNU"), null);
+
 console.log("store.test : OK");

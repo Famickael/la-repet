@@ -33,7 +33,7 @@ async function remote(blob, onProgress) {
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
     const res = await fetch(import.meta.env.VITE_STT_ENDPOINT, { method: "POST", body: form, signal: ctrl.signal });
-    if (!res.ok) throw new Error(`Service de transcription : erreur ${res.status}`);
+    if (!res.ok) throw new Error(`Service de transcription : erreur ${res.status}`);
     const d = await res.json();
     const segments = (d.segments || [{ start: 0, end: d.duration || 0, text: d.text }]).map(s => ({ start: s.start, end: s.end, text: s.text.trim() }));
     return { text: d.text.trim(), segments };
@@ -69,7 +69,7 @@ function getWorker() {
     else if (data.type === "done") settle(data.id, { text: data.text, segments: data.segments });
     else if (data.type === "error") settle(data.id, null, new Error(data.message));
   };
-  worker.onerror = e => { e.preventDefault?.(); failAll(new Error(`L'outil de transcription n'a pas pu démarrer${e.message ? ` : ${e.message}` : ""}.`)); };
+  worker.onerror = e => { e.preventDefault?.(); failAll(new Error(`L'outil de transcription n'a pas pu démarrer${e.message ? ` : ${e.message}` : ""}.`)); };
   worker.onmessageerror = () => failAll(new Error("Message illisible de l'outil de transcription."));
   return worker;
 }

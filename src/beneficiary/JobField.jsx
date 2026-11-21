@@ -27,7 +27,7 @@ export function JobField({ p }) {
     setOpen(false); setActive(-1);
     if (!t) { setVal(p.poste || ""); return; }
     setVal(t);
-    if (t !== p.poste) { updateParcours(p.code, { poste: t }); setStatus(`Métier enregistré : ${t}. Les questions en tiennent compte.`); }
+    if (t !== p.poste) { updateParcours(p.code, { poste: t }); setStatus(`Métier enregistré : ${t}. Les questions en tiennent compte.`); }
   };
   const onKey = e => {
     if (e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setActive(a => (items.length ? (a + 1) % items.length : -1)); }
@@ -38,11 +38,11 @@ export function JobField({ p }) {
 
   return (
     <div style={{ position: "relative", ...stack(8) }}>
-      <Field id="job" label="Métier visé" hint={`Écrivez votre métier. Vous pouvez aussi le choisir dans la liste. ${PHRASES.job}`}>
+      <Field id="job" label="Métier ou poste visé" hint={`Écrivez-le ou choisissez-le dans la liste. ${PHRASES.job}`}>
         <div style={{ position: "relative" }}>
           <Input id="job" icon={I.search} hint role="combobox" aria-autocomplete="list" aria-expanded={open && items.length > 0} aria-controls="job-list"
             aria-activedescendant={open && active >= 0 ? `job-opt-${active}` : undefined}
-            value={val} autoComplete="off" autoCapitalize="none" spellCheck={false} placeholder="Par exemple : agent d'accueil"
+            value={val} autoComplete="off" autoCapitalize="none" spellCheck={false} placeholder="Par exemple : agent d'accueil"
             onChange={e => { setVal(e.target.value); setOpen(true); setActive(-1); setStatus(""); }}
             onFocus={() => { clearTimeout(blurT.current); setOpen(true); }}
             onClick={() => setOpen(true)}
@@ -58,7 +58,7 @@ export function JobField({ p }) {
                   onClick={() => { clearTimeout(blurT.current); commit(labelOf(it)); }}
                   onMouseMove={() => active !== i && setActive(i)}
                   style={{ padding: "12px 12px", borderRadius: RAD.sm, cursor: "pointer", ...(typeof it === "string" ? TY.body : TY.bodyStrong), color: typeof it === "string" ? T.navy : T.primary, background: i === active ? T.primaryBg : undefined }}>
-                  {typeof it === "string" ? it : `Utiliser « ${it.free} »`}
+                  {typeof it === "string" ? it : `Utiliser « ${it.free} »`}
                 </li>
               ))}
             </ul>

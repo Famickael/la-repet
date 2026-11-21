@@ -124,10 +124,11 @@ export function logoutCounselor() {
 }
 
 /* ── Parcours ── */
-export function createParcours({ prenom, poste, warmup }) {
+export function createParcours({ prenom, poste, warmup, type }) {
   const code = newCode();
   const p = {
     code, prenom: prenom.trim(), poste: poste.trim(), warmup: !!warmup,
+    type: type === "mobilite" ? "mobilite" : "embauche", // type d'entretien (INTERVIEW_TYPES, src/lib/questions.js)
     counselor: state.counselor?.name || "",
     createdAt: new Date().toISOString(), openedAt: null, consent: null,
   };
@@ -299,3 +300,50 @@ export function loadWarmupDebrief(code) {
 export function clearWarmupDebrief(code) {
   try { localStorage.removeItem(WARMUP_KEY(code)); } catch { /* mode privé */ }
 }
+
+/* ── Portabilité (RGPD, art. 20 ; B7) ──
+   Fichier JSON lisible, avec des clés en français : parcours, accord, questionnaire d'échauffement, réponses (texte,
+   retour de l'assistant, message et rapport du coach). Les vidéos et enregistrements de voix se téléchargent à part
+   (mediaFileName donne le nom de chaque fichier, repris dans le JSON). Rien n'est envoyé : tout est lu sur l'appareil. */
+const mmss = t => { const s = Math.max(0, Math.round(t || 0)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+const mediaKind = t => (!(t.hasMedia ?? t.hasVideo) ? null : (t.mime || "").startsWith("audio") ? "voix" : "vidéo");
+export function mediaFileName(t) {
+  const ext = (t.mime || "").includes("mp4") ? (mediaKind(t) === "voix" ? "m4a" : "mp4") : "webm";
+  return `la-repet-reponse-${(t.createdAt || "").slice(0, 10)}-${t.id}.${ext}`;
+}
+export function exportData(code, s = state) {
+  const p = s.parcours[code];
+  if (!p) return null;
+  const takes = takesOf(code, s).slice().reverse(); // de la plus ancienne à la plus récente
+  return {
+    fichier: "Vos données de La Répét'",
+    exporteLe: new Date().toISOString(),
+    aSavoir: "Ce fichier a été créé sur votre appareil, à partir des données gardées dans ce navigateur. Les vidéos et enregistrements de voix sont des fichiers à part.",
+    parcours: {
+      code: p.code, prenom: p.prenom, metierOuPosteVise: p.poste || "", typeEntretien: p.type === "mobilite" ? "mobilité" : "embauche",
+      coach: p.counselor || "", creeLe: p.createdAt || null, ouvertLe: p.openedAt || null,
+      accord: p.consent ? { donneLe: p.consent.at, enregistrementSurCetAppareil: !!p.consent.local, retourDeLAssistant: !!p.consent.ai, versionDesTextes: p.consent.version || null } : null,
+      accordsPrecedents: (p.consentHistory || []).map(c => ({ donneLe: c.at, retireLe: c.withdrawnAt || null, retourDeLAssistant: !!c.ai, versionDesTextes: c.version || null })),
+    },
+    questionnaireEchauffement: loadWarmupDebrief(code),
+    reponses: takes.map(t => ({
+      question: t.question, enregistreeLe: t.createdAt, dureeSecondes: Math.round(t.duration || 0),
+      enregistrement: mediaKind(t), fichierEnregistrement: mediaKind(t) ? mediaFileName(t) : null,
+      texteDeLaReponse: t.transcript || "",
+      texteHorodate: (t.segments || []).map(x => ({ debut: mmss(x.start), fin: mmss(x.end), texte: x.text })),
+      retourDeLAssistant: t.analysis && t.analysis.source !== "none" ? {
+        redigePar: t.analysis.source === "llm" ? "assistant IA, à partir des mesures faites sur l'appareil" : "assistant de l'appareil",
+        synthese: t.analysis.synthese,
+        reperes: (t.analysis.dimensions || []).map(d => ({ repere: d.titre, nature: d.type === "appui" ? "point d'appui" : "piste à explorer", moment: mmss(d.t), observation: d.observation, conseil: d.conseil })),
+      } : null,
+      envoyeeAuCoach: !!t.shared, envoyeeLe: t.sharedAt || null, messageAuCoach: t.note || "",
+      rapportDuCoach: t.report ? {
+        par: t.report.by || "", envoyeLe: t.report.sentAt || null, introduction: t.report.intro || "",
+        remarquesSurLesReperes: Object.entries(t.report.comments || {}).filter(([, v]) => (v || "").trim()).map(([id, v]) => ({ repere: (t.analysis?.dimensions || []).find(d => d.id === id)?.titre || id, remarque: v })),
+        notesHorodatees: (t.report.notes || []).slice().sort((a, b) => a.t - b.t).map(n => ({ moment: mmss(n.t), note: n.text })),
+      } : null,
+    })),
+  };
+}
+/* Vidéo ou voix d'une réponse, pour le téléchargement (null si absente). */
+export const loadMediaBlob = id => tx("readonly", s => s.get(id)).catch(() => null);

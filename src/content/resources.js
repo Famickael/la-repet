@@ -18,7 +18,8 @@ function parseFront(raw) {
     const i = line.indexOf(":");
     if (i < 1 || line.trim().startsWith("#")) continue;
     const k = line.slice(0, i).trim();
-    let v = line.slice(i + 1).trim().replace(/^["']|["']$/g, "");
+    /* Guillemets retirés seulement s'ils encadrent la valeur : « Équipe La Répét' » garde son apostrophe. */
+    let v = line.slice(i + 1).trim().replace(/^(["'])(.*)\1$/, "$2");
     if (v === "true") v = true; else if (v === "false") v = false;
     meta[k] = v;
   }

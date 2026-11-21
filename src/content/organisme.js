@@ -1,4 +1,7 @@
-/* Configuration de l'organisme qui déploie La Répét' : SEUL fichier à compléter.
+/* Configuration de l'organisme d'accompagnement à qui appartient La Répét' : SEUL fichier à compléter.
+   Positionnement : l'organisme vend sa compétence d'accompagnement (ses coachs), outillée par La Répét', à des
+   commanditaires publics (retour à l'emploi, insertion) ou privés (mobilité et évolution des collaborateurs).
+   La Répét' n'est pas vendue comme un logiciel : aucun tarif, aucune licence, aucun discours d'éditeur.
    À REMPLACER PAR L'ORGANISME : toutes les valeurs ci-dessous sont des EXEMPLES explicites, acceptés par le
    propriétaire pour la présentation (mention « exemple », « à remplacer » ou « à valider » visible à l'écran).
    Les adresses électroniques utilisent le domaine réservé exemple.fr ou example.org, jamais un domaine réel.
@@ -24,18 +27,18 @@ export const ORG = {
   /* Mentions légales (LCEN, art. 1-1) */
   publisher: "la direction de l'organisme (nom à remplacer)",       // responsable de la publication (prénom et nom)
   /* Hébergeur du site (à défaut : l'hébergeur actuel, HOST_DEFAULT) */
-  host: "hébergeur à désigner par l'organisme, hébergement en France (exemple : nom, adresse et téléphone du prestataire)",            // nom, adresse et téléphone de l'hébergeur de production
+  host: "hébergeur à désigner par l'organisme, hébergement en France (exemple : nom, adresse et téléphone du prestataire)",            // nom, adresse et téléphone de l'hébergeur de production
   /* Sous-traitants éventuels, mode production */
   llmProvider: "prestataire de modèle de langage hébergé en France, à désigner (exemple)",     // prestataire du modèle de langage et pays, si VITE_LLM_ENDPOINT est utilisé
   sttProvider: "prestataire de transcription hébergé en France, à désigner (exemple)",     // prestataire de la transcription serveur et pays, si VITE_STT_ENDPOINT est utilisé
   /* Durées de conservation validées par le DPO (proposition dans docs/conformite.md, 2.8) */
-  retention: "vidéos et réponses gardées sur votre appareil jusqu'à ce que vous les supprimiez ; réponses envoyées au coach et rapports : 6 mois après la fin de l'accompagnement ; compte coach : 1 an après le dernier accès (durées types, à valider par le délégué à la protection des données)",       // texte ou tableau des durées validées
-  demoRetention: "3 mois après le rendez-vous (durée type, à valider)",   // durée de conservation des demandes de démonstration
+  retention: "vidéos et réponses gardées sur votre appareil jusqu'à ce que vous les supprimiez ; réponses envoyées au coach et rapports : 6 mois après la fin de l'accompagnement ; compte coach : 1 an après le dernier accès (durées types, à valider par le délégué à la protection des données)",       // texte ou tableau des durées validées
+  demoRetention: "3 mois après notre réponse (durée type, à valider)",   // durée de conservation des demandes des commanditaires (page « Nous contacter »)
   /* Base légale retenue par le DPO (consentement ou mission d'intérêt public, écart R6) */
   legalBasis: "Votre accord (consentement, article 6.1.a du RGPD). Base légale type, à valider par le délégué à la protection des données.",
   /* Accessibilité : contact pour signaler un problème, schéma pluriannuel et plan annuel */
   a11yContact: "accessibilite@exemple.fr",
-  a11yPlanUrl: "Schéma pluriannuel et plan d'actions de l'année à publier par l'organisme (adresse d'exemple : https://www.example.org/accessibilite).",
+  a11yPlanUrl: "Schéma pluriannuel et plan d'actions de l'année à publier par l'organisme (adresse d'exemple : https://www.example.org/accessibilite).",
   /* Versions des textes, enregistrées avec l'accord de la personne */
   textsVersion: "2026-11-20",
 };
@@ -48,9 +51,9 @@ export const missing = Object.entries(ORG).filter(([, v]) => v == null).map(([k]
 export const orgName = () => ORG.name || "votre organisme d'accompagnement";
 export const OrgName = () => ORG.name || "Votre organisme d'accompagnement";
 export const dpoLine = () => ORG.dpoEmail
-  ? `Délégué à la protection des données : ${ORG.dpo ? `${ORG.dpo}, ` : ""}${ORG.dpoEmail}${ORG.dpoAddress ? `, ${ORG.dpoAddress}` : ""}.`
+  ? `Délégué à la protection des données : ${ORG.dpo ? `${ORG.dpo}, ` : ""}${ORG.dpoEmail}${ORG.dpoAddress ? `, ${ORG.dpoAddress}` : ""}.`
   : "Les coordonnées du délégué à la protection des données vous sont communiquées par votre coach.";
-export const contactLine = () => ORG.email ? `Contact : ${ORG.email}${ORG.phone ? `, ${ORG.phone}` : ""}.` : "Pour toute question, votre coach vous indique qui contacter.";
+export const contactLine = () => ORG.email ? `Contact : ${ORG.email}${ORG.phone ? `, ${ORG.phone}` : ""}.` : "Pour toute question, votre coach vous indique qui contacter.";
 
 /* Hébergeur actuel du site (vérifiable), utilisé tant que ORG.host n'est pas renseigné. */
 export const HOST_DEFAULT = "GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis (service GitHub Pages, pages.github.com)";
@@ -60,6 +63,6 @@ export const hostLine = () => ORG.host || HOST_DEFAULT;
    lui-même. Les moteurs de calcul (ONNX Runtime, MediaPipe) sont servis par le site (SEC-04).
    Versions figées : voir src/lib/gaze.js, src/lib/background.js, src/lib/whisper.worker.js, vite.config.js. */
 export const THIRD_PARTIES = [
-  ["Hugging Face (États-Unis)", "huggingface.co", "Modèle de mise par écrit de la voix (Whisper base, environ 80 Mo)"],
-  ["Google (États-Unis)", "storage.googleapis.com", "Modèles de suivi du visage et de détourage MediaPipe (version 1, environ 4 Mo)"],
+  ["Hugging Face (États-Unis)", "huggingface.co", "Modèle de mise par écrit de la voix (Whisper base, environ 80 Mo)"],
+  ["Google (États-Unis)", "storage.googleapis.com", "Modèles de suivi du visage et de détourage MediaPipe (version 1, environ 4 Mo)"],
 ];

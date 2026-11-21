@@ -7,31 +7,37 @@ import LegalPage, { LegalModal } from "./Legal.jsx";
 import Home from "./home/index.jsx";
 import A11yLayer from "./A11y.jsx";
 import { useStore, getState, setLastSpace, getStorageError } from "./lib/store.js";
-import { go, openSpace, reducedMotion, routeFromHash, titleOf } from "./app/router.js";
+import { go, openSpace, reducedMotion, routeFromHash } from "./app/router.js";
+import { applySeo, seoFor } from "./lib/seo.js";
+import { PAGES } from "./content/legal.js";
 import { Nav } from "./app/Nav.jsx";
 import { Espace, NotFound } from "./app/Espace.jsx";
 import { Footer } from "./app/Footer.jsx";
 import { ToTop } from "./app/ToTop.jsx";
 
-/* La Répét' : entraînement à l'entretien d'embauche, avec un assistant IA et votre coach.
-   Routes (dans l'ancre de l'adresse, pour que le bouton Retour du navigateur fonctionne) :
-     #/                         accueil
-     #/a-propos(/faq)           à propos (et sa FAQ) ; #/a-propos/ia-et-recherche : L'IA et la recherche
-     #/solutions(/public)       solutions par public : beneficiaires, coachs, organismes
-     #/fonctionnement           ancienne adresse, redirigée vers #/solutions
-     #/ressources               centre de ressources (catégories, articles mis en avant, recherche)
-     #/ressources/c/CATEGORIE   liste des ressources d'une catégorie
-     #/ressources/SLUG          article
-     #/demo                     demande de prise en main accompagnée
-     #/espace                   « Mon espace » : code d'accès ou connexion coach
-     #/s/CODE(/écran)           espace de la personne ; l'écran suit l'ancre (src/lib/viewHash.js)
-     #/beneficiaire             saisie du code
+/* La Répét' : outil d'entraînement aux entretiens (embauche, mobilité, entretien professionnel) d'un organisme d'accompagnement, avec un assistant IA et un coach.
+   Routes (dans l'ancre de l'adresse, pour que le bouton Retour du navigateur fonctionne). Carte complète des menus et
+   anciennes adresses redirigées : src/app/router.js.
+     #/                                accueil
+     #/a-propos                        l'organisme (texte d'exemple, à remplacer par l'organisme réel)
+     #/solutions(/page)                usage-de-l-ia, recherche, fonctionnalites
+     #/cas-d-usage(/page(/section))    beneficiaires (demandeurs-emploi, collaborateurs), coachs, commanditaires
+     #/ressources                      conseils et guides, recherche ; #/ressources/SLUG : une ressource
+     #/ressources/faq(/section)        questions fréquentes : personnes-accompagnees, coachs, commanditaires
+     #/demo                            « Nous contacter » : projet d'accompagnement d'un commanditaire
+     #/espace                          « Mon espace » : code d'accès ou connexion coach
+     #/s/CODE(/écran)                  espace de la personne ; l'écran suit l'ancre (src/lib/viewHash.js)
+     #/beneficiaire                    saisie du code
      #/coach(/parcours/CODE|relecture/CODE/ID)   espace coach (sans connexion : « Mon espace »)
      #/vos-donnees(/video|assistant|droits|appareil|notice|coachs)   information sur les données
      #/conditions, #/mentions-legales, #/accessibilite                pages légales */
 
 /* Pages chargées à la demande (PERF-02) : l'accueil ne télécharge ni les espaces, ni les articles, ni MediaPipe. */
 const Solutions = lazy(() => import("./Solutions.jsx"));
+const AiUsage = lazy(() => import("./AiUsage.jsx"));
+const Fonctionnalites = lazy(() => import("./Fonctionnalites.jsx"));
+const UseCases = lazy(() => import("./UseCases.jsx"));
+const Faq = lazy(() => import("./Faq.jsx"));
 const About = lazy(() => import("./About.jsx"));
 const Resources = lazy(() => import("./Resources.jsx"));
 const Demo = lazy(() => import("./Demo.jsx"));
@@ -54,7 +60,7 @@ export default function App() {
        interne (useSectionScroll), pas de fondu. Mouvement réduit : changement direct. */
     const on = () => {
       const next = routeFromHash(), cur = routeRef.current;
-      const inPage = next.role === cur.role && ["about", "solutions"].includes(next.role) && next.section !== cur.section && next.section !== "ia-et-recherche" && cur.section !== "ia-et-recherche";
+      const inPage = next.role === cur.role && ["usecases", "faq"].includes(next.role) && next.page === cur.page && next.section !== cur.section;
       /* Autre écran du même espace (BUG-07) : l'espace reste monté et suit l'ancre, sans fondu de page. */
       if ((next.role === "benef" && cur.role === "benef" && next.code && next.code === cur.code) || (next.role === "coach" && cur.role === "coach")) { setRoute(next); return; }
       if (inPage) { setRoute(next); if (!next.section) window.scrollTo({ top: 0, behavior: reducedMotion() ? "auto" : "smooth" }); return; }
@@ -71,8 +77,14 @@ export default function App() {
   }, []);
   useEffect(() => { if (route.role === "coach" && s.counselor) setLastSpace({ role: "coach" }); }, [route.role, s.counselor]);
   const routeKey = `${route.role}/${route.section || ""}/${route.slug || ""}/${route.cat || ""}/${route.page || ""}/${route.code || ""}`;
-  /* Titre de la route (effet de mise en page) ; chaque écran l'affine ensuite par useTitle (A11Y-06). */
-  useLayoutEffect(() => { document.title = `${titleOf(route, s.counselor)} · La Répét'`; }, [routeKey, s.counselor]); // eslint-disable-line
+  /* Titre d'onglet, description et balises de la route (src/lib/seo.js, effet de mise en page) ; chaque écran peut
+     l'affiner ensuite (useTitle, seoArticle) (A11Y-06). */
+  useLayoutEffect(() => {
+    const r = { ...route, counselor: !!s.counselor };
+    /* Pages « Vos données » et légales : l'onglet reprend le titre de la page (RGAA 8.6, vérifié par test:site). */
+    const legal = route.role === "legal" && PAGES[route.page] ? { title: `${PAGES[route.page].title} · La Répét'`, description: seoFor(r).description } : undefined;
+    applySeo(r, legal);
+  }, [routeKey, s.counselor]); // eslint-disable-line
   /* Changement de page (A11Y-02) : focus sur le titre, annonce discrète du titre de la page. */
   useFocusOnChange(routeKey);
   const [announce, setAnnounce] = useState("");
@@ -107,9 +119,13 @@ export default function App() {
         <Suspense fallback={<div style={{ minHeight: "60vh", display: "grid", placeItems: "center" }}><BrandLoader label="Chargement…" /></div>}>
         {route.role === "home" && <Home go={go} openSpace={openSpace} />}
         {route.role === "notfound" && <NotFound />}
-        {route.role === "research" && <Research go={go} openSpace={openSpace} />}
-        {route.role === "about" && <About go={go} openSpace={openSpace} section={route.section} />}
-        {route.role === "solutions" && <Solutions go={go} openSpace={openSpace} section={route.section} />}
+        {route.role === "about" && <About go={go} />}
+        {route.role === "solutions" && !route.page && <Solutions go={go} openSpace={openSpace} />}
+        {route.role === "solutions" && route.page === "usage-de-l-ia" && <AiUsage go={go} openSpace={openSpace} />}
+        {route.role === "solutions" && route.page === "recherche" && <Research go={go} openSpace={openSpace} />}
+        {route.role === "solutions" && route.page === "fonctionnalites" && <Fonctionnalites go={go} openSpace={openSpace} />}
+        {route.role === "usecases" && <UseCases go={go} openSpace={openSpace} page={route.page} section={route.section} />}
+        {route.role === "faq" && <Faq go={go} section={route.section} />}
         {route.role === "resources" && <Resources go={go} openSpace={openSpace} slug={route.slug} cat={route.cat} />}
         {route.role === "demo" && <Demo go={go} />}
         {route.role === "legal" && <LegalPage key={route.page} page={route.page} />}

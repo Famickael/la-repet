@@ -53,7 +53,10 @@ Un mot par chose, partout. Quand un mot du lexique apparaît pour la première f
 | **code d'accès** | code d'entraînement, code personnel, code d'essai, code seul à la première mention | Les 6 caractères donnés par le coach. Première mention : « code d'accès (6 caractères) ». Ensuite « votre code » suffit. |
 | **mon espace / votre espace** | espace bénéficiaire, espace personnel, espace d'entraînement | L'endroit où la personne s'entraîne et retrouve ses réponses. « Mon espace » sur les boutons, « votre espace » dans les phrases. |
 | **espace coach** | espace conseiller, back-office | L'endroit où le coach crée les parcours et relit les réponses reçues. |
-| **personne accompagnée** | bénéficiaire, usager, candidat, apprenant | Le terme pour parler d'elle aux coachs et aux organismes. Jamais affiché à la personne elle-même. |
+| **personne accompagnée** | bénéficiaire, usager, candidat, apprenant | Le terme générique pour parler d'elle aux coachs et aux commanditaires. Jamais affiché à la personne elle-même. Quand le public compte, on précise : **demandeur d'emploi** ou **collaborateur** (d'entreprise). |
+| **commanditaire** | client, acheteur, licencié, organisme (pour celui qui confie l'accompagnement) | L'acteur public de l'emploi (France Travail, collectivité, structure d'insertion, cité comme exemple, jamais comme partenaire) ou l'entreprise qui confie un accompagnement à notre organisme. |
+| **notre organisme** | l'éditeur, la plateforme, la solution | L'organisme d'accompagnement à qui appartient La Répét'. Il vend son accompagnement, pas un logiciel. |
+| **collaborateurs en mobilité** | salariés (dans un titre), ressources | Le public des entreprises : mobilité interne ou externe, entretien annuel ou professionnel côté salarié, reconversion. |
 | **coach** | conseiller, accompagnant, « coach IA » | Toujours un humain. L'outil n'est jamais un « coach ». |
 | **assistant** | IA, coach IA, robot, algorithme | Le programme qui décrit la réponse et répond aux questions. « Assistant IA » une fois par page pour la transparence, « l'assistant » ensuite. |
 | **envoyer** | partager, transmettre, soumettre | L'action volontaire de la personne vers son coach. Un seul destinataire, donc « envoyer ». |
@@ -63,7 +66,24 @@ Un mot par chose, partout. Quand un mot du lexique apparaît pour la première f
 | **deviner** (les émotions) | déduire, inférer (hors pages juridiques) | « L'assistant ne cherche pas à deviner vos émotions. » « Inférence » et « reconnaissance des émotions » restent sur les pages juridiques. |
 | **outil** | dispositif, solution, plateforme, module | Le mot courant pour désigner La Répét'. « Dispositif » est du vocabulaire d'insertion. |
 | **ressource** | article (dans l'interface) | Tout contenu du centre de ressources : guide ou scénario d'usage. |
-| **démo** (bouton), **démonstration** (phrase) |  | « Demander une démo » sur les boutons, « démonstration » dans les phrases. |
+| **nous contacter** (bouton), **projet d'accompagnement** (phrase) | Demander une démo, demander une prise en main, devis, essai gratuit | « Nous contacter » dans l'en-tête et le pied de page ; « Parler de votre projet » dans les pages ; titre de la page : « Parler de votre projet d'accompagnement ». |
+
+### 1.2 bis Positionnement (décision du propriétaire, 21 novembre 2026)
+
+- **La Répét' appartient à un organisme d'accompagnement.** Ce n'est pas un logiciel vendu en tant que tel : aucun discours d'éditeur ou de « SaaS », pas de « équipez votre structure », pas de tarif, pas de licence, pas de marque blanche.
+- **L'organisme vend sa compétence d'accompagnement**, outillée par La Répét', à des **commanditaires** :
+  - publics : accompagnement des demandeurs d'emploi, retour à l'emploi, insertion (France Travail, collectivités, départements, structures d'insertion, toujours comme exemples et sans affirmer de partenariat) ;
+  - privés : entreprises qui font accompagner leurs collaborateurs (mobilité interne ou externe, entretien de mobilité, entretien annuel ou professionnel côté salarié, reconversion).
+- **Les coachs sont les accompagnateurs de l'organisme** (« nos coachs »). Les personnes accompagnées sont des demandeurs d'emploi ou des collaborateurs d'entreprise.
+- **Confidentialité vis-à-vis du commanditaire** : il reçoit un bilan d'ensemble, jamais une réponse, un retour, un rapport ni une mesure individuelle.
+- **Voix** : sur les pages publiques, « nous » désigne l'organisme ; on écrit « notre organisme », « nos coachs ».
+- **Moteur d'IA** : jamais nommé dans le site ni dans les textes (ni nom de fournisseur, ni nom de modèle). On écrit « assistant IA » une fois par page, puis « l'assistant ». Contrôlé par `npm run test:content`.
+- **Carte du site (21 novembre 2026)** : « À propos » décrit l'organisme (aujourd'hui un organisme imaginaire, « Capes & Carrières », qui accompagne des super-héros : texte d'exemple signalé par un encart, à remplacer ; l'humour reste sur cette seule page). « Solutions » : ce qui nourrit la solution (« Usage de l'IA », « Recherche en accompagnement », « Fonctionnalités »). « Cas d'usage » : une page par public (« Personnes accompagnées » avec « Demandeurs d'emploi » et « Collaborateurs en mobilité », « Coachs », « Commanditaires » avec les onglets « Acteurs publics », « Entreprises », « Cadre et données »). « Ressources » : une seule page (recherche, « À la une », toutes les ressources filtrables par thème) ; « Questions fréquentes » sur sa propre page.
+- **« Demander de l'aide »** : quand une session est ouverte, « Nous contacter » devient « Demander de l'aide » et mène aux questions fréquentes, sur la section de la personne connectée (personnes accompagnées ou coachs). Choix retenu plutôt que l'assistant de l'espace : l'assistant répond aux questions sur l'entretien, pas sur le site, et il n'existe pas sur toutes les pages.
+- **Accueil (panel bénéficiaires)** : pastilles « Avec votre coach », « Assistant IA », « Sans note » ; sous-titre : « Vous répondez à des questions d'entretien, à voix haute, autant de fois que vous voulez. Un assistant IA décrit votre réponse, sans la noter : rythme, pauses, exemples concrets. Votre vidéo reste sur votre appareil : vous choisissez ce que voit votre coach. » ; sous le bouton : « Pas de compte à créer : il vous faut le code donné par votre coach. » ; bandeau de réassurance en trois puces. En attente du propriétaire : « Sans frais pour vous » et la question « Est-ce payant pour moi ? » ne sont pas publiées.
+- **Conservé** : code d'essai `REPETE` prérempli, identifiants coach préremplis, « Lancer ma première répétition », « Entretien du 12 mars », aucun texte qui révèle un test.
+
+Les lignes des tableaux de la section 2 qui parlent d'« organismes », de déploiement, d'onglet DSI ou de « Demander une démo » datent d'avant cette décision : elles sont remplacées par les textes actuels du code.
 
 > **Décision du propriétaire (21 novembre 2026).** Côté coach, on dit « entretiens » pour les réponses reçues (« Entretiens à relire », « Entretiens reçus ») ; « Entretien du 12 mars » (accueil) et « Lancer ma première répétition » sont conservés. Le constat RED-01 de `docs/audit-complet.md` n'est donc pas appliqué.
 
@@ -87,14 +107,14 @@ Un mot par chose, partout. Quand un mot du lexique apparaît pour la première f
 
 - Pas de point médian côté personne accompagnée (« prêt·e », « senti·e ») : il gêne la lecture à voix haute, les lecteurs d'écran et les personnes peu à l'aise avec l'écrit. On reformule sans accord de genre : « quand vous voulez » plutôt que « quand vous êtes prêt·e ».
 - Les phrases d'échauffement sont dites à voix haute : aucune ne doit contenir de point médian.
-- Point médian toléré dans le formulaire de démo, pas ailleurs.
+- Point médian toléré dans le formulaire de contact, pas ailleurs (il n'en contient pas aujourd'hui).
 
 **Boutons et liens.**
 
 - Un verbe d'action au début, à l'infinitif (« Ouvrir mon espace ») ou à la première personne quand la personne s'engage (« J'accepte et je commence »).
 - Le libellé dit ce qui se passe au clic. Pas de « Choisir », « Valider », « OK », « Pourquoi ? » seuls.
 - Deux à quatre mots. Jamais de point final.
-- Une même action porte le même libellé partout. Trois libellés figés : « Ouvrir mon espace », « Me connecter à l'espace coach », « Demander une démo ». Seule exception : le bouton principal du héros, « Commencer avec mon code », qui doit donner envie et dire ce qu'il faut avoir.
+- Une même action porte le même libellé partout. Trois libellés figés : « Ouvrir mon espace », « Me connecter à l'espace coach », « Nous contacter » (« Parler de votre projet » dans le corps des pages). Seule exception : le bouton principal du héros, « Commencer avec mon code », qui doit donner envie et dire ce qu'il faut avoir.
 - Un lien dans une phrase porte sur les mots qui disent où il mène, pas sur « ici ».
 
 **Titres.**
@@ -112,7 +132,8 @@ Un mot par chose, partout. Quand un mot du lexique apparaît pour la première f
 
 **Ponctuation française.**
 
-- Espace insécable avant « : », « ; », « ? », « ! », « % » et à l'intérieur des guillemets « ». Dans le code : ` ` ou le caractère lui-même, jamais une espace simple.
+- Espace fine insécable (U+202F) avant « ; », « ? », « ! » et à l'intérieur des guillemets « ». Espace insécable (U+00A0) avant « : » et « % », et entre un nombre et son unité ou son mot (« 2 minutes », « 12 mars », « 6 caractères », « 80 Mo »). Dans le code : le caractère lui-même (ou `\u202F`, `\u00A0`), jamais une espace simple.
+- Contrôle automatique : `npm run test:content` échoue si un texte visible (JSX, chaînes, articles Markdown) contient une espace ordinaire avant « ; ? ! : » % » ou après « « » (`tests/lib/typo-fr.mjs`). Les URL, le code, les expressions régulières et les clés ne sont pas concernés.
 - Dans ce document, les propositions du tableau contiennent déjà ces espaces insécables : elles peuvent être copiées telles quelles.
 - Guillemets français « » uniquement.
 - Aucun tiret cadratin ni demi-cadratin. Pour séparer deux éléments courts : le point médian entouré d'espaces (« Échauffement · rien n'est enregistré »). Pour une incise : deux phrases.
@@ -512,7 +533,9 @@ Lecture du tableau : **P1** = à traiter d'abord (héros, navigation, boutons, t
 | Resources.jsx `GLOSSARY`, entrée | Parcours ; L'espace créé par votre coach pour vous, ouvert avec un code de 6 caractères. | Remplacer par deux entrées. Votre espace : L'endroit où vous vous entraînez et retrouvez vos réponses. Vous l'ouvrez avec votre code d'accès. Code d'accès : Les 6 caractères que votre coach vous donne. Ils ouvrent votre espace. | « Parcours » n'est jamais affiché à la personne. |
 | Resources.jsx `GLOSSARY`, entrée | Transcription ; Le texte de votre réponse, produit automatiquement dans votre navigateur. | Supprimer, et ajouter trois entrées. Retour : Ce que l'assistant écrit sur votre réponse. Il décrit, il ne note pas. Rapport : Ce que votre coach vous renvoie après avoir regardé votre réponse. Échauffement : Quelques phrases à dire à voix haute avant l'entraînement. Rien n'est enregistré. | Le mot « transcription » disparaît de l'interface. Les trois mots ajoutés y sont partout. |
 
-### 2.15 Demande de démo (Demo.jsx)
+### 2.15 Demande de démo (Demo.jsx), devenue « Nous contacter »
+
+> Depuis le repositionnement (1.2 bis), la page s'adresse aux commanditaires : nom, fonction, type de structure (acteur public ou entreprise), structure, coordonnées, public accompagné, nombre de personnes, échéance, message. Les lignes ci-dessous sont historiques.
 
 | Fichier et élément | Texte actuel exact | Proposition | Raison |
 |---|---|---|---|

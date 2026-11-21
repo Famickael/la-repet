@@ -12,7 +12,7 @@ export async function openStream(audioOnly) {
 
 /* Message adapté à la cause : accès refusé, appareil absent, appareil déjà utilisé, navigateur trop ancien. */
 export function mediaError(e, { warmup = false } = {}) {
-  const alt = warmup ? "passez en voix seule" : "choisissez « Voix seule »";
+  const alt = warmup ? "passez en voix seule" : "choisissez « Voix seule »";
   switch (e?.name) {
     case "NotAllowedError": case "SecurityError":
       return { title: "Accès refusé", text: `L'accès a été refusé. Autorisez la caméra ou le micro dans les réglages du navigateur, ou ${alt}.` };

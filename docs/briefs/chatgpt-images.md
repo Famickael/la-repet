@@ -37,7 +37,7 @@ Chemin : `public/img/categories/<identifiant>.webp`, **800 × 450 (16:9)**. Imag
 | `categories/visio.webp` | Entretien en visio | Une personne face à son ordinateur portable, lumière de fenêtre devant elle, intérieur rangé. |
 | `categories/guides.webp` | Guides La Répét' | Gros plan sur des mains qui tiennent un téléphone posé sur un support, écran non lisible, carnet à côté. |
 | `categories/coachs.webp` | Pour les coachs | Une coach annote un carnet à côté d'un ordinateur, dans un bureau clair. |
-| `categories/organismes.webp` | Pour les organismes | Une petite équipe de trois personnes en réunion autour d'une table, ambiance calme. |
+| `categories/commanditaires.webp` | Pour les commanditaires | Une petite équipe de trois personnes en réunion autour d'une table, ambiance calme. |
 
 ## En-têtes d'articles
 
@@ -45,7 +45,7 @@ Chemin : `public/img/ressources/<slug>.webp`, **1200 × 630** (format de partage
 
 | Fichier | Article | Texte alternatif attendu (consigne de scène) | État actuel |
 |---|---|---|---|
-| `ressources/deployer-la-repet-dans-votre-organisme.webp` | Déployer La Répét' dans votre organisme | Deux femmes échangent autour d'une petite table ronde près d'une fenêtre. | provisoire PIL |
+| `ressources/confier-un-accompagnement.webp` | Confier un accompagnement à notre organisme | Deux femmes échangent autour d'une petite table ronde près d'une fenêtre. | provisoire PIL |
 | `ressources/gerer-le-trac-et-preparer-sa-venue.webp` | Gérer le trac et préparer sa venue | Une personne vérifie un itinéraire sur son téléphone avant un rendez-vous. | provisoire PIL |
 | `ressources/parler-de-ses-experiences-methode-sar.webp` | Parler de ses expériences avec la méthode situation, action, résultat | Deux personnes échangent autour d'une table de réunion dans un bureau lumineux. | photo Unsplash provisoire |
 | `ressources/premiere-repetition-pas-a-pas.webp` | Votre première répétition, pas à pas | Un homme avec des écouteurs s'entraîne face à son ordinateur portable, un carnet ouvert devant lui. | photo Unsplash provisoire |

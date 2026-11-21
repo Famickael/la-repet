@@ -20,10 +20,7 @@ export const GStyle = () => (
     html.rp-lock,html.rp-lock body{overflow:hidden!important;overscroll-behavior:none}
     /* Menu mobile ouvert : boutons flottants retirés (rien de cliquable derrière le panneau) */
     html.rp-menu-open .rp-totop,html.rp-menu-open .rp-ai-fab,html.rp-menu-open .rp-ai-bubble,html.rp-account-open .rp-totop,html.rp-account-open .rp-ai-fab,html.rp-account-open .rp-ai-bubble{display:none!important}
-    /* Panneau « Mon compte » : à droite sur grand écran, plein écran sur mobile */
-    .rp-account-ov{position:fixed;inset:0;z-index:${Z.modal};background:${T.overlay};display:flex;justify-content:flex-end;animation:rpFade ${MO.base} ${MO.ease} both}
     @keyframes rpFade{from{opacity:0}to{opacity:1}}
-    .rp-account{width:min(400px,100vw);height:100%;background:${T.surface};box-shadow:${SH.lg};display:flex;flex-direction:column;animation:rpAiIn ${MO.enter} ${MO.ease} both}
     ::selection{background:${T.lavender};color:${T.surface}}
     img{max-width:100%}
     @keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
@@ -98,6 +95,11 @@ export const GStyle = () => (
     @keyframes rpBlD{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-5px)}}
     .rp-bl-full{position:fixed;inset:0;z-index:${Z.modal + 2};display:grid;place-items:center;background:${T.bg};animation:up ${MO.base} ${MO.ease} both}
     .rp-totop{position:fixed;right:22px;z-index:${Z.nav};box-shadow:${SH.sm}}
+    /* « Revenir en haut » : fondu à l'apparition et à la disparition (opacité, déplacement de 8 px) ; mouvement réduit : opacité seule */
+    .rp-icbtn.rp-totop{opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .3s ${MO.ease},transform .3s ${MO.ease},background-color ${MO.fast},border-color ${MO.fast}}
+    .rp-icbtn.rp-totop.is-in{opacity:1;transform:none;pointer-events:auto}
+    html[data-motion=reduce] .rp-icbtn.rp-totop{transform:none!important;transition:opacity .3s ease!important}
+    @media (prefers-reduced-motion: reduce){ .rp-icbtn.rp-totop{transform:none!important;transition:opacity .3s ease!important} }
     /* Bordure haute en dégradé des cartes : bleu vers violet (personne accompagnée), vert (coach), IA */
     .rp-tb::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding-top:5px;background:var(--tb);-webkit-mask:${MASK} content-box,${MASK};-webkit-mask-composite:xor;mask:${MASK} content-box,${MASK};mask-composite:exclude;pointer-events:none;z-index:1}
     .rp-tb-main{--tb:${GRAD_MAIN}} .rp-tb-coach{--tb:${GRAD_COACH}} .rp-tb-ai{--tb:${GRAD_AI}}
@@ -108,6 +110,13 @@ export const GStyle = () => (
     .rp-voice.on i:nth-child(2){animation-delay:.15s}.rp-voice.on i:nth-child(3){animation-delay:.3s}.rp-voice.on i:nth-child(4){animation-delay:.45s}
     @keyframes rpVoice{0%,100%{height:6px}50%{height:16px}}
     .rp-trustlink:hover{color:${T.primary}!important;text-decoration:underline!important}
+    /* Pied de page : présentation et trois groupes de liens sur une rangée (3/2/2/2), engagements répartis sur la largeur */
+    .rp-fgrid{display:grid;grid-template-columns:minmax(0,3fr) repeat(3,minmax(0,2fr));gap:24px 40px}
+    footer .rp-trust{justify-content:space-between;row-gap:0!important}
+    @media (max-width:1023px){ .rp-fgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 32px} footer .rp-trust{justify-content:flex-start;column-gap:24px!important} }
+    @media (max-width:560px){ .rp-fgrid{gap:16px 24px} .rp-fbrief{grid-column:1/-1} }
+    /* Mobile : espace sous le pied de page pour que la languette d'accessibilité et « Revenir en haut » ne masquent pas les derniers liens */
+    @media (max-width:760px){ .rp-foot{padding-bottom:64px} }
     .rp-icbtn{width:44px;height:44px;border-radius:50%;display:inline-grid;place-items:center;cursor:pointer;flex-shrink:0;padding:0;transition:background-color ${MO.fast},border-color ${MO.fast}}
     .rp-icbtn-outline{border:1px solid ${T.line};background:${T.surface}}
     .rp-icbtn-outline:hover{border-color:${T.primary}}
@@ -213,7 +222,8 @@ export const GStyle = () => (
     .on .rs-line{animation:rsUp .45s ${MO.soft} both}
     /* Fond de l'accueil qui suit la souris */
     .rs-glow{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;-webkit-mask:${FADE_FOOT};mask:${FADE_FOOT}}
-    .rs-glow>i{position:absolute;inset:-12%;background:radial-gradient(48vmax circle at var(--mx,72%) var(--my,18%),${GLOW.violet},transparent 70%),radial-gradient(56vmax circle at calc(100% - var(--mx,72%)) calc(100% - var(--my,18%)),${GLOW.blue},transparent 70%);animation:rsDrift 26s ${MO.soft} infinite alternate}
+    .rs-glow>i{position:absolute;inset:-12%;background:radial-gradient(48vmax circle at var(--vx,72%) var(--vy,18%),${GLOW.violet},transparent 70%),radial-gradient(56vmax circle at var(--bx,28%) var(--by,82%),${GLOW.blue},transparent 70%);animation:rsDrift 26s ${MO.soft} infinite alternate}
+    .rs-glow>b{position:absolute;inset:0;background:radial-gradient(22vmax circle at var(--px,50%) var(--py,50%),${T.bg} 0,${T.bg} 30%,transparent 100%);opacity:var(--clear,0);transition:opacity ${MO.slow} ${MO.soft}}
     @keyframes rsDrift{0%{transform:translate3d(0,0,0)}33%{transform:translate3d(-5%,3%,0)}66%{transform:translate3d(4%,-3%,0)}100%{transform:translate3d(-2%,5%,0)}}
     .rs-in{opacity:0;transform:translateY(12px);transition:opacity ${MO.reveal} ${MO.soft},transform ${MO.reveal} ${MO.soft}}
     .on .rs-in{opacity:1;transform:none}
@@ -310,6 +320,9 @@ export const GStyle = () => (
     .rs-chips{display:flex;gap:8px;flex-wrap:wrap}
     .rp-split{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:${GAP.grid}px;align-items:start}
     .rp-stack{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:${GAP.grid}px}
+    /* « Mon espace » : lien qui déplie la carte coach, sur mobile seulement (la carte reste visible sur grand écran) */
+    .rp-coach-toggle{display:none}
+    @media (max-width:760px){ .rp-coach-toggle{display:block;margin-top:-8px} .rp-coach-card:not(.is-open){display:none} .rp-espace{padding-top:16px!important} }
     @media (max-width:1023px){ .rs-g4{grid-template-columns:repeat(2,minmax(0,1fr))} .rs-art{grid-template-columns:minmax(0,1fr);gap:32px} .rs-art-side{position:static} }
     @media (prefers-reduced-motion: reduce){
       *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
@@ -325,6 +338,39 @@ export const GStyle = () => (
     html[data-links=on] a,html[data-links=on] .navlink,html[data-links=on] .rp-link{text-decoration:underline!important;text-underline-offset:3px}
     html[data-focusring=on] :focus-visible{outline:3px solid ${T.navy}!important;outline-offset:3px!important;box-shadow:${SH.ring}!important}
     .rp-ruler{position:fixed;left:0;right:0;z-index:${Z.modal + 1};background:${T.overlay};pointer-events:none}
+    /* Options d'accessibilité (8 bis) : languette en demi-cercle au bord gauche (milieu de l'écran ; en bas à gauche sur mobile),
+       qui s'allonge au survol et au focus ; le panneau se déploie depuis elle (clip-path de la forme de la languette au panneau). */
+    .rp-a11y{--a11y-w:32px;--a11y-h:52px}
+    .rp-a11y-tab{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:${Z.nav + 1};width:var(--a11y-w);height:var(--a11y-h);color:${T.surface}!important;transition:opacity ${MO.base} ${MO.ease}}
+    .rp-a11y-knob,.rp-a11y-label{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;background:${T.primary};border-radius:0 ${RAD.pill}px ${RAD.pill}px 0;transition:background-color ${MO.fast}}
+    .rp-a11y-knob{z-index:1;width:var(--a11y-w);padding-left:6px}
+    .rp-a11y-label{padding:0 20px 0 calc(var(--a11y-w) + 8px);font:${F("label")};white-space:nowrap;transform:translateX(calc(var(--a11y-w) - 100%));transition:transform .3s ${MO.ease},background-color ${MO.fast}}
+    .rp-a11y-tab:focus-visible{outline:none}
+    .rp-a11y-tab:focus-visible .rp-a11y-label{transform:none;outline:2px solid ${T.primary};outline-offset:2px}
+    @media (hover:hover){.rp-a11y-tab:hover .rp-a11y-label{transform:none}.rp-a11y-tab:hover :is(.rp-a11y-knob,.rp-a11y-label){background:${T.primaryDk}}}
+    .rp-a11y.is-open .rp-a11y-tab{opacity:0;pointer-events:none}
+    .rp-a11y-panel{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:${Z.modal};width:min(640px,calc(100vw - 16px));filter:drop-shadow(${SH.lg});visibility:hidden;transition:visibility 0s linear .45s}
+    .rp-a11y.is-open .rp-a11y-panel{visibility:visible;transition:none}
+    .rp-a11y-shape{display:flex;flex-direction:column;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);background:${T.surface};border:1px solid ${T.line};border-left:none;border-radius:0 ${RAD.lg}px ${RAD.lg}px 0;overflow:hidden;clip-path:inset(calc(50% - var(--a11y-h) / 2) calc(100% - var(--a11y-w)) calc(50% - var(--a11y-h) / 2) 0 round 0 26px 26px 0);transition:clip-path .45s ${MO.soft}}
+    .rp-a11y.is-open .rp-a11y-shape{clip-path:inset(0 0 0 0 round 0 ${RAD.lg}px ${RAD.lg}px 0)}
+    .rp-a11y-shape>*{opacity:0;transition:opacity ${MO.base} ${MO.ease}}
+    .rp-a11y.is-open .rp-a11y-shape>*{opacity:1;transition:opacity ${MO.base} ${MO.ease} .12s}
+    .rp-a11y-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px 12px 24px;border-bottom:1px solid ${T.line};flex-shrink:0}
+    .rp-a11y-body{padding:16px 16px 16px 16px;overflow-y:auto;overscroll-behavior:contain}
+    .rp-a11y-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+    .rp-a11y-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px 8px 24px;border-top:1px solid ${T.line};flex-shrink:0}
+    .rp-a11y section>h3{padding:0 8px}
+    .rp-a11y-row{display:flex!important;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:48px;padding:4px 8px!important;border-radius:${RAD.sm}px!important;text-align:left!important;transition:background-color ${MO.fast}}
+    .rp-a11y-row:hover{background:${T.primaryBg}!important}
+    .rp-a11y-sw{position:relative;flex-shrink:0;width:40px;height:24px;border-radius:${RAD.pill}px;border:1.5px solid ${T.lineStrong};background:${T.surface};transition:background-color ${MO.base} ${MO.ease},border-color ${MO.base} ${MO.ease}}
+    .rp-a11y-sw i{position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:${T.lineStrong};color:${T.primary};display:grid;place-items:center;transition:transform ${MO.base} ${MO.ease},background-color ${MO.base} ${MO.ease}}
+    .rp-a11y-row[aria-checked=true] .rp-a11y-sw{background:${T.primary};border-color:${T.primary}}
+    .rp-a11y-row[aria-checked=true] .rp-a11y-sw i{transform:translateX(16px);background:${T.surface}}
+    .rp-a11y-seg{display:flex;flex-wrap:wrap;gap:8px}
+    .rp-a11y-seg-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+    .rp-a11y .rp-toggle{height:auto;min-height:44px;padding:4px 12px;flex:1 1 auto}
+    /* Jamais par-dessus un menu, un panneau ou une fenêtre ouverts */
+    html.rp-menu-open .rp-a11y-tab,html.rp-account-open .rp-a11y-tab,html.rp-lock .rp-a11y-tab{display:none!important}
     /* Point de rupture unique : 760 px (référentiel 6) */
     @media (max-width:760px){
       .rp-hide-m,.rp-rail-other{display:none!important}
@@ -353,7 +399,6 @@ export const GStyle = () => (
       .rp-flow{flex-direction:column;gap:20px!important;overflow:visible!important}
       .rp-flow-step{flex:none!important;min-width:0!important}
       .rs-menu{top:${HEADER_H_M}px;padding:16px 16px 40px}
-      .rp-account{width:100vw}
       .rs-hero{grid-template-columns:minmax(0,1fr);gap:40px}
       .rs-bubble{left:-8px}
       .rs-card-pos{right:8px!important;width:min(310px,calc(100% - 16px))!important}
@@ -369,6 +414,14 @@ export const GStyle = () => (
       .rs-tabs-m{display:block}
       .rs-visbox{height:auto!important;min-height:300px}
       .rs-section{padding-top:48px!important}
+      .rp-a11y{--a11y-w:28px;--a11y-h:48px}
+      .rp-a11y-tab{top:auto;bottom:16px;transform:none}
+      .rp-a11y-knob{padding-left:4px}
+      .rp-a11y-panel{top:auto;bottom:16px;transform:none}
+      .rp-a11y-shape{max-height:calc(100vh - ${HEADER_H_M + 32}px);max-height:calc(100dvh - ${HEADER_H_M + 32}px);clip-path:inset(calc(100% - var(--a11y-h)) calc(100% - var(--a11y-w)) 0 0 round 0 26px 26px 0)}
+      .rp-a11y-cols{grid-template-columns:minmax(0,1fr)}
+      .rp-a11y-head{padding-left:16px} .rp-a11y-body{padding:12px 8px} .rp-a11y-foot{padding-left:16px}
+      html.rp-asst-open .rp-a11y-tab{display:none!important}
       .rs-chips.rs-scroll{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px 4px}
       .rs-prose h2{font-size:calc(20px * var(--fs))}
       .rs-quote{font-size:calc(18px * var(--fs))}
@@ -378,7 +431,9 @@ export const GStyle = () => (
     @media (max-width:360px){ .rp-hide-xs{display:none!important} }
     /* En-tête des petits écrans : logo réduit, puis option d'accessibilité déplacée dans le menu (elle y est déjà) */
     @media (max-width:420px){ .rp-head-logo .rp-logo-sym{height:30px!important} .rp-head-logo .rp-logo-word{height:28px!important} }
-    @media (max-width:359px){ .rp-head-a11y{display:none!important} .rp-nav{padding:0 12px!important} }
+    @media (max-width:359px){ .rp-nav{padding:0 12px!important} }
+    /* Bouton d'accessibilité de l'en-tête remplacé par la languette du bord gauche (8 bis) ; l'entrée du menu mobile et de « Mon compte » reste */
+    .rp-head-a11y{display:none!important}
     /* Cibles tactiles de 44 px (référentiel 8) sur mobile et sur tout écran tactile */
     @media (max-width:760px),(pointer:coarse){
       .rs-chip,[role=tab]{min-height:44px}

@@ -46,7 +46,7 @@ export function TakeReport({ p, take, mode, go, series, nextQuestion, stopSeries
       <Card style={{ ...actions, gap: 16 }} className="noprint">
         <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
           {take.shared && <span style={{ color: T.successDk, display: "inline-flex", marginTop: 2 }}><Icon d={I.check} s={20} /></span>}
-          {head(take.report ? "Rapport reçu" : take.shared ? "Réponse envoyée à votre coach" : `Envie d'en parler avec ${p.counselor || "votre coach"} ?`,
+          {head(take.report ? "Rapport reçu" : take.shared ? "Réponse envoyée à votre coach" : `Envie d'en parler avec ${p.counselor || "votre coach"} ?`,
             take.shared ? (take.report ? "Vous pouvez continuer à vous entraîner et envoyer une nouvelle réponse à tout moment." : `Vous pouvez continuer à vous entraîner. ${PHRASES.sent}`) : "Cette réponse reste sur votre appareil tant que vous ne l'envoyez pas.")}
         </div>
         {/* Deux actions visibles, les autres dans « Autres actions » (UI-02) ; la suppression en dernier, confirmée */}
@@ -57,17 +57,17 @@ export function TakeReport({ p, take, mode, go, series, nextQuestion, stopSeries
             { label: "Supprimer cette réponse", icon: I.trash, danger: true, onClick: () => setConfirmDel(true) },
           ]} />
           {!series?.hasNext && <Btn kind="secondary" size="sm" onClick={() => go("pick", { queue: null, selection: null, preselect: null })} icon={I.redo}>M'entraîner encore</Btn>}
-          {take.shared && !take.report && <Btn kind="secondary" size="sm" onClick={() => unshareTake(take.id)} icon={I.redo}>Reprendre mon envoi</Btn>}
+          {take.shared && !take.report && <Btn kind="secondary" size="sm" onClick={() => unshareTake(take.id)} icon={I.redo}>Annuler l'envoi</Btn>}
           {!take.shared && <Btn kind={series?.hasNext || series?.full ? "secondary" : "objective"} size="sm" onClick={() => go("share")} icon={I.send}>Envoyer à mon coach</Btn>}
         </div>
       </Card>
       {confirmDel && (
-        <ConfirmDialog title="Supprimer cette réponse ?" confirmLabel="Supprimer" onCancel={() => setConfirmDel(false)} onConfirm={del}>
+        <ConfirmDialog title="Supprimer cette réponse ?" confirmLabel="Supprimer" onCancel={() => setConfirmDel(false)} onConfirm={del}>
           {nofb && !take.report ? "La réponse est effacée de cet appareil." : `La réponse${nofb ? "" : take.report ? ", son retour" : " et son retour"}${take.report ? " et le rapport de votre coach" : ""} sont effacés de cet appareil.`} C'est définitif.
         </ConfirmDialog>
       )}
       <div className="noprint">
-        <Chip tone="ai" check={false} onClick={() => openAssistant("feedback")}><Icon d={I.chat} s={16} /> {nofb ? "Une question sur l'entretien ? Demandez à l'assistant" : "Une question sur ce retour ? Demandez à l'assistant"}</Chip>
+        <Chip tone="ai" check={false} onClick={() => openAssistant("feedback")}><Icon d={I.chat} s={16} /> {nofb ? "Une question sur l'entretien ? Demandez à l'assistant" : "Une question sur ce retour ? Demandez à l'assistant"}</Chip>
       </div>
       <div className="noprint"><Back onClick={back} /></div>
     </div>

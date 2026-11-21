@@ -60,12 +60,12 @@ function CoachPanel({ prenom, question, poste, dims, intro, comments, getTime, o
   };
   const reuse = [
     intro.trim() && ["Mon mot d'introduction", intro],
-    ...usable.filter(d => (comments[d.id] || "").trim()).map(d => [`Ma remarque : ${d.titre}`, comments[d.id]]),
+    ...usable.filter(d => (comments[d.id] || "").trim()).map(d => [`Ma remarque : ${d.titre}`, comments[d.id]]),
   ].filter(Boolean);
 
   return (<>
     <div style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "16px 16px 8px", display: "grid", gap: 16, alignContent: "start" }}>
-      <Txt v="small" color={T.body}>Des propositions à relire et à adapter. Elles s'insèrent dans votre brouillon : rien n'est envoyé à {prenom || "la personne"} sans vous.</Txt>
+      <Txt v="small" color={T.body}>Des propositions à relire et à adapter. Elles s'insèrent dans votre brouillon : rien n'est envoyé à {prenom || "la personne"} sans vous.</Txt>
       <RadioGroup aria-label="Ce que vous voulez rédiger" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {MODES.map(([id, l]) => <Chip key={id} role="radio" on={mode === id} onClick={() => { setMode(id); setPage(0); }}>{l}</Chip>)}
       </RadioGroup>
@@ -87,7 +87,7 @@ function CoachPanel({ prenom, question, poste, dims, intro, comments, getTime, o
               {reuse.map(([l, v]) => <Chip key={l} check={false} onClick={() => setDraft(v)}>{l}</Chip>)}
             </div>
           )}
-          <Textarea id="coach-asst-text" value={draft} onChange={e => setDraft(e.target.value)} maxLength={1200} placeholder="Par exemple : tu parles trop vite, il faut ralentir." />
+          <Textarea id="coach-asst-text" value={draft} onChange={e => setDraft(e.target.value)} maxLength={1200} placeholder="Par exemple : tu parles trop vite, il faut ralentir." />
           <Btn kind="ai" disabled={!draft.trim() || busy} onClick={() => run({ mode: "rephrase" })} icon={I.sparkle}>Reformuler</Btn>
         </div>
       )}
@@ -108,7 +108,7 @@ function CoachPanel({ prenom, question, poste, dims, intro, comments, getTime, o
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }} role="group" aria-label="Insérer cette proposition">
                 <Btn kind="secondary" size="sm" icon={I.plus} onClick={() => insert("intro", it)}>Dans l'introduction</Btn>
                 {(it.dimId || dim) && mode !== "debrief" && mode !== "intro" && (
-                  <Btn kind="secondary" size="sm" icon={I.plus} onClick={() => insert("comment", it)} aria-label={`Sur l'observation : ${(usable.find(d => d.id === (it.dimId || dimId)) || {}).titre || ""}`}>Sur l'observation</Btn>
+                  <Btn kind="secondary" size="sm" icon={I.plus} onClick={() => insert("comment", it)} aria-label={`Sur l'observation : ${(usable.find(d => d.id === (it.dimId || dimId)) || {}).titre || ""}`}>Sur l'observation</Btn>
                 )}
                 <Btn kind="secondary" size="sm" icon={I.plus} onClick={() => insert("note", it)} aria-label={`En note à ${fmt(time)} de la vidéo`}>Note à {fmt(time)}</Btn>
               </div>
@@ -119,7 +119,7 @@ function CoachPanel({ prenom, question, poste, dims, intro, comments, getTime, o
       {!busy && mode !== "rephrase" && res.items.length > 0 && <div><Btn kind="ghost" size="sm" icon={I.redo} onClick={() => setPage(p => p + 1)}>Autres propositions</Btn></div>}
     </div>
     <div style={{ padding: "8px 16px 16px", borderTop: `1px solid ${T.lineLt}` }}>
-      <Txt v="caption" color={T.muted}>Sans note, sans émotion supposée, sans jugement sur la personne : les propositions qui ne respectent pas ces règles sont écartées.</Txt>
+      <Txt v="caption" color={T.muted}>Sans note, sans émotion supposée, sans jugement sur la personne : les propositions qui ne respectent pas ces règles sont écartées.</Txt>
     </div>
   </>);
 }

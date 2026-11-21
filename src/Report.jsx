@@ -86,7 +86,7 @@ export function Player({ take, url, status = url ? "ready" : "missing", markers,
             </span>
           </Bare>
           {spread(markers, dur).map(({ m, dx }) => (
-            <Bare key={m.id} title={`${fmt(m.t)} · ${m.label}`} aria-label={`Aller à ${fmt(m.t)} : ${m.label}`} onClick={() => seek(m.t, m.id)}
+            <Bare key={m.id} title={`${fmt(m.t)} · ${m.label}`} aria-label={`Aller à ${fmt(m.t)} : ${m.label}`} onClick={() => seek(m.t, m.id)}
               style={{ position: "absolute", left: `${Math.min(100, (m.t / dur) * 100)}%`, top: 0, width: 44, height: 44, transform: `translate(calc(-50% + ${dx}px), ${m.kind === "note" ? -8 : 0}px)`, display: "grid", placeItems: "center" }}>
               <span style={{ borderRadius: m.kind === "note" ? RAD.xs : "50%", boxShadow: active === m.id ? ringOf(m.kind === "note" ? T.primaryBg : m.type === "appui" ? T.accentBg : T.violetBg) : "none" }}>
                 <Mark kind={kindOf(m)} s={m.kind === "note" ? 12 : 16} />
@@ -129,7 +129,7 @@ export function DimCard({ d, comment, active, onClick }) {
       </span>
       <span style={{ display: "block", ...TY.body, color: T.navy }}>{d.observation}</span>
       <span style={{ display: "block", ...TY.small, color: T.body, background: T.bg, borderRadius: RAD.sm, padding: "8px 12px" }}>{d.conseil}</span>
-      {comment && <Quote><strong>Votre coach :</strong> {comment}</Quote>}
+      {comment && <Quote><strong>Votre coach :</strong> {comment}</Quote>}
     </>
   );
   const st = {

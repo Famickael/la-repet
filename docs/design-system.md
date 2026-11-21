@@ -91,12 +91,12 @@ Demande du propriétaire : plus de profondeur et de présence de la marque sur l
 | `GRAD_SECTION` | `bg`, `primaryBg` au milieu, `bg` | Fond de la strate épinglée (section clé) |
 | `GRAD_PAGE` | `primaryBg` vers `bg` | Fond de `PageHero` (pages secondaires) |
 | `GLOW.blue`, `GLOW.violet` | bleu clair 22 %, violet 20 % | Halos (`Halo`) derrière les photos et le héros : décor, jamais sous du texte |
-| `FADE_FOOT` | masque opaque puis transparent sur 160 px avant le pied de page | Fond de l'accueil qui suit la souris : il s'efface avant le pied de page |
+| `FADE_FOOT` | masque opaque puis transparent sur 160 px avant le pied de page | Fond de l'accueil (repoussé par la souris) : il s'efface avant le pied de page |
 | `HL.appui`, `HL.ai`, `HL.primary` | teintes de fond des rôles | Surlignage progressif d'un passage (cartes animées, strate) |
 
 Début du titre d'accroche (« Répétez votre entretien d'embauche, ») : couleur pleine `navy` dans les deux thèmes (presque blanc en sombre), sans dégradé ; seule la fin d'accroche qui change garde `GRAD_ACCROCHE`.
 
-**Fond de l'accueil.** Un seul calque fixe (`.rs-glow`) derrière toutes les sections de l'accueil, qui n'ont aucun fond propre (ni halo de section, ni `GRAD_HERO`, ni `GRAD_SECTION`) : aucune rupture entre le héros, la phrase et la strate. Il suit la souris ; sur tactile, il dérive lentement seul (`rsDrift`, 26 s, aller-retour, `transform` seulement) et glisse un peu au défilement et au doigt (`touchmove`), avec lissage, sans capteur d'orientation. Il s'efface avant le pied de page (`FADE_FOOT`, variable `--fy`), et le pied de page garde son fond opaque au-dessus. Fixe en mouvement réduit, masqué en mode concentration.
+**Fond de l'accueil.** Un seul calque fixe (`.rs-glow`) derrière toutes les sections de l'accueil, qui n'ont aucun fond propre (ni halo de section, ni `GRAD_HERO`, ni `GRAD_SECTION`) : aucune rupture entre le héros, la phrase et la strate. Souris : le pointeur **repousse** le violet et le bleu, chacun de son côté (`pushed`, `src/home/index.jsx` : poussée qui décroît avec la distance, depuis leurs positions de repos), et dégage sous lui une zone claire au fond du thème (`.rs-glow>b`, `T.bg`), pour que le texte pointé reste lisible dans les quatre thèmes ; la zone s'efface quand la souris quitte la fenêtre. Sur tactile, il dérive lentement seul (`rsDrift`, 26 s, aller-retour, `transform` seulement) et glisse un peu au défilement et au doigt (`touchmove`), avec lissage, sans capteur d'orientation. Il s'efface avant le pied de page (`FADE_FOOT`, variable `--fy`), et le pied de page garde son fond opaque au-dessus. Fixe en mouvement réduit, masqué en mode concentration.
 
 Le bleu et le violet de ces dégradés et halos relèvent de l'exception « dégradé de la marque » ci-dessous : ils ne signalent ni l'assistant ni une action.
 
@@ -169,7 +169,7 @@ Combinaisons **interdites** (mesurées dans le code actuel) : blanc sur `blue` 3
 
 ## 2. Typographie
 
-Trois familles, sans exception : **Manrope** (`FD`) pour les titres, **Inter** (`FB`) pour le texte et l'interface, **JetBrains Mono** (`FM`) pour les chiffres, codes et horodatages.
+Trois familles, sans exception : **Outfit** (`FD`, la police du logo) pour les titres (`h1` à `h4`, `display`, `xl`, `pageTitle`, `quote`, intertitres des articles), **Inter** (`FB`) pour le texte et l'interface, **JetBrains Mono** (`FM`) pour les chiffres, codes et horodatages.
 
 **Règle** : hors de `tokens.js`, il est interdit d'écrire `font:`, `fontSize`, `fontWeight`, `fontFamily`, `lineHeight` ou `letterSpacing`. On écrit `style={{ ...TY.h2, color: T.navy }}` ou `<Txt v="h2">`. **Pourquoi** : le code actuel contient 91 combinaisons taille/graisse/interlignage différentes, dont sept tailles de titre de page (24, 26, 27, 28, 30, 32, 34) et des demi-pixels (10,5 · 11,5 · 12,5 · 13,5 · 14,5 · 15,5).
 
@@ -177,12 +177,12 @@ Trois familles, sans exception : **Manrope** (`FD`) pour les titres, **Inter** (
 
 | Niveau | Jeton | Famille | Graisse | Taille / interligne | Espacement | Mobile (≤ 760 px) | Usage unique |
 |---|---|---|---|---|---|---|---|
-| Titre d'accroche | `TY.display` | Manrope | 800 | 54 / 1,05 | -0,035em | 38 | Titre du héros de l'accueil, une fois dans le site |
-| Titre de section éditoriale | `TY.xl` | Manrope | 800 | 32 / 1,15 | -0,03em | 26 | `h2` des pages Accueil et Fonctionnement, bandeau d'appel final |
-| Titre de page | `TY.h1` | Manrope | 800 | 28 / 1,15 | -0,02em | 24 | Le `h1` de chaque écran d'application, titre de `GradHead`, titre d'étape du défilement de l'accueil |
-| Titre de section | `TY.h2` | Manrope | 800 | 20 / 1,25 | -0,01em | 20 | Sections d'un écran (« Mes prises »), titre de modale, titre d'une carte vedette |
-| Titre de carte | `TY.h3` | Manrope | 700 | 16 / 1,3 | 0 | 16 | Cartes de grille, observation, nom dans une liste, état vide |
-| Titre de bloc | `TY.h4` | Manrope | 700 | 14 / 1,4 | 0 | 14 | Intitulé d'un bloc dans une carte, question d'une prise dans une liste |
+| Titre d'accroche | `TY.display` | Outfit | 800 | 54 / 1,05 | -0,035em | 38 | Titre du héros de l'accueil, une fois dans le site |
+| Titre de section éditoriale | `TY.xl` | Outfit | 800 | 32 / 1,15 | -0,03em | 26 | `h2` des pages Accueil et Fonctionnement, bandeau d'appel final |
+| Titre de page | `TY.h1` | Outfit | 800 | 28 / 1,15 | -0,02em | 24 | Le `h1` de chaque écran d'application, titre de `GradHead`, titre d'étape du défilement de l'accueil |
+| Titre de section | `TY.h2` | Outfit | 800 | 20 / 1,25 | -0,01em | 20 | Sections d'un écran (« Mes prises »), titre de modale, titre d'une carte vedette |
+| Titre de carte | `TY.h3` | Outfit | 700 | 16 / 1,3 | 0 | 16 | Cartes de grille, observation, nom dans une liste, état vide |
+| Titre de bloc | `TY.h4` | Outfit | 700 | 14 / 1,4 | 0 | 14 | Intitulé d'un bloc dans une carte, question d'une prise dans une liste |
 | Surtitre | `TY.overline` | Inter | 700 | 11 / 1,3 | 0,08em, capitales | 11 | Au-dessus d'un titre ou d'une valeur ; jamais plus de 4 mots |
 | Chapeau | `TY.lead` | Inter | 400 | 18 / 1,6 | 0 | 16 | Paragraphe sous `display` ou `xl` |
 | Corps de lecture | `TY.bodyLg` | Inter | 400 | 16 / 1,6 | 0 | 16 | Ce que la personne doit lire attentivement : mot du coach, synthèse, phrase sous un `h1` |
@@ -199,11 +199,11 @@ Trois familles, sans exception : **Manrope** (`FD`) pour les titres, **Inter** (
 | Code saisi | `TY.code` | JetBrains Mono | 700 | 24 / 1 | 0,25em | 24 | Champ du code à 6 caractères |
 | Horodatage | `TY.time` | JetBrains Mono | 700 | 11 / 1 | 0 | 11 | Pastille « 0:03 », numéro d'étape |
 | Mono | `TY.mono` | JetBrains Mono | 500 | 12 / 1,5 | 0 | 12 | Code dans une liste, durée, lien affiché, message technique |
-| Titre de page secondaire | `TY.pageTitle` | Manrope | 800 | 38 / 1,1 | -0,03em | 26 | `h1` de `PageHero` et titre d'article (rendu validé) |
-| Citation | `TY.quote` | Manrope | 700 | 20 / 1,45 | 0 | 18 | Citation d'article |
+| Titre de page secondaire | `TY.pageTitle` | Outfit | 800 | 38 / 1,1 | -0,03em | 26 | `h1` de `PageHero` et titre d'article (rendu validé) |
+| Citation | `TY.quote` | Outfit | 700 | 20 / 1,45 | 0 | 18 | Citation d'article |
 | Mise en avant | `TY.strong` | | 700 | | | | `<strong>` dans un paragraphe |
 
-Tailles autorisées (px) : **11, 12, 13, 14, 16, 18, 20, 24, 26, 28, 32, 38, 54**. Graisses autorisées : Manrope 700 et 800 ; Inter 400, 600, 700 ; JetBrains Mono 500 et 700. Toute autre valeur est une erreur (Inter 500 disparaît : `body` ou `bodyStrong`).
+Tailles autorisées (px) : **11, 12, 13, 14, 16, 18, 20, 24, 26, 28, 32, 38, 54**. Graisses autorisées : Outfit 700 et 800 ; Inter 400, 600, 700 ; JetBrains Mono 500 et 700. Toute autre valeur est une erreur (Inter 500 disparaît : `body` ou `bodyStrong`).
 
 Règles d'emploi :
 - Un seul `h1` par écran, et l'ordre des niveaux HTML suit l'ordre visuel (le composant `Txt` sépare la balise `as` du style `v`).
@@ -415,9 +415,13 @@ Le commentaire du coach est un cas nommé (`Quote`) : fond `primaryBg`, filet ga
 
 Panneau latéral non modal (`role="dialog"`, `aria-modal="false"`), ouvert depuis le bouton flottant `Fab` (56 × 56, `GRAD_AI`, en bas à droite) ou par `openAssistant(contexte)` depuis un écran. Ordinateur : à droite, sous l'en-tête, largeur 400 au plus. Mobile (≤ 760) : feuille en bas de 62 % de la hauteur, la page reçoit un espace équivalent en bas pour que rien ne reste caché dessous. Bordure de 2 px en dégradé `GRAD_AI_BORDER` (bleu vers violet), animée une fois à l'apparition (neutralisée par « réduire les animations »). En-tête sans icône : titre « Assistant de préparation d'entretien », mention « Assistant automatique · ce n'est pas une personne ». Focus envoyé dans le champ à l'ouverture, rendu au bouton flottant à la fermeture, Échap ferme, réponses dans un `role="log"` `aria-live="polite"`. Bouton flottant et bulle masqués tant que la caméra ou le micro de l'enregistreur est ouvert. Bulle d'invitation (« Une question pour préparer votre entretien ? ») : à l'ouverture de la page, à la fin d'un enregistrement ou d'un entraînement, une fois par raison et par session ; « Fermer la bulle » la coupe pour la session.
 
-### 5.9 ter Panneau « Mon compte » (`AccountMenu`, `src/App.jsx`)
+### 5.9 ter Menu « Mon compte » (`AccountMenu`, `src/app/AccountMenu.jsx`)
 
-Bouton « Mon compte » dans l'en-tête, sur toutes les pages. Déconnecté : il mène à la page « Mon espace » (code d'accès ou connexion coach). Connecté (coach ou personne accompagnée) : il ouvre un panneau latéral modal (`role="dialog"`, `aria-modal="true"`), à droite, 400 px au plus, plein écran sous 760 px, rendu dans `<body>`, sur le voile `T.overlay`. Contenu : en-tête du compte (pastille à initiale, « Mon compte », prénom ou nom et rôle : « Espace coach » ou « Espace d'entraînement »), puis Retour à mon espace, Vos données, Options d'accessibilité, Changer de code et Retirer mon consentement (personne accompagnée), Se déconnecter. Rangées de 48 px. Focus envoyé sur la première action et retenu, Échap et clic sur le voile ferment, focus rendu au bouton, défilement de la page bloqué (`lockScroll`), page inerte. Jamais ouvert en même temps que l'assistant : l'ouvrir ferme l'assistant (`closeAssistant`), et les boutons flottants sont masqués tant qu'il est ouvert.
+Bouton « Mon compte » dans l'en-tête, sur toutes les pages. Déconnecté : il mène à la page « Mon espace » (code d'accès ou connexion coach). Connecté (coach ou personne accompagnée) : il ouvre un **menu déroulant sous le bouton** (demande du propriétaire, 21 novembre 2026, à la place du panneau latéral), non modal : bouton `secondary` avec chevron qui pivote, `aria-expanded` et `aria-controls` ; menu aligné à droite du bouton, 320 px (au plus la largeur de l'écran moins 32), fond `surface`, bordure `line`, `RAD.md`, `SH.lg`, hauteur bornée à l'écran avec défilement interne. Contenu : en-tête du compte (pastille à initiale, prénom ou nom, rôle), puis Retour à mon espace, Demander de l'aide, Vos données, Options d'accessibilité, Changer de code et Retirer mon accord (personne accompagnée, en `errorDk`), Se déconnecter ; rangées `Bare` de 44 px (`rp-menuitem`). Clavier : focus sur la première action à l'ouverture, flèches haut et bas, Début, Fin ; Échap ferme et rend le focus au bouton ; clic extérieur ou tabulation hors du menu ferment. Ni blocage du défilement ni page inerte (menu non modal). Jamais ouvert en même temps que l'assistant (`closeAssistant`). Sur les pages publiques, quand le menu mobile est affiché (1023 px et moins), « Mon compte » passe dans le menu mobile : même en-tête, mêmes actions (`AccountActions`). La confirmation du retrait de l'accord reste une `Modal`.
+
+**« Nous contacter » et « Demander de l'aide ».** Session ouverte : le bouton secondaire de l'en-tête devient « Demander de l'aide » et mène aux questions fréquentes, sur la section de la personne connectée (`#/ressources/faq/personnes-accompagnees` ou `#/ressources/faq/coachs`). Même entrée dans « Mon compte » et dans le menu mobile.
+
+**Sous-menus de l'en-tête.** Un seul sous-menu visible à la fois (état tenu par `Nav`). Survol : délai d'intention de 120 ms avant d'ouvrir un premier sous-menu, puis bascule immédiate de l'un à l'autre dans la même image (classe `rp-swap` : pas d'animation d'entrée, l'ancien est masqué aussitôt), délai de grâce de 250 ms à la sortie. Clic extérieur, Échap et changement de page ferment. Entrées de troisième niveau (« Demandeurs d'emploi », « Collaborateurs en mobilité ») en retrait (`rp-subitem3`). Le bouton d'accessibilité ne figure plus dans l'en-tête (languette, `src/A11y.jsx`) ; ses entrées restent dans le menu mobile et dans « Mon compte ».
 
 ### 5.9 quater Assistant de rédaction du rapport (`CoachAssistantDock`, `src/CoachAssistant.jsx`)
 
@@ -463,6 +467,8 @@ Remplace 1000, 920, 820, 720, 680, 640, 580, 560, 460.
 - Point de rupture principal : 760 px (autres seuils de `GStyle` : 1023 px pour le menu repliable, 360 px pour les très petits écrans, hauteur 520 px en paysage). Sous 760 px : une colonne, gouttière latérale 16, cartes en `pad` mobile, groupes de boutons en pleine largeur, titres en taille mobile. Aucun défilement horizontal de page.
 - En-tête collant de 64 (mobile 56), `z-index` 50 ; modale 100 (`Z.nav`, `Z.modal`).
 - Impression : en-tête, pied et éléments `.noprint` masqués, fond blanc.
+- **Première vue sans défilement** (demande du propriétaire) : un écran qui propose un choix à la personne (« Mon espace », `#/espace` et `#/coach` sans connexion) le montre entièrement dans la première vue, à 1280 × 800 comme à 390 × 844. « Mon espace » n'a donc pas d'en-tête de page visible : son `h1` « Mon espace » est masqué visuellement (`.rp-sr`), les deux cartes (code d'accès, connexion coach) suivent directement l'en-tête du site. Sous 760 px, la carte coach, préremplie, est repliée sous le lien « Vous êtes coach ? Afficher la connexion » (`aria-expanded`, `aria-controls`) pour laisser la place à la saisie du code. Vérifié par `test:site`.
+- **Pied de page complet** (`src/app/Footer.jsx`) : engagements (icônes colorées, exception de la section 1.5) sur une ligne en haut, répartis sur la largeur ; dessous, une seule rangée de quatre blocs, la présentation (logo et brief) à gauche, à côté des groupes « Vos données », « Le site », « Informations légales ». Colonnes 3/2/2/2 (`.rp-fgrid`), gouttières 24 × 40 ; 1023 px et moins : deux colonnes (la présentation à côté de « Vos données ») ; 560 px et moins : présentation sur toute la largeur, groupes sur deux colonnes ; sous 760 px, 64 px d'espace sous le pied pour que les boutons flottants ne masquent pas les derniers liens. Pied réduit des espaces inchangé.
 
 ---
 
@@ -480,7 +486,8 @@ Remplace 1000, 920, 820, 720, 680, 640, 580, 560, 460.
 | `MO.soft` (v3.1) | `cubic-bezier(.45,0,.55,1)` | Courbe douce (ease-in-out) des transitions lentes ci-dessus |
 | `PACE.scene` (v3.2) | 11 500 ms | Durée d'une scène du héros (laisse le temps de lire la scène à côté du titre). Pause au survol, au focus et par le bouton pause |
 | `PACE.accroche` (v3.2) | 11 500 ms | Fin d'accroche synchronisée avec sa scène : même cadence, même fondu (`MO.fade`) |
-| Écran de chargement (v3.2) | 2,5 s minimum (rapprochement des bulles 1,3 s, puis les points), fondu de sortie 0,7 s sur `opacity` seule, calque retiré à `transitionend` | Durée comptée depuis le début de la navigation, pour jouer une fois l'animation complète (bulles qui se rejoignent, puis trois points). « Réduire les animations » : écran statique, 0,6 s. Navigateur piloté : retrait immédiat. Retrait de secours en CSS à 10 s (`index.html`, `src/Loader.jsx`) |
+| Écran de chargement (v3.4) | 2,5 s minimum (décision du propriétaire : rapprochement des bulles 1,3 s, puis les points), barre de chargement de 3 px sous le logo, sortie en un seul mouvement de 0,8 s (`MO.soft`) | Durée comptée depuis le début de la navigation. **Barre** : 112 × 3 px, `RAD` 2, remplissage `T.violet` sur piste `T.line` (valeurs recopiées dans `index.html`, clair et sombre), progresse jusqu'à 90 % pendant la durée minimale (`transform: scaleX`), puis se complète en 250 ms en repartant de sa valeur affichée. **Sortie** : le calque passe en fondu (`opacity`) pendant que les deux bulles du logo s'écartent (`transform` sur un groupe intérieur, distinct de l'animation d'entrée : aucun saut), points et barre en fondu plus court. Calque de `100vw` : le logo ne bouge pas quand la barre de défilement apparaît. Le retrait attend qu'aucun écran d'attente de page (`BrandLoader` de `Suspense`) ne soit affiché : pas de double rendu. « Réduire les animations » : écran statique sans barre, 0,6 s, puis fondu simple de 0,4 s. Navigateur piloté : retrait immédiat. Retrait de secours en CSS à 10 s, y compris en mouvement réduit (`index.html`, `src/Loader.jsx`) |
+| « Revenir en haut » (v3.4) | 300 ms, `MO.ease` | Apparaît et disparaît en fondu (`opacity`, déplacement de 8 px vers le haut), jamais d'apparition sèche ; masqué, il reste dans la page sans être atteignable (`tabIndex` -1, `aria-hidden`, `pointer-events: none`). Mouvement réduit : opacité seule, même durée (prioritaire sur la règle globale) |
 
 Les pages publiques (accueil, à propos, solutions, ressources) utilisent les durées lentes ; l'application (espaces bénéficiaire et coach) garde `MO.fast`, `MO.base` et `MO.enter` pour rester réactive.
 
@@ -510,7 +517,9 @@ Les pages publiques (accueil, à propos, solutions, ressources) utilisent les du
 
 ### 8 bis. Options d'accessibilité et thèmes
 
-**Où.** Bouton icône « Options d'accessibilité » (`I.a11y`, `IconBtn`) dans l'en-tête, à côté de « Mon compte » ; entrée « Options d'accessibilité » dans le menu mobile et dans le panneau « Mon compte ». Il ouvre une `Modal` (`src/A11y.jsx`).
+**Où (v3.4).** Languette en demi-cercle collée au **bord gauche** de l'écran (`src/A11y.jsx`, classes `.rp-a11y-*` de `GStyle`), conteneur placé juste après `#root` : le lien d'évitement reste le premier arrêt de tabulation (A11Y-01), la languette est le dernier (une tabulation arrière depuis la barre d'adresse). Fond `T.primary`, icône `I.a11y` en `T.surface`, 32 × 52 au milieu de la hauteur sur ordinateur, 28 × 48 en bas à gauche (16 px du bas) sous 760 px. Au survol (pointeur fin) et au focus clavier, elle s'allonge pour afficher « Accessibilité » (le libellé glisse de sous le demi-cercle, `transform` seul, 300 ms, `MO.ease`) ; survol en `T.primaryDk`. Nom accessible « Options d'accessibilité » (contient le libellé visible), `aria-expanded`, `aria-controls`. Le bouton icône de l'en-tête est masqué (`.rp-head-a11y`) ; les entrées « Options d'accessibilité » du menu mobile et du panneau « Mon compte » restent et ouvrent le même panneau (`openA11y()`).
+
+**Panneau.** Au clic, la forme de la languette s'agrandit jusqu'au panneau (`clip-path` de la languette au rectangle arrondi, 450 ms, `MO.soft` ; contenu en fondu décalé de 120 ms) : pas de voile ni de fenêtre centrée. `role="dialog"`, `aria-modal="true"`, titre « Options d'accessibilité » ; focus envoyé sur le premier réglage et retenu dans le panneau, Échap et clic ou toucher en dehors ferment, focus rendu à l'élément d'origine (sinon à la languette). Fermé, il reste dans la page, inerte (`inert`) et invisible. Largeur 640 au plus (2 colonnes), hauteur limitée à l'écran avec défilement interne ; sous 760 px : pleine largeur moins 16, une colonne, ancré en bas à gauche. Ombre portée par `filter: drop-shadow(SH.lg)` sur le parent (une `box-shadow` serait coupée par le `clip-path`). Quatre groupes (surtitre `TY.overline` `T.muted`) : **Texte** (taille, police lisible, texte espacé), **Couleurs** (thème, contraste élevé), **Lecture et attention** (règle de lecture, mode concentration, réduire les animations), **Repères** (liens soulignés, focus renforcé). Choix exclusifs en `Toggle` dans un `RadioGroup` ; options en rangées de 48 px (`Bare role="switch"`, `aria-checked`) avec un interrupteur visible (piste `lineStrong` puis `primary`, pastille qui se déplace et porte une coche : l'état ne repose pas sur la couleur seule). Pied : état (« Réglages par défaut » ou « N réglages modifiés », `role="status"`) et « Réinitialiser ». La languette se masque sous le menu mobile, le panneau « Mon compte », une fenêtre (`html.rp-lock`) et, sur mobile, sous l'assistant ouvert ; elle ne chevauche ni « Revenir en haut » ni le bouton de l'assistant (à droite). **Exception documentée** : la languette fait 32 (mobile 28) de large pour ne pas masquer le contenu ; sa hauteur est de 52 (mobile 48) et la cible dépasse le minimum WCAG 2.5.8 (24 × 24). `clip-path` est la seule propriété animée hors `transform` et `opacity` (pas de recalcul de mise en page).
 
 **Réglages** (mémorisés dans `localStorage`, clé `larepet.a11y`, lecture et écriture sous `try/catch` ; `src/lib/a11y.js`) :
 
@@ -518,7 +527,7 @@ Les pages publiques (accueil, à propos, solutions, ressources) utilisent les du
 |---|---|---|
 | Taille du texte | 4 niveaux : 100, 112,5, 125, 150 % | variable `--fs` : chaque taille de `TY` vaut `calc(Npx * var(--fs, 1))` |
 | Thème | Automatique (suit le système), clair, sombre | `html[data-theme]` ; variables `--c-*` |
-| Contraste renforcé | Textes secondaires et bordures plus marqués | `html[data-contrast=more]` ; palettes `HC_LIGHT`, `HC_DARK` |
+| Contraste élevé (« contraste renforcé ») | Textes secondaires et bordures plus marqués | `html[data-contrast=more]` ; palettes `HC_LIGHT`, `HC_DARK` |
 | Police lisible | Atkinson Hyperlegible (auto-hébergée) pour titres et texte | `html[data-font=lisible]` change `--ff-d` et `--ff-b` |
 | Texte espacé | Lettres 0,12 em, mots 0,16 em, lignes 1,8, texte aligné à gauche (WCAG 1.4.12) | `html[data-spacing=on]` |
 | Réduire les animations | Mêmes règles que `prefers-reduced-motion` | `html[data-motion=reduce]`, `useReducedMotion()` |
@@ -572,7 +581,7 @@ Décrire, ne jamais noter. Formulation positive, appui avant exploration. Un bou
 | C3 | une opacité est concaténée à un jeton | `\$\{[^}]+\}[0-9a-fA-F]{2}(?![0-9a-zA-Z])` | aucune |
 | C4 | un nom de couleur CSS est utilisé | `:\s*"(white\|black\|red\|green\|blue\|gray\|grey)"` | `"transparent"`, `"currentColor"`, `"inherit"`, `"none"` |
 | T1 | une propriété typographique est écrite | `\b(font\|fontSize\|fontWeight\|fontFamily\|lineHeight\|letterSpacing)\s*:` dans un objet de style | `fontStyle`, `font: "inherit"` |
-| T2 | une famille est nommée | `Manrope\|Inter\|JetBrains\|Segoe\|sans-serif\|monospace` | textes de contenu de `src/content/` (mentions légales qui citent les polices) |
+| T2 | une famille est nommée | `Outfit\|Manrope\|Inter\|JetBrains\|Segoe\|sans-serif\|monospace` | textes de contenu de `src/content/` (mentions légales qui citent les polices) |
 | S1 | `padding*`, `margin*`, `gap`, `rowGap`, `columnGap` contient un nombre de px hors de l'échelle `SPACE` | tout nombre, isolé ou dans une chaîne `"12px 16px"` ; signe négatif admis | `auto`, `%`, `vh`, `svh`, `em`, `calc()` ; les valeurs `PAD.*`, `GAP.*`, `sp(n)` |
 | S2 | `sp(n)` est appelé avec un `n` tel que `4n` est hors échelle | `sp\(([\d.]+)\)` | aucune |
 | S3 | `<Card pad=` reçoit autre chose que `"none"`, `"sm"`, `"md"`, `"lg"` | `<Card[^>]*\bpad=\{` | aucune |
@@ -616,7 +625,7 @@ export const T = { /* jetons existants */
   overlay: "rgba(27,58,102,.45)", videoBg: "#000000",
 };                                  // supprimer T.ink
 export const ON = { text: "#FFFFFF", chip: "rgba(255,255,255,.2)", line: "rgba(255,255,255,.3)", glow: "rgba(255,255,255,.16)", scrim: "rgba(0,0,0,.5)" };
-export const FD = "'Manrope', 'Segoe UI', sans-serif", FB = "'Inter', 'Segoe UI', sans-serif", FM = "'JetBrains Mono', monospace";
+export const FD = "'Outfit', 'Segoe UI', sans-serif", FB = "'Inter', 'Segoe UI', sans-serif", FM = "'JetBrains Mono', monospace";
 export const SIZES = [11, 12, 13, 14, 16, 18, 20, 24, 26, 28, 32, 38, 54];
 export const WEIGHTS = { [FD]: [700, 800], [FB]: [400, 600, 700], [FM]: [500, 700] };
 export const TY = {
@@ -750,5 +759,17 @@ Dégradés : `GRAD` et `GRAD_AI` recomposés selon 1.3, `GRAD_NIGHT` ajouté, `G
 | 2026-11-21 | Bulle d'invitation de l'assistant à gauche du bouton flottant, 240 px au plus, jamais sur la relecture vidéo ; mots éteints de la phrase d'accueil en `lineStrong` (3:1 sur `bg`, texte de 32 px et plus) | Audit UI-07, A11Y-12 |
 
 | 2026-11-21 | Mise à jour des valeurs en vigueur (ARC-21) : écran de chargement 2,5 s minimum, fondu 0,7 s (section 7, `Loader.jsx`) ; `PACE.accroche` 11 500 ms ; points de rupture listés en section 6. Les lignes plus anciennes du journal gardent les valeurs de leur date | Audit ARC-21 |
+
+| 2026-11-21 | Titres en **Outfit** (police du logo) à la place de Manrope : `FONT_STACKS.display`, donc `FD` et tous les styles de titre de `TY` ; Outfit 700 et 800 auto-hébergées (`public/fonts/outfit-latin-{700,800}-normal.woff2`, sous-ensemble latin, Fontsource 5.3.0, licence OFL), Manrope retirée ; préchargement d'Outfit 800 dans `index.html` | Demande du propriétaire : titres dans la police du logo |
+| 2026-11-21 | Typographie française : espace fine insécable (U+202F) avant `;` `?` `!` et à l'intérieur des guillemets, espace insécable (U+00A0) avant `:` et `%` et entre un nombre et son unité ; contrôlée par `npm run test:content` (`tests/lib/typo-fr.mjs`) | Audit RED-11, demande du propriétaire |
+
+| 2026-11-21 | Fond de l'accueil inversé : le violet et le bleu s'écartent du pointeur au lieu de le suivre, zone claire au fond du thème sous la souris ; tactile inchangé (dérive), rien ne bouge en mouvement réduit ; contrôlé par `test:site` | Demande du propriétaire : la zone pointée devenait illisible |
+| 2026-11-21 | Écran de chargement (v3.4) : barre violette de 3 px sous le logo ; sortie en un seul mouvement de 0,8 s (fondu du calque et écart des deux bulles) ; calque de `100vw` (plus de décalage à l'apparition de la barre de défilement) ; retrait après l'écran d'attente de page éventuel ; fondu simple en mouvement réduit, retrait de secours rétabli en mouvement réduit ; durée minimale inchangée (2,5 s). Vérifié image par image (valeurs relevées à chaque image) | Demande du propriétaire : sursaut à la fin du chargement, barre de progression |
+| 2026-11-21 | Options d'accessibilité (v3.4) : languette en demi-cercle au bord gauche (bas à gauche sur mobile) qui s'allonge au survol et au focus, panneau qui se déploie depuis elle par `clip-path` (plus de `Modal`), menu refait en quatre groupes avec interrupteurs visibles et état, focus retenu, Échap et clic extérieur ; bouton de l'en-tête masqué ; exception de taille de cible documentée (8 bis) | Demande du propriétaire |
+| 2026-11-21 | Pied de page : logo et brief passent sous les engagements, à côté des groupes de liens, sur une rangée de quatre blocs (3/2/2/2), deux colonnes en tablette ; espace réservé sous le pied sur mobile | Demande du propriétaire : moins d'espace vide, brief à côté de « Vos données » |
+| 2026-11-21 | « Revenir en haut » en fondu (opacité et 8 px ; opacité seule en mouvement réduit) | Demande du propriétaire : pas d'apparition sèche |
+| 2026-11-21 | « Mon espace » : première vue sans défilement, en-tête de page retiré (`h1` masqué visuellement), carte coach repliée sous un lien sur mobile ; textes « Écrivez le code d'accès donné par votre coach ou votre conseiller. » et « Votre code suffit : pas de compte, pas de mot de passe. Gardez-le pour vous. » | Demande du propriétaire, panel bénéficiaire |
+| 2026-11-21 | Nouveaux menus : À propos (sans sous-menu), Solutions, Cas d'usage, Ressources ; un seul sous-menu visible, délai d'intention et bascule sans chevauchement ; « Mon compte » en menu déroulant sous le bouton (dans le menu mobile sur les pages publiques) ; « Demander de l'aide » en session ; bouton d'accessibilité retiré de l'en-tête | Demande du propriétaire |
+| 2026-11-21 | Accueil : pastilles « Avec votre coach » (ton `appui`, sarcelle de `GRAD_COACH`, et non le vert de validation), « Assistant IA » (ton `ai`), « Sans note » ; bandeau de réassurance (trois puces) sous le héros ; « Ce que La Répét' ne fait pas » sur quatre cartes (`rs-g4`) | Demande du propriétaire, panel bénéficiaires |
 
 Ajouter une ligne à chaque évolution d'une règle ou d'une échelle.

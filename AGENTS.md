@@ -70,3 +70,22 @@ Les pull requests sont vérifiées par `.github/workflows/verifier.yml` (mêmes 
 | Métiers proposés | `src/lib/jobs.js` | |
 
 Les images : formats web (webp ou jpg), largeur 1200 px maximum, 150 Ko maximum chacune, sans texte ni logo incrusté, licences permettant l'usage libre (indiquer la provenance dans la pull request et dans le README, section crédits).
+
+## 8. Fournisseur d'IA et clé d'API
+
+Le cœur du site fonctionne **sans serveur** : transcription (Whisper dans le navigateur), analyse descriptive, retours et assistants (moteurs locaux) tournent sur l'appareil. Un modèle de langage est une option qui reformule ou enrichit ces textes ; sans lui, rien ne casse.
+
+- **Un point d'accès unique, sans fournisseur.** Le code client (`src/lib/llm.js`, utilisé par `analysis.js`, `assistant.js` et `coachAssistant.js`) envoie une requête au format « chat completions » à `VITE_LLM_ENDPOINT`. Il ne contient aucun nom de fournisseur ni de modèle : le champ `model` n'est envoyé que si `VITE_LLM_MODEL` est défini, ce qui reste facultatif.
+- **Le fournisseur se choisit derrière ce point d'accès**, dans un petit proxy sans état qui garde la clé : Cloudflare Worker, Netlify Function ou fonction Supabase, au choix (aucune n'est imposée). Le proxy lit ses réglages dans ses propres secrets : `LLM_PROVIDER` (par exemple `anthropic`, `mistral`), `LLM_MODEL_CHAT`, `LLM_MODEL_FEEDBACK`, `LLM_MODEL_COACH`, et la clé du fournisseur dans le secret générique `LLM_API_KEY` (aujourd'hui une clé Anthropic, l'équivalent de `ANTHROPIC_API_KEY` ; demain la clé d'un autre fournisseur, sans renommer quoi que ce soit). Modèle de proxy : `serveur/`. État des lieux de ce qui marche avec ou sans serveur : `docs/etat-fonctionnel.md`.
+- **Le site public ne nomme jamais le moteur** : on écrit « assistant IA » (`docs/redaction.md`, 1.2 bis).
+
+### Changer la clé (développement et production)
+
+- **Jamais dans le dépôt**, jamais dans un fichier `.env` dont les variables commencent par `VITE_` : tout ce qui est `VITE_*` est copié dans le JavaScript envoyé au navigateur, donc public.
+- **En local** : la clé va dans l'environnement du proxy lancé sur votre poste : `LLM_API_KEY=... node serveur/llm-proxy/local.mjs`, ou un fichier de secrets local ignoré par git (`.dev.vars` pour `wrangler dev`, `.env` du proxy pour `netlify dev`, `supabase/functions/.env` pour `supabase functions serve`). Ces fichiers sont ignorés par git ; vérifier avec `git check-ignore <fichier>` avant le premier lancement.
+- **En production** : dans le gestionnaire de secrets de l'hébergeur du proxy (`npx wrangler secret put LLM_API_KEY`, variables d'environnement du site Netlify, ou tableau de bord Supabase, Edge Functions, Secrets / `supabase secrets set LLM_API_KEY=...`).
+- **Rotation** : créer une nouvelle clé dans la console du fournisseur, la remplacer dans les secrets du proxy, vérifier qu'une requête passe, puis révoquer l'ancienne clé. En cas de fuite, révoquer d'abord.
+
+### Changer de fournisseur
+
+Seul le proxy change : il traduit la requête « chat completions » reçue vers l'API du nouveau fournisseur et renvoie la même réponse (`choices[0].message.content`, texte ou JSON selon la tâche). Le contrat de réponse reste identique, donc aucun fichier de `src/` ne bouge : on modifie `LLM_PROVIDER`, les `LLM_MODEL_*` et la valeur de `LLM_API_KEY` dans la configuration et les secrets du proxy. Les garde-fous du navigateur (`isCompliant`, `assistantCompliant`, `coachCompliant`, rapprochement avec l'analyse locale) s'appliquent quel que soit le fournisseur.

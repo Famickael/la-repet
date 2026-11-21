@@ -30,17 +30,17 @@ Si les annonces fournissent peu de chiffres, vous pouvez demander la fourchette 
 
 Faites le point sur ce dont vous avez besoin pour accepter le poste. Tenez compte du temps de trajet, du coût des déplacements et de l’organisation prévue. Gardez ces éléments pour votre décision. Pendant l’entretien, vous pouvez expliquer votre attente en vous appuyant sur les missions, les responsabilités ou une expérience utile.
 
-Choisissez ensuite une manière de présenter cette attente. Vous pouvez donner un montant ou une fourchette si vous disposez de repères suffisants. Si vous donnez une fourchette, réfléchissez à ce que signifierait une offre proche du bas. Vérifiez aussi que vous employez la même unité que votre interlocuteur. Vous pouvez écrire sur vos notes « brut mensuel, temps plein », puis ajuster ces mots en fonction du poste.
+Choisissez ensuite une manière de présenter cette attente. Vous pouvez donner un montant ou une fourchette si vous disposez de repères suffisants. Si vous donnez une fourchette, réfléchissez à ce que signifierait une offre proche du bas. Vérifiez aussi que vous employez la même unité que votre interlocuteur. Vous pouvez écrire sur vos notes « brut mensuel, temps plein », puis ajuster ces mots en fonction du poste.
 
 > [!conseil] Préparer une formulation avec un repère
-> « Pour le temps de travail annoncé, je vise [montant ou fourchette] en brut mensuel. J’aimerais savoir comment la rémunération est organisée dans votre équipe. »
+> « Pour le temps de travail annoncé, je vise [montant ou fourchette] en brut mensuel. J’aimerais savoir comment la rémunération est organisée dans votre équipe. »
 
 ## Répondre si le poste reste à préciser
 
 Vous pouvez demander des précisions si la question arrive avant que les horaires ou les missions aient été présentés. Dites ce qu’il vous manque et posez une question qui permet d’avancer. Il peut s’agir du nombre d’heures, du niveau de responsabilité ou des déplacements prévus. Si l’employeur donne une fourchette, demandez quels éléments déterminent la proposition dans cette fourchette.
 
 > [!exemple] Un premier appel pour un poste en magasin
-> « Pour vous donner une attente comparable, j’aimerais confirmer le nombre d’heures prévu et savoir si le poste inclut l’ouverture ou la fermeture du magasin. Quelle fourchette avez-vous prévue pour ce poste ? »
+> « Pour vous donner une attente comparable, j’aimerais confirmer le nombre d’heures prévu et savoir si le poste inclut l’ouverture ou la fermeture du magasin. Quelle fourchette avez-vous prévue pour ce poste ? »
 
 Si vous avez déjà communiqué un montant sur un formulaire, vous pouvez expliquer sur quelles hypothèses il reposait. Un autre volume horaire ou des déplacements réguliers peuvent changer votre calcul. Nommez le point qui change et demandez les précisions utiles avant de reformuler votre attente.
 

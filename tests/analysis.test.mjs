@@ -4,6 +4,10 @@ import { localAnalysis, isCompliant, reconcile } from "../src/lib/analysis.js";
 import { textCompliant } from "../src/lib/compliance.js";
 import { assistantCompliant } from "../src/lib/assistant.js";
 import { EYE_KEYS } from "../src/lib/gazeKeys.js";
+import { cleanRepetitions } from "../src/lib/repetitions.js";
+import { llmBody, LLM_TIMEOUT_MS } from "../src/lib/llm.js";
+import { readFileSync } from "fs";
+import { parse } from "@babel/parser";
 
 const segments = [
   { start: 0, end: 6, text: "Bonjour, euh, je m'appelle Alex et en fait je postule au poste d'agent d'accueil." },
@@ -79,6 +83,84 @@ assert.equal(m22.metrics.concreteAt, null, "« chez » seul n'est pas un exemple
 const m22b = localAnalysis({ segments: [{ start: 0, end: 8, text: "Euh, par exemple, j'ai travaillé deux ans en magasin, euh, avec beaucoup de clients chaque jour de la semaine." }], duration: 8 });
 assert.equal(m22b.metrics.fillers.euh, 2, "les vrais petits mots restent comptés");
 assert.notEqual(m22b.metrics.concreteAt, null, "« par exemple » et « deux ans » restent des exemples concrets");
+
+
+/* C1 (B1) : chaque branche de texte de l'analyse locale passe le filtre strict. Un texte écrit par le site lui-même ne
+   doit jamais être rejeté : sinon le retour reformulé, qui reprend ces textes (reconcile), serait écarté en entier. */
+const seg = (start, end, text) => ({ start, end, text });
+const CASES = {
+  "son très court": { segments: [seg(0, 2, "Bonjour.")], duration: 5 },
+  "rythme posé, pauses longues et nombreuses, sans exemple ni conclusion": { segments: [
+    seg(0, 4, "Je travaille à l'accueil."), seg(8, 12, "J'aime le contact humain."), seg(16, 20, "Je range bien les dossiers."),
+    seg(24, 28, "Je réponds au téléphone."), seg(32, 36, "Je connais les logiciels."),
+  ], duration: 40 },
+  "rythme rapide, petits mots fréquents, mots qui reviennent": { segments: [seg(0, 10, "Euh alors euh en fait je travaille avec le public, euh du coup le public de la mairie, et le public vient souvent, voilà, je reçois le public et les familles, euh les familles du quartier et les familles des écoles, toutes les familles.")], duration: 10 },
+  "rythme dans la norme, petits mots discrets, exemple, conclusion": { segments: [
+    seg(0, 10, "Bonjour, je m'appelle Alex et je travaille depuis deux ans dans une mairie, au service de l'accueil du public."),
+    seg(10.5, 20, "Par exemple, j'accueille chaque jour une centaine de personnes, euh, je réponds au téléphone et je prends les rendez-vous."),
+    seg(20.5, 30, "C'est pour cela que ce poste me correspond, parce que j'aime organiser le travail et informer les gens."),
+  ], duration: 30 },
+  "conclusion avec phrases très longues": { segments: [
+    seg(0, 15, "J'ai travaillé à l'accueil d'une grande mairie où je recevais les habitants qui venaient pour leurs papiers, leurs questions sur les écoles, les cantines, les inscriptions et aussi parfois pour des démarches plus longues"),
+    seg(15, 30, "c'est pour ça que je pense que ce poste me correspond puisque je connais bien les attentes du public et la façon dont un service municipal organise ses rendez-vous chaque semaine avec les familles"),
+  ], duration: 30 },
+  "boucle de répétition": { segments: [seg(0, 6, "Bonjour, je travaille à l'accueil d'une mairie depuis trois ans."), ...Array.from({ length: 11 }, (_, i) => seg(6 + i * 2, 8 + i * 2, "Je suis ma mère et mon tournée.")), seg(30, 34, "C'est pour cela que je postule chez vous aujourd'hui.")], duration: 34 },
+  "syllabe en boucle dans un mot": { segments: [seg(0, 12, "Je m'appelle Camille. J'ai travaillé trois ans à l'accueil wanakomakomakomakomakomakomakomakomakom dans une mairie, avec le public.")], duration: 12 },
+  "boucle à l'intérieur d'un segment": { segments: [seg(0, 30, "J'ai travaillé dans une mairie de la vie de la vie de la vie de la vie de la vie de la vie pendant deux ans avec le public, donc je connais bien l'accueil.")], duration: 30 },
+};
+const GAZES = [undefined, { samples: 60, absentRatio: 0.02, downRatio: 0.1, sideRatio: 0.1 }, { samples: 60, absentRatio: 0.1, downRatio: 0.4, sideRatio: 0.2, longestAwayAt: 4 }, { samples: 61, absentRatio: 1, downRatio: 0, sideRatio: 0 }];
+const seenBranches = new Set();
+for (const [name, c] of Object.entries(CASES)) for (const g of GAZES) {
+  const out = localAnalysis({ ...c, gaze: g });
+  assert.ok(isCompliant(out), `retour local refusé par le filtre (${name}) : ${JSON.stringify(out.dimensions.map(d => d.conseil))}`);
+  for (const t of [out.synthese, ...out.dimensions.flatMap(d => [d.titre, d.observation, d.conseil])]) assert.ok(textCompliant(t, "strict"), `texte du site refusé (${name}) : ${t}`);
+  out.dimensions.forEach(d => seenBranches.add(`${d.id}:${d.type}:${d.conseil.slice(0, 24)}`));
+  /* Une reformulation qui reprend le texte local tel quel reste conforme (cas de B1) */
+  const echo = reconcile({ synthese: out.synthese, dimensions: out.dimensions.map(d => ({ ...d })) }, out);
+  assert.ok(isCompliant(echo), `reprise du texte local refusée (${name})`);
+}
+const branchIds = [...seenBranches].map(b => b.split(":").slice(0, 2).join(":"));
+for (const need of ["captation:explorer", "debit:appui", "debit:explorer", "pauses:explorer", "exemples:appui", "exemples:explorer", "petits-mots:appui", "petits-mots:explorer", "structure:appui", "structure:explorer", "repetitions:explorer", "regard:appui", "regard:explorer", "transcription:explorer"])
+  assert.ok(branchIds.includes(need), `branche non couverte par le test : ${need}`);
+assert.ok([...seenBranches].some(b => b.startsWith("debit:explorer:Le rythme est posé")) && [...seenBranches].some(b => b.startsWith("debit:explorer:En entretien")), "les deux conseils de rythme sont couverts");
+assert.ok(new Set([...seenBranches].filter(b => b.startsWith("structure:"))).size >= 3, "les trois conseils de construction sont couverts");
+/* La reformulation du conseil « petits mots discrets » ne contient plus « gêne » (B1) */
+const discret = localAnalysis(CASES["rythme dans la norme, petits mots discrets, exemple, conclusion"]);
+assert.equal(discret.dimensions.find(d => d.id === "petits-mots").type, "appui");
+assert.ok(isCompliant(discret), "un « euh » ne fait plus écarter le retour");
+
+/* Tous les textes littéraux d'analysis.js (hors consigne envoyée au modèle) passent le filtre strict. */
+const litterals = [];
+(function walk(n) {
+  if (!n || typeof n !== "object") return; if (Array.isArray(n)) return n.forEach(walk);
+  if (n.type === "StringLiteral" && /\s/.test(n.value) && /^[A-ZÀ-Ü]/.test(n.value)) litterals.push(n.value);
+  if (n.type === "TemplateLiteral") litterals.push(n.quasis.map(q => q.value.cooked).join(" 3 "));
+  for (const k in n) if (!["loc", "start", "end"].includes(k)) walk(n[k]);
+})(parse(readFileSync(new URL("../src/lib/analysis.js", import.meta.url), "utf8"), { sourceType: "module" }).program);
+for (const t of litterals.filter(t => !/^Tu aides/.test(t))) assert.ok(textCompliant(t, "strict"), `texte d'analysis.js refusé : ${t}`);
+
+/* C5 (B5) : visage non repéré, aucun pourcentage de regard affiché. */
+const noFace = localAnalysis({ ...CASES["rythme dans la norme, petits mots discrets, exemple, conclusion"], gaze: GAZES[3] }).dimensions.find(d => d.id === "regard");
+assert.match(noFace.observation, /^Visage non repéré/);
+assert.ok(!/%/.test(noFace.observation + noFace.conseil), "aucun pourcentage quand le visage n'est pas repéré");
+
+/* C3 (B3) : boucles de répétition retirées avant l'analyse. */
+const loop = localAnalysis(CASES["boucle de répétition"]);
+assert.ok(!loop.dimensions.some(d => d.id === "repetitions"), "aucun faux « mot qui revient » créé par la boucle");
+assert.ok(loop.metrics.wpm < 170, `rythme non gonflé par la boucle : ${loop.metrics.wpm}`);
+assert.equal(loop.metrics.loopWords, 70);
+const inner = localAnalysis(CASES["boucle à l'intérieur d'un segment"]);
+assert.equal(inner.metrics.wpm, null, "segment raccourci : rythme non calculé");
+assert.equal(cleanRepetitions([seg(0, 3, "ta wanakomakomakomakomakom")]).text, "ta wanakom", "syllabe en boucle ramenée à une fois");
+assert.equal(cleanRepetitions([seg(0, 3, "Non, non, non, je ne crois pas. Très très bien.")]).removedWords, 0, "répétitions naturelles gardées");
+assert.equal(cleanRepetitions([seg(0, 2, "Je suis là."), seg(2, 4, "Je suis là.")]).removedWords, 0, "deux fois de suite : gardé");
+assert.equal(cleanRepetitions([seg(0, 2, "Je suis là."), seg(2, 4, "Je suis là."), seg(4, 6, "je suis là")]).segments.length, 1, "trois fois de suite : une seule gardée");
+const once = cleanRepetitions(CASES["boucle de répétition"].segments);
+assert.deepEqual(cleanRepetitions(once.segments).removedWords, 0, "nettoyage idempotent");
+
+/* C6, C7 : la tâche est envoyée au point d'accès ; délais du navigateur par tâche. */
+for (const task of ["chat", "feedback", "coach"]) assert.equal(llmBody(task, { messages: [] }).task, task);
+assert.deepEqual(LLM_TIMEOUT_MS, { chat: 20000, coach: 20000, feedback: 30000 });
 
 /* SEC-06 : le suivi du regard ne lit que les coefficients de direction des yeux. */
 assert.ok(EYE_KEYS.length > 0 && EYE_KEYS.every(k => k.startsWith("eyeLook")), "seuls les coefficients eyeLook* sont lus");

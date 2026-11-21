@@ -29,6 +29,7 @@ jobs:
       - run: node tests/assistant.test.mjs
       - run: npm run test:store
       - run: npm run test:content
+      - run: npm run test:proxy
       - run: npm run test:design
       - run: npx playwright install --with-deps chromium
       - run: npm run test:site

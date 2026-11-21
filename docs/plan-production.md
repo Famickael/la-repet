@@ -8,7 +8,8 @@ Document de travail du 21 novembre 2026, rédigé à partir de l'état du dépô
 
 ## Sommaire
 
-1. Architecture cible
+0. Fournisseur d'IA et clé d'API (décision du propriétaire)
+1. Architecture cible (option avec Supabase)
 2. Schéma de données
 3. De `store.js` à Supabase : correspondance et migration
 4. Comptes et clés à créer
@@ -16,6 +17,19 @@ Document de travail du 21 novembre 2026, rédigé à partir de l'état du dépô
 6. Coûts mensuels
 7. Risques et décisions à prendre
 8. Vérifications faites et non faites
+
+---
+
+## 0. Fournisseur d'IA et clé d'API (décision du propriétaire, 21 novembre 2026)
+
+**Pas de Supabase imposé.** Le cœur du site fonctionne sans serveur : transcription, analyse, retours et assistants tournent dans le navigateur. Le formulaire de contact et le nom de domaine sont annexes et peuvent rester factices. Les sections 1 à 8 ci-dessous décrivent une option complète avec Supabase (stockage partagé entre coach et personne, comptes) : elles restent une piste, pas l'architecture cible.
+
+- **Point d'accès générique.** Le navigateur ne parle qu'à `VITE_LLM_ENDPOINT` (format « chat completions », avec un champ `task` : `chat`, `feedback` ou `coach`, `src/lib/llm.js`), sans nom de fournisseur ni de modèle. Derrière, un petit proxy sans état garde la clé et choisit le fournisseur : Cloudflare Worker, Netlify Function ou fonction Supabase, au choix. Réglages du proxy : `LLM_PROVIDER`, `LLM_MODEL_CHAT`, `LLM_MODEL_FEEDBACK`, `LLM_MODEL_COACH`, et la clé du fournisseur dans le secret générique `LLM_API_KEY` (aujourd'hui une clé Anthropic, l'équivalent de `ANTHROPIC_API_KEY`). Modèle de proxy : `serveur/` ; état des lieux : `docs/etat-fonctionnel.md`.
+- **Changer la clé** : jamais dans le dépôt ni dans une variable `VITE_*` (copiée dans le JavaScript public). En local, dans le fichier de secrets du proxy ignoré par git (`.dev.vars`, `.env` du proxy, `supabase/functions/.env`) ; en production, dans les secrets de l'hébergeur du proxy (`npx wrangler secret put LLM_API_KEY`, variables Netlify, tableau de bord Supabase > Edge Functions > Secrets ou `supabase secrets set LLM_API_KEY=...`). Rotation : nouvelle clé dans la console du fournisseur, remplacement dans les secrets, vérification, révocation de l'ancienne.
+- **Changer de fournisseur** : seul le proxy change ; il renvoie toujours la même réponse (`choices[0].message.content`). Aucun fichier de `src/` ne bouge. La section 1.6 détaille le cas du moteur actuel ; ses noms de modèles sont des réglages du proxy, jamais du navigateur.
+- **Le site ne nomme pas le moteur** : « assistant IA » (`docs/redaction.md`, 1.2 bis).
+
+Détail complet : `AGENTS.md`, section 8.
 
 ---
 
@@ -140,6 +154,8 @@ Règles communes : vérification du jeton à l'entrée, `Access-Control-Allow-Or
 L'ouverture d'un parcours par code, l'envoi d'une réponse, la reprise d'un envoi et le retrait de l'accord sont des **fonctions SQL** (`security definer`) appelées par `supabase.rpc(...)` : elles n'ont besoin d'aucun secret et s'exécutent dans la base.
 
 ### 1.6 Assistants : proxy vers l'API Anthropic
+
+> Cas du moteur actuel. Le proxy peut être une fonction Supabase comme ci-dessous, ou un Cloudflare Worker ou une Netlify Function (section 0). Le contrat côté navigateur ne change pas.
 
 **Pourquoi une fonction dédiée et non un simple relais.** Aujourd'hui, `analysis.js`, `assistant.js` et `coachAssistant.js` envoient à `VITE_LLM_ENDPOINT` une requête au format « chat completions », avec le prompt système et le nom du modèle choisis par le navigateur. Derrière un relais transparent, n'importe qui pourrait utiliser la clé de l'organisme pour autre chose. La fonction `llm` reçoit donc une tâche, pas un prompt :
 

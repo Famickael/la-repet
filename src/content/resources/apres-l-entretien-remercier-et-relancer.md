@@ -24,7 +24,7 @@ Vérifiez aussi ce que chaque personne a dit qu’elle ferait. Si vous avez prop
 Un remerciement peut rester bref. Identifiez le poste et le rendez-vous, remerciez pour le temps accordé et reprenez un point précis qui vous a aidé à comprendre le travail. Si vous souhaitez poursuivre, vous pouvez le dire en une phrase. Le message peut se terminer par vos coordonnées ou une indication de disponibilité si elle est utile.
 
 > [!exemple] Après un entretien pour un poste en entrepôt
-> « Bonjour, merci pour notre échange au sujet du poste de préparateur de commandes. Votre description du contrôle avant expédition m’a aidé à comprendre l’organisation de l’équipe. Je souhaite poursuivre ma candidature et reste disponible pour un prochain échange. Cordialement, [votre nom]. »
+> « Bonjour, merci pour notre échange au sujet du poste de préparateur de commandes. Votre description du contrôle avant expédition m’a aidé à comprendre l’organisation de l’équipe. Je souhaite poursuivre ma candidature et reste disponible pour un prochain échange. Cordialement, [votre nom]. »
 
 Adaptez le canal à ce qui a été convenu. Si l’employeur vous a donné une adresse ou a communiqué par une plateforme de recrutement, vous pouvez reprendre ce fil. En cas d’absence de contact direct, utilisez le moyen qui vous a permis de convenir de l’entretien. Un message suffit généralement pour transmettre le même contenu. Vérifiez le nom du poste et du destinataire avant l’envoi.
 
@@ -39,7 +39,7 @@ Si vous avez donné une information inexacte pendant l’entretien, vous pouvez 
 Si une date de retour vous a été donnée, prenez-la comme repère. Une fois le délai passé, vous pouvez demander si une nouvelle échéance est prévue. Si aucune date n’a été annoncée, laissez à l’équipe le temps de poursuivre ses entretiens. Après quelques jours ouvrés, selon ce que vous avez compris du calendrier, vous pouvez envoyer un message unique et précis. Les délais varient notamment selon le nombre d’interlocuteurs et les étapes de décision.
 
 > [!exemple] Une relance après le délai annoncé
-> « Bonjour, je reviens vers vous à la suite de notre entretien du [date] pour le poste de [intitulé]. Je suis toujours intéressé par le poste. Pourriez-vous m’indiquer si une prochaine étape ou un nouveau délai de réponse est prévu ? Merci et bonne journée, [votre nom]. »
+> « Bonjour, je reviens vers vous à la suite de notre entretien du [date] pour le poste de [intitulé]. Je suis toujours intéressé par le poste. Pourriez-vous m’indiquer si une prochaine étape ou un nouveau délai de réponse est prévu ? Merci et bonne journée, [votre nom]. »
 
 Si vous devez répondre à une autre proposition avant une date précise, vous pouvez signaler ce délai. Demandez si l’employeur est en mesure de vous donner une indication d’ici là. Cette demande aide à organiser vos choix et laisse à votre interlocuteur la possibilité de dire où en est sa décision.
 

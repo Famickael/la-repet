@@ -44,12 +44,12 @@ export function Warmup({ p, go, setModal }) {
         <div style={{ background: T.primaryBg, borderRadius: RAD.md, padding: "16px 20px", ...stack(12) }}>
           <div style={{ ...TY.overline, color: T.primary }}>Votre phrase</div>
           <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
-            <p aria-live="polite" data-testid="warmup-phrase" style={{ ...TY.h2, color: T.navy, margin: 0, flex: 1, minWidth: 0 }}>« {phrase} »</p>
+            <p aria-live="polite" data-testid="warmup-phrase" style={{ ...TY.h2, color: T.navy, margin: 0, flex: 1, minWidth: 0 }}>« {phrase} »</p>
             <IconBtn icon={I.shuffle} label="Changer de phrase" variant="outline" onClick={shuffle} />
           </div>
           <div style={{ paddingTop: 12, borderTop: `1px solid ${T.line}`, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 200, ...TY.small, color: T.navy }} aria-live="polite">
-              <strong>Consigne {prompt + 1} sur {WARMUP_PROMPTS.length} :</strong> {WARMUP_PROMPTS[prompt]}
+              <strong>Consigne {prompt + 1} sur {WARMUP_PROMPTS.length} :</strong> {WARMUP_PROMPTS[prompt]}
             </div>
             <Btn kind="ghost" size="sm" onClick={() => setPrompt(i => (i + 1) % WARMUP_PROMPTS.length)} icon={I.redo}>Consigne suivante</Btn>
           </div>

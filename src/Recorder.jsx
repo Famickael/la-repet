@@ -126,7 +126,7 @@ export default function Recorder({ onDone, onCancel, trackGaze = true, setModal,
   }
 
   /* Annonces pour les lecteurs d'écran (A11Y-08) : début, 30 dernières secondes, fin de l'enregistrement. */
-  const said = phase === "recording" ? (sec >= MAX_SEC - 30 ? "Il reste 30 secondes." : "Enregistrement en cours.")
+  const said = phase === "recording" ? (sec >= MAX_SEC - 30 ? "Il reste 30 secondes." : "Enregistrement en cours.")
     : phase === "done" ? "Enregistrement terminé. Vous pouvez l'écouter, recommencer ou continuer." : "";
   const mm = String(Math.floor(sec / 60)).padStart(2, "0"), ss = String(sec % 60).padStart(2, "0");
 
@@ -172,12 +172,12 @@ export default function Recorder({ onDone, onCancel, trackGaze = true, setModal,
       </div>
 
       {lowSpace && phase === "live" && (
-        <Notice tone="warning">Il reste peu de place sur cet appareil. Une vidéo de 3 minutes pèse environ 15 Mo : vous pouvez choisir « Voix seule », plus légère.</Notice>
+        <Notice tone="warning">Il reste peu de place sur cet appareil. Une vidéo de 3 minutes pèse environ 15 Mo : vous pouvez choisir « Voix seule », plus légère.</Notice>
       )}
       {setModal && (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 8, flexWrap: "wrap", ...TY.caption, color: T.muted }}>
           <Icon d={I.lock} s={16} /> {PHRASES.camera}
-          <Btn kind="ghost" size="sm" icon={I.shield} onClick={() => setModal("video")}>Que devient ma vidéo ?</Btn>
+          <Btn kind="ghost" size="sm" icon={I.shield} onClick={() => setModal("video")}>Que devient ma vidéo ?</Btn>
         </div>
       )}
 

@@ -17,14 +17,14 @@ export function Choose({ take, go, series, back }) {
     <div style={{ ...wrap(W.read), ...stack(GAP.grid) }}>
       <div style={{ textAlign: "center", display: "grid", gap: 12, justifyItems: "center" }}>
         <Tag tone="success">{series && series.n > 1 ? `Question ${series.i + 1} sur ${series.n} · votre retour est prêt` : "Votre retour est prêt"}</Tag>
-        <Txt v="h1" as="h1" color={T.navy}>Comment voulez-vous voir votre retour ?</Txt>
+        <Txt v="h1" as="h1" color={T.navy}>Comment voulez-vous voir votre retour ?</Txt>
         <Txt v="bodyLg" color={T.body}>Les deux contiennent le même retour. Vous pourrez changer d'avis.</Txt>
       </div>
       <div className="rp-stack" style={{ alignItems: "stretch" }}>
         {opt("simple", "Lire mon retour", "Sans me revoir", "Vous lisez ce que l'assistant a remarqué. Pratique si vous n'aimez pas vous revoir.", "Lire")}
         {isAudio(take)
-          ? opt("video", "Me réécouter", "Avec les repères au bon moment", "Vous réécoutez votre réponse. Chaque repère est placé au bon moment : touchez-le pour y aller.", "Me réécouter", true)
-          : opt("video", "Me revoir en vidéo", "Avec les repères au bon moment", "Vous revoyez votre réponse. Chaque repère est placé au bon moment : touchez-le pour y aller.", "Me revoir", true)}
+          ? opt("video", "Me réécouter", "Avec les repères au bon moment", "Vous réécoutez votre réponse. Chaque repère est placé au bon moment : touchez-le pour y aller.", "Me réécouter", true)
+          : opt("video", "Me revoir en vidéo", "Avec les repères au bon moment", "Vous revoyez votre réponse. Chaque repère est placé au bon moment : touchez-le pour y aller.", "Me revoir", true)}
       </div>
       <div><Back onClick={back} /></div>
     </div>

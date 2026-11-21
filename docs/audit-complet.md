@@ -117,7 +117,7 @@ Bilan : 127 constats ; 112 corrigés, 4 corrigés en partie, 5 déjà corrigés 
 | RED-08 | corrigé | `467ff7b` |  |
 | RED-09 | déjà corrigé | `f055273` | vérifié : aucun texte visible ne parle de test ou de prototype |
 | RED-10 | corrigé en partie | `f055273` | « Relire un entretien… » ; « Votre première répétition » gardé (le propriétaire garde « répétition ») |
-| RED-11 | non retenu |  | passe globale d'espaces insécables à faire après accord du propriétaire ; insécables posées dans lib/format.js et les indicateurs |
+| RED-11 | corrigé | 2026-11-21 | passe globale faite à la demande du propriétaire (espace fine insécable avant ; ? ! et dans les guillemets, insécable avant : et % et dans les nombres et unités), contrôle permanent dans `npm run test:content` (`tests/lib/typo-fr.mjs`) |
 | PERF-01 | corrigé | `1613ee5` |  |
 | PERF-02 | corrigé | `1613ee5` |  |
 | PERF-03 | corrigé | `1613ee5` |  |

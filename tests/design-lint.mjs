@@ -118,7 +118,7 @@ function checkFile(file) {
       report(m.index, "T1", m[0] + " " + v, "...TY.* ou <Txt v>");
     });
     // T2 ne vise pas les textes de contenu (src/content/), qui peuvent citer une police par son nom (mentions légales)
-    if (!file.startsWith("src/content/")) each(/\b(Manrope|Inter|JetBrains|Segoe)\b|sans-serif|monospace/g, m => report(m.index, "T2", m[0], "FD, FB, FM via TY.*"));
+    if (!file.startsWith("src/content/")) each(/\b(Outfit|Manrope|Inter|JetBrains|Segoe)\b|sans-serif|monospace/g, m => report(m.index, "T2", m[0], "FD, FB, FM via TY.*"));
     // S1 espacement hors échelle
     each(/\b(padding|margin)([A-Z][A-Za-z]*|-[a-z-]+)?\s*:|\b(gap|rowGap|columnGap|row-gap|column-gap)\s*:/g, m => {
       const v = valueAt(text, m.index + m[0].length);
@@ -172,7 +172,7 @@ function checkFile(file) {
 
   if (isTok) {
     // X1 tailles et graisses de police
-    const famOf = v => (v.includes("${FD}") || v.includes("Manrope") ? FD : v.includes("${FM}") || v.includes("JetBrains") ? FM : v.includes("${FB}") || v.includes("Inter") ? FB : null);
+    const famOf = v => (v.includes("${FD}") || v.includes("Outfit") || v.includes("Manrope") ? FD : v.includes("${FM}") || v.includes("JetBrains") ? FM : v.includes("${FB}") || v.includes("Inter") ? FB : null);
     each(/\bfont\s*:\s*/g, m => {
       const v = valueAt(text, m.index + m[0].length).replace(/^["'`]/, "");
       const s = v.match(/(\d+(?:\.\d+)?)px/), wgt = v.match(/^\s*([1-9]00)\b/), fam = famOf(v);

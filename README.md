@@ -1,6 +1,6 @@
 # La Répét' · coaching IA à l'entretien d'embauche
 
-Prototype fonctionnel d'un dispositif d'entraînement à l'entretien d'embauche, assisté par une IA puis par un coach. Il a été conçu pour les prestations d'accompagnement vers l'emploi qui préparent aux entretiens et à la présentation de soi.
+Prototype fonctionnel de l'outil d'entraînement aux entretiens d'un organisme d'accompagnement, assisté par une IA puis par un coach. La Répét' n'est pas vendue comme un logiciel : l'organisme vend son accompagnement, outillé par La Répét', à des commanditaires publics (demandeurs d'emploi, retour à l'emploi, insertion) ou privés (collaborateurs en mobilité, entretien annuel ou professionnel, reconversion). Voir `docs/redaction.md`, 1.2 bis.
 
 Le principe : le coach crée un parcours et transmet un code (ou un lien). La personne accompagnée s'entraîne seule, chez elle, autant de fois qu'elle le souhaite. Elle reçoit un retour qui **décrit sans noter**, choisit de se revoir en vidéo ou de lire un rapport écrit, puis décide d'envoyer sa prise au coach. Le coach annote des moments précis de la vidéo, commente les observations de l'assistant et renvoie un rapport, qui sert de base au débriefing en atelier.
 
@@ -75,8 +75,8 @@ Les photos suivantes proviennent de Pexels et sont utilisées sous la [licence P
 | `categories/visio.webp` | Julia M Cameron | [Pexels](https://www.pexels.com/photo/person-writing-on-notebook-4145190/) |
 | `categories/guides.webp` | Mizuno K | [Pexels](https://www.pexels.com/photo/woman-using-a-smart-phone-fixed-on-a-tripod-13929354/) |
 | `categories/coachs.webp` | Anna Shvets | [Pexels](https://www.pexels.com/photo/person-writing-on-a-notebook-4226208/) |
-| `categories/organismes.webp` | fauxels | [Pexels](https://www.pexels.com/photo/photo-of-people-sitting-near-wooden-table-3182764/) |
-| `ressources/deployer-la-repet-dans-votre-organisme.webp` | Arina Krasnikova | [Pexels](https://www.pexels.com/photo/two-women-talking-at-an-office-desk-6016370/) |
+| `categories/commanditaires.webp` | fauxels | [Pexels](https://www.pexels.com/photo/photo-of-people-sitting-near-wooden-table-3182764/) |
+| `ressources/confier-un-accompagnement.webp` | Arina Krasnikova | [Pexels](https://www.pexels.com/photo/two-women-talking-at-an-office-desk-6016370/) |
 | `ressources/gerer-le-trac-et-preparer-sa-venue.webp` | Ketut Subiyanto | [Pexels](https://www.pexels.com/photo/faceless-businessman-with-smartphone-walking-on-crosswalk-in-sunlight-4560165/) |
 | `ressources/scenario-accompagnement-a-distance.webp` | Annushka Ahuja | [Pexels](https://www.pexels.com/photo/a-girl-having-video-call-on-her-laptop-on-a-table-8055483/) |
 | `ressources/scenario-atelier-collectif.webp` | Alena Shekhovtcova | [Pexels](https://www.pexels.com/photo/women-talking-on-a-meeting-in-an-office-8067880/) |
@@ -125,15 +125,16 @@ src/
   App.jsx             coquille : route courante, transitions, titre, focus, pages chargées à la demande (React.lazy)
   app/                router.js (routes par ancre, titres), Nav.jsx (en-tête, sous-menus, menu mobile), AccountMenu.jsx, Espace.jsx
                       (« Mon espace », page introuvable), Footer.jsx, ToTop.jsx
-                      routes : #/, #/a-propos(/faq), #/solutions(/beneficiaires|coachs|organismes), #/ressources, #/ressources/c/CATEGORIE,
-                      #/ressources/SLUG, #/demo, #/espace, #/s/CODE(/questions|reponse|retour/ID|envoi/ID|recapitulatif…), #/coach(/parcours/CODE|relecture/CODE/ID), #/vos-donnees(/video|assistant|droits|appareil|notice|coachs),
-                      #/conditions, #/mentions-legales, #/accessibilite, #/a-propos/ia-et-recherche ; #/fonctionnement redirige vers #/solutions
+                      routes : #/, #/a-propos (organisme, texte d'exemple), #/solutions(/usage-de-l-ia|recherche|fonctionnalites),
+                      #/cas-d-usage(/beneficiaires(/demandeurs-emploi|collaborateurs)|coachs|commanditaires), #/ressources, #/ressources/SLUG, #/ressources/faq(/section),
+                      #/demo, #/espace, #/s/CODE(/questions|reponse|retour/ID|envoi/ID|recapitulatif…), #/coach(/parcours/CODE|relecture/CODE/ID), #/vos-donnees(/video|assistant|droits|appareil|notice|coachs),
+                      #/conditions, #/mentions-legales, #/accessibilite ; anciennes adresses (#/fonctionnement, #/solutions/<public>, #/ressources/c/…, #/a-propos/faq, #/a-propos/ia-et-recherche) redirigées (REDIRECTS, router.js)
   Home.jsx            accueil : héros (accroche qui change, scènes photo + interface en boucle), phrase qui se colore au défilement,
                       strate épinglée « un seul dispositif » en quatre temps, cartes animées, parti pris, portes d'entrée, bandeau final
   About.jsx           « À propos » : mission, pourquoi, parti pris, cadre réglementaire, pour qui, construction, FAQ en accordéons
   Solutions.jsx       « Solutions » (ancienne page Fonctionnement) : déroulé, par public, ce que l'assistant observe ou non, onglets organisme, garanties
   Resources.jsx       centre de ressources : hub (catégories, à la une, recherche, filtre, glossaire), liste par catégorie, article (gabarits guide et cas)
-  Demo.jsx            « Demander une prise en main » (personnes accompagnées) : formulaire, confirmation, mailto: si VITE_CONTACT_EMAIL est défini
+  Demo.jsx            « Nous contacter » (commanditaires : acteurs publics, entreprises) : projet d'accompagnement
   Research.jsx        « L'IA et la recherche » : ce que fait l'IA, ce qu'elle ne fait pas, études citées avec leurs liens
   A11y.jsx            options d'accessibilité (fenêtre de réglages, règle de lecture) ; lib/a11y.js : lecture, enregistrement, application
   RecruiterVoice.jsx  recruteur oral sans visage (synthèse vocale de l'appareil, sous-titre mot à mot)
@@ -169,6 +170,7 @@ src/
     questions.js      banque de questions, phrases et relances d'échauffement, sujets du questionnaire de fin
     jobs.js           liste des métiers et recherche pour l'autocomplétion
     assistant.js      assistant : base de connaissances locale, relances, appel facultatif au modèle de langage
+    llm.js            point d'accès unique au modèle de langage (VITE_LLM_ENDPOINT, champ task), sans nom de fournisseur ni de modèle
     coachAssistant.js assistant de rédaction du rapport : base locale, reformulation, garde-fou coachCompliant, modèle facultatif
     background.js     fond flou ou uni pendant l'échauffement (MediaPipe Image Segmenter)
 public/img/            photos et visuels (voir « Crédits photos » et docs/briefs/chatgpt-images.md)
@@ -210,7 +212,7 @@ Toutes les variables sont facultatives. Sans elles, l'application fonctionne ent
 |---|---|
 | `VITE_STT_ENDPOINT`, `VITE_STT_MODEL` | transcription serveur, format OpenAI `audio/transcriptions` (`verbose_json`, segments), par exemple un proxy vers un modèle hébergé en France |
 | `VITE_WHISPER_MODEL`, `VITE_MODELS_BASE_URL` | modèle Whisper local et hébergement des modèles |
-| `VITE_LLM_ENDPOINT`, `VITE_LLM_MODEL` | reformulation par un modèle de langage via un proxy compatible « chat completions » ; la clé reste côté serveur |
+| `VITE_LLM_ENDPOINT`, `VITE_LLM_MODEL` | reformulation par un modèle de langage via un proxy compatible « chat completions » ; la clé et le choix du fournisseur restent dans le proxy (`AGENTS.md`, section 8). `VITE_LLM_MODEL` est facultatif : sans lui, le proxy choisit le modèle |
 | `VITE_MEDIAPIPE_WASM`, `VITE_FACE_MODEL`, `VITE_SEGMENTER_MODEL` | fichiers MediaPipe auto-hébergés (suivi du visage, détourage pour le fond de l'échauffement) |
 
 ---
@@ -233,6 +235,12 @@ Référentiel UI/UX complet (couleurs, typographie, espacements, composants) : `
 ---
 
 ## Passage en production (travail restant)
+
+### Fournisseur d'IA et clé d'API
+
+Le cœur du site (transcription, analyse, retours, assistants) fonctionne sans serveur. Un modèle de langage est facultatif : le navigateur l'appelle par un point d'accès unique, `VITE_LLM_ENDPOINT` (`src/lib/llm.js`), qui ne dépend d'aucun fournisseur. Le fournisseur, le modèle et la clé se règlent dans un petit proxy sans état (Cloudflare Worker, Netlify Function ou fonction Supabase, au choix) : `LLM_PROVIDER`, `LLM_MODEL_*` et la clé `LLM_API_KEY` (une clé Anthropic pour le moteur actuel). La clé ne va jamais dans le dépôt ni dans une variable `VITE_*` : en local dans le fichier de secrets du proxy ignoré par git, en production dans les secrets de son hébergeur ; rotation : nouvelle clé chez le fournisseur, remplacement dans les secrets, révocation de l'ancienne. Changer de fournisseur ne touche que le proxy, la réponse garde le même format. Détail : `AGENTS.md`, section 8 ; modèle de proxy : `serveur/` ; état des lieux : `docs/etat-fonctionnel.md`.
+
+### Travail restant
 
 Par ordre de priorité :
 

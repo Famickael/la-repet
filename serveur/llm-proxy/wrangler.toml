@@ -1,0 +1,47 @@
+# Exemple de configuration du proxy IA de La Répét' pour Cloudflare Workers.
+# Aucun identifiant ni secret ici. La clé du fournisseur se pose avec :
+#   npx wrangler secret put LLM_API_KEY
+# Le compte Cloudflare est choisi à la connexion (npx wrangler login), pas dans ce fichier.
+
+name = "la-repet-llm-proxy"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[vars]
+# Origines autorisées (CORS), séparées par des virgules, sans chemin ni barre finale.
+# GitHub Pages : l'origine est https://famickael.github.io (le chemin /la-repet/ n'en fait pas partie).
+ALLOWED_ORIGINS = "https://famickael.github.io,http://localhost:5173,http://localhost:4173"
+
+# Fournisseur : "anthropic" (implémenté) ou "openai" (format compatible OpenAI, Mistral par défaut).
+LLM_PROVIDER = "anthropic"
+LLM_MODEL_CHAT = "claude-haiku-5-5"
+LLM_MODEL_FEEDBACK = "claude-sonnet-5-5"
+LLM_MODEL_COACH = "claude-sonnet-5-5"
+LLM_EFFORT = "low"
+# OPENAI_BASE_URL = "https://api.mistral.ai/v1"
+
+# Plafonds (coûts et sécurité)
+MAX_OUTPUT_TOKENS = "4096"
+MAX_BODY_BYTES = "65536"
+RATE_LIMIT_PER_IP_PER_MINUTE = "10"
+RATE_LIMIT_PER_IP_PER_DAY = "200"
+RATE_LIMIT_GLOBAL_PER_DAY = "1000"
+
+# Compteurs de débit : "memory" (par défaut, approximatif) ou "kv" (partagés, voir README).
+RATE_LIMIT_STORE = "memory"
+
+# Option KV : créer l'espace avec « npx wrangler kv namespace create RATE_KV », puis décommenter
+# et coller l'identifiant affiché (ce n'est pas un secret, mais il est propre à chaque compte).
+# [[kv_namespaces]]
+# binding = "RATE_KV"
+# id = "<identifiant affiché par wrangler>"
+
+# Option Rate Limiting de Cloudflare (gratuite) : remplace le compteur par minute et par adresse IP.
+# Syntaxe à vérifier dans la documentation de wrangler au moment du déploiement.
+# [[ratelimits]]
+# name = "RATE_LIMITER"
+# namespace_id = "1001"
+#   [ratelimits.simple]
+#   limit = 10
+#   period = 60

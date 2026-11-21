@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Plan du site, prêt mais NON ANNONCÉ tant que le site est fermé à l'indexation (index.html : noindex ;
+     robots.txt : Disallow). Voir docs/seo.md, sections 2 et 3.
+     Routage par ancre (#/...) : les moteurs ignorent l'ancre, seule la racine est une adresse indexable.
+     Le plan ne liste donc que la racine. Quand les pages auront de vraies adresses (pré-rendu au build), ajouter une
+     entrée <url> par page publique (accueil, À propos, Solutions, Cas d'usage, Ressources et chaque article, FAQ),
+     jamais les espaces personnels (#/s/..., #/coach). Adresses absolues ; lastmod seulement s'il est exact. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://famickael.github.io/la-repet/</loc>
+  </url>
+</urlset>

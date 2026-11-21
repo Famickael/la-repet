@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { T, FIX, Bare, GRAD_ACCROCHE, GLOW, PACE, RAD, SH, Halo, Tag, Btn, Icon, I, ON, TY, W, img, Link } from "../ui.jsx";
+import { T, FIX, Bare, GRAD_ACCROCHE, GLOW, PACE, RAD, SH, Halo, Tag, Btn, Icon, I, ON, TY, W, img } from "../ui.jsx";
 import { clock } from "../lib/format.js";
-import { useReducedMotion } from "../motion.jsx";
+import { useReducedMotion, scrollToTarget } from "../motion.jsx";
 import { Pin, lineStyle, useTicker } from "./shared.jsx";
 
 /* Fins d'accroche et scènes synchronisées : même cadence, même fondu, un lien de sens entre le mot et l'image. */
-export function Hero({ go }) {
+export function Hero({ openSpace }) {
   const reduced = useReducedMotion();
   const [hover, setHover] = useState(false);
   const [stopped, setStopped] = useState(false);
@@ -16,13 +16,15 @@ export function Hero({ go }) {
         <div className="rs-hero">
           <div className="up" style={{ display: "grid", gap: 24, justifyItems: "start" }}>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <Tag tone="primary" icon={I.user}>Avec votre coach</Tag>
-              <Tag tone="primary">Sans note, sans jugement</Tag>
+              {/* Teinte coach (sarcelle de GRAD_COACH, ton « appui ») et violet de l'assistant (docs/design-system.md, 5.4) */}
+              <Tag tone="appui" icon={I.users}>Avec votre coach</Tag>
+              <Tag tone="ai" icon={I.sparkle}>Assistant IA</Tag>
+              <Tag tone="primary">Sans note</Tag>
             </div>
             <h1 className="ty-display" style={{ ...TY.display, color: T.primary, margin: 0 }}>
-              <span className="rs-sr">Répétez votre entretien d'embauche, {SCENES.map(x => x.ending.replace(".", "")).join(", ")}.</span>
+              <span className="rs-sr">Répétez votre entretien, {SCENES.map(x => x.ending.replace(".", "")).join(", ")}.</span>
               <span aria-hidden>
-                <span style={{ color: T.navy }}>Répétez votre entretien d'embauche,</span>
+                <span style={{ color: T.navy }}>Répétez votre entretien,</span>
                 <span className="rs-rot">
                   {SCENES.map(({ ending: e }, i) => (
                     <span key={e} className={i === w ? "on" : ""} style={{ background: GRAD_ACCROCHE, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{e}</span>
@@ -31,16 +33,14 @@ export function Hero({ go }) {
               </span>
             </h1>
             <p className="ty-lead" style={{ ...TY.lead, color: T.body, maxWidth: 520, margin: 0 }}>
-              Vous répondez à des questions d'entretien, seul, autant de fois que vous voulez. Un assistant IA <strong style={{ color: T.navy }}>décrit votre réponse, sans la noter</strong>. Vous choisissez ce que vous envoyez à votre coach.
+              Vous répondez à des questions d'entretien, à voix haute, autant de fois que vous voulez. Un assistant IA <strong style={{ color: T.navy }}>décrit votre réponse, sans la noter</strong> : rythme, pauses, exemples concrets. Votre vidéo reste sur votre appareil : vous choisissez ce que voit votre coach.
             </p>
             <div className="rp-wide-m" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <Btn kind="objective" size="lg" onClick={() => go("#/espace")} iconRight={I.arrow}>Lancer ma première répétition</Btn>
-              <Btn kind="secondary" size="lg" onClick={() => go("#/solutions")}>Voir comment ça marche</Btn>
+              {/* Connecté : l'espace de la personne (ou l'espace coach), jamais la page de connexion (src/app/router.js, spaceHash) */}
+              <Btn kind="objective" size="lg" onClick={() => openSpace("benef")} iconRight={I.arrow}>Lancer ma première répétition</Btn>
+              <Btn kind="secondary" size="lg" onClick={() => scrollToTarget("comment-ca-marche")}>Voir comment ça marche</Btn>
             </div>
-            <div style={{ ...TY.small, color: T.muted, display: "grid", gap: 4 }}>
-              <span>Pas de compte à créer : votre coach vous donne un code d'accès.</span>
-              <span>Vous êtes coach ? <Link onClick={() => go("#/espace")}>Connectez-vous à l'espace coach</Link>.</span>
-            </div>
+            <p style={{ ...TY.small, color: T.muted, margin: 0 }}>Pas de compte à créer : il vous faut le code donné par votre coach.</p>
           </div>
           <HeroStage reduced={reduced} i={w} setI={setW} stopped={stopped} setStopped={setStopped} setHover={setHover} />
         </div>
@@ -54,19 +54,19 @@ export function Hero({ go }) {
 export const SCENES = [
   {
     ending: "à votre rythme.", src: "entrainement.webp", alt: "Un homme s'entraîne devant son ordinateur portable, écouteurs aux oreilles.", label: "S'entraîner quand on veut, et les repères de l'assistant",
-    bubble: { who: "Question 2 sur 3", text: "« Pourquoi ce poste vous intéresse-t-il ? »", rec: 38 }, bubbleTop: "6%", card: "reperes",
+    bubble: { who: "Question 2 sur 3", text: "« Pourquoi ce poste vous intéresse-t-il ? »", rec: 38 }, bubbleTop: "6%", card: "reperes",
   },
   {
     ending: "sans jugement.", src: "ressources/se-presenter-en-deux-minutes.webp", pos: "40% 50%", alt: "Une femme assise à une table chez elle, souriante, une tablette à la main.", label: "Un échauffement chez soi, rien n'est enregistré",
-    bubble: { who: "Consigne 2 sur 7", text: "« Redites-la un peu plus lentement. »" }, bubbleTop: "56%", card: "warmup",
+    bubble: { who: "Consigne 2 sur 7", text: "« Redites-la un peu plus lentement. »" }, bubbleTop: "56%", card: "warmup",
   },
   {
     ending: "avec vos mots.", src: "ressources/parler-de-ses-experiences-methode-sar.webp", pos: "66% 50%", alt: "Un homme explique avec les mains, assis face à une collègue.", label: "Votre réponse mise par écrit, avec vos mots",
-    bubble: { who: "Mise par écrit", text: "« J'ai travaillé deux ans à l'accueil d'une mairie. »", live: 12 }, bubbleTop: "58%", card: "transcript",
+    bubble: { who: "Mise par écrit", text: "« J'ai travaillé deux ans à l'accueil d'une mairie. »", live: 12 }, bubbleTop: "58%", card: "transcript",
   },
   {
     ending: "en confiance.", src: "recruteuse.webp", alt: "Une recruteuse écoute la personne en face d'elle, un bloc-notes à la main.", label: "Une question de recruteuse et le retour de l'assistant",
-    bubble: { who: "Question de la recruteuse", text: "« Parlez-moi d'un problème que vous avez résolu au travail. »" }, bubbleTop: "40%", card: "debrief",
+    bubble: { who: "Question de la recruteuse", text: "« Parlez-moi d'un problème que vous avez résolu au travail. »" }, bubbleTop: "40%", card: "debrief",
   },
 ];
 
@@ -89,7 +89,7 @@ export function HeroStage({ reduced, i, setI, stopped, setStopped, setHover }) {
       {SCENES.map((sc, k) => <Scene key={sc.src} sc={sc} on={k === i} first={k === 0} reduced={reduced} />)}
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 4, marginTop: 40 }}>
         {SCENES.map((sc, k) => (
-          <Bare key={sc.src} className="rs-dot" aria-current={k === i ? "true" : "false"} aria-label={`Scène ${k + 1} sur ${SCENES.length} : ${sc.label}`} onClick={() => setI(k)}><i /></Bare>
+          <Bare key={sc.src} className="rs-dot" aria-current={k === i ? "true" : "false"} aria-label={`Scène ${k + 1} sur ${SCENES.length} : ${sc.label}`} onClick={() => setI(k)}><i /></Bare>
         ))}
         {!reduced && (
           <Bare className="rs-dot" aria-label={stopped ? "Relancer les images" : "Mettre les images en pause"} onClick={() => setStopped(v => !v)} style={{ color: T.primary, width: 44, height: 44, display: "inline-grid", placeItems: "center" }}>
@@ -135,14 +135,14 @@ export const DebriefCard = () => (
   <div style={{ background: FIX.primary, color: ON.text, borderRadius: RAD.md, padding: 16, boxShadow: SH.glow, display: "grid", gap: 8 }}>
     <div className="rs-line" style={{ display: "flex", alignItems: "center", gap: 8, ...TY.overline, ...lineStyle(0, 3) }}><Icon d={I.sparkle} s={12} c={ON.text} /> Retour de l'assistant</div>
     <div className="rs-line" style={{ display: "flex", gap: 8, ...TY.bodyStrong, ...lineStyle(1, 3) }}><Icon d={I.check} s={16} c={ON.text} /><span>Vous décrivez clairement le problème.</span></div>
-    <div className="rs-line" style={{ display: "flex", gap: 8, ...TY.body, ...lineStyle(2, 3) }}><Icon d={I.search} s={16} c={ON.text} /><span>Qu'avez-vous fait personnellement pour le résoudre ?</span></div>
+    <div className="rs-line" style={{ display: "flex", gap: 8, ...TY.body, ...lineStyle(2, 3) }}><Icon d={I.search} s={16} c={ON.text} /><span>Qu'avez-vous fait personnellement pour le résoudre ?</span></div>
   </div>
 );
 
 export const WarmupCard = () => (
   <div style={{ background: T.surface, borderRadius: RAD.md, padding: 16, boxShadow: SH.glow, display: "grid", gap: 8 }}>
     <div className="rs-line" style={{ display: "flex", alignItems: "center", gap: 8, ...TY.overline, color: T.primary, ...lineStyle(0, 3) }}><Icon d={I.mic} s={12} c={T.primary} /> Échauffement · rien n'est enregistré</div>
-    <div className="rs-line" style={{ ...TY.h4, color: T.navy, ...lineStyle(1, 3) }}>« Merci de me recevoir aujourd'hui. »</div>
+    <div className="rs-line" style={{ ...TY.h4, color: T.navy, ...lineStyle(1, 3) }}>« Merci de me recevoir aujourd'hui. »</div>
     <div className="rs-line" style={{ display: "flex", alignItems: "center", gap: 8, ...TY.small, color: T.body, ...lineStyle(2, 3) }}><Icon d={I.lock} s={16} c={T.successDk} /> Chez vous, quand vous voulez</div>
   </div>
 );
@@ -165,7 +165,7 @@ export const TranscriptCard = () => {
 export const ReperesCard = () => (
   <div style={{ background: T.surface, borderRadius: RAD.md, padding: 16, boxShadow: SH.glowAi, display: "grid", gap: 12, borderTop: `4px solid ${T.violet}` }}>
     <div className="rs-line" style={{ display: "flex", alignItems: "center", gap: 8, ...TY.overline, color: T.violet, ...lineStyle(0, 4) }}><Icon d={I.sparkle} s={12} c={T.violet} /> Repères de l'assistant</div>
-    {[[true, "Un exemple concret à 0:35"], [true, "Environ 140 mots par minute"], [false, "« Euh » revient 4 fois"]].map(([ap, t], k) => (
+    {[[true, "Un exemple concret à 0:35"], [true, "Environ 140 mots par minute"], [false, "« Euh » revient 4 fois"]].map(([ap, t], k) => (
       <div key={t} className="rs-line" style={{ display: "flex", alignItems: "center", gap: 8, ...lineStyle(k + 1, 4) }}>
         <Pin ap={ap} /><span style={{ ...TY.small, color: T.navy, flex: 1 }}>{t}</span>
         <span style={{ ...TY.label, color: ap ? T.accent : T.violet }}>{ap ? "Point d'appui" : "À explorer"}</span>

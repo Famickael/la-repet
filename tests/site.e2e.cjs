@@ -326,7 +326,12 @@ async function run(b, vw, vh, opts = {}) {
     await dlg.getByRole("radio", { name: "Sombre" }).click();
     await dlg.getByRole("radio", { name: mobile ? "Très grande" : "Maximale" }).click();
     await shot("18-options-accessibilite", false);
+    /* Languette du bord gauche (référentiel 8 bis) : le panneau se déploie depuis elle, focus retenu, Échap la rend. */
+    check(await p.locator(".rp-a11y-tab").getAttribute("aria-expanded") === "true", `[${tag}] accessibilité : la languette n'indique pas le panneau ouvert`);
+    for (let k = 0; k < 40; k++) await p.keyboard.press("Tab");
+    check(await p.evaluate(() => !!document.activeElement.closest("#rp-a11y-panel")), `[${tag}] accessibilité : le focus sort du panneau ouvert`);
     await p.keyboard.press("Escape");
+    check(await p.evaluate(() => document.activeElement.classList.contains("rp-a11y-tab") && document.activeElement.getAttribute("aria-expanded") === "false"), `[${tag}] accessibilité : Échap ne referme pas le panneau ou ne rend pas le focus à la languette`);
     check(await p.evaluate(() => document.documentElement.dataset.theme) === "dark", `[${tag}] accessibilité : thème sombre non appliqué`);
     const bg = await p.evaluate(() => getComputedStyle(document.body).backgroundColor);
     check(bg === "rgb(14, 20, 30)", `[${tag}] accessibilité : fond sombre attendu, lu ${bg}`);
@@ -347,7 +352,13 @@ async function run(b, vw, vh, opts = {}) {
     await p.getByRole("button", { name: "Options d'accessibilité" }).first().click();
     await p.getByRole("button", { name: "Réinitialiser" }).click();
     check(await p.evaluate(() => document.documentElement.dataset.theme) === "auto", `[${tag}] accessibilité : « Réinitialiser » ne remet pas le thème automatique`);
-    await p.keyboard.press("Escape");
+    await p.evaluate(() => document.body.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true }))); await p.waitForTimeout(600);
+    check(await p.locator(".rp-a11y-tab").getAttribute("aria-expanded") === "false", `[${tag}] accessibilité : un clic en dehors ne referme pas le panneau`);
+    /* La languette ne chevauche ni « Revenir en haut » ni le bouton de l'assistant */
+    await p.evaluate(() => scrollTo(0, 2000)); await p.waitForTimeout(500);
+    const boxes = await p.evaluate(() => [".rp-a11y-tab", ".rp-totop", ".rp-ai-fab"].map(s => { const e = document.querySelector(s); return e ? e.getBoundingClientRect().toJSON() : null; }));
+    const hit = (a, b) => a && b && a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+    check(!hit(boxes[0], boxes[1]) && !hit(boxes[0], boxes[2]), `[${tag}] accessibilité : la languette chevauche un bouton flottant`);
   }
 
   // « Mon compte » déconnecté : mène à la page « Mon espace »

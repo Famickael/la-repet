@@ -341,6 +341,39 @@ export const GStyle = () => (
       .rp-btn-sm{min-height:44px!important}
       .rp-actions{flex-direction:column-reverse;align-items:stretch!important}
       .rp-actions>*{width:100%}
+    /* Options d'accessibilité (8 bis) : languette en demi-cercle au bord gauche (milieu de l'écran ; en bas à gauche sur mobile),
+       qui s'allonge au survol et au focus ; le panneau se déploie depuis elle (clip-path de la forme de la languette au panneau). */
+    .rp-a11y{--a11y-w:32px;--a11y-h:52px}
+    .rp-a11y-tab{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:${Z.nav + 1};width:var(--a11y-w);height:var(--a11y-h);color:${T.surface}!important;transition:opacity ${MO.base} ${MO.ease}}
+    .rp-a11y-knob,.rp-a11y-label{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;background:${T.primary};border-radius:0 ${RAD.pill}px ${RAD.pill}px 0;transition:background-color ${MO.fast}}
+    .rp-a11y-knob{z-index:1;width:var(--a11y-w);padding-left:6px}
+    .rp-a11y-label{padding:0 20px 0 calc(var(--a11y-w) + 8px);font:${F("label")};white-space:nowrap;transform:translateX(calc(var(--a11y-w) - 100%));transition:transform .3s ${MO.ease},background-color ${MO.fast}}
+    .rp-a11y-tab:focus-visible{outline:none}
+    .rp-a11y-tab:focus-visible .rp-a11y-label{transform:none;outline:2px solid ${T.primary};outline-offset:2px}
+    @media (hover:hover){.rp-a11y-tab:hover .rp-a11y-label{transform:none}.rp-a11y-tab:hover :is(.rp-a11y-knob,.rp-a11y-label){background:${T.primaryDk}}}
+    .rp-a11y.is-open .rp-a11y-tab{opacity:0;pointer-events:none}
+    .rp-a11y-panel{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:${Z.modal};width:min(640px,calc(100vw - 16px));filter:drop-shadow(${SH.lg});visibility:hidden;transition:visibility 0s linear .45s}
+    .rp-a11y.is-open .rp-a11y-panel{visibility:visible;transition:none}
+    .rp-a11y-shape{display:flex;flex-direction:column;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);background:${T.surface};border:1px solid ${T.line};border-left:none;border-radius:0 ${RAD.lg}px ${RAD.lg}px 0;overflow:hidden;clip-path:inset(calc(50% - var(--a11y-h) / 2) calc(100% - var(--a11y-w)) calc(50% - var(--a11y-h) / 2) 0 round 0 26px 26px 0);transition:clip-path .45s ${MO.soft}}
+    .rp-a11y.is-open .rp-a11y-shape{clip-path:inset(0 0 0 0 round 0 ${RAD.lg}px ${RAD.lg}px 0)}
+    .rp-a11y-shape>*{opacity:0;transition:opacity ${MO.base} ${MO.ease}}
+    .rp-a11y.is-open .rp-a11y-shape>*{opacity:1;transition:opacity ${MO.base} ${MO.ease} .12s}
+    .rp-a11y-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px 12px 24px;border-bottom:1px solid ${T.line};flex-shrink:0}
+    .rp-a11y-body{padding:16px 16px 16px 16px;overflow-y:auto;overscroll-behavior:contain}
+    .rp-a11y-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+    .rp-a11y-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px 8px 24px;border-top:1px solid ${T.line};flex-shrink:0}
+    .rp-a11y section>h3{padding:0 8px}
+    .rp-a11y-row{display:flex!important;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:48px;padding:4px 8px!important;border-radius:${RAD.sm}px!important;text-align:left!important;transition:background-color ${MO.fast}}
+    .rp-a11y-row:hover{background:${T.primaryBg}!important}
+    .rp-a11y-sw{position:relative;flex-shrink:0;width:40px;height:24px;border-radius:${RAD.pill}px;border:1.5px solid ${T.lineStrong};background:${T.surface};transition:background-color ${MO.base} ${MO.ease},border-color ${MO.base} ${MO.ease}}
+    .rp-a11y-sw i{position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:${T.lineStrong};color:${T.primary};display:grid;place-items:center;transition:transform ${MO.base} ${MO.ease},background-color ${MO.base} ${MO.ease}}
+    .rp-a11y-row[aria-checked=true] .rp-a11y-sw{background:${T.primary};border-color:${T.primary}}
+    .rp-a11y-row[aria-checked=true] .rp-a11y-sw i{transform:translateX(16px);background:${T.surface}}
+    .rp-a11y-seg{display:flex;flex-wrap:wrap;gap:8px}
+    .rp-a11y-seg-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+    .rp-a11y .rp-toggle{height:auto;min-height:44px;padding:4px 12px;flex:1 1 auto}
+    /* Jamais par-dessus un menu, un panneau ou une fenêtre ouverts */
+    html.rp-menu-open .rp-a11y-tab,html.rp-account-open .rp-a11y-tab,html.rp-lock .rp-a11y-tab{display:none!important}
       .rp-actions>.rp-back{width:auto;align-self:flex-start}
       .rp-stack,.rp-split{grid-template-columns:minmax(0,1fr)!important}
       .rp-pad,.rs-pad{padding-left:16px!important;padding-right:16px!important}
@@ -370,6 +403,14 @@ export const GStyle = () => (
       .rs-tabs-m{display:block}
       .rs-visbox{height:auto!important;min-height:300px}
       .rs-section{padding-top:48px!important}
+      .rp-a11y{--a11y-w:28px;--a11y-h:48px}
+      .rp-a11y-tab{top:auto;bottom:16px;transform:none}
+      .rp-a11y-knob{padding-left:4px}
+      .rp-a11y-panel{top:auto;bottom:16px;transform:none}
+      .rp-a11y-shape{max-height:calc(100vh - ${HEADER_H_M + 32}px);max-height:calc(100dvh - ${HEADER_H_M + 32}px);clip-path:inset(calc(100% - var(--a11y-h)) calc(100% - var(--a11y-w)) 0 0 round 0 26px 26px 0)}
+      .rp-a11y-cols{grid-template-columns:minmax(0,1fr)}
+      .rp-a11y-head{padding-left:16px} .rp-a11y-body{padding:12px 8px} .rp-a11y-foot{padding-left:16px}
+      html.rp-asst-open .rp-a11y-tab{display:none!important}
       .rs-chips.rs-scroll{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px 4px}
       .rs-prose h2{font-size:calc(20px * var(--fs))}
       .rs-quote{font-size:calc(18px * var(--fs))}
@@ -379,7 +420,9 @@ export const GStyle = () => (
     @media (max-width:360px){ .rp-hide-xs{display:none!important} }
     /* En-tête des petits écrans : logo réduit, puis option d'accessibilité déplacée dans le menu (elle y est déjà) */
     @media (max-width:420px){ .rp-head-logo .rp-logo-sym{height:30px!important} .rp-head-logo .rp-logo-word{height:28px!important} }
-    @media (max-width:359px){ .rp-head-a11y{display:none!important} .rp-nav{padding:0 12px!important} }
+    @media (max-width:359px){ .rp-nav{padding:0 12px!important} }
+    /* Bouton d'accessibilité de l'en-tête remplacé par la languette du bord gauche (8 bis) ; l'entrée du menu mobile et de « Mon compte » reste */
+    .rp-head-a11y{display:none!important}
     /* Cibles tactiles de 44 px (référentiel 8) sur mobile et sur tout écran tactile */
     @media (max-width:760px),(pointer:coarse){
       .rs-chip,[role=tab]{min-height:44px}

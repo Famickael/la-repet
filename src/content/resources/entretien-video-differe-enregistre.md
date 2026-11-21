@@ -29,7 +29,7 @@ Si vous cherchez une information qui n’apparaît pas dans l’invitation, dema
 Relisez l’annonce et retenez des situations qui illustrent différentes tâches. Pour chacune, notez le contexte, votre action et ce qui s’est passé ensuite. Une expérience peut venir d’un stage, d’un emploi, d’un atelier ou d’une activité bénévole. Choisissez des situations dans lesquelles vous vous souvenez de votre rôle et des personnes avec lesquelles vous travailliez.
 
 > [!exemple] Une situation en accueil
-> « Pendant une permanence, deux personnes sont arrivées pendant que je traitais un dossier. J’ai demandé à chacune le motif de sa venue. J’ai orienté la première vers la salle où elle avait rendez-vous et indiqué à la seconde quand je pourrais reprendre sa demande. »
+> « Pendant une permanence, deux personnes sont arrivées pendant que je traitais un dossier. J’ai demandé à chacune le motif de sa venue. J’ai orienté la première vers la salle où elle avait rendez-vous et indiqué à la seconde quand je pourrais reprendre sa demande. »
 
 Vous pouvez partir de la même situation pour répondre à plusieurs questions, en choisissant le détail qui compte. Si la question porte sur les priorités, expliquez comment vous avez décidé quoi faire d’abord. Si elle porte sur les échanges avec le public, dites ce que vous avez dit aux personnes et pourquoi. Gardez une autre situation pour illustrer une tâche différente, comme la préparation de documents ou la transmission d’une consigne.
 

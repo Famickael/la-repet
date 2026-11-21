@@ -24,28 +24,28 @@ Demandez-vous ce que vous souhaitez travailler ensemble. Vous pouvez partager un
 
 ## Ouvrir l’écran d’envoi et vérifier le destinataire
 
-Sur la page de la réponse, sélectionnez « Envoyer à mon coach ». Ce premier bouton ouvre l’écran d’envoi. Vérifiez que le nom affiché correspond à la personne avec laquelle vous travaillez. Si vous changez d’avis à cette étape, « Je la garde pour moi » vous ramène à la réponse. Vous pouvez y revenir plus tard.
+Sur la page de la réponse, sélectionnez « Envoyer à mon coach ». Ce premier bouton ouvre l’écran d’envoi. Vérifiez que le nom affiché correspond à la personne avec laquelle vous travaillez. Si vous changez d’avis à cette étape, « Je la garde pour moi » vous ramène à la réponse. Vous pouvez y revenir plus tard.
 
-Le lien « Que devient ma vidéo ? » ouvre les informations sur l’enregistrement. Dans le prototype en mode local, le coach consulte ce que vous partagez **sur le même appareil et dans le même navigateur**. Le bouton change l’accès à la réponse dans ce parcours sur l’appareil. Si vous préparez un débriefing, convenez avec votre coach du moment où vous pourrez utiliser cet appareil ensemble. Pour revenir à votre espace, gardez le code de votre parcours.
+Le lien « Que devient ma vidéo ? » ouvre les informations sur l’enregistrement. Dans le prototype en mode local, le coach consulte ce que vous partagez **sur le même appareil et dans le même navigateur**. Le bouton change l’accès à la réponse dans ce parcours sur l’appareil. Si vous préparez un débriefing, convenez avec votre coach du moment où vous pourrez utiliser cet appareil ensemble. Pour revenir à votre espace, gardez le code de votre parcours.
 
 ## Ajouter un message si vous le souhaitez
 
-Le champ « Un message pour votre coach (facultatif) » vous permet de préciser ce que vous aimeriez aborder. Vous pouvez nommer un moment, indiquer la question qui vous intéresse ou préciser ce que vous vouliez expliquer. Une phrase suffit. Si vous préférez en parler de vive voix, vous pouvez laisser le champ vide.
+Le champ « Un message pour votre coach (facultatif) » vous permet de préciser ce que vous aimeriez aborder. Vous pouvez nommer un moment, indiquer la question qui vous intéresse ou préciser ce que vous vouliez expliquer. Une phrase suffit. Si vous préférez en parler de vive voix, vous pouvez laisser le champ vide.
 
 - Indiquez un passage, par exemple le début de la réponse ou le moment où vous présentez votre exemple.
 - Posez une question sur ce que l’on entend ou comprend.
 - Gardez pour votre échange les détails personnels que vous ne souhaitez pas inscrire dans le message.
 
 > [!exemple] Demander un avis précis
-> « Pourriez-vous écouter le passage où j’explique la réception de la livraison ? J’aimerais savoir si la différence entre mon rôle et celui de l’équipe est claire. »
+> « Pourriez-vous écouter le passage où j’explique la réception de la livraison ? J’aimerais savoir si la différence entre mon rôle et celui de l’équipe est claire. »
 
 Vous pouvez aussi demander un avis sur une piste affichée dans votre retour. Relisez l’observation et dites ce que vous entendez dans la réponse. Votre coach pourra reprendre le passage avec vous et proposer un autre point de vue.
 
 ## Confirmer ou reprendre votre envoi
 
-Lorsque vous êtes prêt, sélectionnez « Envoyer à mon coach » sur l’écran d’envoi. La confirmation « Réponse envoyée » vous indique que cette réponse est mise à disposition du coach dans le parcours. Si vous avez choisi plusieurs questions, vous pouvez passer à la suivante. Vous pouvez aussi choisir « Revenir à mon espace ».
+Lorsque vous êtes prêt, sélectionnez « Envoyer à mon coach » sur l’écran d’envoi. La confirmation « Réponse envoyée » vous indique que cette réponse est mise à disposition du coach dans le parcours. Si vous avez choisi plusieurs questions, vous pouvez passer à la suivante. Vous pouvez aussi choisir « Revenir à mon espace ».
 
-Tant que le coach n’a pas envoyé son rapport, vous pouvez rouvrir la réponse et sélectionner « Reprendre mon envoi ». Vous pourrez décider ensuite si vous souhaitez partager de nouveau cette réponse, par exemple après avoir reformulé la demande d’avis. Si un rapport est déjà arrivé, ouvrez-le depuis votre espace pour retrouver les remarques.
+Tant que le coach n’a pas envoyé son rapport, vous pouvez rouvrir la réponse et sélectionner « Reprendre mon envoi ». Vous pourrez décider ensuite si vous souhaitez partager de nouveau cette réponse, par exemple après avoir reformulé la demande d’avis. Si un rapport est déjà arrivé, ouvrez-le depuis votre espace pour retrouver les remarques.
 
 ## Préparer le débriefing à partir du rapport
 

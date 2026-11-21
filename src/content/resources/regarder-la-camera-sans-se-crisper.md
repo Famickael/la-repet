@@ -30,10 +30,10 @@ En entretien vidéo différé, il peut y avoir une question écrite sans visage 
 
 ## Placer les notes à portée de regard
 
-Choisissez des notes qui vous aident à retrouver un exemple. Préférez des mots-clés que vous pouvez repérer rapidement, comme « livraison », « écart » et « transmission à l’équipe ». Vous pouvez placer une feuille près de l’écran ou garder une petite fenêtre de notes ouverte si l’outil et les consignes le permettent. Vérifiez que vos notes ne recouvrent pas la question, le visage de l’interlocuteur ou les boutons de l’appel.
+Choisissez des notes qui vous aident à retrouver un exemple. Préférez des mots-clés que vous pouvez repérer rapidement, comme « livraison », « écart » et « transmission à l’équipe ». Vous pouvez placer une feuille près de l’écran ou garder une petite fenêtre de notes ouverte si l’outil et les consignes le permettent. Vérifiez que vos notes ne recouvrent pas la question, le visage de l’interlocuteur ou les boutons de l’appel.
 
 > [!conseil] Dire quand vous consultez un document
-> Si vous devez vérifier une date ou une disponibilité, dites « Je vérifie mon calendrier un instant ». Votre interlocuteur saura pourquoi vous faites une pause et vous pourrez reprendre lorsque vous aurez l’information.
+> Si vous devez vérifier une date ou une disponibilité, dites « Je vérifie mon calendrier un instant ». Votre interlocuteur saura pourquoi vous faites une pause et vous pourrez reprendre lorsque vous aurez l’information.
 
 Essayez de choisir les détails écrits selon les questions qui vous attendent. Une date que vous risquez de confondre a sa place sur la feuille. Une réponse complète à lire peut être moins pratique si l’échange se déroule autrement. Si vous perdez le fil, faites une pause et retrouvez le mot qui vous aide à reprendre votre idée.
 

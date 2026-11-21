@@ -20,7 +20,7 @@ Relisez le message qui fixe le rendez-vous. Notez le jour, l’heure, le nom de 
 Gardez le message de confirmation dans un endroit accessible. Si vous avez plusieurs candidatures en cours, notez l’intitulé du poste avec le nom de l’entreprise. Vous pourrez ouvrir la bonne annonce dès que le téléphone sonne. Si vous devez passer l’appel, relisez le nom de votre interlocuteur et préparez la phrase qui vous permettra de vous présenter.
 
 > [!exemple] En cas d’appel imprévu
-> « Merci pour votre appel. Je pourrai vous parler dans un endroit calme à [heure]. Puis-je vous rappeler à ce moment-là ? »
+> « Merci pour votre appel. Je pourrai vous parler dans un endroit calme à [heure]. Puis-je vous rappeler à ce moment-là ? »
 
 Si la personne propose un autre créneau, confirmez ensemble qui rappelle et à quel numéro. Notez ces informations avant de reprendre votre activité. Si vous avez reçu un message vocal, écoutez-le jusqu’au bout avant de rappeler pour retrouver l’intitulé du poste et les éventuelles consignes.
 
@@ -40,7 +40,7 @@ Ouvrez le CV envoyé et l’annonce du poste. Sur une feuille, indiquez le méti
 - Préparez une question sur le poste ou sur la prochaine étape.
 
 > [!exemple] Un exemple en accueil
-> « Pendant mon stage en accueil, je vérifiais les rendez-vous et j’indiquais aux visiteurs où attendre. Votre annonce mentionne une permanence sans rendez-vous. Comment est-elle organisée ? »
+> « Pendant mon stage en accueil, je vérifiais les rendez-vous et j’indiquais aux visiteurs où attendre. Votre annonce mentionne une permanence sans rendez-vous. Comment est-elle organisée ? »
 
 Faites un essai à voix haute avec vos notes. Si vous passez du temps à chercher les bons mots dans votre feuille, gardez moins de texte. Vous pouvez aussi souligner les dates ou les termes dont vous aurez besoin pour répondre précisément.
 
@@ -48,7 +48,7 @@ Faites un essai à voix haute avec vos notes. Si vous passez du temps à cherche
 
 Au début, donnez votre nom et vérifiez l’objet de l’appel si vous ne le connaissez pas. Une fois la question posée, prenez un instant pour choisir votre exemple. Si vous n’avez pas entendu un mot, demandez de répéter la partie concernée. Vous pouvez aussi reformuler une consigne pour vérifier que vous avez bien compris.
 
-Quand vous avez terminé votre réponse, laissez un moment à l’interlocuteur pour reprendre la parole. Si vous commencez à parler en même temps, vous pouvez dire « Je vous écoute ». Si plusieurs questions sont posées ensemble, annoncez celle par laquelle vous commencez et demandez de revenir sur la suivante lorsque vous aurez répondu.
+Quand vous avez terminé votre réponse, laissez un moment à l’interlocuteur pour reprendre la parole. Si vous commencez à parler en même temps, vous pouvez dire « Je vous écoute ». Si plusieurs questions sont posées ensemble, annoncez celle par laquelle vous commencez et demandez de revenir sur la suivante lorsque vous aurez répondu.
 
 Pour préparer cette situation, demandez à quelqu’un de vous poser une question au téléphone. Après l’appel d’essai, vérifiez si la personne a compris votre rôle dans l’exemple. Vous pouvez ensuite refaire l’exercice en mettant le détail important plus tôt dans votre réponse.
 
@@ -57,7 +57,7 @@ Pour préparer cette situation, demandez à quelqu’un de vous poser une questi
 Si le son se dégrade, indiquez-le et proposez de rappeler. Une fois la communication coupée, utilisez le numéro convenu si vous en avez un. Si l’appel venait d’un numéro masqué, reprenez le fil du rendez-vous par le canal disponible pour signaler la coupure et proposer de reprendre.
 
 > [!exemple] Un message après une coupure
-> « Notre appel s’est interrompu pendant votre question sur mes disponibilités. Je suis de nouveau joignable au numéro convenu et je peux vous rappeler si vous préférez. »
+> « Notre appel s’est interrompu pendant votre question sur mes disponibilités. Je suis de nouveau joignable au numéro convenu et je peux vous rappeler si vous préférez. »
 
 En fin d’entretien, vérifiez si vous devez envoyer un document et demandez quelle est la prochaine étape. Notez le délai annoncé et le moyen de contact indiqué. Vous pourrez retrouver cet échange si vous devez demander des nouvelles.
 

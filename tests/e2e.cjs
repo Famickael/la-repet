@@ -49,11 +49,12 @@ require("fs").mkdirSync(SC, { recursive: true });
   // Assistant de préparation d'entretien : panneau latéral
   const panel = () => p.getByRole("dialog", { name: "Assistant de préparation d'entretien" });
   const fab = () => p.getByRole("button", { name: "Ouvrir l'assistant de préparation d'entretien" });
+  const waitForFocus = target => target.and(p.locator(":focus")).waitFor({ timeout: 5000 });
   const ask = async (q, expected) => { const i = p.locator("#asst-panel-input"); await i.fill(q); await i.press("Enter"); await see(expected); };
   const closePanel = async how => {
     if (how === "escape") await p.keyboard.press("Escape"); else await p.getByRole("button", { name: "Fermer l'assistant" }).click();
     await panel().waitFor({ state: "hidden" });
-    if (!(await fab().evaluate(el => el === document.activeElement))) throw new Error("le focus ne revient pas au bouton de l'assistant");
+    await waitForFocus(fab());
   };
   // Bulle d'invitation à l'ouverture de l'espace, refermable
   await see("Une question pour préparer votre entretien ?", 4000);
@@ -87,7 +88,8 @@ require("fs").mkdirSync(SC, { recursive: true });
   await p.getByRole("dialog", { name: "Astuces pour bien démarrer" }).waitFor(); await shot("03d2-astuces");
   await p.keyboard.press("Escape");
   await fab().click(); await panel().waitFor();
-  if (!(await p.locator("#asst-panel-input").evaluate(el => el === document.activeElement))) throw new Error("le focus n'est pas dans le champ de l'assistant");
+  // DockPanel place le focus à la prochaine frame, après l'affichage du panneau.
+  await waitForFocus(p.locator("#asst-panel-input"));
   await ask("Comment me présenter en entretien ?", /deux minutes environ/);
   await ask("un exemple ?", /Je m'appelle Camille/);
   if (await p.locator("#asst-panel [role=log][aria-live=polite]").count() !== 1) throw new Error("réponses de l'assistant sans aria-live");

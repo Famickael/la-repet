@@ -26,7 +26,7 @@
 
 ## 3. Le choix retenu : ElevenLabs, voix Ingrid
 
-- Nom : **Ingrid – Warm, Calm and Authentic**. Identifiant : `FFXYdAYPzn8Tw8KiHZqg`.
+- Nom : **Ingrid - Warm, Calm and Authentic**. Identifiant : `FFXYdAYPzn8Tw8KiHZqg`.
 - Caractéristiques : français, accent standard, voix féminine, catégorie « professional ».
 - Clé API (Mac mini) : `~/.config/la-repet/elevenlabs.env` (`export ELEVENLABS_API_KEY=…`, droits 600). **Jamais dans le dépôt.**
   - Restreinte à *Text to Speech* (accès) et *Voix* (lecture), avec un plafond de crédits.

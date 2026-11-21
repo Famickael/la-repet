@@ -41,11 +41,11 @@ Le champ « Un message pour votre coach (facultatif) » vous permet de préc
 
 Vous pouvez aussi demander un avis sur une piste affichée dans votre retour. Relisez l’observation et dites ce que vous entendez dans la réponse. Votre coach pourra reprendre le passage avec vous et proposer un autre point de vue.
 
-## Confirmer ou reprendre votre envoi
+## Confirmer ou annuler votre envoi
 
 Lorsque vous êtes prêt, sélectionnez « Envoyer à mon coach » sur l’écran d’envoi. La confirmation « Réponse envoyée » vous indique que cette réponse est mise à disposition du coach dans le parcours. Si vous avez choisi plusieurs questions, vous pouvez passer à la suivante. Vous pouvez aussi choisir « Revenir à mon espace ».
 
-Tant que le coach n’a pas envoyé son rapport, vous pouvez rouvrir la réponse et sélectionner « Reprendre mon envoi ». Vous pourrez décider ensuite si vous souhaitez partager de nouveau cette réponse, par exemple après avoir reformulé la demande d’avis. Si un rapport est déjà arrivé, ouvrez-le depuis votre espace pour retrouver les remarques.
+Tant que le coach n’a pas envoyé son rapport, vous pouvez rouvrir la réponse et choisir « Annuler l’envoi ». Vous pourrez décider ensuite si vous souhaitez partager de nouveau cette réponse, par exemple après avoir reformulé la demande d’avis. Si un rapport est déjà arrivé, ouvrez-le depuis votre espace pour retrouver les remarques.
 
 ## Préparer le débriefing à partir du rapport
 

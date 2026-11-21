@@ -47,7 +47,7 @@ Les « Repères de l’assistant » sont affichés séparément lorsqu’ils
 
 Avant l’envoi, cliquez sur l’horodatage et écoutez ce qui précède. Vérifiez que le texte renvoie au bon moment, puis relisez-le comme si vous découvriez la réponse. Vous pouvez raccourcir une phrase si elle mélange plusieurs idées. Si vous hésitez entre deux moments, choisissez celui où l’action principale se comprend le mieux.
 
-Après l’envoi, vous pouvez proposer de revenir sur le passage au prochain rendez-vous. Le guide [Animer un débriefing à partir d’une réponse enregistrée](#/ressources/animer-un-debriefing-a-partir-d-une-prise) propose une trame pour en parler et choisir ensemble un nouvel essai.
+Après l’envoi, vous pouvez proposer de revenir sur le passage au prochain rendez-vous. Le guide [Animer un débriefing à partir d’une réponse enregistrée](#/ressources/animer-un-debriefing-a-partir-d-une-reponse) propose une trame pour en parler et choisir ensemble un nouvel essai.
 
 > [!a-retenir] Avant d’envoyer le rapport
 > Retrouvez le bon moment, décrivez un fait et proposez une question ou une action que la personne pourra reprendre. Vérifiez le repère dans le lecteur.

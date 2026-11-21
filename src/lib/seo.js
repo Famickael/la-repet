@@ -1,6 +1,6 @@
 /* Titres d'onglets, descriptions et aperçus de lien, page par page (docs/seo.md).
-   Fichier de données NON BRANCHÉ : à appeler depuis le changement de route (src/App.jsx, src/app/router.js) quand
-   un agent s'en chargera. Rien ici ne s'exécute à l'import.
+   Branché dans src/App.jsx : applySeo(route) à chaque changement de route ; les articles de Ressources affinent le
+   titre et la description (seoArticle). Rien ici ne s'exécute à l'import.
 
    Règles :
    - titre d'onglet : « Page · La Répét' », le mot utile en premier (un onglet tronqué garde le début) ;
@@ -29,33 +29,9 @@ export const SEO = {
     title: t("Qui sommes-nous"),
     description: "L'organisme d'accompagnement derrière La Répét' : des coachs qui préparent aux entretiens, pour des commanditaires publics et des entreprises.",
   },
-  "#/a-propos/faq": {
-    title: t("Questions fréquentes"),
-    description: "Les réponses aux questions courantes sur La Répét' : comment se passe l'entraînement, ce que devient la vidéo, le rôle du coach et celui de l'assistant.",
-  },
-  "#/a-propos/ia-et-recherche": {
-    title: t("IA et recherche : nos choix"),
-    description: "Pourquoi l'assistant décrit sans noter ni deviner les émotions, et sur quels travaux de recherche s'appuie la préparation aux entretiens de La Répét'.",
-  },
   "#/solutions": {
-    title: t("Nos accompagnements"),
-    description: "Ce que propose l'organisme : un accompagnement à l'entretien mené par des coachs, outillé par La Répét', pour les personnes accompagnées et leurs financeurs.",
-  },
-  "#/solutions/demandeurs-emploi": {
-    title: t("Demandeurs d'emploi"),
-    description: "Pour les personnes en recherche d'emploi : répéter ses réponses chez soi, relire un retour qui décrit sans juger, puis en parler avec son coach.",
-  },
-  "#/solutions/collaborateurs": {
-    title: t("Salariés en mobilité"),
-    description: "Pour les salariés qui préparent une mobilité interne ou une évolution professionnelle : s'entraîner à l'entretien en toute discrétion, avec un coach.",
-  },
-  "#/solutions/coachs": {
-    title: t("Coachs et conseillers"),
-    description: "Pour les coachs : créer un parcours d'entraînement, relire les réponses envoyées par la personne et rédiger un retour, avec l'aide d'un assistant.",
-  },
-  "#/solutions/commanditaires": {
-    title: t("Commanditaires"),
-    description: "Pour les financeurs publics et les entreprises : confier à l'organisme la préparation aux entretiens des personnes que vous accompagnez ou employez.",
+    title: t("Solutions"),
+    description: "Ce qui nourrit La Répét' : un assistant IA qui décrit sans noter, des choix fondés sur la recherche en accompagnement, des fonctions pensées avec les coachs.",
   },
   "#/ressources": {
     title: t("Conseils pour l'entretien"),
@@ -126,7 +102,7 @@ export const SEO = {
     description: "Cette adresse ne correspond à aucune page de La Répét'. Revenez à l'accueil, aux conseils pour l'entretien ou à votre espace d'entraînement pour continuer.",
   },
 
-  /* Routes à venir (nouveau menu : À propos, Solutions, Cas d'usage, Ressources) */
+  /* Menus Solutions, Cas d'usage et Ressources (src/app/router.js) */
   "#/solutions/usage-de-l-ia": {
     title: t("Notre usage de l'IA"),
     description: "Comment l'assistant aide à s'entraîner : il met la voix par écrit et décrit la réponse, sans note ni lecture des émotions. Le coach garde toujours la main.",
@@ -138,6 +114,10 @@ export const SEO = {
   "#/solutions/fonctionnalites": {
     title: t("Fonctionnalités"),
     description: "Questions d'entretien choisies avec le coach, enregistrement vidéo sur l'appareil, retour descriptif, relecture par le coach et rapport : l'outil pas à pas.",
+  },
+  "#/cas-d-usage": {
+    title: t("Cas d'usage"),
+    description: "Personnes accompagnées, coachs, commanditaires : ce que l'accompagnement outillé par La Répét' change pour chacun, avec des exemples concrets d'usage.",
   },
   "#/cas-d-usage/beneficiaires": {
     title: t("Personnes accompagnées"),
@@ -174,14 +154,15 @@ export function seoKey(route) {
   }
   switch (route?.role) {
     case "home": return "#/";
-    case "about": return route.section === "faq" ? "#/a-propos/faq" : "#/a-propos";
-    case "research": return "#/a-propos/ia-et-recherche";
-    case "solutions": return SEO[`#/solutions/${route.section}`] ? `#/solutions/${route.section}` : "#/solutions";
+    case "about": return "#/a-propos";
+    case "solutions": return route.page ? `#/solutions/${route.page}` : "#/solutions";
+    case "usecases": return route.page ? `#/cas-d-usage/${route.page}` : "#/cas-d-usage";
+    case "faq": return "#/ressources/faq";
     case "resources": return "#/ressources";
     case "demo": return "#/demo";
     case "espace": return "#/espace";
     case "benef": return route.code ? "#/s" : "#/beneficiaire";
-    case "coach": return "#/coach";
+    case "coach": return route.counselor === false ? "#/espace" : "#/coach";
     case "legal": return LEGAL_KEY[route.page] || `#/vos-donnees/${route.page}`;
     default: return "notfound";
   }

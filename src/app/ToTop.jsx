@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import { IconBtn, I } from "../ui.jsx";
 
 /* « Revenir en haut » : apparaît après un défilement, remonte en douceur (saut direct en mouvement réduit),
-   puis place le focus sur le titre de la page. Empilé au-dessus du bouton de l'assistant dans l'espace. */
+   puis place le focus sur le titre de la page. Empilé au-dessus du bouton de l'assistant dans l'espace.
+   Apparition et disparition en fondu (classe is-in, GStyle : opacité et léger déplacement ; opacité seule en
+   mouvement réduit). Masqué : hors de la tabulation et des lecteurs d'écran. */
 export function ToTop({ lift }) {
   const [show, setShow] = useState(false);
   useEffect(() => {
@@ -13,12 +15,12 @@ export function ToTop({ lift }) {
     window.addEventListener("scroll", on, { passive: true });
     return () => { window.removeEventListener("scroll", on); cancelAnimationFrame(raf); };
   }, []);
-  if (!show) return null;
   const up = () => {
     const reduced = prefersReduced();
     window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
     const h = document.querySelector("main h1");
     if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
   };
-  return <IconBtn icon={I.arrowUp} label="Revenir en haut" variant="outline" className="rp-totop noprint" onClick={up} style={{ bottom: lift ? 88 : 16 }} />;
+  return <IconBtn icon={I.arrowUp} label="Revenir en haut" variant="outline" className={`rp-totop noprint${show ? " is-in" : ""}`} onClick={up}
+    tabIndex={show ? 0 : -1} aria-hidden={show ? undefined : "true"} style={{ bottom: lift ? 88 : 16 }} />;
 }

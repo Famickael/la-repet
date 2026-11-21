@@ -297,8 +297,12 @@ async function run(b, vw, vh, opts = {}) {
 
   // « Revenir en haut »
   await visit("#/a-propos");
-  await p.evaluate(() => scrollTo(0, 2000)); await p.waitForTimeout(400);
   const top = p.getByRole("button", { name: "Revenir en haut" });
+  check(await top.count() === 0, `[${tag}] « Revenir en haut » exposé avant tout défilement`);
+  /* Apparition en fondu (opacité), jamais sèche ; opacité seule en mouvement réduit */
+  const tt = await p.locator(".rp-totop").evaluate(e => { const c = getComputedStyle(e); return { prop: c.transitionProperty, dur: c.transitionDuration, op: c.opacity }; });
+  check(tt.op === "0" && /opacity/.test(tt.prop) && parseFloat(tt.dur) >= 0.2, `[${tag}] « Revenir en haut » : pas de fondu (${JSON.stringify(tt)})`);
+  await p.evaluate(() => scrollTo(0, 2000)); await p.waitForTimeout(500);
   check(await top.isVisible(), `[${tag}] « Revenir en haut » absent après défilement`);
   await top.click(); await p.waitForTimeout(1500);
   check(await p.evaluate(() => scrollY) < 5, `[${tag}] « Revenir en haut » ne remonte pas`);

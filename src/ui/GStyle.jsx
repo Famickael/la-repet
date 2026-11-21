@@ -98,6 +98,11 @@ export const GStyle = () => (
     @keyframes rpBlD{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-5px)}}
     .rp-bl-full{position:fixed;inset:0;z-index:${Z.modal + 2};display:grid;place-items:center;background:${T.bg};animation:up ${MO.base} ${MO.ease} both}
     .rp-totop{position:fixed;right:22px;z-index:${Z.nav};box-shadow:${SH.sm}}
+    /* « Revenir en haut » : fondu à l'apparition et à la disparition (opacité, déplacement de 8 px) ; mouvement réduit : opacité seule */
+    .rp-icbtn.rp-totop{opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .3s ${MO.ease},transform .3s ${MO.ease},background-color ${MO.fast},border-color ${MO.fast}}
+    .rp-icbtn.rp-totop.is-in{opacity:1;transform:none;pointer-events:auto}
+    html[data-motion=reduce] .rp-icbtn.rp-totop{transform:none!important;transition:opacity .3s ease!important}
+    @media (prefers-reduced-motion: reduce){ .rp-icbtn.rp-totop{transform:none!important;transition:opacity .3s ease!important} }
     /* Bordure haute en dégradé des cartes : bleu vers violet (personne accompagnée), vert (coach), IA */
     .rp-tb::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding-top:5px;background:var(--tb);-webkit-mask:${MASK} content-box,${MASK};-webkit-mask-composite:xor;mask:${MASK} content-box,${MASK};mask-composite:exclude;pointer-events:none;z-index:1}
     .rp-tb-main{--tb:${GRAD_MAIN}} .rp-tb-coach{--tb:${GRAD_COACH}} .rp-tb-ai{--tb:${GRAD_AI}}

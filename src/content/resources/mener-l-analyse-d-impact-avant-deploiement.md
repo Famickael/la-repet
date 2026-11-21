@@ -47,5 +47,7 @@ La Répét’ est conçue pour l’entraînement et le débriefing descriptif. D
 
 Datez l’analyse, attribuez un responsable à chaque mesure et conservez les résultats des vérifications. Fixez un point de réexamen avant tout changement important de finalité, de public ou d’architecture. L’[article 35, paragraphe 11, du RGPD](https://eur-lex.europa.eu/eli/reg/2016/679/oj?locale=fr) prévoit un réexamen si nécessaire, notamment quand le risque présenté par le traitement change.
 
+Prévoyez aussi une manière de recueillir les signalements après le lancement. Par exemple, convenez avec le coach du canal à utiliser si une personne ne parvient pas à effacer une réponse. Indiquez qui doit examiner le signalement et dans quel document la suite sera consignée.
+
 > [!a-retenir] Avant les premiers usages réels
 > Vérifiez les flux et les accès avec des données fictives, documentez les risques et faites examiner la décision de déploiement par les personnes responsables.

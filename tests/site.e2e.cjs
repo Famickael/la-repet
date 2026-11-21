@@ -99,6 +99,7 @@ async function run(b, vw, vh, opts = {}) {
       check([g, d, h, bas].every(([v]) => Math.abs(v[0]) <= vw * 0.2 && Math.abs(v[1]) <= vh * 0.2), `[${tag}] fond de l'accueil : amplitude trop forte (${JSON.stringify(pos)})`);
       await shot("01y-accueil-souris", false);
     }
+    await p.mouse.move(vw / 2, vh / 2);
   }
 
   if (!opts.reduced) {
@@ -112,7 +113,6 @@ async function run(b, vw, vh, opts = {}) {
     await shot("02b-phrase-fin", false);
     // Strate épinglée : le panneau reste en place, l'étape active change
     const st = p.locator("section.rs-strate");
-    await p.mouse.move(vw / 2, vh / 2);
     const top = await st.evaluate(el => el.getBoundingClientRect().top + scrollY);
     const h = await st.evaluate(el => el.offsetHeight);
     const range = h - vh;

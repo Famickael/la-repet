@@ -60,26 +60,46 @@ async function run(b, vw, vh, opts = {}) {
   check(await p.locator("#rp-loader").count() === 0, `[${tag}] écran de chargement encore présent`);
   check(await p.getByRole("heading", { level: 1 }).first().textContent().then(t => t.includes("Répétez votre entretien")), `[${tag}] titre du héros absent`);
   await p.getByRole("button", { name: "Lancer ma première répétition" }).waitFor();
+  /* Accueil (demandes du propriétaire) : héros sans « Voir comment ça marche » ni ligne sur le compte, pastille
+     « Sans jugement », bandeau en quatre engagements, phrase juste sous le bandeau, pas de mini FAQ. */
+  const homeTxt = (await p.locator("main").innerText()).replace(/[\u00A0\u202F]/g, " ");
+  check(await p.getByRole("button", { name: "Voir comment ça marche" }).count() === 0 && !homeTxt.includes("Pas de compte à créer"), `[${tag}] accueil : bouton « Voir comment ça marche » ou ligne « Pas de compte à créer » encore présents`);
+  check(homeTxt.includes("Sans jugement") && !/\bSans note\b/.test(homeTxt), `[${tag}] accueil : la pastille doit dire « Sans jugement »`);
+  const reassure = await p.locator(".rs-reassure li").allInnerTexts();
+  check(["Sans frais pour vous", "Démarrage rapide", "Sécurisé", "Confidentiel"].every((t, i) => (reassure[i] || "").startsWith(t)), `[${tag}] accueil : bandeau des quatre engagements attendu (${JSON.stringify(reassure)})`);
+  check(await p.locator("main").evaluate(m => { const r = m.querySelector(".rs-reassure"), ph = m.querySelector(".rs-phrase, .rs-phrase-r"), st = m.querySelector("#comment-ca-marche"); return !!(r && ph && st && (r.compareDocumentPosition(ph) & 4) && (ph.compareDocumentPosition(st) & 4)); }), `[${tag}] accueil : la phrase doit suivre le bandeau et précéder la strate`);
+  check(await p.locator("#home-faq-0, [id^=home-faq]").count() === 0 && !homeTxt.includes("Avant de commencer"), `[${tag}] accueil : la mini FAQ doit être retirée`);
+  if (!mobile) {
+    const hb = await p.locator("header").getByRole("button", { name: "Nous contacter" }).evaluate(el => { const c = getComputedStyle(el), r = el.getBoundingClientRect(); return { bg: c.backgroundColor, bw: c.borderTopWidth, h: r.height }; });
+    check(hb.bg === "rgba(0, 0, 0, 0)" && hb.bw === "0px" && hb.h >= 44, `[${tag}] en-tête : « Nous contacter » doit être un lien d'en-tête sans fond ni bordure, de 44 px (${JSON.stringify(hb)})`);
+  }
   await shot("01-accueil", false);
   const dot = p.getByRole("button", { name: /Scène 2 sur 4/ });
   await dot.click(); await p.waitForTimeout(700);
   check(await dot.getAttribute("aria-current") === "true", `[${tag}] le point de navigation des scènes ne change pas la scène`);
   await shot("01a-heros-scene2", false);
   await shot("01z-accueil-complet");
-  /* Fond de l'accueil (souris) : le pointeur repousse le violet et le bleu et dégage une zone claire sous lui ;
-     en mouvement réduit, rien ne bouge. */
+  /* Fond de l'accueil (souris) : rien ne suit le pointeur ; le violet et le bleu reçoivent toujours des décalages
+     opposés (transform seulement) : ils glissent en sens contraires quand la souris traverse l'écran et s'écartent
+     du pointeur quand il s'approche de l'un d'eux. En mouvement réduit, rien ne bouge. */
   if (!mobile) {
     await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300);
-    const hb = await p.getByRole("heading", { level: 1 }).first().boundingBox();
-    await p.mouse.move(hb.x + 40, hb.y + 40); await p.mouse.move(hb.x + hb.width / 2, hb.y + hb.height / 2, { steps: 10 }); await p.waitForTimeout(1500);
-    const g = await p.locator(".rs-glow").evaluate(el => Object.fromEntries(["--clear", "--px", "--vx", "--vy", "--bx", "--by"].map(k => [k, el.style.getPropertyValue(k)])));
-    if (opts.reduced) check(!g["--clear"], `[${tag}] fond de l'accueil : la zone claire ne doit pas apparaître en mouvement réduit`);
+    const masses = () => p.evaluate(() => ["i", "b"].map(s => { const m = new DOMMatrix(getComputedStyle(document.querySelector(".rs-glow " + s)).transform); return [m.m41, m.m42]; }));
+    const at = async (x, y) => { await p.mouse.move(x, y, { steps: 6 }); await p.waitForTimeout(1500); return masses(); };
+    check(await p.locator(".rs-glow *").count() === 3, `[${tag}] fond de l'accueil : aucun élément ne doit suivre le pointeur (deux masses dans leur conteneur de dérive)`);
+    const pos = { centre: await at(vw / 2, vh / 2), gauche: await at(20, vh / 2), droite: await at(vw - 20, vh / 2), haut: await at(vw / 2, 100), bas: await at(vw / 2, vh - 20) };
+    const rel = k => pos[k].map((m, i) => [m[0] - pos.centre[i][0], m[1] - pos.centre[i][1]]);
+    if (opts.reduced) check(Object.keys(pos).every(k => rel(k).flat().every(v => v === 0)), `[${tag}] fond de l'accueil : rien ne doit bouger en mouvement réduit (${JSON.stringify(pos)})`);
     else {
-      const px = parseFloat(g["--px"]) / 100 * vw, pointer = hb.x + hb.width / 2;
-      check(g["--clear"] === "1" && Math.abs(px - pointer) < vw * 0.05, `[${tag}] fond de l'accueil : zone claire absente sous le pointeur (${JSON.stringify(g)})`);
-      check(parseFloat(g["--vx"]) > 72 || parseFloat(g["--vy"]) < 18, `[${tag}] fond de l'accueil : le violet n'est pas repoussé par le pointeur (${JSON.stringify(g)})`);
+      const [g, d, h, bas] = ["gauche", "droite", "haut", "bas"].map(rel);
+      check([g, d, h, bas].every(([v, b]) => Math.abs(v[0] + b[0]) < 2 && Math.abs(v[1] + b[1]) < 2), `[${tag}] fond de l'accueil : le violet et le bleu ne reçoivent pas des décalages opposés (${JSON.stringify(pos)})`);
+      check(d[0][0] - g[0][0] > 40 && d[1][0] - g[1][0] < -40, `[${tag}] fond de l'accueil : le violet et le bleu ne glissent pas en sens contraires quand la souris va de gauche à droite (${JSON.stringify([g, d])})`);
+      check(h[0][1] < -15 && h[1][1] > 15, `[${tag}] fond de l'accueil : souris en haut, le violet doit monter et le bleu descendre (${JSON.stringify(h)})`);
+      check(bas[1][0] < -15 && bas[1][1] > 0 && bas[0][0] > 15 && bas[0][1] < 0, `[${tag}] fond de l'accueil : souris en bas, le bleu doit s'écarter vers le bas à gauche et le violet vers le haut à droite (${JSON.stringify(bas)})`);
+      check([g, d, h, bas].every(([v]) => Math.abs(v[0]) <= vw * 0.2 && Math.abs(v[1]) <= vh * 0.2), `[${tag}] fond de l'accueil : amplitude trop forte (${JSON.stringify(pos)})`);
       await shot("01y-accueil-souris", false);
     }
+    await p.mouse.move(vw / 2, vh / 2);
   }
 
   if (!opts.reduced) {
@@ -150,6 +170,7 @@ async function run(b, vw, vh, opts = {}) {
   // Solutions : page d'entrée et sous-pages
   await visit("#/solutions"); await shot("06-solutions");
   for (const [h, t] of [["#/solutions/usage-de-l-ia", "Usage de l'IA"], ["#/solutions/recherche", "Recherche en accompagnement"], ["#/solutions/fonctionnalites", "Fonctionnalités"],
+    ["#/solutions/methode", "Méthode : comment l'outil sert l'accompagnement"],
     ["#/cas-d-usage", "Un accompagnement outillé, pour chaque public"], ["#/cas-d-usage/beneficiaires", "Personnes accompagnées"], ["#/cas-d-usage/coachs", "Coachs"], ["#/cas-d-usage/commanditaires", "Commanditaires"], ["#/ressources/faq", "Questions fréquentes"]]) {
     await visit(h);
     const h1 = ((await p.getByRole("heading", { level: 1 }).first().textContent()) || "").replace(/[\u00A0\u202F]/g, " ");
@@ -167,7 +188,7 @@ async function run(b, vw, vh, opts = {}) {
   await p.keyboard.press("ArrowRight");
   check(await p.getByRole("tab", { name: "Cadre et données" }).getAttribute("aria-selected") === "true", `[${tag}] onglets : la flèche droite ne change pas d'onglet`);
   /* Repositionnement : publics de l'organisme, aucun discours de logiciel vendu, moteur d'IA jamais nommé. */
-  for (const h of ["#/solutions", "#/solutions/usage-de-l-ia", "#/cas-d-usage", "#/cas-d-usage/commanditaires"]) {
+  for (const h of ["#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/methode", "#/a-propos", "#/cas-d-usage", "#/cas-d-usage/commanditaires"]) {
     await visit(h);
     check(!/licence|abonnement|tarif|équipez votre structure|Claude|Anthropic/i.test(await p.locator("main").innerText()), `[${tag}] ${h} : discours de logiciel ou nom du fournisseur d'IA`);
   }
@@ -176,6 +197,34 @@ async function run(b, vw, vh, opts = {}) {
   await visit("#/a-propos"); await shot("07-a-propos");
   check(await p.getByText("Texte d'exemple.").count() === 1, `[${tag}] À propos : encart « Texte d'exemple » absent`);
   check(await p.locator("#faq").count() === 0, `[${tag}] À propos : la FAQ doit être sur sa propre page`);
+  /* Page organisme : son expertise d'accompagnement (approche, méthode en sept étapes, références…), et un renvoi vers
+     Solutions pour ce qui concerne l'outil. Aucune note ni score dans le texte. */
+  for (const id of ["approche", "methode", "accompagnements", "references", "equipe", "commanditaires", "outil"]) check(await p.locator(`main #${id}`).count() === 1, `[${tag}] À propos : section #${id} absente`);
+  check(await p.locator("#methode ol > li").count() === 7, `[${tag}] À propos : la méthode doit compter sept étapes`);
+  const aboutTxt = await p.locator("main").innerText();
+  check(!/\bscore|\/\s?10\b|\bnoté/i.test(aboutTxt), `[${tag}] À propos : vocabulaire de notation`);
+  await p.getByRole("button", { name: "Lire la méthode outillée" }).click(); await p.waitForTimeout(600);
+  check(p.url().endsWith("#/solutions/methode"), `[${tag}] À propos : le bouton « Lire la méthode outillée » ne mène pas à #/solutions/methode (${p.url()})`);
+  check(await p.locator("main ol > li").count() >= 12, `[${tag}] Méthode : les cinq temps et les sept étapes doivent être listés`);
+  /* Méthode et Recherche : contenu attendu (retour qui décrit, rôle du coach, références) ; références justes sur
+     les trois pages. Apparition au défilement sur À propos, Recherche et Méthode : tous les blocs, éléments de liste
+     compris (Reveal as="li"), avec des délais décalés ; en mouvement réduit, tout est visible sans attendre. */
+  for (const id of ["Pourquoi le retour décrit au lieu de noter", "Le rôle irremplaçable du coach"]) check(await p.getByRole("heading", { name: id }).count() === 1, `[${tag}] Méthode : section « ${id} » absente`);
+  const refs = { "#/a-propos": ["Clot", "Vermersch", "Rogers", "Le Bossé", "Bandura", "Schön", "Hattie"], "#/solutions/recherche": ["Ericsson", "Dowrick", "Kluger", "Hattie", "Bandura", "Kanfer", "Liu", "Schön", "Baldwin"], "#/solutions/methode": ["Bandura", "Clot", "Hattie", "Schön"] };
+  for (const [h, names] of Object.entries(refs)) {
+    await visit(h);
+    const txt = await p.locator("main").innerText();
+    names.forEach(n => check(txt.includes(n), `[${tag}] ${h} : référence ${n} absente`));
+    check(!/\bscore|\/\s?10\b|\bnoté/i.test(txt), `[${tag}] ${h} : vocabulaire de notation`);
+    const rv = await p.evaluate(() => { const els = [...document.querySelectorAll("main .rv")]; return { n: els.length, li: els.filter(e => e.tagName === "LI").length }; });
+    check(rv.n >= 20 && rv.li >= 3, `[${tag}] ${h} : blocs ou éléments de liste sans apparition (${JSON.stringify(rv)})`);
+    await p.evaluate(async () => { const H = document.documentElement.scrollHeight; for (let y = 0; y <= H; y += innerHeight * 0.4) { scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } scrollTo(0, H); await new Promise(r => setTimeout(r, 300)); });
+    await p.waitForTimeout(opts.reduced ? 300 : 1500);
+    const hidden = await p.evaluate(() => [...document.querySelectorAll("main .rv:not(.is-in)")].map(e => (e.textContent || "").trim().slice(0, 30)));
+    check(hidden.length === 0, `[${tag}] ${h} : ${hidden.length} bloc(s) jamais apparu(s) après défilement (${hidden.slice(0, 3).join(" | ")})`);
+    const delays = await p.evaluate(() => [...new Set([...document.querySelectorAll("main .rv.is-in")].map(e => e.style.transitionDelay))]);
+    check(delays.length >= 3, `[${tag}] ${h} : pas de décalage entre les apparitions (${delays.join(", ")})`);
+  }
   await p.goto(BASE + "#/ressources/faq/coachs"); await p.waitForTimeout(1600);
   const faqTop = await p.locator("#coachs").evaluate(el => Math.round(el.getBoundingClientRect().top));
   check(faqTop < 200, `[${tag}] #/ressources/faq/coachs ne défile pas jusqu'à la section Coachs (${faqTop})`);
@@ -367,7 +416,16 @@ async function run(b, vw, vh, opts = {}) {
       .filter(v => v.nodes.length));
     res.forEach(v => check(false, `[${tag}] axe ${label} : ${v.id} (${v.nodes.slice(0, 3).join(" | ")})`));
   };
-  if (opts.reduced) for (const h of ["#/", "#/a-propos", "#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/recherche", "#/solutions/fonctionnalites", "#/cas-d-usage", "#/cas-d-usage/beneficiaires", "#/cas-d-usage/coachs", "#/cas-d-usage/commanditaires", "#/ressources", "#/ressources/faq", "#/ressources/se-presenter-en-deux-minutes", "#/demo", "#/espace", "#/vos-donnees"]) { await visit(h); await revealAll(); await axe(h); }
+  if (opts.reduced) for (const h of ["#/", "#/a-propos", "#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/recherche", "#/solutions/fonctionnalites", "#/solutions/methode", "#/cas-d-usage", "#/cas-d-usage/beneficiaires", "#/cas-d-usage/coachs", "#/cas-d-usage/commanditaires", "#/ressources", "#/ressources/faq", "#/ressources/se-presenter-en-deux-minutes", "#/demo", "#/espace", "#/vos-donnees"]) { await visit(h); await revealAll(); await axe(h); }
+
+  /* Animation d'apparition (docs/design-system.md, section 7) : sur les pages publiques, chaque carte, question de FAQ,
+     encadré, porte d'entrée et élément de grille apparaît au défilement (Reveal, classe .rv, sur lui ou un parent). */
+  if (!opts.reduced && !mobile) for (const h of ["#/", "#/a-propos", "#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/recherche", "#/solutions/fonctionnalites", "#/solutions/methode", "#/cas-d-usage", "#/cas-d-usage/beneficiaires", "#/cas-d-usage/coachs", "#/cas-d-usage/commanditaires", "#/ressources", "#/ressources/faq", "#/ressources/se-presenter-en-deux-minutes", "#/demo", "#/espace", "#/vos-donnees", "#/vos-donnees/video", "#/mentions-legales"]) {
+    await visit(h);
+    const bare = await p.evaluate(() => [...document.querySelectorAll("main .rs-acc, main .rs-card-btn, main .rs-fcard, main .rs-door, main .rs-callout, main .rs-prose > *, main .rs-g2 > *, main .rs-g3 > *, main .rs-g4 > *")]
+      .filter(el => !el.closest(".rv") && !el.closest(".rs-hero, .rs-page-hero, header, .rs-strate, .rs-phrase, .rs-stage, .rs-fvis")).map(el => `${el.tagName.toLowerCase()}.${String(el.className).split(" ")[0]} « ${(el.textContent || "").trim().slice(0, 40)} »`));
+    check(bare.length === 0, `[${tag}] ${h} : blocs sans animation d'apparition (${bare.slice(0, 4).join(" | ")})`);
+  }
 
   // Options d'accessibilité : thème sombre et grande taille de texte, sans débordement, mémorisées sans flash
   if (!opts.reduced) {
@@ -440,7 +498,8 @@ async function run(b, vw, vh, opts = {}) {
   check(p.url().endsWith("#/coach"), `[${tag}] session coach : « Lancer ma première répétition » ne mène pas à l'espace coach (${p.url()})`);
   for (const [h, btn] of [["#/", "Me connecter à l'espace coach"], ["#/cas-d-usage/coachs", "Me connecter à l'espace coach"], ["#/cas-d-usage/beneficiaires", "Lancer ma première répétition"]]) {
     await visit(h);
-    await p.getByRole("button", { name: btn }).first().click(); await p.waitForTimeout(900);
+    /* Accueil : portes d'entrée entièrement cliquables (liens) ; ailleurs, boutons. */
+    await p.locator("button, a.rs-door").filter({ hasText: btn }).first().click(); await p.waitForTimeout(900);
     check(p.url().endsWith("#/coach"), `[${tag}] session coach : « ${btn} » (${h}) ne mène pas à l'espace coach (${p.url()})`);
   }
   await visit("#/ressources");

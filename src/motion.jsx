@@ -37,11 +37,17 @@ export function useInView({ rootMargin = "0px 0px -10% 0px", threshold = 0.15, o
   return [ref, v];
 }
 
-/* Bloc qui apparaît (fondu et léger glissement) quand il entre dans l'écran. */
-export function Reveal({ children, delay = 0, style, className = "" }) {
+/* Bloc qui apparaît (fondu et léger glissement) quand il entre dans l'écran. `as` : balise rendue (par défaut div ;
+   "li" pour qu'un élément de liste apparaisse avec sa puce ou son numéro). */
+export function Reveal({ children, delay = 0, style, className = "", as: Tag = "div", ...rest }) {
   const [ref, v] = useInView();
-  return <div ref={ref} className={`rv ${v ? "is-in" : ""} ${className}`} style={{ transitionDelay: v ? `${delay}ms` : "0ms", ...style }}>{children}</div>;
+  return <Tag ref={ref} className={`rv ${v ? "is-in" : ""} ${className}`} style={{ transitionDelay: v ? `${delay}ms` : "0ms", ...style }} {...rest}>{children}</Tag>;
 }
+
+/* Décalage d'apparition dans une série (docs/design-system.md, section 7) : 70 ms par élément, repris à zéro à
+   chaque rangée de n éléments (3 pour une grille de cartes, 4 pour une liste ou un accordéon), donc 210 ms au plus :
+   aucun délai qui gêne la lecture ou le focus. */
+export const stagger = (i, n = 3) => (i % n) * 70;
 
 /* Compteur qui monte de 0 à la valeur cible, une fois, après un délai. */
 export function useCount(target, start, delay, reduced) {

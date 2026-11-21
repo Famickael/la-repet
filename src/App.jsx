@@ -20,7 +20,7 @@ import { ToTop } from "./app/ToTop.jsx";
    anciennes adresses redirigées : src/app/router.js.
      #/                                accueil
      #/a-propos                        l'organisme (texte d'exemple, à remplacer par l'organisme réel)
-     #/solutions(/page)                usage-de-l-ia, recherche, fonctionnalites
+     #/solutions(/page)                usage-de-l-ia, recherche, fonctionnalites, methode
      #/cas-d-usage(/page(/section))    beneficiaires (demandeurs-emploi, collaborateurs), coachs, commanditaires
      #/ressources                      conseils et guides, recherche ; #/ressources/SLUG : une ressource
      #/ressources/faq(/section)        questions fréquentes : personnes-accompagnees, coachs, commanditaires
@@ -36,6 +36,7 @@ import { ToTop } from "./app/ToTop.jsx";
 const Solutions = lazy(() => import("./Solutions.jsx"));
 const AiUsage = lazy(() => import("./AiUsage.jsx"));
 const Fonctionnalites = lazy(() => import("./Fonctionnalites.jsx"));
+const Methode = lazy(() => import("./Methode.jsx"));
 const UseCases = lazy(() => import("./UseCases.jsx"));
 const Faq = lazy(() => import("./Faq.jsx"));
 const About = lazy(() => import("./About.jsx"));
@@ -124,6 +125,7 @@ export default function App() {
         {route.role === "solutions" && route.page === "usage-de-l-ia" && <AiUsage go={go} openSpace={openSpace} />}
         {route.role === "solutions" && route.page === "recherche" && <Research go={go} openSpace={openSpace} />}
         {route.role === "solutions" && route.page === "fonctionnalites" && <Fonctionnalites go={go} openSpace={openSpace} />}
+        {route.role === "solutions" && route.page === "methode" && <Methode go={go} />}
         {route.role === "usecases" && <UseCases go={go} openSpace={openSpace} page={route.page} section={route.section} />}
         {route.role === "faq" && <Faq go={go} section={route.section} />}
         {route.role === "resources" && <Resources go={go} openSpace={openSpace} slug={route.slug} cat={route.cat} />}

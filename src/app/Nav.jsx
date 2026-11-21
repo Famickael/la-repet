@@ -14,7 +14,7 @@ export const LINKS = [["#/a-propos", "À propos", "about"], ["#/solutions", "Sol
 /* Sous-menus (deuxième niveau) : le clic sur l'intitulé mène toujours à la page principale. Troisième élément à
    true : entrée de troisième niveau (retrait), sous l'entrée qui la précède. */
 export const SUBS = {
-  solutions: [["#/solutions/usage-de-l-ia", "Usage de l'IA"], ["#/solutions/recherche", "Recherche en accompagnement"], ["#/solutions/fonctionnalites", "Fonctionnalités"]],
+  solutions: [["#/solutions/usage-de-l-ia", "Usage de l'IA"], ["#/solutions/recherche", "Recherche en accompagnement"], ["#/solutions/fonctionnalites", "Fonctionnalités"], ["#/solutions/methode", "Méthode"]],
   usecases: [["#/cas-d-usage/beneficiaires", "Personnes accompagnées"], ["#/cas-d-usage/beneficiaires/demandeurs-emploi", "Demandeurs d'emploi", true], ["#/cas-d-usage/beneficiaires/collaborateurs", "Collaborateurs en mobilité", true], ["#/cas-d-usage/coachs", "Coachs"], ["#/cas-d-usage/commanditaires", "Commanditaires"]],
   resources: [["#/ressources", "Conseils et guides"], ["#/ressources/faq", "Questions fréquentes"]],
 };
@@ -116,7 +116,8 @@ export function Nav({ route, s }) {
           </nav>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
-          <span className="rs-demo"><Btn kind="secondary" size="sm" style={STILL} onClick={contact[1]}>{contact[0]}</Btn></span>
+          {/* Style de lien d'en-tête (navlink) : sans fond ni bordure, zone de 44 px, focus visible (règle globale de GStyle) */}
+          <span className="rs-demo"><Bare className="navlink" onClick={contact[1]} style={{ ...TY.bodyStrong, color: undefined, minHeight: 44, padding: "0 8px", display: "inline-flex", alignItems: "center" }}>{contact[0]}</Bare></span>
           {inSpace
             ? <AccountMenu route={spaceRoute} s={s} className={withBurger ? "rs-demo" : undefined} />
             : <Btn kind="primary" size="sm" style={STILL} onClick={openSpace}><span className="rp-hide-m" style={{ display: "inline-flex" }}><Icon d={I.user} s={16} /></span>Mon compte</Btn>}

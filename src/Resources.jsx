@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { T, GAP, GRAD_PAGE, RAD, SH, Btn, Tag, Icon, I, TY, W, img, Eyebrow, Section, PageHero, Chip, IconTile, Input, Link } from "./ui.jsx";
-import { Reveal, scrollToTarget } from "./motion.jsx";
+import { Reveal, stagger, scrollToTarget } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { dateLong } from "./lib/format.js";
 import { applySeo, seoArticle } from "./lib/seo.js";
@@ -43,11 +43,11 @@ function Hub({ go, openSpace, cat }) {
       <div className="rs-pad" style={wrap}>
         {featured.length > 0 && (
           <section className="rs-section" aria-labelledby="rs-une" style={{ paddingTop: GAP.block }}>
-            <div style={{ display: "grid", gap: 4, marginBottom: GAP.grid }}>
+            <Reveal style={{ display: "grid", gap: 4, marginBottom: GAP.grid }}>
               <Eyebrow>À la une</Eyebrow>
               <h2 id="rs-une" style={{ ...TY.h2, color: T.navy, margin: 0 }}>Pour bien commencer</h2>
-            </div>
-            <div className="rs-g3">{featured.map(a => <ArticleCard key={a.slug} a={a} />)}</div>
+            </Reveal>
+            <div className="rs-g3">{featured.map((a, i) => <RevealCard key={a.slug} a={a} i={i} />)}</div>
           </section>
         )}
 
@@ -57,7 +57,7 @@ function Hub({ go, openSpace, cat }) {
             {CATEGORIES.map(c => <Chip key={c.id} pressed={fcat === c.id} onClick={() => setFcat(fcat === c.id ? "" : c.id)}>{c.title}</Chip>)}
           </div>
           <p role="status" style={{ ...TY.small, color: T.muted, margin: "0 0 16px" }}>{results.length} ressource{results.length > 1 ? "s" : ""}</p>
-          {results.length ? <div className="rs-g3">{results.map(a => <ArticleCard key={a.slug} a={a} />)}</div>
+          {results.length ? <div className="rs-g3">{results.map((a, i) => <RevealCard key={a.slug} a={a} i={i} />)}</div>
             : <Empty text="Aucune ressource ne correspond à cette recherche. Essayez un autre mot, ou retirez le filtre de thème." />}
         </Section>
 
@@ -74,6 +74,9 @@ const Empty = ({ text }) => (
   </div>
 );
 
+/* Carte d'article qui apparaît au défilement, décalée dans sa rangée (docs/design-system.md, section 7). */
+const RevealCard = ({ a, i }) => <Reveal delay={stagger(i)} style={{ height: "100%" }}><ArticleCard a={a} /></Reveal>;
+
 function ArticleCard({ a }) {
   return (
     <a href={`#/ressources/${a.slug}`} className="rs-card-btn" style={{ height: "100%", textDecoration: "none", display: "flex", flexDirection: "column" }}>
@@ -82,7 +85,7 @@ function ArticleCard({ a }) {
       </div>
       <div style={{ padding: 24, display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-          <Tag tone={a.type === "cas" ? "ai" : "primary"}>{TYPES[a.type]}</Tag>
+          <Tag tone={a.type === "cas" ? "coach" : "primary"}>{TYPES[a.type]}</Tag>
           <span style={{ ...TY.caption, color: T.muted }}>{catTitle(a.category)}</span>
         </div>
         <h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>{a.title}</h3>
@@ -126,35 +129,39 @@ function inline(text) {
 }
 
 const CALLOUT = {
-  conseil: { label: "Conseil", icon: I.bulb, fg: T.accent, bg: T.accentBg },
+  conseil: { label: "Conseil", icon: I.bulb, fg: T.coach, bg: T.coachBg },   // conseil d'accompagnement : vert coach
   exemple: { label: "Exemple", icon: I.chat, fg: T.primary, bg: T.primaryBg },
   attention: { label: "Point d'attention", icon: I.info, fg: T.warningDk, bg: T.warningBg },
   "a-retenir": { label: "À retenir", icon: I.check, fg: T.primary, bg: T.primaryBg },
 };
 
-function Blocks({ blocks }) {
+/* Corps d'article. top : blocs de premier niveau, qui apparaissent au défilement sans délai (lecture continue) ;
+   les blocs imbriqués (encadré, citation) apparaissent avec leur parent. */
+function Blocks({ blocks, top }) {
+  const El = top ? Reveal : null;
+  const el = (tag, props, children) => (El ? <Reveal as={tag} {...props}>{children}</Reveal> : React.createElement(tag, props, children));
   return blocks.map((b, i) => {
-    if (b.t === "h2") return <h2 key={i} id={b.id}>{inline(b.text)}</h2>;
-    if (b.t === "h3") return <h3 key={i}>{inline(b.text)}</h3>;
-    if (b.t === "p") return <p key={i}>{inline(b.text)}</p>;
-    if (b.t === "ul") return <ul key={i}>{b.items.map((x, j) => <li key={j}>{inline(x)}</li>)}</ul>;
-    if (b.t === "ol") return <ol key={i}>{b.items.map((x, j) => <li key={j}>{inline(x)}</li>)}</ol>;
+    if (b.t === "h2") return el("h2", { key: i, id: b.id }, inline(b.text));
+    if (b.t === "h3") return el("h3", { key: i }, inline(b.text));
+    if (b.t === "p") return el("p", { key: i }, inline(b.text));
+    if (b.t === "ul") return el("ul", { key: i }, b.items.map((x, j) => <li key={j}>{inline(x)}</li>));
+    if (b.t === "ol") return el("ol", { key: i }, b.items.map((x, j) => <li key={j}>{inline(x)}</li>));
     if (b.t === "quote" || (b.t === "callout" && b.kind === "citation")) {
       return (
-        <figure key={i} className="rs-quote" style={{ margin: "32px 0" }}>
+        <Reveal as="figure" key={i} className="rs-quote" style={{ margin: "32px 0" }}>
           <Icon d={I.quote} s={24} c={T.primary} />
           <blockquote style={{ margin: "8px 0 0" }}><Blocks blocks={b.blocks} /></blockquote>
           {b.title && <figcaption style={{ ...TY.caption, color: T.muted, marginTop: 8 }}>{b.title}</figcaption>}
-        </figure>
+        </Reveal>
       );
     }
     if (b.t === "callout") {
       const c = CALLOUT[b.kind] || CALLOUT.conseil;
       return (
-        <div key={i} role="note" className="rs-callout" style={{ background: c.bg, color: T.navy }}>
+        <Reveal key={i} role="note" className="rs-callout" style={{ background: c.bg, color: T.navy }}>
           <div className="rs-callout-t" style={{ color: c.fg }}><Icon d={c.icon} s={16} c={c.fg} /> {b.title || c.label}</div>
           <Blocks blocks={b.blocks} />
-        </div>
+        </Reveal>
       );
     }
     return null;
@@ -224,7 +231,7 @@ function Article({ a, go, openSpace }) {
                 </nav>
               )}
             </aside>
-            <div className="rs-prose" style={{ maxWidth: W.read }}><Blocks blocks={a.blocks} /></div>
+            <div className="rs-prose" style={{ maxWidth: W.read }}><Blocks blocks={a.blocks} top /></div>
           </div>
         </div>
       </article>
@@ -232,7 +239,7 @@ function Article({ a, go, openSpace }) {
       <div className="rs-pad" style={wrap}>
         {related(a).length > 0 && (
           <Section eyebrow="À lire ensuite" title="Sur le même thème">
-            <div className="rs-g3">{related(a).map(x => <ArticleCard key={x.slug} a={x} />)}</div>
+            <div className="rs-g3">{related(a).map((x, i) => <RevealCard key={x.slug} a={x} i={i} />)}</div>
           </Section>
         )}
         {cas ? (

@@ -13,6 +13,8 @@ export const LIGHT = {
   accent: "#0B7A75", accentDk: "#0A6663", accentLt: "#7FD6CF",
   // Assistant (IA) et points à explorer
   violet: "#5C4BB9", lavender: "#736BDE",
+  // Coach et accompagnement (côté coach, pastille « Avec votre coach », porte « Vous êtes coach ») : vert émeraude
+  coach: "#13795A", coachDk: "#0F5E46",
   // Sémantique : les teintes claires servent au décor, les « Dk » au texte
   success: "#41C77A", successDk: "#1E7A4A",
   warning: "#FFB547", warningDk: "#8A5A0A",
@@ -23,7 +25,7 @@ export const LIGHT = {
   bg: "#F8FAFC", surface: "#FFFFFF",
   // Fonds teintés (un par teinte, opaques)
   primaryBg: "#EEF2F8", accentBg: "#ECF5F4", violetBg: "#F2F1F9",
-  successBg: "#E9F8F0", warningBg: "#FFF6E8", errorBg: "#FFECEF",
+  successBg: "#E9F8F0", warningBg: "#FFF6E8", errorBg: "#FFECEF", coachBg: "#E7F4EE",
   // Voiles et fonds particuliers
   overlay: "rgba(27,58,102,.45)", videoBg: "#000000",
   glass: "rgba(248,250,252,.9)",
@@ -36,6 +38,7 @@ export const DARK = {
   blue: "#5AAEE0", blueDk: "#7DC2EC",
   accent: "#4ECBC1", accentDk: "#7FDCD4", accentLt: "#7FD6CF",
   violet: "#B4A9F5", lavender: "#9D93EC",
+  coach: "#5ED1A6", coachDk: "#8FE0C0",
   success: "#41C77A", successDk: "#6FD69B",
   warning: "#FFB547", warningDk: "#F3C46C",
   error: "#FF5A72", errorDk: "#FF8D9E",
@@ -43,14 +46,14 @@ export const DARK = {
   lineStrong: "#7F8CA2", line: "#2B3649", lineLt: "#222C3D",
   bg: "#0E141E", surface: "#161F2E",
   primaryBg: "#1D2A3F", accentBg: "#13302F", violetBg: "#252347",
-  successBg: "#142E20", warningBg: "#30260F", errorBg: "#3A1B23",
+  successBg: "#142E20", warningBg: "#30260F", errorBg: "#3A1B23", coachBg: "#123026",
   overlay: "rgba(0,0,0,.6)", videoBg: "#000000",
   glass: "rgba(14,20,30,.9)",
   studio: "#DCE6F2",
 };
 /* Contraste renforcé : textes secondaires et bordures plus marqués (s'ajoute au thème clair ou sombre). */
-export const HC_LIGHT = { body: "#1F2937", muted: "#374151", faint: "#4B5563", lineStrong: "#4B5563", line: "#9AA6B8", lineLt: "#D5DBE5", primary: "#24477A", accent: "#06605B", violet: "#45369E" };
-export const HC_DARK = { body: "#E8EEF8", muted: "#D2DAE7", faint: "#AEB9CB", lineStrong: "#AEB9CB", line: "#4B5567", lineLt: "#323D50", primary: "#B7D0F3", accent: "#7FDCD4", violet: "#CFC7FA" };
+export const HC_LIGHT = { body: "#1F2937", muted: "#374151", faint: "#4B5563", lineStrong: "#4B5563", line: "#9AA6B8", lineLt: "#D5DBE5", primary: "#24477A", accent: "#06605B", violet: "#45369E", coach: "#0D5F46" };
+export const HC_DARK = { body: "#E8EEF8", muted: "#D2DAE7", faint: "#AEB9CB", lineStrong: "#AEB9CB", line: "#4B5567", lineLt: "#323D50", primary: "#B7D0F3", accent: "#7FDCD4", violet: "#CFC7FA", coach: "#8FE0C0" };
 export const THEMES = {
   clair: LIGHT, sombre: DARK,
   "clair, contraste renforcé": { ...LIGHT, ...HC_LIGHT }, "sombre, contraste renforcé": { ...DARK, ...HC_DARK },
@@ -86,8 +89,13 @@ export const ON = {
 export const GRAD_PREMIUM = `linear-gradient(135deg, ${FIX.primary} 0%, ${FIX.blueDk} 50%, ${FIX.violet} 100%)`;
 export const GRAD = GRAD_PREMIUM;
 export const GRAD_MAIN = `linear-gradient(135deg, ${FIX.blue} 0%, ${FIX.violet} 100%)`;
-export const GRAD_COACH = `linear-gradient(135deg, ${FIX.accent} 0%, ${FIX.success} 100%)`;   // vert : côté coach
+/* Coach et accompagnement : un seul dégradé vert (coach vers coachDk), barre des cartes côté coach et porte « Vous êtes coach ». */
+export const GRAD_COACH = `linear-gradient(135deg, ${FIX.coach} 0%, ${FIX.coachDk} 100%)`;
 export const GRAD_AI = `linear-gradient(135deg, ${FIX.blueDk} 0%, ${FIX.violet} 100%)`;
+/* Portes d'entrée de l'accueil (« Par où commencer ? ») : un dégradé par public, texte blanc AA sur tout le dégradé. */
+export const GRAD_DOOR_BLUE = `linear-gradient(135deg, ${FIX.primary} 0%, ${FIX.primaryDk} 100%)`;   // personne accompagnée
+export const GRAD_DOOR_GREEN = GRAD_COACH;                                                          // coach (même vert que partout côté coach)
+export const GRAD_DOOR_VIOLET = `linear-gradient(135deg, ${FIX.violet} 0%, ${FIX.primaryDk} 100%)`; // commanditaire
 export const GRAD_SOFT = `linear-gradient(135deg, rgba(56,96,151,.08), rgba(92,75,185,.07))`;
 /* Bordure animée du panneau de l'assistant (bleu vers violet, rôle IA). */
 export const GRAD_AI_BORDER = `linear-gradient(120deg, ${FIX.blueDk} 0%, ${FIX.violet} 50%, ${FIX.blueDk} 100%)`;
@@ -115,7 +123,7 @@ export const HL = {
 
 /* Typographie (section 2). */
 /* Familles : variables CSS, pour l'option « police lisible » (Atkinson Hyperlegible). */
-export const FONT_STACKS = { display: "'Outfit', 'Segoe UI', sans-serif", body: "'Inter', 'Segoe UI', sans-serif", lisible: "'Atkinson Hyperlegible', 'Inter', 'Segoe UI', sans-serif" };
+export const FONT_STACKS = { display: "'Manrope', 'Segoe UI', sans-serif", body: "'Inter', 'Segoe UI', sans-serif", lisible: "'Atkinson Hyperlegible', 'Inter', 'Segoe UI', sans-serif" };
 export const FD = "var(--ff-d)";
 export const FB = "var(--ff-b)";
 export const FM = "'JetBrains Mono', monospace";
@@ -200,6 +208,7 @@ export const INPUT = {
 /* Rôle → couleurs, pour Tag, Notice, repères, observations (section 5.4). */
 export const TONE = {
   primary: { fg: T.primary, bg: T.primaryBg }, appui: { fg: T.accent, bg: T.accentBg }, ai: { fg: T.violet, bg: T.violetBg },
+  coach: { fg: T.coach, bg: T.coachBg },
   success: { fg: T.successDk, bg: T.successBg }, warning: { fg: T.warningDk, bg: T.warningBg }, error: { fg: T.errorDk, bg: T.errorBg },
   muted: { fg: T.body, bg: T.lineLt },
 };
@@ -216,10 +225,11 @@ export const PAIRS = [
   ["accent", "surface", 4.5], ["accent", "bg", 4.5], ["accent", "accentBg", 4.5],
   ["violet", "surface", 4.5], ["violet", "bg", 4.5], ["violet", "violetBg", 4.5],
   ["successDk", "surface", 4.5], ["successDk", "successBg", 4.5],
+  ["coach", "surface", 4.5], ["coach", "bg", 4.5], ["coach", "coachBg", 4.5], ["navy", "coachBg", 4.5], ["body", "coachBg", 4.5],
   ["warningDk", "surface", 4.5], ["warningDk", "warningBg", 4.5],
   ["errorDk", "surface", 4.5], ["errorDk", "bg", 4.5], ["errorDk", "errorBg", 4.5],
   ["surface", "primary", 4.5], ["surface", "primaryDk", 4.5], ["surface", "accent", 4.5], ["surface", "accentDk", 4.5],
-  ["surface", "violet", 4.5], ["surface", "errorDk", 4.5], ["surface", "successDk", 4.5], ["surface", "blueDk", 4.5], ["surface", "navy", 4.5],
+  ["surface", "violet", 4.5], ["surface", "errorDk", 4.5], ["surface", "successDk", 4.5], ["surface", "coach", 4.5], ["surface", "coachDk", 4.5], ["surface", "blueDk", 4.5], ["surface", "navy", 4.5],
   ["accentLt", "navy", 4.5, "clair"],
   ["lineStrong", "surface", 3], ["lineStrong", "bg", 3],
   // dégradés de texte de l'accueil (texte de 32 px et plus : seuil 3) 

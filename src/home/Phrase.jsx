@@ -71,7 +71,7 @@ export function Phrase() {
       </div>
     </div>
   );
-  if (reduced) return <section className="rs-section" style={{ paddingTop: 80 }}>{text}</section>;
+  if (reduced) return <section className="rs-section rs-phrase-r" style={{ paddingTop: 80 }}>{text}</section>;
   return (
     <section ref={sec} className="rs-phrase" style={{ height: small ? "110vh" : "180vh" }}>
       <div className="rs-phrase-in">{text}</div>

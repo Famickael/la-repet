@@ -220,10 +220,13 @@ export const GStyle = () => (
     .rs-hl{background:${T.accentBg};border-radius:4px;padding:0 4px}
     .rs-line{opacity:0}
     .on .rs-line{animation:rsUp .45s ${MO.soft} both}
-    /* Fond de l'accueil qui suit la souris */
+    /* Fond de l'accueil */
     .rs-glow{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;-webkit-mask:${FADE_FOOT};mask:${FADE_FOOT}}
-    .rs-glow>i{position:absolute;inset:-12%;background:radial-gradient(48vmax circle at var(--vx,72%) var(--vy,18%),${GLOW.violet},transparent 70%),radial-gradient(56vmax circle at var(--bx,28%) var(--by,82%),${GLOW.blue},transparent 70%);animation:rsDrift 26s ${MO.soft} infinite alternate}
-    .rs-glow>b{position:absolute;inset:0;background:radial-gradient(22vmax circle at var(--px,50%) var(--py,50%),${T.bg} 0,${T.bg} 30%,transparent 100%);opacity:var(--clear,0);transition:opacity ${MO.slow} ${MO.soft}}
+    /* Deux masses (violet en haut, bleu en bas), aux décalages opposés, déplacées par transform (src/home/Background.jsx) ; la dérive est portée par le conteneur */
+    .rs-glow>span{position:absolute;inset:0;animation:rsDrift 26s ${MO.soft} infinite alternate}
+    .rs-glow i,.rs-glow b{position:absolute;border-radius:50%;will-change:transform}
+    .rs-glow i{left:77.3%;top:10.3%;width:67.2vmax;height:67.2vmax;margin:-33.6vmax 0 0 -33.6vmax;background:radial-gradient(closest-side,${GLOW.violet},transparent)}
+    .rs-glow b{left:22.7%;top:89.7%;width:78.4vmax;height:78.4vmax;margin:-39.2vmax 0 0 -39.2vmax;background:radial-gradient(closest-side,${GLOW.blue},transparent)}
     @keyframes rsDrift{0%{transform:translate3d(0,0,0)}33%{transform:translate3d(-5%,3%,0)}66%{transform:translate3d(4%,-3%,0)}100%{transform:translate3d(-2%,5%,0)}}
     .rs-in{opacity:0;transform:translateY(12px);transition:opacity ${MO.reveal} ${MO.soft},transform ${MO.reveal} ${MO.soft}}
     .on .rs-in{opacity:1;transform:none}
@@ -314,6 +317,12 @@ export const GStyle = () => (
     .rs-art-side{position:-webkit-sticky;position:sticky;top:${HEADER_H + 32}px}
     /* Grilles */
     .rs-g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:${GAP.grid}px}
+    .rs-door{transition:transform ${MO.base} ${MO.ease},box-shadow ${MO.base} ${MO.ease}}
+    .rs-door:hover{transform:translateY(-3px);box-shadow:${SH.lg}}
+    .rs-door:hover .rs-door-arrow{transform:translateX(3px)}
+    .rs-door-arrow{transition:transform ${MO.base} ${MO.ease}}
+    .rs-door:focus-visible{outline:3px solid ${T.navy};outline-offset:3px}
+    @media (prefers-reduced-motion: reduce){.rs-door,.rs-door-arrow{transition:none}.rs-door:hover,.rs-door:hover .rs-door-arrow{transform:none}}
     .rs-g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:${GAP.grid}px}
     .rs-g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:${GAP.grid}px}
     .rs-split{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:64px;align-items:center}
@@ -403,7 +412,7 @@ export const GStyle = () => (
       .rs-bubble{left:-8px}
       .rs-card-pos{right:8px!important;width:min(310px,calc(100% - 16px))!important}
       .rs-fcards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin:0 -16px;padding:4px 16px 16px;scroll-padding:0 16px;-webkit-overflow-scrolling:touch}
-      .rs-fcard{flex:0 0 82%;scroll-snap-align:start}
+      .rs-fcard-w{flex:0 0 82%;scroll-snap-align:start}
       .rs-phrase-in{top:${HEADER_H_M}px;height:calc(100vh - ${HEADER_H_M}px);height:calc(100svh - ${HEADER_H_M}px)}
       .rs-phrase-t{font-size:calc(32px * var(--fs))!important}
       .rs-g2,.rs-g3,.rs-g4,.rs-split{grid-template-columns:minmax(0,1fr);gap:16px}
@@ -441,7 +450,7 @@ export const GStyle = () => (
       .rp-crumbs a,.rp-sources a{display:inline-flex;align-items:center;min-height:44px}
       .rp-ai-bubble a,.rp-ai-bubble button{min-height:44px}
     }
-    @media print{header,footer,.noprint{display:none!important}body{background:${T.surface}}}
+    @media print{header,footer,.noprint{display:none!important}body{background:${T.surface}}.rv{opacity:1!important;transform:none!important}}
     ::-webkit-scrollbar{height:8px;width:8px}::-webkit-scrollbar-thumb{background:${T.line};border-radius:4px}
   `}</style>
 );

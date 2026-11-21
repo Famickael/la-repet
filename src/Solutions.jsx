@@ -2,9 +2,10 @@ import React from "react";
 import { T, Btn, I, TY, W, Section, PageHero, IconTile } from "./ui.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { LinkCards, LinkChips } from "./LinkCards.jsx";
+import { Reveal, stagger } from "./motion.jsx";
 
 /* Page d'entrée « Solutions » (#/solutions) : ce qui nourrit la solution. Une sous-page par sujet :
-   usage de l'IA, recherche en accompagnement, fonctionnalités. Les pages par public sont dans « Cas d'usage ». */
+   usage de l'IA, recherche en accompagnement, fonctionnalités, méthode. Les pages par public sont dans « Cas d'usage ». */
 
 export const SOLUTIONS = [
   { href: "#/solutions/usage-de-l-ia", icon: I.sparkle, tone: "ai", tag: "Assistant IA", title: "Usage de l'IA", short: "Usage de l'IA",
@@ -13,34 +14,36 @@ export const SOLUTIONS = [
     text: "Ce que disent les études sur l'entraînement aux entretiens, ce qu'elles ne disent pas, et les choix de conception qui en découlent." },
   { href: "#/solutions/fonctionnalites", icon: I.layers, title: "Fonctionnalités", short: "Fonctionnalités",
     text: "L'outil pas à pas : échauffement, questions adaptées, caméra ou voix seule, retour qui décrit, envoi au coach, relecture et rapport." },
+  { href: "#/solutions/methode", icon: I.compass, tone: "coach", title: "Méthode", short: "Méthode",
+    text: "Comment l'outil sert l'accompagnement : répétition, auto-observation, retour qui décrit, débriefing avec le coach et transfert vers l'entretien réel." },
 ];
 
 export default function Solutions({ go }) {
   return (
     <main>
       <PageHero eyebrow="Solutions" title="Ce qui nourrit La Répét'"
-        lead="Un assistant IA qui décrit sans noter. Des choix appuyés sur la recherche en accompagnement. Des fonctions pensées avec nos coachs. Une page pour chaque sujet.">
+        lead="Un assistant IA qui décrit sans noter. Des choix appuyés sur la recherche en accompagnement. Des fonctions pensées avec nos coachs, au service d'une méthode d'accompagnement. Une page pour chaque sujet.">
         <LinkChips items={SOLUTIONS} label="Pages de Solutions" />
       </PageHero>
 
       <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
-        <Section first eyebrow="Trois sujets" title="Comprendre la solution, sujet par sujet">
-          <LinkCards items={SOLUTIONS} />
+        <Section first eyebrow="Quatre sujets" title="Comprendre la solution, sujet par sujet">
+          <LinkCards cols={2} items={SOLUTIONS} />
         </Section>
 
         <Section eyebrow="Notre modèle" title="Un organisme d'accompagnement, outillé par La Répét'">
           <div className="rs-split" style={{ alignItems: "start" }}>
-            <div style={{ display: "grid", gap: 16, ...TY.bodyLg, color: T.body }}>
+            <Reveal style={{ display: "grid", gap: 16, ...TY.bodyLg, color: T.body }}>
               <p style={{ margin: 0 }}>Notre métier, c'est l'accompagnement. La Répét' nous appartient : c'est l'outil que nos coachs utilisent avec les personnes qu'ils accompagnent. Nous ne la vendons pas comme un logiciel.</p>
               <p style={{ margin: 0 }}>Des commanditaires nous confient l'accompagnement de leurs publics. Les acteurs publics de l'emploi et de l'insertion peuvent nous confier des demandeurs d'emploi. Les entreprises peuvent nous confier des collaborateurs qui préparent une mobilité, un entretien professionnel ou une reconversion.</p>
               <p style={{ margin: 0 }}>Nos coachs mènent les rendez-vous et les ateliers. Entre deux séances, chaque personne s'entraîne seule avec La Répét', à son rythme.</p>
-            </div>
+            </Reveal>
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 12 }}>
-              {MODEL.map(([ic, t, d, h]) => (
-                <li key={t} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+              {MODEL.map(([ic, t, d, h], i) => (
+                <Reveal as="li" key={t} delay={stagger(i, 4)} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                   <IconTile icon={ic} />
                   <span style={{ ...TY.body, color: T.body }}><a href={h} className="rp-link" style={{ ...TY.link, color: T.primary }}>{t}</a> {d}</span>
-                </li>
+                </Reveal>
               ))}
             </ul>
           </div>

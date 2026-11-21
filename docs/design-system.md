@@ -32,6 +32,8 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 | Sarcelle sur fond sombre | `T.accentLt` | `#7FD6CF` | Texte ou icône d'appui posé sur `navy` ou sur la vidéo | Sur fond clair |
 | Assistant (IA) et points à explorer | `T.violet` | `#5C4BB9` | Bouton `ai`, étiquette `ai`, repère « À explorer », encart « ce que fait l'assistant », chargement de l'analyse | Liens, actions sans IA, icônes génériques, statut |
 | Assistant, dégradé seulement | `T.lavender` | `#736BDE` | Sélection de texte, illustrations | Texte, fond sous texte blanc (4,3:1) |
+| Coach et accompagnement | `T.coach` **nouveau** | `#13795A` | Tout ce qui signale le côté coach ou l'accompagnement humain : pastille « Avec votre coach », ton `coach` des étiquettes et des cartes de liens (« Coachs », scénarios d'accompagnement), encart « Conseil » des articles, dégradé `GRAD_COACH` | Action, point d'appui, validation |
+| Coach, fin de dégradé | `T.coachDk` **nouveau** | `#0F5E46` | Fin de `GRAD_COACH` (texte blanc 7,8:1) | Texte sur fond clair hors dégradé |
 | Validation (décor) | `T.success` | `#41C77A` | Pastille pleine décorative, point « en ligne », illustration | Texte, icône porteuse de sens sur fond clair (2,2:1) |
 | Validation (lisible) | `T.successDk` **nouveau** | `#1E7A4A` | Texte, icône et coche de validation, étape terminée du rail | Bouton |
 | Attention, en attente | `T.warningDk` **nouveau** | `#8A5A0A` | Texte et icône des messages et étiquettes d'attente | Fond |
@@ -52,6 +54,16 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 | En-tête translucide | `T.glass` **nouveau** | `rgba(248,250,252,.9)` | Fond de l'en-tête collant (avec flou d'arrière-plan) | Ailleurs |
 | Fond uni de la caméra | `T.studio` **nouveau** | `#DCE6F2` | Couleur de remplacement du fond de l'aperçu caméra (échauffement) | Interface |
 
+#### Les verts : un rôle chacun (v3.5, demande du propriétaire)
+
+| Vert | Jetons | Rôle unique | Exemples |
+|---|---|---|---|
+| Sarcelle | `accent`, `accentDk`, `accentLt`, `accentBg` | Action principale (`objective`) et points d'appui de l'analyse | « Lancer ma première répétition », repère « Point d'appui », étape en cours du rail et de la strate, « Entretiens à relire » |
+| Émeraude | `coach`, `coachDk`, `coachBg`, `GRAD_COACH` (= `GRAD_DOOR_GREEN`) | Coach et accompagnement humain | Pastille « Avec votre coach », barre `topbar="coach"`, porte « Vous êtes coach », carte « Coachs », scénarios d'accompagnement, encart « Conseil » |
+| Vert de validation | `success` (décor), `successDk` (lisible), `successBg` | Fait, reçu, envoyé, prêt | Étiquettes `success`, `Notice tone="success"`, étapes terminées du rail, rond de confirmation, « Rapports envoyés » |
+
+Aucun autre vert. Le dégradé coach ne mélange plus la sarcelle et le vert de validation. Seule exception : les icônes du bandeau d'engagements du pied de page (section 1.5, validée par le propriétaire). Un cadenas ou une icône de confidentialité n'est pas une validation : il prend `primary`.
+
 **Pourquoi** : une couleur qui a deux rôles n'en signale plus aucun. Aujourd'hui « Se connecter » est bleu, « Accéder à mon espace » sarcelle, « Démarrer l'enregistrement » bleu clair : la personne ne peut pas apprendre où est la suite.
 
 `T.ink` (doublon de `navy`) est supprimé. Le blanc s'écrit `T.surface`, jamais `"#fff"`.
@@ -64,6 +76,7 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 | `T.accentBg` | `#ECF5F4` | Étiquette et pastille « Point d'appui », rangée « à traiter », observation d'appui active |
 | `T.violetBg` **nouveau** | `#F2F1F9` | Étiquette `ai`, encart sur l'assistant, observation « à explorer » active |
 | `T.successBg` | `#E9F8F0` | Message de succès, rond de confirmation |
+| `T.coachBg` **nouveau** | `#E7F4EE` | Étiquette `coach`, pastille d'icône des cartes « coach », encart « Conseil » |
 | `T.warningBg` | `#FFF6E8` | Message d'attention, étiquette d'attente |
 | `T.errorBg` | `#FFECEF` | Message d'erreur |
 
@@ -75,10 +88,11 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 |---|---|---|
 | `GRAD` (= `GRAD_PREMIUM`) **modifié** | `primary` 0 %, `blueDk` 50 %, `violet` 100 % | `GradHead`, en-tête de modale, bandeau d'appel final. Milieu en `blueDk` et non `blue` : le texte blanc y passe de 3,4:1 à 4,5:1 |
 | `GRAD_MAIN` | `blue` vers `violet` | Barre supérieure de 4 px des cartes côté bénéficiaire (`topbar`) |
-| `GRAD_COACH` | `blue` vers `accent` | Barre supérieure des cartes côté coach (`topbar="coach"`) |
+| `GRAD_COACH` **modifié** | `coach` vers `coachDk` | Barre supérieure des cartes côté coach (`topbar="coach"`) et porte « Vous êtes coach » de l'accueil : le seul dégradé vert |
 | `GRAD_AI` **modifié** | `blueDk` vers `violet` | Bouton `ai`, barre `topbar="ai"`, indicateur de chargement de l'analyse |
 | `GRAD_SOFT` | `primary` 8 % vers `violet` 7 % | `GradHead soft` et en-tête de modale `soft` uniquement |
 | `GRAD_NIGHT` **nouveau** | `navy`, `primaryDk` 60 %, `violet` | Fond de scène vidéo simulée (accueil) et fond d'attente de l'enregistreur |
+| `GRAD_DOOR_BLUE`, `GRAD_DOOR_GREEN`, `GRAD_DOOR_VIOLET` **nouveau** | `primary` vers `primaryDk` ; `GRAD_DOOR_GREEN` = `GRAD_COACH` ; `violet` vers `primaryDk` | Portes d'entrée de l'accueil (« Par où commencer ? ») : bleu pour la personne accompagnée, vert pour le coach, violet pour le commanditaire. Carte entièrement cliquable, sans bouton bordé, texte blanc (AA sur tout le dégradé), flèche dans une pastille `ON.chip` |
 
 #### Profondeur et marque (v3.1, pages publiques)
 
@@ -91,12 +105,12 @@ Demande du propriétaire : plus de profondeur et de présence de la marque sur l
 | `GRAD_SECTION` | `bg`, `primaryBg` au milieu, `bg` | Fond de la strate épinglée (section clé) |
 | `GRAD_PAGE` | `primaryBg` vers `bg` | Fond de `PageHero` (pages secondaires) |
 | `GLOW.blue`, `GLOW.violet` | bleu clair 22 %, violet 20 % | Halos (`Halo`) derrière les photos et le héros : décor, jamais sous du texte |
-| `FADE_FOOT` | masque opaque puis transparent sur 160 px avant le pied de page | Fond de l'accueil (repoussé par la souris) : il s'efface avant le pied de page |
+| `FADE_FOOT` | masque opaque puis transparent sur 160 px avant le pied de page | Fond de l'accueil (deux masses qui se déplacent en sens opposés) : il s'efface avant le pied de page |
 | `HL.appui`, `HL.ai`, `HL.primary` | teintes de fond des rôles | Surlignage progressif d'un passage (cartes animées, strate) |
 
 Début du titre d'accroche (« Répétez votre entretien d'embauche, ») : couleur pleine `navy` dans les deux thèmes (presque blanc en sombre), sans dégradé ; seule la fin d'accroche qui change garde `GRAD_ACCROCHE`.
 
-**Fond de l'accueil.** Un seul calque fixe (`.rs-glow`) derrière toutes les sections de l'accueil, qui n'ont aucun fond propre (ni halo de section, ni `GRAD_HERO`, ni `GRAD_SECTION`) : aucune rupture entre le héros, la phrase et la strate. Souris : le pointeur **repousse** le violet et le bleu, chacun de son côté (`pushed`, `src/home/index.jsx` : poussée qui décroît avec la distance, depuis leurs positions de repos), et dégage sous lui une zone claire au fond du thème (`.rs-glow>b`, `T.bg`), pour que le texte pointé reste lisible dans les quatre thèmes ; la zone s'efface quand la souris quitte la fenêtre. Sur tactile, il dérive lentement seul (`rsDrift`, 26 s, aller-retour, `transform` seulement) et glisse un peu au défilement et au doigt (`touchmove`), avec lissage, sans capteur d'orientation. Il s'efface avant le pied de page (`FADE_FOOT`, variable `--fy`), et le pied de page garde son fond opaque au-dessus. Fixe en mouvement réduit, masqué en mode concentration.
+**Fond de l'accueil.** Un seul calque fixe (`.rs-glow`, `src/home/Background.jsx`) derrière toutes les sections de l'accueil, qui n'ont aucun fond propre (ni halo de section, ni `GRAD_HERO`, ni `GRAD_SECTION`) : aucune rupture entre le héros, la phrase et la strate. Il porte deux masses de couleur, le violet en haut à droite (`GLOW.violet`) et le bleu en bas à gauche (`GLOW.blue`). Souris : **rien ne suit le pointeur**, ni halo ni point clair ; les deux masses reçoivent toujours des décalages **opposés** (`opposed`). Sur la diagonale qui les relie, elles s'écartent l'une de l'autre dès que le pointeur s'approche de l'une d'elles (souris en haut à droite : le violet recule vers le haut, le bleu vers le bas ; souris en bas à gauche : de même) ; sur l'autre diagonale, elles glissent en sens contraires (souris vers la droite : le violet glisse à droite, le bleu à gauche). La zone claire du milieu reste ainsi autour du pointeur, et la souris au centre redonne la composition d'origine. Course maximale : environ 15 % de la fenêtre par masse, souris dans un coin. Mouvement amorti (constante de temps de 220 ms), `transform` seulement, écrit dans le style à chaque image par `requestAnimationFrame`, sans rendu React ; la boucle s'arrête dès que les masses ont rejoint leur cible. Sur tactile, le calque dérive lentement seul (`rsDrift`, 26 s, aller-retour, `transform` seulement) et glisse un peu au défilement et au doigt (`touchmove`), avec le même amorti, sans capteur d'orientation. Il s'efface avant le pied de page (`FADE_FOOT`, variable `--fy`), et le pied de page garde son fond opaque au-dessus. Fixe en mouvement réduit, masqué en mode concentration.
 
 Le bleu et le violet de ces dégradés et halos relèvent de l'exception « dégradé de la marque » ci-dessous : ils ne signalent ni l'assistant ni une action.
 
@@ -144,6 +158,7 @@ Seuils : 4,5:1 pour le texte, 3:1 pour le texte de 24 px et plus (ou 19 px gras)
 | `accent` | 5,2 | 5,0 | `accentBg` 4,7 | OK |
 | `violet` | 6,6 | 6,4 | `violetBg` 5,9 | OK |
 | `successDk` | 5,3 | | `successBg` 4,9 | OK |
+| `coach` | 5,4 | 5,1 | `coachBg` 4,8 | OK |
 | `warningDk` | 5,9 | | `warningBg` 5,5 | OK |
 | `errorDk` | 5,4 | 5,2 | `errorBg` 4,7 | OK |
 | `surface` (blanc) | | | sur `primary` 6,4 · `primaryDk` 8,5 · `accent` 5,2 · `accentDk` 6,8 · `violet` 6,6 · `errorDk` 5,4 · `successDk` 5,3 · `blueDk` 4,5 · `navy` 11,4 | OK |
@@ -169,7 +184,7 @@ Combinaisons **interdites** (mesurées dans le code actuel) : blanc sur `blue` 3
 
 ## 2. Typographie
 
-Trois familles, sans exception : **Outfit** (`FD`, la police du logo) pour les titres (`h1` à `h4`, `display`, `xl`, `pageTitle`, `quote`, intertitres des articles), **Inter** (`FB`) pour le texte et l'interface, **JetBrains Mono** (`FM`) pour les chiffres, codes et horodatages.
+Trois familles, sans exception : **Manrope** (`FD`) pour les titres (`h1` à `h4`, `display`, `xl`, `pageTitle`, `quote`, intertitres des articles), **Inter** (`FB`) pour le texte et l'interface, **JetBrains Mono** (`FM`) pour les chiffres, codes et horodatages.
 
 **Règle** : hors de `tokens.js`, il est interdit d'écrire `font:`, `fontSize`, `fontWeight`, `fontFamily`, `lineHeight` ou `letterSpacing`. On écrit `style={{ ...TY.h2, color: T.navy }}` ou `<Txt v="h2">`. **Pourquoi** : le code actuel contient 91 combinaisons taille/graisse/interlignage différentes, dont sept tailles de titre de page (24, 26, 27, 28, 30, 32, 34) et des demi-pixels (10,5 · 11,5 · 12,5 · 13,5 · 14,5 · 15,5).
 
@@ -177,12 +192,12 @@ Trois familles, sans exception : **Outfit** (`FD`, la police du logo) pour les t
 
 | Niveau | Jeton | Famille | Graisse | Taille / interligne | Espacement | Mobile (≤ 760 px) | Usage unique |
 |---|---|---|---|---|---|---|---|
-| Titre d'accroche | `TY.display` | Outfit | 800 | 54 / 1,05 | -0,035em | 38 | Titre du héros de l'accueil, une fois dans le site |
-| Titre de section éditoriale | `TY.xl` | Outfit | 800 | 32 / 1,15 | -0,03em | 26 | `h2` des pages Accueil et Fonctionnement, bandeau d'appel final |
-| Titre de page | `TY.h1` | Outfit | 800 | 28 / 1,15 | -0,02em | 24 | Le `h1` de chaque écran d'application, titre de `GradHead`, titre d'étape du défilement de l'accueil |
-| Titre de section | `TY.h2` | Outfit | 800 | 20 / 1,25 | -0,01em | 20 | Sections d'un écran (« Mes prises »), titre de modale, titre d'une carte vedette |
-| Titre de carte | `TY.h3` | Outfit | 700 | 16 / 1,3 | 0 | 16 | Cartes de grille, observation, nom dans une liste, état vide |
-| Titre de bloc | `TY.h4` | Outfit | 700 | 14 / 1,4 | 0 | 14 | Intitulé d'un bloc dans une carte, question d'une prise dans une liste |
+| Titre d'accroche | `TY.display` | Manrope | 800 | 54 / 1,05 | -0,035em | 38 | Titre du héros de l'accueil, une fois dans le site |
+| Titre de section éditoriale | `TY.xl` | Manrope | 800 | 32 / 1,15 | -0,03em | 26 | `h2` des pages Accueil et Fonctionnement, bandeau d'appel final |
+| Titre de page | `TY.h1` | Manrope | 800 | 28 / 1,15 | -0,02em | 24 | Le `h1` de chaque écran d'application, titre de `GradHead`, titre d'étape du défilement de l'accueil |
+| Titre de section | `TY.h2` | Manrope | 800 | 20 / 1,25 | -0,01em | 20 | Sections d'un écran (« Mes prises »), titre de modale, titre d'une carte vedette |
+| Titre de carte | `TY.h3` | Manrope | 700 | 16 / 1,3 | 0 | 16 | Cartes de grille, observation, nom dans une liste, état vide |
+| Titre de bloc | `TY.h4` | Manrope | 700 | 14 / 1,4 | 0 | 14 | Intitulé d'un bloc dans une carte, question d'une prise dans une liste |
 | Surtitre | `TY.overline` | Inter | 700 | 11 / 1,3 | 0,08em, capitales | 11 | Au-dessus d'un titre ou d'une valeur ; jamais plus de 4 mots |
 | Chapeau | `TY.lead` | Inter | 400 | 18 / 1,6 | 0 | 16 | Paragraphe sous `display` ou `xl` |
 | Corps de lecture | `TY.bodyLg` | Inter | 400 | 16 / 1,6 | 0 | 16 | Ce que la personne doit lire attentivement : mot du coach, synthèse, phrase sous un `h1` |
@@ -199,11 +214,11 @@ Trois familles, sans exception : **Outfit** (`FD`, la police du logo) pour les t
 | Code saisi | `TY.code` | JetBrains Mono | 700 | 24 / 1 | 0,25em | 24 | Champ du code à 6 caractères |
 | Horodatage | `TY.time` | JetBrains Mono | 700 | 11 / 1 | 0 | 11 | Pastille « 0:03 », numéro d'étape |
 | Mono | `TY.mono` | JetBrains Mono | 500 | 12 / 1,5 | 0 | 12 | Code dans une liste, durée, lien affiché, message technique |
-| Titre de page secondaire | `TY.pageTitle` | Outfit | 800 | 38 / 1,1 | -0,03em | 26 | `h1` de `PageHero` et titre d'article (rendu validé) |
-| Citation | `TY.quote` | Outfit | 700 | 20 / 1,45 | 0 | 18 | Citation d'article |
+| Titre de page secondaire | `TY.pageTitle` | Manrope | 800 | 38 / 1,1 | -0,03em | 26 | `h1` de `PageHero` et titre d'article (rendu validé) |
+| Citation | `TY.quote` | Manrope | 700 | 20 / 1,45 | 0 | 18 | Citation d'article |
 | Mise en avant | `TY.strong` | | 700 | | | | `<strong>` dans un paragraphe |
 
-Tailles autorisées (px) : **11, 12, 13, 14, 16, 18, 20, 24, 26, 28, 32, 38, 54**. Graisses autorisées : Outfit 700 et 800 ; Inter 400, 600, 700 ; JetBrains Mono 500 et 700. Toute autre valeur est une erreur (Inter 500 disparaît : `body` ou `bodyStrong`).
+Tailles autorisées (px) : **11, 12, 13, 14, 16, 18, 20, 24, 26, 28, 32, 38, 54**. Graisses autorisées : Manrope 700 et 800 ; Inter 400, 600, 700 ; JetBrains Mono 500 et 700. Toute autre valeur est une erreur (Inter 500 disparaît : `body` ou `bodyStrong`).
 
 Règles d'emploi :
 - Un seul `h1` par écran, et l'ordre des niveaux HTML suit l'ordre visuel (le composant `Txt` sépare la balise `as` du style `v`).
@@ -366,6 +381,7 @@ Hauteur 24, padding 0 × 12, `RAD.pill`, `TY.tag`, icône 12 facultative. Non cl
 |---|---|---|
 | `primary` | `primary` / `primaryBg` | Contexte, rôle, étape (« Coach », « Entraînement », « S'entraîne ») |
 | `appui` | `accent` / `accentBg` | « Point d'appui » uniquement |
+| `coach` | `coach` / `coachBg` | Côté coach, accompagnement humain (« Avec votre coach ») |
 | `ai` | `violet` / `violetBg` | Assistant, « À explorer » |
 | `success` | `successDk` / `successBg` | Fait, reçu, envoyé |
 | `warning` | `warningDk` / `warningBg` | En attente d'une action (« À relire ») |
@@ -419,7 +435,7 @@ Panneau latéral non modal (`role="dialog"`, `aria-modal="false"`), ouvert depui
 
 Bouton « Mon compte » dans l'en-tête, sur toutes les pages. Déconnecté : il mène à la page « Mon espace » (code d'accès ou connexion coach). Connecté (coach ou personne accompagnée) : il ouvre un **menu déroulant sous le bouton** (demande du propriétaire, 21 novembre 2026, à la place du panneau latéral), non modal : bouton `secondary` avec chevron qui pivote, `aria-expanded` et `aria-controls` ; menu aligné à droite du bouton, 320 px (au plus la largeur de l'écran moins 32), fond `surface`, bordure `line`, `RAD.md`, `SH.lg`, hauteur bornée à l'écran avec défilement interne. Contenu : en-tête du compte (pastille à initiale, prénom ou nom, rôle), puis Retour à mon espace, Demander de l'aide, Vos données, Options d'accessibilité, Changer de code et Retirer mon accord (personne accompagnée, en `errorDk`), Se déconnecter ; rangées `Bare` de 44 px (`rp-menuitem`). Clavier : focus sur la première action à l'ouverture, flèches haut et bas, Début, Fin ; Échap ferme et rend le focus au bouton ; clic extérieur ou tabulation hors du menu ferment. Ni blocage du défilement ni page inerte (menu non modal). Jamais ouvert en même temps que l'assistant (`closeAssistant`). Sur les pages publiques, quand le menu mobile est affiché (1023 px et moins), « Mon compte » passe dans le menu mobile : même en-tête, mêmes actions (`AccountActions`). La confirmation du retrait de l'accord reste une `Modal`.
 
-**« Nous contacter » et « Demander de l'aide ».** Session ouverte : le bouton secondaire de l'en-tête devient « Demander de l'aide » et mène aux questions fréquentes, sur la section de la personne connectée (`#/ressources/faq/personnes-accompagnees` ou `#/ressources/faq/coachs`). Même entrée dans « Mon compte » et dans le menu mobile.
+**« Nous contacter » et « Demander de l'aide ».** Dans l'en-tête, « Nous contacter » est un bouton au style de lien d'en-tête (`navlink` : sans fond ni bordure, zone de 44 px, focus visible ; v3.5, demande du propriétaire). Session ouverte : il devient « Demander de l'aide » et mène aux questions fréquentes, sur la section de la personne connectée (`#/ressources/faq/personnes-accompagnees` ou `#/ressources/faq/coachs`). Même entrée dans « Mon compte » et dans le menu mobile.
 
 **Sous-menus de l'en-tête.** Un seul sous-menu visible à la fois (état tenu par `Nav`). Survol : délai d'intention de 120 ms avant d'ouvrir un premier sous-menu, puis bascule immédiate de l'un à l'autre dans la même image (classe `rp-swap` : pas d'animation d'entrée, l'ancien est masqué aussitôt), délai de grâce de 250 ms à la sortie. Clic extérieur, Échap et changement de page ferment. Entrées de troisième niveau (« Demandeurs d'emploi », « Collaborateurs en mobilité ») en retrait (`rp-subitem3`). Le bouton d'accessibilité ne figure plus dans l'en-tête (languette, `src/A11y.jsx`) ; ses entrées restent dans le menu mobile et dans « Mon compte ».
 
@@ -486,13 +502,14 @@ Remplace 1000, 920, 820, 720, 680, 640, 580, 560, 460.
 | `MO.soft` (v3.1) | `cubic-bezier(.45,0,.55,1)` | Courbe douce (ease-in-out) des transitions lentes ci-dessus |
 | `PACE.scene` (v3.2) | 11 500 ms | Durée d'une scène du héros (laisse le temps de lire la scène à côté du titre). Pause au survol, au focus et par le bouton pause |
 | `PACE.accroche` (v3.2) | 11 500 ms | Fin d'accroche synchronisée avec sa scène : même cadence, même fondu (`MO.fade`) |
-| Écran de chargement (v3.4) | 2,5 s minimum (décision du propriétaire : rapprochement des bulles 1,3 s, puis les points), barre de chargement de 3 px sous le logo, sortie en un seul mouvement de 0,8 s (`MO.soft`) | Durée comptée depuis le début de la navigation. **Barre** : 112 × 3 px, `RAD` 2, remplissage `T.violet` sur piste `T.line` (valeurs recopiées dans `index.html`, clair et sombre), progresse jusqu'à 90 % pendant la durée minimale (`transform: scaleX`), puis se complète en 250 ms en repartant de sa valeur affichée. **Sortie** : le calque passe en fondu (`opacity`) pendant que les deux bulles du logo s'écartent (`transform` sur un groupe intérieur, distinct de l'animation d'entrée : aucun saut), points et barre en fondu plus court. Calque de `100vw` : le logo ne bouge pas quand la barre de défilement apparaît. Le retrait attend qu'aucun écran d'attente de page (`BrandLoader` de `Suspense`) ne soit affiché : pas de double rendu. « Réduire les animations » : écran statique sans barre, 0,6 s, puis fondu simple de 0,4 s. Navigateur piloté : retrait immédiat. Retrait de secours en CSS à 10 s, y compris en mouvement réduit (`index.html`, `src/Loader.jsx`) |
+| Écran de chargement (v3.5) | 2,5 s minimum (décision du propriétaire : rapprochement des bulles 1,3 s, puis les points), barre de chargement de 3 px sous le logo, sortie en trois temps : écart des bulles 0,6 s, pause 0,3 s, fondu 0,6 s (`MO.soft`) | Durée comptée depuis le début de la navigation. **Barre** : 112 × 3 px, `RAD` 2, remplissage `T.violet` sur piste `T.line` (valeurs recopiées dans `index.html`, clair et sombre), progresse jusqu'à 90 % pendant la durée minimale (`transform: scaleX`), puis se complète en 250 ms en repartant de sa valeur affichée. **Sortie** (demande du propriétaire : « qu'on voie bien la séparation ») : 1. les deux bulles du logo s'écartent (`.rpl-split`, `transform` sur un groupe intérieur, distinct de l'animation d'entrée : aucun saut), points et barre en fondu court ; 2. pause, bulles écartées ; 3. le calque passe en fondu (`.rpl-out`, `opacity`). **Page immobile avant la sortie** (`pageSettled`, `src/Loader.jsx`) : la sortie ne commence que lorsque les polices sont chargées, les images visibles décodées et qu'aucune animation ou transition finie (entrée du héros, lignes de la scène) ne tourne dans `#root` ; les boucles infinies (dérive du fond, point d'enregistrement) ne comptent pas. Attente bornée à 8 s. Le retrait attend aussi qu'aucun écran d'attente de page (`BrandLoader` de `Suspense`) ne soit affiché : pas de double rendu. Calque de `100vw` et barre de défilement réservée dès `index.html` (`overflow-y: scroll`, `scrollbar-gutter: stable`) : rien ne se décale quand le site arrive. « Réduire les animations » : écran statique sans barre, 0,6 s, puis fondu simple de 0,4 s. Navigateur piloté : retrait immédiat. Retrait de secours en CSS à 10 s, y compris en mouvement réduit (`index.html`, `src/Loader.jsx`) |
 | « Revenir en haut » (v3.4) | 300 ms, `MO.ease` | Apparaît et disparaît en fondu (`opacity`, déplacement de 8 px vers le haut), jamais d'apparition sèche ; masqué, il reste dans la page sans être atteignable (`tabIndex` -1, `aria-hidden`, `pointer-events: none`). Mouvement réduit : opacité seule, même durée (prioritaire sur la règle globale) |
 
 Les pages publiques (accueil, à propos, solutions, ressources) utilisent les durées lentes ; l'application (espaces bénéficiaire et coach) garde `MO.fast`, `MO.base` et `MO.enter` pour rester réactive.
 
 - `transition: all` est interdit : on nomme les propriétés (`background-color`, `border-color`, `box-shadow`, `transform`, `opacity`).
 - Amplitudes : bouton 1 px vers le haut, carte cliquable 2 px, apparition 12 px. On n'anime que `transform` et `opacity`.
+- **Apparition au défilement, partout sur les pages publiques** (v3.5, demande du propriétaire : « parfois tu oublies l'animation d'apparition ») : le titre de section (`Section`) apparaît, **et aussi chaque bloc de son contenu** : carte, élément de grille, question de FAQ (`Accordion`), encadré, élément de liste, tableau, notice, carte d'article, paragraphe d'article. Composant unique : `Reveal` (`src/motion.jsx`, classe `.rv` : fondu et 12 px, `MO.reveal`, `MO.soft`), avec `as` pour garder la balise (`li`, `p`, `section`, `figure`). Décalage dans une série : `stagger(i, n)`, 70 ms par élément, remis à zéro à chaque rangée de `n` (3 pour une grille de cartes, 2 pour deux colonnes, 4 pour une liste ou un accordéon), donc 210 ms au plus. Corps d'article : blocs de premier niveau sans délai (lecture continue). Mouvement réduit : apparition immédiate (règle globale). Impression : tout est visible (`@media print`). Le focus clavier n'est jamais retardé : un bloc atteint au clavier défile dans l'écran et apparaît aussitôt. Exceptions : héros et `PageHero` (classe `.up`), strate épinglée, phrase qui se colore, scènes du héros (leurs propres animations), messages d'état (`role="status"`). Contrôle : `test:site` vérifie que chaque carte, question de FAQ, encadré, porte d'entrée, élément de grille et bloc d'article des pages publiques est dans un `.rv`.
 - Animations en boucle limitées à quatre : point d'enregistrement (`blink`), indicateur de chargement (`spin`), indicateur du recruteur oral pendant la lecture (`rpVoice`, barres qui pulsent, immobiles dès que la voix se tait) et lente dérive du fond de l'accueil (`rsDrift`, 26 s, pages publiques seulement, demande du propriétaire).
 - `prefers-reduced-motion: reduce` neutralise toutes les animations et transitions (règle globale de `GStyle`, à conserver). Le contenu doit rester complet sans animation : rien n'est révélé uniquement par le mouvement.
 - Aucune animation pendant l'enregistrement autre que le point rouge.
@@ -559,7 +576,7 @@ Décrire, ne jamais noter. Formulation positive, appui avant exploration. Un bou
 4. Rayon ou ombre hors des jetons `RAD` et `SH`.
 5. `input`, `textarea`, `select` ou `button` natif hors de `ui.jsx`.
 6. Deux actions pleines colorées sur le même écran.
-7. Violet sans rapport avec l'assistant ; sarcelle hors action principale et points d'appui ; vert `success` ou rouge `error` en texte.
+7. Violet sans rapport avec l'assistant ; sarcelle hors action principale et points d'appui ; vert `coach` hors côté coach et accompagnement ; vert `success` ou rouge `error` en texte.
 8. `div` cliquable, `transition: all`, emoji utilisé comme icône, `&nbsp;` pour espacer une icône.
 
 ---
@@ -591,7 +608,7 @@ Décrire, ne jamais noter. Formulation positive, appui avant exploration. Un bou
 | M1 | une transition est écrite à la main | `transition:\s*["'\`]` sans `MO.` ; tout `transition` contenant `all` | aucune |
 | K1 | un élément natif de formulaire ou un bouton natif est utilisé | `<(input\|textarea\|select\|button)\b` | `<input type="file">` s'il apparaît un jour |
 | K2 | `<Btn kind=` vaut autre chose que `objective`, `ai`, `primary`, `secondary`, `ghost`, `danger`, `white`, `ghostDark`, `dangerSolid` ; `size` autre que `sm`, `md`, `lg` | valeur littérale ou branches d'un ternaire | aucune |
-| K3 | `<Tag tone=` vaut autre chose que `primary`, `appui`, `ai`, `success`, `warning`, `error`, `muted` | idem, y compris les tons renvoyés par `lib/store.js` (`tone: "…"`) | aucune |
+| K3 | `<Tag tone=` vaut autre chose que `primary`, `appui`, `coach`, `ai`, `success`, `warning`, `error`, `muted` | idem, y compris les tons renvoyés par `lib/store.js` (`tone: "…"`) | aucune |
 | K4 | un élément non interactif porte `onClick` | `<(div\|span\|p\|li)\b[^>]*\bonClick=` | voile de modale dans `ui.jsx` |
 | K5 | une icône est espacée à la main | `&nbsp;\s*<Icon` ou `<Icon[^>]*/>\s*&nbsp;` | aucune |
 | L1 | un tiret cadratin ou un emoji figure dans une chaîne | le caractère U+2014 ; `\p{Extended_Pictographic}` (drapeau `u`) | aucune ; s'applique aussi à `docs/*.md` pour le tiret |
@@ -625,7 +642,7 @@ export const T = { /* jetons existants */
   overlay: "rgba(27,58,102,.45)", videoBg: "#000000",
 };                                  // supprimer T.ink
 export const ON = { text: "#FFFFFF", chip: "rgba(255,255,255,.2)", line: "rgba(255,255,255,.3)", glow: "rgba(255,255,255,.16)", scrim: "rgba(0,0,0,.5)" };
-export const FD = "'Outfit', 'Segoe UI', sans-serif", FB = "'Inter', 'Segoe UI', sans-serif", FM = "'JetBrains Mono', monospace";
+export const FD = "'Manrope', 'Segoe UI', sans-serif", FB = "'Inter', 'Segoe UI', sans-serif", FM = "'JetBrains Mono', monospace";
 export const SIZES = [11, 12, 13, 14, 16, 18, 20, 24, 26, 28, 32, 38, 54];
 export const WEIGHTS = { [FD]: [700, 800], [FB]: [400, 600, 700], [FM]: [500, 700] };
 export const TY = {
@@ -764,12 +781,19 @@ Dégradés : `GRAD` et `GRAD_AI` recomposés selon 1.3, `GRAD_NIGHT` ajouté, `G
 | 2026-11-21 | Typographie française : espace fine insécable (U+202F) avant `;` `?` `!` et à l'intérieur des guillemets, espace insécable (U+00A0) avant `:` et `%` et entre un nombre et son unité ; contrôlée par `npm run test:content` (`tests/lib/typo-fr.mjs`) | Audit RED-11, demande du propriétaire |
 
 | 2026-11-21 | Fond de l'accueil inversé : le violet et le bleu s'écartent du pointeur au lieu de le suivre, zone claire au fond du thème sous la souris ; tactile inchangé (dérive), rien ne bouge en mouvement réduit ; contrôlé par `test:site` | Demande du propriétaire : la zone pointée devenait illisible |
+| 2026-11-21 | Fond de l'accueil : zone claire sous le pointeur retirée ; retour aux deux masses d'origine, qui reçoivent des décalages opposés au mouvement de la souris (elles s'écartent du pointeur sur leur diagonale et glissent en sens contraires sur l'autre ; amorti, `transform` seulement), extrait dans `src/home/Background.jsx` ; tactile inchangé (dérive), rien ne bouge en mouvement réduit ; contrôlé par `test:site` | Demande du propriétaire : pas de point blanc qui suit la souris, ce sont les couleurs autour qui doivent bouger |
 | 2026-11-21 | Écran de chargement (v3.4) : barre violette de 3 px sous le logo ; sortie en un seul mouvement de 0,8 s (fondu du calque et écart des deux bulles) ; calque de `100vw` (plus de décalage à l'apparition de la barre de défilement) ; retrait après l'écran d'attente de page éventuel ; fondu simple en mouvement réduit, retrait de secours rétabli en mouvement réduit ; durée minimale inchangée (2,5 s). Vérifié image par image (valeurs relevées à chaque image) | Demande du propriétaire : sursaut à la fin du chargement, barre de progression |
 | 2026-11-21 | Options d'accessibilité (v3.4) : languette en demi-cercle au bord gauche (bas à gauche sur mobile) qui s'allonge au survol et au focus, panneau qui se déploie depuis elle par `clip-path` (plus de `Modal`), menu refait en quatre groupes avec interrupteurs visibles et état, focus retenu, Échap et clic extérieur ; bouton de l'en-tête masqué ; exception de taille de cible documentée (8 bis) | Demande du propriétaire |
 | 2026-11-21 | Pied de page : logo et brief passent sous les engagements, à côté des groupes de liens, sur une rangée de quatre blocs (3/2/2/2), deux colonnes en tablette ; espace réservé sous le pied sur mobile | Demande du propriétaire : moins d'espace vide, brief à côté de « Vos données » |
 | 2026-11-21 | « Revenir en haut » en fondu (opacité et 8 px ; opacité seule en mouvement réduit) | Demande du propriétaire : pas d'apparition sèche |
 | 2026-11-21 | « Mon espace » : première vue sans défilement, en-tête de page retiré (`h1` masqué visuellement), carte coach repliée sous un lien sur mobile ; textes « Écrivez le code d'accès donné par votre coach ou votre conseiller. » et « Votre code suffit : pas de compte, pas de mot de passe. Gardez-le pour vous. » | Demande du propriétaire, panel bénéficiaire |
 | 2026-11-21 | Nouveaux menus : À propos (sans sous-menu), Solutions, Cas d'usage, Ressources ; un seul sous-menu visible, délai d'intention et bascule sans chevauchement ; « Mon compte » en menu déroulant sous le bouton (dans le menu mobile sur les pages publiques) ; « Demander de l'aide » en session ; bouton d'accessibilité retiré de l'en-tête | Demande du propriétaire |
+| 2026-11-21 | Accueil : phrase « Un entretien, ça se prépare à voix haute » remontée juste sous le héros et le bandeau ; bandeau en quatre engagements (« Sans frais pour vous », « Démarrage rapide », « Sécurisé », « Confidentiel », icônes `gift`, `zap`, `shield`, `eyeOff`, chacun précisé en une ligne) ; mini FAQ retirée ; héros sans « Voir comment ça marche » ni ligne sur le compte ; pastille « Sans jugement » ; « Nous contacter » et « Demander de l'aide » de l'en-tête au style `navlink` | Demande du propriétaire |
+| 2026-11-21 | Verts (v3.5) : un rôle par vert. Nouveau rôle « coach et accompagnement » (`coach`, `coachDk`, `coachBg`, ton `coach` de `Tag`) ; `GRAD_COACH` recomposé (`coach` vers `coachDk`) et `GRAD_DOOR_GREEN` = `GRAD_COACH` ; pastille « Avec votre coach », carte « Coachs », scénarios d'accompagnement et encart « Conseil » en vert coach ; cadenas de la scène du héros en `primary` ; aside « Commanditaires » de « Nous contacter » en barre de marque | Demande du propriétaire : un seul rôle par vert, même vert partout côté coach |
+| 2026-11-21 | Titres : retour à la police précédente à la demande du propriétaire. **Manrope** 700 et 800 (`FONT_STACKS.display`, donc `FD`), mêmes graisses et mêmes interlettrages qu'avant (`display` -0,035em, `xl` et `pageTitle` -0,03em, `h1` -0,02em, `h2` -0,01em) ; fichiers `public/fonts/manrope-latin-{700,800}-normal.woff2` restaurés, préchargement de Manrope 800 dans `index.html` ; Outfit retirée du site (fichier 700 supprimé, `@font-face` et préchargement retirés), Outfit 800 gardée pour l'image d'aperçu de lien (`scripts/og-image.html`) ; crédits des mentions légales et `public/fonts/LICENCES.txt` mis à jour | Demande du propriétaire : titres en Outfit gras non retenus |
+| 2026-11-21 | Apparition au défilement étendue à tous les blocs des pages publiques (questions de FAQ, cartes, listes, encadrés, onglets, tableaux et sections des pages légales, cartes et corps des articles, formulaire et encart de « Nous contacter », cartes de « Mon espace », cartes animées de l'accueil) ; `stagger(i, n)` (70 ms, remis à zéro par rangée) et `Reveal as` ; contenu visible à l'impression ; contrôle ajouté dans `test:site` | Demande du propriétaire : animation d'apparition oubliée (FAQ) |
 | 2026-11-21 | Accueil : pastilles « Avec votre coach » (ton `appui`, sarcelle de `GRAD_COACH`, et non le vert de validation), « Assistant IA » (ton `ai`), « Sans note » ; bandeau de réassurance (trois puces) sous le héros ; « Ce que La Répét' ne fait pas » sur quatre cartes (`rs-g4`) | Demande du propriétaire, panel bénéficiaires |
+
+| 2026-11-21 | Écran de chargement (v3.5) : sortie en trois temps (écart des bulles 0,6 s, pause 0,3 s, fondu 0,6 s) ; la sortie attend une page immobile (polices, images visibles, animations d'entrée terminées) ; barre de défilement réservée dès `index.html`. Cause du sursaut : quand le JavaScript arrivait tard, l'animation d'entrée du héros et des lignes de la scène se jouait pendant le fondu. Vérifié image par image à 1280 et 390 px, clair et sombre, réseau ralenti | Demande du propriétaire : sursaut à la fin du chargement, voir la séparation du logo |
 
 Ajouter une ligne à chaque évolution d'une règle ou d'une échelle.

@@ -2,6 +2,7 @@ import React from "react";
 import { T, TY, GAP, W, RAD, PAD, Card, Btn, Link, Icon, IconTile, I, Notice, PageHero, Modal, Txt } from "./ui.jsx";
 import { PAGES, SUMMARY, FULL, LEADS, HUB_CARDS, PHRASES, LEGAL_DATE } from "./content/legal.js";
 import { getState, findParcours } from "./lib/store.js";
+import { Reveal, stagger } from "./motion.jsx";
 
 /* Pages « Vos données », conditions, mentions légales et accessibilité (niveau 3),
    et fenêtre de résumé (niveau 2). Tous les textes viennent de src/content/legal.js. */
@@ -30,7 +31,7 @@ export function Summary({ items, style }) {
 
 function Blocks({ blocks }) {
   return blocks.map((b, i) => (
-    <section key={i} style={{ display: "grid", gap: 12 }}>
+    <Reveal as="section" key={i} style={{ display: "grid", gap: 12 }}>
       {b.h && <h2 style={{ ...TY.h2, color: T.navy, margin: 0 }}>{b.h}</h2>}
       {(b.p || []).map((p, k) => <p key={k} style={{ ...TY.bodyLg, color: T.body, margin: 0, maxWidth: "70ch" }}><Rich text={p} /></p>)}
       {b.list && <ul style={{ ...TY.bodyLg, color: T.body, margin: 0, paddingLeft: 24, display: "grid", gap: 8 }}>{b.list.map(l => <li key={l}><Rich text={l} /></li>)}</ul>}
@@ -44,7 +45,7 @@ function Blocks({ blocks }) {
           </table>
         </div>
       )}
-    </section>
+    </Reveal>
   ));
 }
 
@@ -69,10 +70,10 @@ export default function LegalPage({ page = "hub" }) {
       <div className="rs-pad" style={{ maxWidth: W.read, margin: "0 auto", padding: "48px 24px 0", display: "grid", gap: GAP.block }}>
         {page === "hub" ? <Hub /> : (<>
           {SUMMARY[page] && (
-            <Card pad="lg" level={2} style={{ display: "grid", gap: 16 }}>
+            <Reveal><Card pad="lg" level={2} style={{ display: "grid", gap: 16 }}>
               <h2 style={{ ...TY.overline, color: T.primary, margin: 0 }}>L'essentiel</h2>
               <Summary items={SUMMARY[page]} />
-            </Card>
+            </Card></Reveal>
           )}
           <div style={{ display: "grid", gap: GAP.block }}><Blocks blocks={FULL[page] || []} /></div>
         </>)}
@@ -91,19 +92,19 @@ export default function LegalPage({ page = "hub" }) {
 function Hub() {
   return (<>
     <div className="rs-g2">
-      {HUB_CARDS.map(([ic, t, d, to]) => (
-        <a key={t} href={PAGES[to].route} className="rs-card-btn" style={{ padding: PAD.md, display: "grid", gap: 12, textDecoration: "none", borderRadius: RAD.lg }}>
+      {HUB_CARDS.map(([ic, t, d, to], i) => (
+        <Reveal key={t} delay={stagger(i, 2)} style={{ display: "grid" }}><a href={PAGES[to].route} className="rs-card-btn" style={{ padding: PAD.md, display: "grid", gap: 12, textDecoration: "none", borderRadius: RAD.lg }}>
           <IconTile icon={I[ic]} />
           <span style={{ ...TY.h3, color: T.navy }}>{t}</span>
           <span style={{ ...TY.body, color: T.body }}>{d}</span>
           <span style={{ ...TY.link, ...TY.small, color: T.primary }}>{PAGES[to].label}</span>
-        </a>
+        </a></Reveal>
       ))}
     </div>
-    <Notice tone="info" icon={I.trash}>
+    <Reveal><Notice tone="info" icon={I.trash}>
       Pour supprimer une réponse, ouvrez-la dans votre espace. Pour tout supprimer, ouvrez « Mon compte » dans votre espace, puis « Retirer mon accord ».
-    </Notice>
-    <Notice tone="info" icon={I.shield}>{PHRASES.noTracking}</Notice>
+    </Notice></Reveal>
+    <Reveal delay={70}><Notice tone="info" icon={I.shield}>{PHRASES.noTracking}</Notice></Reveal>
   </>);
 }
 

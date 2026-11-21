@@ -1,6 +1,6 @@
 import React from "react";
 import { T, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Tabs, Notice, Link } from "./ui.jsx";
-import { Reveal, useSectionScroll } from "./motion.jsx";
+import { Reveal, stagger, useSectionScroll } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { LinkCards, LinkChips } from "./LinkCards.jsx";
 
@@ -15,7 +15,7 @@ import { LinkCards, LinkChips } from "./LinkCards.jsx";
 export const USECASES = [
   { href: "#/cas-d-usage/beneficiaires", icon: I.user, title: "Personnes accompagnées", short: "Personnes accompagnées",
     text: "Demandeurs d'emploi et collaborateurs en mobilité : s'entraîner à voix haute, quand on veut, et décider de ce que voit son coach." },
-  { href: "#/cas-d-usage/coachs", icon: I.users, tone: "appui", title: "Coachs", short: "Coachs",
+  { href: "#/cas-d-usage/coachs", icon: I.users, tone: "coach", title: "Coachs", short: "Coachs",
     text: "Créer un parcours, relire les réponses reçues, nuancer l'assistant et préparer le débriefing." },
   { href: "#/cas-d-usage/commanditaires", icon: I.building, title: "Commanditaires", short: "Commanditaires",
     text: "Acteurs publics de l'emploi et entreprises : nous confier un accompagnement, recevoir un bilan d'ensemble." },
@@ -44,8 +44,8 @@ function Hub({ go }) {
         </Section>
         <Section eyebrow="Exemples" title="Deux scénarios d'usage" sub="Des situations types, décrites dans le centre de ressources. Aucun résultat n'a été mesuré.">
           <LinkCards cols={2} items={[
-            { href: "#/ressources/scenario-atelier-collectif", icon: I.users, tag: "Scénario d'usage", tone: "ai", title: "Un atelier collectif", text: "Un atelier hebdomadaire qui s'appuie sur les répétitions faites à la maison pour parler de moments concrets.", cta: "Lire le scénario" },
-            { href: "#/ressources/scenario-accompagnement-a-distance", icon: I.monitor, tag: "Scénario d'usage", tone: "ai", title: "Un accompagnement à distance", text: "Garder le fil entre deux rendez-vous espacés, quand la personne accompagnée habite loin de l'agence.", cta: "Lire le scénario" },
+            { href: "#/ressources/scenario-atelier-collectif", icon: I.users, tag: "Scénario d'usage", tone: "coach", title: "Un atelier collectif", text: "Un atelier hebdomadaire qui s'appuie sur les répétitions faites à la maison pour parler de moments concrets.", cta: "Lire le scénario" },
+            { href: "#/ressources/scenario-accompagnement-a-distance", icon: I.monitor, tag: "Scénario d'usage", tone: "coach", title: "Un accompagnement à distance", text: "Garder le fil entre deux rendez-vous espacés, quand la personne accompagnée habite loin de l'agence.", cta: "Lire le scénario" },
           ]} />
         </Section>
         <FinalBand title="Un projet d'accompagnement ?" text="Acteur public de l'emploi ou entreprise : parlons de vos besoins.">
@@ -114,9 +114,9 @@ function Beneficiaires({ go, openSpace }) {
         <Section id="collaborateurs" eyebrow="Collaborateurs en mobilité" title="Préparer un entretien de mobilité ou d'évolution"
           sub="Votre entreprise vous propose un accompagnement. Vous vous entraînez avec votre coach, en toute confidentialité vis-à-vis de votre employeur.">
           <FeatureGrid features={COLLAB} />
-          <div style={{ marginTop: GAP.block, maxWidth: W.read }}>
+          <Reveal style={{ marginTop: GAP.block, maxWidth: W.read }}>
             <Notice tone="info" icon={I.lock}>Conseil : entraînez-vous de préférence sur votre téléphone ou votre ordinateur personnel, plutôt que sur un ordinateur professionnel.</Notice>
-          </div>
+          </Reveal>
         </Section>
         <FinalBand title="Une question avant de commencer ?" text="Durée, matériel, confidentialité : les réponses sont dans les questions fréquentes.">
           <Btn kind="white" size="lg" onClick={() => go("#/ressources/faq/personnes-accompagnees")} iconRight={I.arrow}>Lire les questions fréquentes</Btn>
@@ -147,9 +147,9 @@ function Coachs({ go, openSpace }) {
       <div className="rs-pad" style={wrap}>
         <Section first id="relire" eyebrow="Au quotidien" title="Relire, nuancer, préparer le débriefing">
           <FeatureGrid features={COACH} />
-          <p style={{ ...TY.body, color: T.body, margin: `${GAP.block}px 0 0`, maxWidth: W.read }}>
+          <Reveal as="p" style={{ ...TY.body, color: T.body, margin: `${GAP.block}px 0 0`, maxWidth: W.read }}>
             Pas à pas : <Link href="#/ressources/relire-une-reponse-et-preparer-le-debriefing">relire un entretien et préparer le débriefing</Link>. Un exemple en groupe : <Link href="#/ressources/scenario-atelier-collectif">le scénario de l'atelier collectif</Link>.
-          </p>
+          </Reveal>
         </Section>
         <FinalBand title="Une question sur l'espace coach ?" text="Relecture, atelier collectif, indicateurs : les réponses sont dans les questions fréquentes.">
           <Btn kind="white" size="lg" onClick={() => go("#/ressources/faq/coachs")} iconRight={I.arrow}>Lire les questions fréquentes</Btn>
@@ -196,11 +196,11 @@ const OrgPanel = ({ o }) => (
       <h3 className="ty-h1" style={{ ...TY.h1, color: T.navy, margin: 0 }}>{o.title}</h3>
     </div>
     <div className="rs-g2" style={{ gap: 16 }}>
-      {o.points.map(([t, d]) => (
-        <div key={t} style={{ borderTop: `2px solid ${T.primary}`, paddingTop: 16, display: "grid", gap: 8 }}>
+      {o.points.map(([t, d], i) => (
+        <Reveal key={t} delay={stagger(i, 2)} style={{ borderTop: `2px solid ${T.primary}`, paddingTop: 16, display: "grid", gap: 8 }}>
           <h4 style={{ ...TY.h3, color: T.navy, margin: 0 }}>{t}</h4>
           <p style={{ ...TY.body, color: T.body, margin: 0 }}>{d}</p>
-        </div>
+        </Reveal>
       ))}
     </div>
   </div>
@@ -217,10 +217,10 @@ function Commanditaires({ go }) {
       </PageHero>
       <div className="rs-pad" style={wrap}>
         <Section first id="confier" eyebrow="Commanditaires" title="Nous confier un accompagnement">
-          <Tabs label="Commanditaires" idPrefix="org" tabs={ORG.map(o => [o.tab, <OrgPanel key={o.tab} o={o} />])} />
-          <p style={{ ...TY.body, color: T.body, margin: `${GAP.block}px 0 0`, maxWidth: W.read }}>
+          <Reveal><Tabs label="Commanditaires" idPrefix="org" tabs={ORG.map(o => [o.tab, <OrgPanel key={o.tab} o={o} />])} /></Reveal>
+          <Reveal as="p" style={{ ...TY.body, color: T.body, margin: `${GAP.block}px 0 0`, maxWidth: W.read }}>
             Le détail du cadre : <Link href="#/solutions/usage-de-l-ia">usage de l'IA</Link>. Un exemple : <Link href="#/ressources/confier-un-accompagnement">confier un accompagnement</Link>.
-          </p>
+          </Reveal>
         </Section>
         <FinalBand title="Une question sur notre accompagnement ?" text="Données, AI Act, analyse d'impact, démarrage : les réponses sont dans les questions fréquentes.">
           <Btn kind="white" size="lg" onClick={() => go("#/ressources/faq/commanditaires")} iconRight={I.arrow}>Lire les questions fréquentes</Btn>

@@ -14,7 +14,7 @@ const MAX_WAIVERS = 5;
 const TOKEN_FILES = new Set(["src/tokens.js", "src/ui.jsx", "src/ui/GStyle.jsx", "src/ui/icons.jsx"]);
 const BTN_KINDS = ["objective", "ai", "primary", "secondary", "ghost", "danger", "white", "ghostDark", "dangerSolid"];
 const BTN_SIZES = ["sm", "md", "lg"];
-const TAG_TONES = ["primary", "appui", "ai", "success", "warning", "error", "muted"];
+const TAG_TONES = ["primary", "appui", "coach", "ai", "success", "warning", "error", "muted"];
 const CARD_PADS = ["none", "sm", "md", "lg"];
 
 /* ─── Fichiers ─── */

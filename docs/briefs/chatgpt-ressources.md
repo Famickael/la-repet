@@ -152,8 +152,8 @@ Longueur visée : **800 à 1 400 mots** pour un `guide` (5 à 7 minutes de lectu
 | `regarder-la-camera-sans-se-crisper` | visio | guide |
 | `comprendre-son-retour-points-d-appui-et-pistes` | guides | guide |
 | `s-entrainer-en-voix-seule` | guides | guide |
-| `envoyer-une-prise-a-son-coach` | guides | guide |
-| `animer-un-debriefing-a-partir-d-une-prise` | coachs | guide |
+| `envoyer-une-reponse-a-son-coach` | guides | guide |
+| `animer-un-debriefing-a-partir-d-une-reponse` | coachs | guide |
 | `ecrire-une-note-horodatee-utile` | coachs | guide |
 | `scenario-preparation-job-dating` | coachs | cas |
 | `rendre-compte-sans-surveiller` | commanditaires | guide |

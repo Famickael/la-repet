@@ -57,7 +57,7 @@ Photos provisoires issues d'[Unsplash](https://unsplash.com), utilisées sous la
 |---|---|---|
 | `recruteuse.webp` | Vitaly Gariev | https://unsplash.com/photos/Hl1HIQ0fmQk |
 | `entrainement.webp`, `ressources/premiere-repetition-pas-a-pas.webp` | Ewan Buck | https://unsplash.com/photos/13vSUuXFnwA |
-| `coach.webp`, `ressources/relire-une-prise-et-preparer-le-debriefing.webp` | Vitaly Gariev | https://unsplash.com/photos/qnm5RTmMasE |
+| `coach.webp`, `ressources/relire-une-reponse-et-preparer-le-debriefing.webp` | Vitaly Gariev | https://unsplash.com/photos/qnm5RTmMasE |
 | `a-propos.webp` | Christina @ wocintechchat.com | https://unsplash.com/photos/eF7HN40WbAQ |
 | `solutions-equipe.webp` | Christina @ wocintechchat.com | https://unsplash.com/photos/LQ1t-8Ms5PY |
 | `ressources/se-presenter-en-deux-minutes.webp` | Brooke Cagle | https://unsplash.com/photos/JBwcenOuRCg |

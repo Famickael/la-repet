@@ -30,9 +30,9 @@ Entre deux séances, chaque participant est invité à :
 
 - faire un échauffement, puis répondre à deux questions liées au métier visé ;
 - lire le retour de l'assistant, et recommencer s'il le souhaite ;
-- envoyer au coach une prise de son choix, avec un mot.
+- envoyer au coach une réponse de son choix, avec un mot.
 
-Les coachs relisent les prises reçues, ajoutent deux ou trois notes horodatées, et choisissent avec l'accord des personnes quelques moments à revoir ensemble.
+Les coachs relisent les réponses reçues, ajoutent deux ou trois notes horodatées, et choisissent avec l'accord des personnes quelques moments à revoir ensemble.
 
 > [!citation] Propos illustratif d'une coach
 > J'arrive en séance avec des moments précis à discuter, choisis par les personnes elles-mêmes. On parle de ce qui a été dit, pas de la personne.
@@ -50,4 +50,4 @@ Dans ce scénario, l'atelier se transformerait progressivement :
 
 ## Pour aller plus loin
 
-Le guide [Relire un entretien et préparer le débriefing](#/ressources/relire-une-prise-et-preparer-le-debriefing) détaille les gestes de relecture côté coach.
+Le guide [Relire un entretien et préparer le débriefing](#/ressources/relire-une-reponse-et-preparer-le-debriefing) détaille les gestes de relecture côté coach.

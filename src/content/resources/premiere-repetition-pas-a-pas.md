@@ -2,7 +2,7 @@
 title: Votre première répétition, pas à pas
 category: guides
 type: guide
-summary: Du code transmis par votre coach à l'envoi de votre première prise : le déroulé complet de La Répét', côté personne accompagnée.
+summary: Du code transmis par votre coach à l'envoi de votre première réponse : le déroulé complet de La Répét', côté personne accompagnée.
 image: ressources/premiere-repetition-pas-a-pas.webp
 imageAlt: Un homme avec des écouteurs s'entraîne face à son ordinateur portable, un carnet ouvert devant lui.
 date: 2026-11-20
@@ -19,11 +19,11 @@ Ce guide décrit le déroulé de La Répét' du point de vue de la personne acco
 Votre coach vous transmet un **code de 6 caractères** ou un lien. Ouvrez la page « Mon espace » et saisissez le code. Aucun compte n'est à créer, aucune adresse électronique n'est demandée.
 
 > [!conseil] Gardez votre code
-> Le code vous permet de revenir dans votre espace et de retrouver vos prises et les rapports de votre coach. Notez-le dans un endroit sûr.
+> Le code vous permet de revenir dans votre espace et de retrouver vos réponses et les rapports de votre coach. Notez-le dans un endroit sûr.
 
 ## 2. Donner votre accord
 
-Avant de commencer, l'écran de consentement explique ce qui se passe avec vos données : la vidéo reste sur votre appareil, l'analyse est faite dans votre navigateur, et rien n'est envoyé à votre coach sans votre décision. Vous pouvez retirer votre accord à tout moment, ce qui supprime vos prises.
+Avant de commencer, l'écran de consentement explique ce qui se passe avec vos données : la vidéo reste sur votre appareil, l'analyse est faite dans votre navigateur, et rien n'est envoyé à votre coach sans votre décision. Vous pouvez retirer votre accord à tout moment, ce qui supprime vos réponses.
 
 ## 3. S'échauffer, si vous le souhaitez
 
@@ -45,9 +45,9 @@ Vous choisissez comment le découvrir : un **rapport écrit**, ou **vous revoir
 
 ## 7. Envoyer à votre coach, si vous le décidez
 
-Une prise vous plaît, ou vous voulez l'avis de votre coach ? Envoyez-la, avec un mot si vous le souhaitez. Les autres restent sur votre appareil. Votre coach annote des moments précis et vous renvoie un rapport, visible dans votre espace.
+Une réponse vous plaît, ou vous voulez l'avis de votre coach ? Envoyez-la, avec un mot si vous le souhaitez. Les autres restent sur votre appareil. Votre coach annote des moments précis et vous renvoie un rapport, visible dans votre espace.
 
 > [!a-retenir] Vos droits à tout moment
-> - Supprimer une prise, ou tout votre parcours.
+> - Supprimer une réponse, ou tout votre parcours.
 > - Retirer votre accord.
 > - Vous réentraîner, y compris après le rapport de votre coach.

@@ -323,6 +323,9 @@ export const GStyle = () => (
     .rs-chips{display:flex;gap:8px;flex-wrap:wrap}
     .rp-split{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:${GAP.grid}px;align-items:start}
     .rp-stack{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:${GAP.grid}px}
+    /* « Mon espace » : lien qui déplie la carte coach, sur mobile seulement (la carte reste visible sur grand écran) */
+    .rp-coach-toggle{display:none}
+    @media (max-width:760px){ .rp-coach-toggle{display:block;margin-top:-8px} .rp-coach-card:not(.is-open){display:none} .rp-espace{padding-top:16px!important} }
     @media (max-width:1023px){ .rs-g4{grid-template-columns:repeat(2,minmax(0,1fr))} .rs-art{grid-template-columns:minmax(0,1fr);gap:32px} .rs-art-side{position:static} }
     @media (prefers-reduced-motion: reduce){
       *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important;scroll-behavior:auto!important}

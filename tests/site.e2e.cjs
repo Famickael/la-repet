@@ -371,6 +371,15 @@ async function run(b, vw, vh, opts = {}) {
   check(p.url().endsWith("#/espace"), `[${tag}] « Mon compte » déconnecté ne mène pas à « Mon espace » (${p.url()})`);
   // Rester connecté : après connexion, les pages publiques gardent « Mon compte », qui ouvre un panneau latéral
   await visit("#/espace");
+  /* « Mon espace » : première vue sans défilement (les cartes tiennent dans l'écran), carte coach repliée sur mobile */
+  {
+    const fold = await p.evaluate(() => Math.max(...[...document.querySelectorAll("main .rp-stack > *")].filter(e => getComputedStyle(e).display !== "none").map(e => e.getBoundingClientRect().bottom)));
+    check(fold <= vh, `[${tag}] « Mon espace » : les cartes dépassent la première vue (${Math.round(fold)} px pour ${vh})`);
+    check(await p.getByRole("heading", { level: 1, name: "Mon espace" }).count() === 1, `[${tag}] « Mon espace » : titre h1 absent`);
+    const t = p.getByRole("button", { name: /Vous êtes coach/ });
+    check((await t.isVisible()) === mobile, `[${tag}] « Mon espace » : lien de la carte coach ${mobile ? "absent sur mobile" : "visible sur grand écran"}`);
+    if (mobile) { check(!(await p.locator("#login-email").isVisible()), `[${tag}] « Mon espace » : carte coach dépliée d'office sur mobile`); await t.click(); }
+  }
   await p.getByRole("button", { name: "Se connecter" }).click();
   await p.waitForFunction(() => location.hash === "#/coach", null, { timeout: 5000 }).catch(() => {}); await p.waitForTimeout(1000);
   check(((await p.getByRole("heading", { level: 1 }).first().textContent()) || "") === "Mes parcours" && (await p.getByText(/^Bienvenue /).count()) > 0, `[${tag}] connexion coach : titre « Mes parcours » et « Bienvenue » attendus`);
@@ -421,7 +430,7 @@ async function sweep(b) {
     const errors = [];
     p.on("pageerror", e => errors.push(e.message));
     await p.goto(BASE + "#/"); await p.evaluate(() => localStorage.clear());
-    if (logged) { await p.goto(BASE + "#/espace"); await p.getByRole("button", { name: "Se connecter" }).click(); await p.waitForFunction(() => location.hash === "#/coach", null, { timeout: 5000 }).catch(() => {}); }
+    if (logged) { await p.goto(BASE + "#/espace"); await p.locator("#espace-code").waitFor().catch(() => {}); if (await p.getByRole("button", { name: /Vous êtes coach/ }).isVisible()) await p.getByRole("button", { name: /Vous êtes coach/ }).click(); await p.getByRole("button", { name: "Se connecter" }).click(); await p.waitForFunction(() => location.hash === "#/coach", null, { timeout: 5000 }).catch(() => {}); }
     for (const h of [...SWEEP_PAGES, logged ? "#/coach" : "#/s/REPETE"]) {
       await p.goto(BASE + h); await p.waitForTimeout(250);
       const r = await p.evaluate(() => {

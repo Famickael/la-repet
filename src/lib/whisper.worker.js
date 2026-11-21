@@ -40,9 +40,13 @@ self.onmessage = async ({ data }) => {
   try {
     if (!asr) asr = await load(post);
     post({ type: "progress", stage: "transcribe", value: 0 });
+    /* no_repeat_ngram_size : aucune suite de 3 mots (jetons) ne peut revenir dans une même fenêtre, ce qui coupe les
+       boucles de répétition de Whisper (B3). Les boucles qui passeraient d'une fenêtre à l'autre sont retirées ensuite
+       par src/lib/repetitions.js. repetition_penalty, essayé aussi, abîme le reste du texte : non retenu. */
     const out = await asr(data.audio, {
       language: "french", task: "transcribe",
       return_timestamps: true, chunk_length_s: 30, stride_length_s: 5,
+      no_repeat_ngram_size: 3,
     });
     const segments = (out.chunks || [{ timestamp: [0, data.duration], text: out.text }]).map(c => ({
       start: c.timestamp?.[0] ?? 0,

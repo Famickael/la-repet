@@ -10,6 +10,11 @@ export const LLM_ENDPOINT = import.meta.env?.VITE_LLM_ENDPOINT || "";
 export const LLM_MODEL = import.meta.env?.VITE_LLM_MODEL || "";
 export const llmEnabled = () => !!LLM_ENDPOINT;
 
+/* Délais de garde du navigateur, par tâche (C7). Le proxy (serveur/llm-proxy/worker.js, TIMEOUT_MS_*) coupe son appel
+   au fournisseur 2 s plus tôt : il répond toujours avant que le navigateur abandonne, et aucune réponse payée
+   n'arrive après coup sans être lue. Au-delà, le moteur local prend le relais. */
+export const LLM_TIMEOUT_MS = { chat: 20000, coach: 20000, feedback: 30000 };
+
 /* Corps de la requête : tâche, modèle seulement s'il est imposé par la configuration, puis messages et réglages. */
 export const llmBody = (task, body) => ({ task, ...(LLM_MODEL ? { model: LLM_MODEL } : {}), ...body });
 

@@ -1,7 +1,8 @@
 /* Test du proxy IA (serveur/llm-proxy/worker.js), sans réseau ni vraie clé : node tests/proxy.test.mjs
    fetch est remplacé par un faux fournisseur qui enregistre la requête reçue et renvoie une réponse type. */
 import assert from "assert/strict";
-import worker, { _resetMemory, detectTask, normalize } from "../serveur/llm-proxy/worker.js";
+import worker, { _resetMemory, detectTask, normalize, upstreamTimeout } from "../serveur/llm-proxy/worker.js";
+import { LLM_TIMEOUT_MS } from "../src/lib/llm.js";
 
 const ORIGIN = "https://famickael.github.io";
 const ENV = { ALLOWED_ORIGINS: `${ORIGIN}, http://localhost:5173`, LLM_API_KEY: "cle-de-test", LLM_PROVIDER: "anthropic" };
@@ -190,6 +191,15 @@ await test("normalisation de la conversation", async () => {
   assert.equal(system, "A");
   assert.deepEqual(messages.map(m => m.role), ["user", "assistant", "user"]);
   assert.equal(messages[0].content, "q1\n\nq1 bis");
+});
+
+await test("délais alignés : le proxy coupe avant le navigateur, pour chaque tâche", async () => {
+  for (const task of ["chat", "coach", "feedback"]) {
+    const t = upstreamTimeout({}, task);
+    assert.ok(t < LLM_TIMEOUT_MS[task], `${task} : proxy ${t} ms, navigateur ${LLM_TIMEOUT_MS[task]} ms`);
+    assert.ok(LLM_TIMEOUT_MS[task] - t <= 5000, `${task} : écart raisonnable`);
+  }
+  assert.equal(upstreamTimeout({ UPSTREAM_TIMEOUT_MS: "5000" }, "feedback"), 5000, "plafond absolu respecté");
 });
 
 console.info(`proxy : ${n} tests réussis`);

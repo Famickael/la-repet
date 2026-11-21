@@ -15,7 +15,8 @@
 /* Garde-fou : src/lib/compliance.js (frontières Unicode, accents, notes, émotions, appréciations). */
 import { feedbackCompliant, textCompliant } from "./compliance.js";
 import { clock } from "./format.js";
-import { llmEnabled, llmComplete } from "./llm.js";
+import { llmEnabled, llmComplete, LLM_TIMEOUT_MS } from "./llm.js";
+import { cleanRepetitions } from "./repetitions.js";
 
 /* Petits mots comptés (ARC-22) : sans « bon » ni « quoi », trop souvent employés au sens plein (« un bon contact »). */
 const FILLERS = ["euh", "heu", "hum", "ben", "bah", "en fait", "du coup", "genre", "voilà", "tu vois", "vous voyez"];
@@ -30,11 +31,15 @@ function words(text) {
   return (text.toLowerCase().match(/[a-zàâäçéèêëîïôöûùüÿœ'’-]+/gi) || []);
 }
 
-export function computeMetrics(segments, duration) {
+/* Les boucles de répétition de la transcription (même suite de mots plus de 2 fois de suite) sont retirées avant
+   tout calcul (src/lib/repetitions.js) : elles gonfleraient le rythme et créeraient de faux « mots qui reviennent ». */
+export function computeMetrics(rawSegments, duration) {
+  const { segments, removedWords, loops, partial } = cleanRepetitions(rawSegments);
   const text = segments.map(s => s.text).join(" ").replace(/\s+/g, " ").trim();
   const w = words(text);
   const speakingTime = segments.reduce((a, s) => a + Math.max(0, (s.end ?? s.start) - s.start), 0) || duration;
-  const wpm = speakingTime > 5 ? Math.round((w.length / speakingTime) * 60) : null;
+  /* Un segment raccourci par le retrait d'une boucle garde son temps : le rythme n'est alors pas calculé. */
+  const wpm = speakingTime > 5 && !partial ? Math.round((w.length / speakingTime) * 60) : null;
 
   // petits mots répétés, avec le premier horodatage d'apparition
   const lower = " " + text.toLowerCase().replace(/[.,;!?]/g, " ") + " ";
@@ -72,6 +77,7 @@ export function computeMetrics(segments, duration) {
     pauses, sentences: sentences.length, avgSentence, repeated,
     concreteAt: concreteSeg ? concreteSeg.start : null, concreteText: concreteSeg?.text?.trim().replace(/[.!?…]+$/, "") || null,
     hasClosing, closingAt: lastSeg ? lastSeg.start : null,
+    loops, loopWords: removedWords, // boucles de la transcription retirées, et nombre de mots retirés
   };
 }
 
@@ -139,7 +145,7 @@ export function localAnalysis({ segments, duration, gaze }) {
       id: "petits-mots", titre: "Petits mots répétés", type: perMin <= 4 ? "appui" : "explorer", t: m.firstFillerAt ?? 0,
       observation: `${m.fillerTotal} petit${m.fillerTotal > 1 ? "s" : ""} mot${m.fillerTotal > 1 ? "s" : ""} répété${m.fillerTotal > 1 ? "s" : ""} : ${top}.`,
       conseil: perMin <= 4
-        ? "Leur présence reste discrète et ne gêne pas la compréhension."
+        ? "Leur présence reste discrète et la réponse reste facile à suivre."
         : "C'est très courant à l'oral. Marquer un temps de silence à la place, surtout en début de phrase, suffit souvent.",
     });
   }
@@ -164,14 +170,35 @@ export function localAnalysis({ segments, duration, gaze }) {
 
   // Regard (faits issus du suivi local du visage, sans interprétation)
   if (gaze && gaze.samples > 10) {
-    const down = Math.round(gaze.downRatio * 100), side = Math.round(gaze.sideRatio * 100), out = Math.round(gaze.absentRatio * 100);
-    const toward = Math.max(0, 100 - down - side - out);
+    /* Visage absent la plupart du temps (caméra masquée, mal cadrée) : aucun pourcentage de regard, qui serait
+       trompeur (« 0 % vers l'écran »), mais un conseil de cadrage. */
+    if (gaze.absentRatio > 0.8) {
+      dims.push({
+        id: "regard", titre: "Direction du regard", type: "explorer", t: 0,
+        observation: "Visage non repéré : la caméra n'a pas vu votre visage pendant la plus grande partie de la réponse.",
+        conseil: "Pour ce repère, placez la caméra à hauteur des yeux, face à vous, avec une lumière devant vous plutôt que derrière.",
+      });
+    } else {
+      const down = Math.round(gaze.downRatio * 100), side = Math.round(gaze.sideRatio * 100), out = Math.round(gaze.absentRatio * 100);
+      const toward = Math.max(0, 100 - down - side - out);
+      dims.push({
+        id: "regard", titre: "Direction du regard", type: toward >= 60 ? "appui" : "explorer", t: gaze.longestAwayAt ?? 0,
+        observation: `Regard orienté vers l'écran environ ${toward} % du temps, vers le bas ${down} %, sur le côté ${side} %${out ? `, visage hors champ ${out} %` : ""}.`,
+        conseil: toward >= 60
+          ? "Le regard est majoritairement tourné vers l'interlocuteur. En visioconférence, regarder la caméra plutôt que l'écran renforce encore ce repère."
+          : "Regarder ailleurs pour réfléchir est naturel. Selon le poste visé, vous pouvez choisir de revenir vers la caméra en fin de phrase.",
+      });
+    }
+  }
+
+  // Transcription : passage répété en boucle retiré (le rythme peut alors manquer)
+  if (m.loops) {
     dims.push({
-      id: "regard", titre: "Direction du regard", type: toward >= 60 ? "appui" : "explorer", t: gaze.longestAwayAt ?? 0,
-      observation: `Regard orienté vers l'écran environ ${toward} % du temps, vers le bas ${down} %, sur le côté ${side} %${out ? `, visage hors champ ${out} %` : ""}.`,
-      conseil: toward >= 60
-        ? "Le regard est majoritairement tourné vers l'interlocuteur. En visioconférence, regarder la caméra plutôt que l'écran renforce encore ce repère."
-        : "Regarder ailleurs pour réfléchir est naturel. Selon le poste visé, vous pouvez choisir de revenir vers la caméra en fin de phrase.",
+      id: "transcription", titre: "Texte de la réponse", type: "explorer", t: 0,
+      observation: m.loopWords
+        ? `Une phrase revenait plusieurs fois de suite dans le texte, sans doute une erreur de l'outil d'écriture : ${m.loopWords} mots répétés ont été retirés avant de préparer ce retour.`
+        : "Une syllabe revenait plusieurs fois de suite dans un mot, sans doute une erreur de l'outil d'écriture : elle a été retirée avant de préparer ce retour.",
+      conseil: "Si le texte ne correspond pas à ce que vous avez dit, vous pouvez recommencer, plus près du micro et dans un endroit sans bruit.",
     });
   }
 
@@ -225,21 +252,25 @@ Voici sa réponse transcrite et des mesures factuelles déjà calculées. Reform
 Règles strictes : décrire des faits observables uniquement ; aucune note, aucun score ; ne déduire AUCUNE émotion, aucun état psychologique, aucun trait de personnalité (interdit par l'article 5(1)(f) du règlement européen sur l'IA) ; présenter les repères comme des conventions qui varient selon les secteurs ; commencer par les points d'appui.
 Conserve exactement les identifiants "id", les types et les valeurs "t" des dimensions fournies. Tu peux améliorer "observation" et "conseil" et ajouter au plus une dimension sur le contenu de la réponse (id "contenu").
 Réponds uniquement en JSON : {"synthese": "...", "dimensions": [{"id","titre","type","observation","conseil","t"}]}.
-<transcription>${segments.map(s => s.text).join(" ").replace(/<\/?transcription>/gi, "").slice(0, 8000)}</transcription>
+<transcription>${cleanRepetitions(segments).text.replace(/<\/?transcription>/gi, "").slice(0, 8000)}</transcription>
 MESURES ET RETOUR LOCAL : ${JSON.stringify({ metrics: local.metrics, dimensions: local.dimensions })}`;
 
+  /* Délai de garde (B2) : sans réponse du point d'accès en 30 s, la requête est abandonnée et le retour local
+     s'affiche. Le proxy coupe lui-même un peu avant (serveur/llm-proxy, TIMEOUT_MS_FEEDBACK). */
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), LLM_TIMEOUT_MS.feedback);
   try {
     const text = await llmComplete("feedback", {
       messages: [{ role: "user", content: prompt }],
       response_format: { type: "json_object" },
-    });
+    }, { signal: ctrl.signal });
     const parsed = reconcile(JSON.parse(text.replace(/```json|```/g, "").trim()), local);
     if (!parsed || !isCompliant(parsed)) throw new Error("retour non conforme");
     return { ...parsed, metrics: local.metrics, source: "llm" };
   } catch (e) {
     console.warn("[analyse] modèle de langage indisponible ou non conforme, analyse locale utilisée", e);
     return { ...local, source: "local" };
-  }
+  } finally { clearTimeout(timer); }
 }
 
 export { fmt };

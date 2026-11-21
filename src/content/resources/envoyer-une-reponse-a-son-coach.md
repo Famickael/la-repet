@@ -26,7 +26,7 @@ Demandez-vous ce que vous souhaitez travailler ensemble. Vous pouvez partager un
 
 Sur la page de la réponse, sélectionnez « Envoyer à mon coach ». Ce premier bouton ouvre l’écran d’envoi. Vérifiez que le nom affiché correspond à la personne avec laquelle vous travaillez. Si vous changez d’avis à cette étape, « Je la garde pour moi » vous ramène à la réponse. Vous pouvez y revenir plus tard.
 
-Le lien « Que devient ma vidéo ? » ouvre les informations sur l’enregistrement. Dans le prototype en mode local, le coach consulte ce que vous partagez **sur le même appareil et dans le même navigateur**. Le bouton change l’accès à la réponse dans ce parcours sur l’appareil. Si vous préparez un débriefing, convenez avec votre coach du moment où vous pourrez utiliser cet appareil ensemble. Pour revenir à votre espace, gardez le code de votre parcours.
+Le lien « Que devient ma vidéo ? » ouvre les informations sur l’enregistrement. Dans la version actuelle, le coach consulte ce que vous partagez **sur le même appareil et dans le même navigateur**. Le bouton change l’accès à la réponse dans ce parcours sur l’appareil. Si vous préparez un débriefing, convenez avec votre coach du moment où vous pourrez utiliser cet appareil ensemble. Pour revenir à votre espace, gardez le code de votre parcours.
 
 ## Ajouter un message si vous le souhaitez
 

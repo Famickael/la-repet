@@ -412,7 +412,7 @@ export const GStyle = () => (
       .rs-bubble{left:-8px}
       .rs-card-pos{right:8px!important;width:min(310px,calc(100% - 16px))!important}
       .rs-fcards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin:0 -16px;padding:4px 16px 16px;scroll-padding:0 16px;-webkit-overflow-scrolling:touch}
-      .rs-fcard{flex:0 0 82%;scroll-snap-align:start}
+      .rs-fcard-w{flex:0 0 82%;scroll-snap-align:start}
       .rs-phrase-in{top:${HEADER_H_M}px;height:calc(100vh - ${HEADER_H_M}px);height:calc(100svh - ${HEADER_H_M}px)}
       .rs-phrase-t{font-size:calc(32px * var(--fs))!important}
       .rs-g2,.rs-g3,.rs-g4,.rs-split{grid-template-columns:minmax(0,1fr);gap:16px}
@@ -450,7 +450,7 @@ export const GStyle = () => (
       .rp-crumbs a,.rp-sources a{display:inline-flex;align-items:center;min-height:44px}
       .rp-ai-bubble a,.rp-ai-bubble button{min-height:44px}
     }
-    @media print{header,footer,.noprint{display:none!important}body{background:${T.surface}}}
+    @media print{header,footer,.noprint{display:none!important}body{background:${T.surface}}.rv{opacity:1!important;transform:none!important}}
     ::-webkit-scrollbar{height:8px;width:8px}::-webkit-scrollbar-thumb{background:${T.line};border-radius:4px}
   `}</style>
 );

@@ -1,6 +1,6 @@
 import React from "react";
 import { T, RAD, Btn, Card, Tag, I, TY, W, GAP, Section, PageHero, IconTile, Notice, Link } from "./ui.jsx";
-import { Reveal } from "./motion.jsx";
+import { Reveal, stagger } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
 /* « Usage de l'IA » (#/solutions/usage-de-l-ia, menu Solutions) : ce que fait l'assistant, ce qu'il ne fait pas,
@@ -96,19 +96,19 @@ export default function AiUsage({ go }) {
 
         <Section id="appareil" eyebrow="Sur l'appareil" title="La mise par écrit et la description se font sur l'appareil" sub="La vidéo et la voix restent sur l'appareil de la personne tant qu'elle ne les envoie pas.">
           <ol className="rs-g2" style={{ listStyle: "none", margin: 0, padding: 0 }}>
-            {STEPS.map(([n, t, d]) => (
-              <li key={n} style={{ borderTop: `2px solid ${T.primary}`, paddingTop: 16, display: "flex", gap: 16 }}>
+            {STEPS.map(([n, t, d], i) => (
+              <Reveal as="li" key={n} delay={stagger(i, 2)} style={{ borderTop: `2px solid ${T.primary}`, paddingTop: 16, display: "flex", gap: 16 }}>
                 <span style={{ ...TY.num, color: T.primary }}>{n}</span>
                 <div style={{ display: "grid", gap: 8 }}>
                   <h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>{t}</h3>
                   <p style={{ ...TY.body, color: T.body, margin: 0 }}>{d}</p>
                 </div>
-              </li>
+              </Reveal>
             ))}
           </ol>
-          <div style={{ marginTop: GAP.block, maxWidth: W.read }}>
+          <Reveal style={{ marginTop: GAP.block, maxWidth: W.read }}>
             <Notice tone="ai" icon={I.info}>Notre organisme peut activer une option : un service d'IA reformule alors le retour à partir du texte de la réponse. Il ne reçoit jamais l'image ni la voix, et les mêmes garde-fous s'appliquent. Dans ce cas, « Vos données » le précise.</Notice>
-          </div>
+          </Reveal>
         </Section>
 
         <Section id="garde-fous" eyebrow="Garde-fous" title="Ce qui encadre chaque retour">
@@ -120,12 +120,12 @@ export default function AiUsage({ go }) {
         </Section>
 
         <Section id="ai-act" eyebrow="Cadre réglementaire" title="Conçu pour l'AI Act et le RGPD dès le départ">
-          <div className="rs-g3">{LAW.map(([ic, t, d]) => (
-            <Card key={t} topbar style={{ height: "100%", display: "grid", gap: 12, alignContent: "start" }}><IconTile icon={ic} /><h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>{t}</h3><p style={{ ...TY.body, color: T.body, margin: 0 }}>{d}</p></Card>
+          <div className="rs-g3">{LAW.map(([ic, t, d], i) => (
+            <Reveal key={t} delay={stagger(i)} style={{ height: "100%" }}><Card topbar style={{ height: "100%", display: "grid", gap: 12, alignContent: "start" }}><IconTile icon={ic} /><h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>{t}</h3><p style={{ ...TY.body, color: T.body, margin: 0 }}>{d}</p></Card></Reveal>
           ))}</div>
-          <p style={{ ...TY.body, color: T.body, margin: `${GAP.block}px 0 0`, maxWidth: W.read }}>
+          <Reveal as="p" style={{ ...TY.body, color: T.body, margin: `${GAP.block}px 0 0`, maxWidth: W.read }}>
             Le détail, écrit pour les personnes accompagnées : <Link href="#/vos-donnees/assistant">ce que fait l'assistant, et ce qu'il ne fait pas</Link>. Les travaux qui ont guidé ces choix : <Link href="#/solutions/recherche">recherche en accompagnement</Link>.
-          </p>
+          </Reveal>
         </Section>
 
         <FinalBand title="Voir l'outil pas à pas" text="De l'échauffement au rapport du coach : toutes les fonctionnalités.">

@@ -2,19 +2,22 @@ import React from "react";
 import { T, HL, RAD, SH, Tag, Card, I, Icon, TY, Section, IconTile } from "../ui.jsx";
 import { ON, GRAD_DOOR_BLUE, GRAD_DOOR_GREEN, GRAD_DOOR_VIOLET } from "../tokens.js";
 import { spaceHash } from "../app/router.js";
-import { useReducedMotion, useInView, Reveal } from "../motion.jsx";
+import { useReducedMotion, useInView, Reveal, stagger } from "../motion.jsx";
 import { Pin } from "./shared.jsx";
 
 /* ─── Cartes de fonctionnalités : micro-animation en boucle, seulement quand la carte est visible ─── */
-export function FCard({ title, text, children }) {
+/* Chaque carte apparaît au défilement (Reveal, décalée dans sa rangée), puis sa micro-animation joue tant qu'elle est visible. */
+export function FCard({ title, text, children, i = 0 }) {
   const reduced = useReducedMotion();
   const [ref, v] = useInView({ once: false, threshold: 0.35, rootMargin: "0px" });
   return (
-    <div ref={ref} className={`rs-fcard ${v && !reduced ? "play" : ""}`}>
-      <div className="rs-fvis" aria-hidden>{children}</div>
-      <h3 style={{ ...TY.h3, color: T.navy, margin: "4px 8px 0" }}>{title}</h3>
-      <p style={{ ...TY.body, color: T.body, margin: "0 8px" }}>{text}</p>
-    </div>
+    <Reveal className="rs-fcard-w" delay={stagger(i)} style={{ display: "grid" }}>
+      <div ref={ref} className={`rs-fcard ${v && !reduced ? "play" : ""}`}>
+        <div className="rs-fvis" aria-hidden>{children}</div>
+        <h3 style={{ ...TY.h3, color: T.navy, margin: "4px 8px 0" }}>{title}</h3>
+        <p style={{ ...TY.body, color: T.body, margin: "0 8px" }}>{text}</p>
+      </div>
+    </Reveal>
   );
 }
 
@@ -24,7 +27,7 @@ export function Features() {
   return (
     <Section eyebrow="Au fil de l'entraînement" title="Tout ce qu'il faut pour répéter à votre rythme" sub="Des outils simples, pour vous entraîner de votre côté et garder la main sur ce que vous partagez.">
       <div className="rs-fcards" tabIndex={0} role="group" aria-label="Fonctions, liste à faire défiler">
-        <FCard title="Un échauffement sans enregistrement" text="Des phrases à lire à voix haute pour se mettre en route. Rien n'est enregistré ni analysé.">
+        <FCard i={0} title="Un échauffement sans enregistrement" text="Des phrases à lire à voix haute pour se mettre en route. Rien n'est enregistré ni analysé.">
           <div style={{ ...TY.overline, color: T.muted, marginBottom: 8 }}>Échauffement · lisez à voix haute</div>
           <div className="rs-cyc" style={{ display: "grid" }}>
             {["« Je vous remercie de me recevoir. »", "« J'ai travaillé deux ans en boutique. »", "« Je suis disponible dès lundi. »"].map(t => (
@@ -32,7 +35,7 @@ export function Features() {
             ))}
           </div>
         </FCard>
-        <FCard title="Des questions adaptées au métier" text="Choisissez le métier visé : les questions s'y adaptent. Vous pouvez aussi ajouter les vôtres.">
+        <FCard i={1} title="Des questions adaptées au métier" text="Choisissez le métier visé : les questions s'y adaptent. Vous pouvez aussi ajouter les vôtres.">
           <div className="rs-jobs" style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
             {["agent d'accueil", "serveur(se)", "aide-soignant(e)"].map(j => <span key={j} style={{ ...TY.tag, padding: "8px 12px", borderRadius: RAD.pill, border: `1.5px solid ${T.line}`, background: T.surface, color: T.body }}>{j}</span>)}
           </div>
@@ -42,7 +45,7 @@ export function Features() {
             ))}
           </div>
         </FCard>
-        <FCard title="Caméra ou micro seul" text="Répondez en vidéo, ou en voix seule si vous préférez. Trois minutes maximum par réponse.">
+        <FCard i={2} title="Caméra ou micro seul" text="Répondez en vidéo, ou en voix seule si vous préférez. Trois minutes maximum par réponse.">
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 8, background: T.surface, borderRadius: RAD.pill, padding: "4px 12px", boxShadow: SH.xs }}>
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: T.error, animation: "blink 1.2s infinite" }} />
@@ -54,7 +57,7 @@ export function Features() {
             {Array.from({ length: 22 }, (_, i) => <i key={i} style={{ animationDelay: `${(i * 137) % 900}ms`, height: `${30 + ((i * 53) % 60)}%` }} />)}
           </div>
         </FCard>
-        <FCard title="Une transcription repérée" text="Votre réponse est transcrite sur votre appareil. Les passages utiles sont repérés, sans jugement.">
+        <FCard i={3} title="Une transcription repérée" text="Votre réponse est transcrite sur votre appareil. Les passages utiles sont repérés, sans jugement.">
           <p style={{ ...TY.small, color: T.navy, margin: 0 }}>
             Bonjour, je m'appelle Sami. <span className="rs-fhl h2" style={{ backgroundImage: HL.ai }}>Euh</span>, j'ai <span className="rs-fhl" style={{ backgroundImage: HL.appui }}>géré la caisse d'une supérette pendant trois ans</span>.
           </p>
@@ -63,7 +66,7 @@ export function Features() {
             <span className="rs-ftag t2"><Tag tone="ai" icon={I.search}>Petit mot répété</Tag></span>
           </div>
         </FCard>
-        <FCard title="Un assistant pour vos questions" text="Une hésitation sur un retour ou sur une question difficile ? L'assistant répond, votre coach complète.">
+        <FCard i={4} title="Un assistant pour vos questions" text="Une hésitation sur un retour ou sur une question difficile ? L'assistant répond, votre coach complète.">
           <div style={{ display: "grid", gap: 8 }}>
             <div style={{ ...miniCard, justifySelf: "end", background: T.primaryBg, ...TY.small, color: T.navy, maxWidth: "85%" }}>Comment parler d'un trou dans mon CV ?</div>
             <div style={{ position: "relative", ...miniCard, background: T.violetBg, ...TY.small, color: T.navy, maxWidth: "90%", minHeight: 44 }}>
@@ -72,7 +75,7 @@ export function Features() {
             </div>
           </div>
         </FCard>
-        <FCard title="Rapport écrit ou vidéo, au choix" text="Découvrez votre retour comme vous le préférez : en lisant, ou en vous revoyant avec des repères.">
+        <FCard i={5} title="Rapport écrit ou vidéo, au choix" text="Découvrez votre retour comme vous le préférez : en lisant, ou en vous revoyant avec des repères.">
           <div className="rs-seg"><i /><span>Rapport écrit</span><span>Me revoir en vidéo</span></div>
           <div style={{ ...miniCard, marginTop: 12, display: "flex", alignItems: "center", gap: 8 }}>
             <Pin ap /><span style={{ ...TY.caption, color: T.navy, flex: 1 }}>Ouverture directe à 0:04</span><span style={{ ...TY.time, color: T.muted }}>0:04</span>

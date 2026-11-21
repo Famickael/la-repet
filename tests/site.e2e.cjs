@@ -389,6 +389,15 @@ async function run(b, vw, vh, opts = {}) {
   };
   if (opts.reduced) for (const h of ["#/", "#/a-propos", "#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/recherche", "#/solutions/fonctionnalites", "#/cas-d-usage", "#/cas-d-usage/beneficiaires", "#/cas-d-usage/coachs", "#/cas-d-usage/commanditaires", "#/ressources", "#/ressources/faq", "#/ressources/se-presenter-en-deux-minutes", "#/demo", "#/espace", "#/vos-donnees"]) { await visit(h); await revealAll(); await axe(h); }
 
+  /* Animation d'apparition (docs/design-system.md, section 7) : sur les pages publiques, chaque carte, question de FAQ,
+     encadré, porte d'entrée et élément de grille apparaît au défilement (Reveal, classe .rv, sur lui ou un parent). */
+  if (!opts.reduced && !mobile) for (const h of ["#/", "#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/fonctionnalites", "#/cas-d-usage", "#/cas-d-usage/beneficiaires", "#/cas-d-usage/coachs", "#/cas-d-usage/commanditaires", "#/ressources", "#/ressources/faq", "#/ressources/se-presenter-en-deux-minutes", "#/demo", "#/espace", "#/vos-donnees", "#/vos-donnees/video", "#/mentions-legales"]) {
+    await visit(h);
+    const bare = await p.evaluate(() => [...document.querySelectorAll("main .rs-acc, main .rs-card-btn, main .rs-fcard, main .rs-door, main .rs-callout, main .rs-prose > *, main .rs-g2 > *, main .rs-g3 > *, main .rs-g4 > *")]
+      .filter(el => !el.closest(".rv") && !el.closest(".rs-hero, .rs-page-hero, header, .rs-strate, .rs-phrase, .rs-stage, .rs-fvis")).map(el => `${el.tagName.toLowerCase()}.${String(el.className).split(" ")[0]} « ${(el.textContent || "").trim().slice(0, 40)} »`));
+    check(bare.length === 0, `[${tag}] ${h} : blocs sans animation d'apparition (${bare.slice(0, 4).join(" | ")})`);
+  }
+
   // Options d'accessibilité : thème sombre et grande taille de texte, sans débordement, mémorisées sans flash
   if (!opts.reduced) {
     await visit("#/");

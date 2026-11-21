@@ -2,6 +2,7 @@ import React from "react";
 import { T, Btn, I, TY, W, Section, PageHero, IconTile } from "./ui.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { LinkCards, LinkChips } from "./LinkCards.jsx";
+import { Reveal, stagger } from "./motion.jsx";
 
 /* Page d'entrée « Solutions » (#/solutions) : ce qui nourrit la solution. Une sous-page par sujet :
    usage de l'IA, recherche en accompagnement, fonctionnalités. Les pages par public sont dans « Cas d'usage ». */
@@ -30,17 +31,17 @@ export default function Solutions({ go }) {
 
         <Section eyebrow="Notre modèle" title="Un organisme d'accompagnement, outillé par La Répét'">
           <div className="rs-split" style={{ alignItems: "start" }}>
-            <div style={{ display: "grid", gap: 16, ...TY.bodyLg, color: T.body }}>
+            <Reveal style={{ display: "grid", gap: 16, ...TY.bodyLg, color: T.body }}>
               <p style={{ margin: 0 }}>Notre métier, c'est l'accompagnement. La Répét' nous appartient : c'est l'outil que nos coachs utilisent avec les personnes qu'ils accompagnent. Nous ne la vendons pas comme un logiciel.</p>
               <p style={{ margin: 0 }}>Des commanditaires nous confient l'accompagnement de leurs publics. Les acteurs publics de l'emploi et de l'insertion peuvent nous confier des demandeurs d'emploi. Les entreprises peuvent nous confier des collaborateurs qui préparent une mobilité, un entretien professionnel ou une reconversion.</p>
               <p style={{ margin: 0 }}>Nos coachs mènent les rendez-vous et les ateliers. Entre deux séances, chaque personne s'entraîne seule avec La Répét', à son rythme.</p>
-            </div>
+            </Reveal>
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 12 }}>
-              {MODEL.map(([ic, t, d, h]) => (
-                <li key={t} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+              {MODEL.map(([ic, t, d, h], i) => (
+                <Reveal as="li" key={t} delay={stagger(i, 4)} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                   <IconTile icon={ic} />
                   <span style={{ ...TY.body, color: T.body }}><a href={h} className="rp-link" style={{ ...TY.link, color: T.primary }}>{t}</a> {d}</span>
-                </li>
+                </Reveal>
               ))}
             </ul>
           </div>

@@ -4,7 +4,7 @@ import {
   T, ON, GLOW, GRAD, GRAD_MAIN, GRAD_COACH, GRAD_AI, GRAD_SOFT, GRAD_PAGE, FD, FB, FM, TY, PAD, PAD_MOBILE, GAP, W, RAD, SH, MO, Z,
   TONE, HEADER_H, HEADER_H_M, TY_MOBILE, GRAD_AI_BORDER, FONT_STACKS, MASK, GRAD_LOGO, FADE_FOOT,
 } from "./tokens.js";
-import { Reveal } from "./motion.jsx";
+import { Reveal, stagger } from "./motion.jsx";
 import { GStyle } from "./ui/GStyle.jsx";
 import { clock } from "./lib/format.js";
 
@@ -606,7 +606,7 @@ function Accordion({ items, idPrefix }) {
       {items.map(([q, a], i) => {
         const id = `${idPrefix || base}-${i}`, on = open === i;
         return (
-          <div key={q} className="rs-acc">
+          <Reveal key={q} className="rs-acc" delay={stagger(i, 4)}>
             <h3 style={{ margin: 0 }}>
               <button type="button" id={`${id}-b`} className="rs-acc-btn" aria-expanded={on} aria-controls={`${id}-p`} onClick={() => setOpen(on ? null : i)}>
                 <span>{q}</span><Icon d={I.chevron} s={20} c={T.primary} />
@@ -615,7 +615,7 @@ function Accordion({ items, idPrefix }) {
             <div id={`${id}-p`} role="region" aria-labelledby={`${id}-b`} hidden={!on} className="rs-acc-panel">
               {(Array.isArray(a) ? a : [a]).map((p, k) => <p key={k}>{p}</p>)}
             </div>
-          </div>
+          </Reveal>
         );
       })}
     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { T, RAD, GAP, Btn, Icon, I, TY, W, PageHero, IconTile, Field, Input, Textarea, Select, Link, Toggle, Card, Tag, RadioGroup } from "./ui.jsx";
 import { PHRASES } from "./content/legal.js";
+import { Reveal, stagger } from "./motion.jsx";
 
 /* Page « Nous contacter » : un commanditaire (acteur public de l'emploi ou entreprise) décrit son projet
    d'accompagnement. La Répét' est l'outil de l'organisme : on ne vend pas un logiciel, on propose un accompagnement
@@ -50,7 +51,7 @@ export default function Demo({ go }) {
         lead="Acteur public de l'emploi ou entreprise : décrivez-nous votre besoin. Nous construisons avec vous un accompagnement mené par nos coachs et outillé par La Répét'." />
       <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "48px 24px 0" }}>
         <div className="rp-stack" style={{ alignItems: "stretch", maxWidth: W.wide }}>
-          <Card pad="lg" level={2} topbar>
+          <Reveal style={{ display: "grid" }}><Card pad="lg" level={2} topbar>
           <form noValidate onSubmit={submit} aria-labelledby="demo-title" style={{ display: "grid", gap: GAP.field }}>
             <div style={{ display: "grid", gap: 12 }}>
               <h2 id="demo-title" style={{ ...TY.h2, color: T.navy, margin: 0 }}>Votre projet</h2>
@@ -93,9 +94,9 @@ export default function Demo({ go }) {
               </span>
             </div>
           </form>
-          </Card>
+          </Card></Reveal>
 
-          <Card pad="lg" topbar as="aside" style={{ display: "grid", gap: 24, alignContent: "start" }}>
+          <Reveal delay={70} style={{ display: "grid" }}><Card pad="lg" topbar as="aside" style={{ display: "grid", gap: 24, alignContent: "start" }}>
             <div style={{ display: "grid", gap: 12 }}>
               <div><Tag tone="primary">Commanditaires</Tag></div>
               <h2 style={{ ...TY.h2, color: T.navy, margin: 0 }}>Comment nous travaillons ensemble</h2>
@@ -103,17 +104,17 @@ export default function Demo({ go }) {
             {[[I.chat, "Un premier échange", "Votre public, vos objectifs, votre calendrier, les types d'entretien à préparer."],
               [I.note, "Une proposition d'accompagnement", "Rendez-vous individuels, ateliers, durée : nous l'ajustons à votre besoin."],
               [I.users, "Nos coachs accompagnent", "Chaque personne s'entraîne avec La Répét' entre deux rendez-vous, et décide de ce qu'elle envoie."],
-              [I.shield, "Un bilan d'ensemble", "Vous recevez un bilan de l'accompagnement, jamais une mesure individuelle."]].map(([ic, t, d]) => (
-              <div key={t} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+              [I.shield, "Un bilan d'ensemble", "Vous recevez un bilan de l'accompagnement, jamais une mesure individuelle."]].map(([ic, t, d], i) => (
+              <Reveal key={t} delay={140 + stagger(i, 4)} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
                 <IconTile icon={ic} />
                 <div style={{ display: "grid", gap: 4 }}>
                   <h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>{t}</h3>
                   <p style={{ ...TY.body, color: T.body, margin: 0 }}>{d}</p>
                 </div>
-              </div>
+              </Reveal>
             ))}
             <p style={{ ...TY.small, color: T.muted, margin: 0 }}>Vous vous entraînez avec un coach ? <Link href="#/espace">Ouvrir mon espace</Link></p>
-          </Card>
+          </Card></Reveal>
         </div>
       </div>
     </main>

@@ -77,25 +77,27 @@
     <style>
       /* Écran de chargement : visible avant le JavaScript, retiré par src/Loader.jsx (référentiel, section 7).
          Calque de 100vw : le logo reste immobile quand la barre de défilement apparaît sous lui.
-         Sortie en un seul mouvement (.rpl-out, 0,8 s, courbe douce) : fondu du calque et écart des deux bulles. */
+         Sortie en trois temps : écart des deux bulles (.rpl-split, 0,6 s, courbe douce), pause de 0,3 s, puis fondu
+         du calque (.rpl-out, 0,6 s). La barre de défilement est réservée dès le premier affichage, comme dans GStyle. */
       html,body{background:#F8FAFC;margin:0}
-      #rp-loader{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;z-index:1000;display:grid;place-items:center;background:#F8FAFC;opacity:1;transition:opacity .8s cubic-bezier(.45,0,.55,1);will-change:opacity;animation:rpl-gone .3s ease 10s forwards}
+      html{overflow-y:scroll;scrollbar-gutter:stable}
+      #rp-loader{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;z-index:1000;display:grid;place-items:center;background:#F8FAFC;opacity:1;transition:opacity .6s cubic-bezier(.45,0,.55,1);will-change:opacity;animation:rpl-gone .3s ease 10s forwards}
       #rp-loader.rpl-out{opacity:0;pointer-events:none}
       .rpl-box{display:grid;justify-items:center;gap:24px}
       #rp-loader svg{width:88px;height:auto;overflow:visible;display:block}
       .rpl-l{animation:rpl-l 1.3s cubic-bezier(.45,0,.55,1) both}
       .rpl-r{animation:rpl-r 1.3s cubic-bezier(.45,0,.55,1) both}
-      .rpl-lx,.rpl-rx{transition:transform .8s cubic-bezier(.45,0,.55,1)}
-      .rpl-out .rpl-lx{transform:translate(-30px,12px)}
-      .rpl-out .rpl-rx{transform:translate(30px,-12px)}
+      .rpl-lx,.rpl-rx{transition:transform .6s cubic-bezier(.45,0,.55,1)}
+      .rpl-split .rpl-lx{transform:translate(-30px,12px)}
+      .rpl-split .rpl-rx{transform:translate(30px,-12px)}
       .rpl-dots{transition:opacity .4s cubic-bezier(.45,0,.55,1)}
-      .rpl-out .rpl-dots{opacity:0}
+      .rpl-split .rpl-dots,.rpl-out .rpl-dots{opacity:0}
       .rpl-d{animation:rpl-d 1s ease-in-out 1.25s infinite both}
       .rpl-d2{animation-delay:1.4s}.rpl-d3{animation-delay:1.55s}
       /* Barre de chargement : 3 px, violet de la marque (T.violet), piste T.line ; progresse jusqu'à 90 % pendant la durée minimale, Loader.jsx la complète */
       .rpl-bar{width:112px;height:3px;border-radius:2px;background:#E7EBF2;overflow:hidden;transition:opacity .35s ease .25s}
       .rpl-bar i{display:block;height:100%;background:#5C4BB9;border-radius:inherit;transform-origin:left center;transform:scaleX(0);animation:rpl-bar 2.4s cubic-bezier(.3,.55,.35,1) forwards}
-      .rpl-out .rpl-bar{opacity:0}
+      .rpl-split .rpl-bar,.rpl-out .rpl-bar{opacity:0}
       @keyframes rpl-l{from{opacity:0;transform:translate(-22px,10px)}to{opacity:1;transform:none}}
       @keyframes rpl-r{from{opacity:0;transform:translate(22px,-10px)}to{opacity:1;transform:none}}
       @keyframes rpl-d{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-5px)}}

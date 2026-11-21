@@ -455,6 +455,9 @@ async function run(b, vw, vh, opts = {}) {
     await account.click();
     const acc = p.getByRole("navigation", { name: "Mon compte" });
     await acc.waitFor();
+    // Le menu peut être visible avant que requestAnimationFrame donne le focus à sa première action.
+    await acc.getByRole("button", { name: "Retour à mon espace", exact: true })
+      .and(p.locator(":focus")).waitFor({ timeout: 5000 });
     check(await account.getAttribute("aria-expanded") === "true", `[${tag}] menu « Mon compte » : aria-expanded non mis à jour`);
     check(await p.locator(".rp-account-menu").getByText("Sophie M.").count() === 1 && await p.locator(".rp-account-menu").getByText("Espace coach").count() === 1, `[${tag}] menu « Mon compte » : en-tête du compte absent`);
     const st = await p.evaluate(() => {

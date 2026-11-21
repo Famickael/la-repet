@@ -108,11 +108,6 @@ export const GStyle = () => (
     .rp-voice.on i:nth-child(2){animation-delay:.15s}.rp-voice.on i:nth-child(3){animation-delay:.3s}.rp-voice.on i:nth-child(4){animation-delay:.45s}
     @keyframes rpVoice{0%,100%{height:6px}50%{height:16px}}
     .rp-trustlink:hover{color:${T.primary}!important;text-decoration:underline!important}
-    .rp-icbtn{width:44px;height:44px;border-radius:50%;display:inline-grid;place-items:center;cursor:pointer;flex-shrink:0;padding:0;transition:background-color ${MO.fast},border-color ${MO.fast}}
-    .rp-icbtn-outline{border:1px solid ${T.line};background:${T.surface}}
-    .rp-icbtn-outline:hover{border-color:${T.primary}}
-    .rp-icbtn-plain{border:none;background:transparent}
-    .rp-icbtn-plain:hover,.rp-icbtn-plain[aria-expanded=true]{background:${T.primaryBg}}
     /* Pied de page : présentation et trois groupes de liens sur une rangée (3/2/2/2), engagements répartis sur la largeur */
     .rp-fgrid{display:grid;grid-template-columns:minmax(0,3fr) repeat(3,minmax(0,2fr));gap:24px 40px}
     footer .rp-trust{justify-content:space-between;row-gap:0!important}
@@ -120,6 +115,11 @@ export const GStyle = () => (
     @media (max-width:560px){ .rp-fgrid{gap:16px 24px} .rp-fbrief{grid-column:1/-1} }
     /* Mobile : espace sous le pied de page pour que la languette d'accessibilité et « Revenir en haut » ne masquent pas les derniers liens */
     @media (max-width:760px){ .rp-foot{padding-bottom:64px} }
+    .rp-icbtn{width:44px;height:44px;border-radius:50%;display:inline-grid;place-items:center;cursor:pointer;flex-shrink:0;padding:0;transition:background-color ${MO.fast},border-color ${MO.fast}}
+    .rp-icbtn-outline{border:1px solid ${T.line};background:${T.surface}}
+    .rp-icbtn-outline:hover{border-color:${T.primary}}
+    .rp-icbtn-plain{border:none;background:transparent}
+    .rp-icbtn-plain:hover,.rp-icbtn-plain[aria-expanded=true]{background:${T.primaryBg}}
     .rp-icbtn-dark{border:1px solid ${ON.line};background:${ON.chip}}
     .rp-icbtn:disabled{cursor:not-allowed;background:${T.line};color:${T.muted}!important;border-color:${T.line}}
     /* Tuiles à cocher et bascules (état sélectionné de 1.6) */
@@ -333,21 +333,6 @@ export const GStyle = () => (
     html[data-links=on] a,html[data-links=on] .navlink,html[data-links=on] .rp-link{text-decoration:underline!important;text-underline-offset:3px}
     html[data-focusring=on] :focus-visible{outline:3px solid ${T.navy}!important;outline-offset:3px!important;box-shadow:${SH.ring}!important}
     .rp-ruler{position:fixed;left:0;right:0;z-index:${Z.modal + 1};background:${T.overlay};pointer-events:none}
-    /* Point de rupture unique : 760 px (référentiel 6) */
-    @media (max-width:760px){
-      .rp-hide-m,.rp-rail-other{display:none!important}
-      .rp-show-m{display:inline}
-      .rp-nav{padding:0 16px!important;height:${HEADER_H_M}px!important;gap:8px}
-      /* Boutons de l'en-tête : texte agrandi plafonné à 115 % pour que logo, « Mon espace », accessibilité et menu tiennent sur une ligne */
-      .rp-nav button{font-size:calc(13px * min(var(--fs, 1), 1.15))!important}
-      .rp-nav nav{gap:8px!important}
-      .rp-nav nav .navlink{font-size:calc(13px * var(--fs))}
-      .ty-display{font-size:calc(${TY_MOBILE.display}px * var(--fs))!important} .ty-xl{font-size:calc(${TY_MOBILE.xl}px * var(--fs))!important} .ty-h1{font-size:calc(${TY_MOBILE.h1}px * var(--fs))!important} .ty-lead{font-size:calc(${TY_MOBILE.lead}px * var(--fs))!important}
-      .rp-pad-sm{padding:${PAD_MOBILE.sm}px!important} .rp-pad-md{padding:${PAD_MOBILE.md}px!important} .rp-pad-lg{padding:${PAD_MOBILE.lg}px!important}
-      .rp-page{padding:${PAD_MOBILE.page}!important}
-      .rp-btn-sm{min-height:44px!important}
-      .rp-actions{flex-direction:column-reverse;align-items:stretch!important}
-      .rp-actions>*{width:100%}
     /* Options d'accessibilité (8 bis) : languette en demi-cercle au bord gauche (milieu de l'écran ; en bas à gauche sur mobile),
        qui s'allonge au survol et au focus ; le panneau se déploie depuis elle (clip-path de la forme de la languette au panneau). */
     .rp-a11y{--a11y-w:32px;--a11y-h:52px}
@@ -381,6 +366,21 @@ export const GStyle = () => (
     .rp-a11y .rp-toggle{height:auto;min-height:44px;padding:4px 12px;flex:1 1 auto}
     /* Jamais par-dessus un menu, un panneau ou une fenêtre ouverts */
     html.rp-menu-open .rp-a11y-tab,html.rp-account-open .rp-a11y-tab,html.rp-lock .rp-a11y-tab{display:none!important}
+    /* Point de rupture unique : 760 px (référentiel 6) */
+    @media (max-width:760px){
+      .rp-hide-m,.rp-rail-other{display:none!important}
+      .rp-show-m{display:inline}
+      .rp-nav{padding:0 16px!important;height:${HEADER_H_M}px!important;gap:8px}
+      /* Boutons de l'en-tête : texte agrandi plafonné à 115 % pour que logo, « Mon espace », accessibilité et menu tiennent sur une ligne */
+      .rp-nav button{font-size:calc(13px * min(var(--fs, 1), 1.15))!important}
+      .rp-nav nav{gap:8px!important}
+      .rp-nav nav .navlink{font-size:calc(13px * var(--fs))}
+      .ty-display{font-size:calc(${TY_MOBILE.display}px * var(--fs))!important} .ty-xl{font-size:calc(${TY_MOBILE.xl}px * var(--fs))!important} .ty-h1{font-size:calc(${TY_MOBILE.h1}px * var(--fs))!important} .ty-lead{font-size:calc(${TY_MOBILE.lead}px * var(--fs))!important}
+      .rp-pad-sm{padding:${PAD_MOBILE.sm}px!important} .rp-pad-md{padding:${PAD_MOBILE.md}px!important} .rp-pad-lg{padding:${PAD_MOBILE.lg}px!important}
+      .rp-page{padding:${PAD_MOBILE.page}!important}
+      .rp-btn-sm{min-height:44px!important}
+      .rp-actions{flex-direction:column-reverse;align-items:stretch!important}
+      .rp-actions>*{width:100%}
       .rp-actions>.rp-back{width:auto;align-self:flex-start}
       .rp-stack,.rp-split{grid-template-columns:minmax(0,1fr)!important}
       .rp-pad,.rs-pad{padding-left:16px!important;padding-right:16px!important}

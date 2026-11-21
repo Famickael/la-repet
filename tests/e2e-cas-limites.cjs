@@ -91,7 +91,7 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     await p.goto(BASE + "#/s/CASAAA");
     await p.getByRole("button", { name: "Ouvrir", exact: true }).first().click();
     await p.getByRole("button", { name: "Mon compte" }).click();
-    await p.getByRole("dialog", { name: "Mon compte" }).getByRole("button", { name: /Retirer mon/ }).click();
+    await p.getByRole("navigation", { name: "Mon compte" }).getByRole("button", { name: /Retirer mon/ }).click();
     await p.getByRole("button", { name: "Tout supprimer" }).click();
     await p.getByRole("heading", { name: "Avant de commencer" }).waitFor({ timeout: 5000 });
     await p.getByRole("checkbox").first().click();

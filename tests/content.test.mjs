@@ -49,7 +49,7 @@ assert.ok(!/reprendre/i.test(PHRASES.sent + SUMMARY.envoi.map(x => x[1]).join(" 
 assert.match(SUMMARY.envoi[0][1], /employeur/);
 assert.ok(!/cookie/i.test(PHRASES.noTracking) && /professionnel/.test(PHRASES.sharedDevice) && /Retirer mon accord/.test(PHRASES.sharedDevice));
 assert.ok(!/modèle de langage/.test(PHRASES.feedbackLlm), "pas de jargon dans la mention du texte rédigé par l'IA");
-assert.ok(!/analyse/.test(PHRASES.download) && /85\u00a0Mo/.test(PHRASES.download + PHRASES.personalDevice));
+assert.ok(!/analyse/.test(PHRASES.download) && /130\u00a0Mo/.test(PHRASES.download + PHRASES.personalDevice));
 assert.match(PHRASES.personalDevice, /personnel/);
 /* C4 (B4) : sans proxy IA, la préparation se fait sur l'appareil et rien ne part. */
 assert.match(PHRASES.processing, /^Tout se passe sur votre appareil/);

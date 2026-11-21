@@ -26,7 +26,7 @@ const OBSERVE = [
 
 const STEPS = [
   ["1", "Enregistrement", "La caméra et le micro enregistrent dans le navigateur. La vidéo est gardée sur l'appareil."],
-  ["2", "Mise par écrit", "Un outil téléchargé une fois (environ 85 Mo) met la voix par écrit, sur l'appareil. La voix n'est pas envoyée."],
+  ["2", "Mise par écrit", "Un outil téléchargé une fois (environ 130 Mo) met la voix par écrit, sur l'appareil. La voix n'est pas envoyée."],
   ["3", "Repères", "Les repères sont calculés sur l'appareil, à partir du texte, du son et de la position de la tête."],
   ["4", "Envoi, si vous le décidez", "Rien ne part chez le coach sans un envoi volontaire, réponse par réponse."],
 ];

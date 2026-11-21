@@ -44,7 +44,7 @@ export const PHRASES = {
   emotions: "L'assistant ne cherche pas à deviner vos émotions. Il décrit seulement ce qui se voit et ce qui s'entend.",
   download: SELF_HOSTED_MODELS
     ? "La première fois, votre appareil télécharge un outil. Le Wi-Fi est préférable. Votre vidéo, elle, n'est pas envoyée."
-    : "La première fois, votre appareil télécharge un outil (environ 85 Mo). Le Wi-Fi est préférable. Votre vidéo, elle, n'est pas envoyée.",
+    : "La première fois, votre appareil télécharge un outil (environ 130 Mo). Le Wi-Fi est préférable. Votre vidéo, elle, n'est pas envoyée.",
   /* Écran de préparation (B4) : dit ce qui part vraiment. Avec le proxy IA, le texte transcrit (jamais la vidéo ni la
      voix) est envoyé à l'assistant IA pour rédiger le retour ; sans lui, tout reste sur l'appareil. */
   processing: REMOTE_LLM
@@ -55,7 +55,7 @@ export const PHRASES = {
   consentAi: `L'assistant est un programme. Il décrit des faits : vitesse de parole, pauses, direction du regard. Pas de note, pas d'émotion devinée.${REMOTE_LLM ? " Pour rédiger le retour, le texte de votre réponse est envoyé à l'assistant IA, jamais votre vidéo ni votre voix." : ""} Sans cette case, vous pouvez quand même vous enregistrer et vous revoir.`,
   personalDevice: SELF_HOSTED_MODELS
     ? "Conseil : utilisez de préférence votre téléphone ou votre ordinateur personnel. La première fois, l'assistant télécharge un outil : le Wi-Fi est préférable."
-    : "Conseil : utilisez de préférence votre téléphone ou votre ordinateur personnel. La première fois, l'assistant télécharge un outil d'environ 85 Mo : le Wi-Fi est préférable.",
+    : "Conseil : utilisez de préférence votre téléphone ou votre ordinateur personnel. La première fois, l'assistant télécharge un outil d'environ 130 Mo : le Wi-Fi est préférable.",
   share: "Seul votre coach verra cette réponse.",
   sent: "Tant que votre coach n'a pas répondu, vous pouvez annuler l'envoi depuis votre espace.",
   /* Sans serveur, l'envoi reste dans ce navigateur (RED-07) : dit là où la personne envoie. */

@@ -20,10 +20,7 @@ export const GStyle = () => (
     html.rp-lock,html.rp-lock body{overflow:hidden!important;overscroll-behavior:none}
     /* Menu mobile ouvert : boutons flottants retirés (rien de cliquable derrière le panneau) */
     html.rp-menu-open .rp-totop,html.rp-menu-open .rp-ai-fab,html.rp-menu-open .rp-ai-bubble,html.rp-account-open .rp-totop,html.rp-account-open .rp-ai-fab,html.rp-account-open .rp-ai-bubble{display:none!important}
-    /* Panneau « Mon compte » : à droite sur grand écran, plein écran sur mobile */
-    .rp-account-ov{position:fixed;inset:0;z-index:${Z.modal};background:${T.overlay};display:flex;justify-content:flex-end;animation:rpFade ${MO.base} ${MO.ease} both}
     @keyframes rpFade{from{opacity:0}to{opacity:1}}
-    .rp-account{width:min(400px,100vw);height:100%;background:${T.surface};box-shadow:${SH.lg};display:flex;flex-direction:column;animation:rpAiIn ${MO.enter} ${MO.ease} both}
     ::selection{background:${T.lavender};color:${T.surface}}
     img{max-width:100%}
     @keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
@@ -402,7 +399,6 @@ export const GStyle = () => (
       .rp-flow{flex-direction:column;gap:20px!important;overflow:visible!important}
       .rp-flow-step{flex:none!important;min-width:0!important}
       .rs-menu{top:${HEADER_H_M}px;padding:16px 16px 40px}
-      .rp-account{width:100vw}
       .rs-hero{grid-template-columns:minmax(0,1fr);gap:40px}
       .rs-bubble{left:-8px}
       .rs-card-pos{right:8px!important;width:min(310px,calc(100% - 16px))!important}

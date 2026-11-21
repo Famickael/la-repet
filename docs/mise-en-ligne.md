@@ -29,7 +29,7 @@ Le détail, avec les preuves, est dans `etat-fonctionnel.md`.
 - Git, et un accès au dépôt GitHub.
 - Pour les tests de bout en bout : Chromium par Playwright 1.65.1 (`npx playwright install chromium`, ou un Chromium existant via `CHROMIUM_PATH`).
 - Pour le proxy IA : un compte Cloudflare (gratuit) et une clé d'API du fournisseur de modèle de langage.
-- Pour essayer Whisper et MediaPipe : un accès à `huggingface.co` et `storage.googleapis.com` (premier chargement, environ 85 Mo).
+- Pour essayer Whisper et MediaPipe : un accès à `huggingface.co` et `storage.googleapis.com` (premier chargement, environ 130 Mo).
 
 ---
 

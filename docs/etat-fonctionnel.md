@@ -88,7 +88,7 @@ Légende : **Fonctionne** (vérifié de bout en bout), **Local seulement** (fonc
 | Vidéos et voix | IndexedDB, base `larepet`, magasin `videos`, clé = identifiant de prise | une vidéo de 3 min pèse environ 15 Mo |
 | Questionnaire de fin d'échauffement | `localStorage`, clé `larepet.warmup.CODE` | |
 | Réglages (son coupé, accessibilité) | `localStorage`, `sessionStorage` | |
-| Modèles Whisper et MediaPipe | cache du navigateur | environ 85 Mo |
+| Modèles Whisper et MediaPipe | cache du navigateur | environ 130 Mo |
 
 Deux onglets du même navigateur se synchronisent par l'événement `storage`. Rien d'autre ne sort de l'appareil, à part le texte envoyé au proxy IA quand `VITE_LLM_ENDPOINT` est défini.
 

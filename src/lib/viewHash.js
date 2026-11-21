@@ -1,10 +1,13 @@
 /* Vue d'un espace dans l'ancre de l'adresse (BUG-07) : Précédent et Suivant suivent les écrans, un rechargement
-   rouvre le même écran quand c'est possible. replace : remplace l'entrée courante (écran de passage). Après un
-   replaceState, un événement hashchange est émis pour que la route de l'application suive. */
+   rouvre le même écran quand c'est possible. replace : remplace l'entrée courante (écran de passage).
+   Notifier le routeur dans la même mise à jour que le changement de vue : un hashchange natif différé
+   peut arriver après un retour navigateur et le routeur ne verrait alors jamais l'adresse intermédiaire. */
 export function writeHash(hash, replace = false) {
   if (location.hash === hash) return;
-  if (replace) { history.replaceState(null, "", hash); window.dispatchEvent(new HashChangeEvent("hashchange")); }
-  else location.hash = hash;
+  const oldURL = location.href;
+  if (replace) history.replaceState(null, "", hash);
+  else history.pushState(null, "", hash);
+  window.dispatchEvent(new HashChangeEvent("hashchange", { oldURL, newURL: location.href }));
 }
 
 /* Espace de la personne : #/s/CODE/<écran>[/<réponse>[/video]] */

@@ -1,8 +1,7 @@
 import React from "react";
-import { T, HL, RAD, SH, W, Tag, Btn, Card, I, Icon, TY, Section, IconTile, Accordion, Link } from "../ui.jsx";
+import { T, HL, RAD, SH, Tag, Card, I, Icon, TY, Section, IconTile } from "../ui.jsx";
 import { ON, GRAD_DOOR_BLUE, GRAD_DOOR_GREEN, GRAD_DOOR_VIOLET } from "../tokens.js";
 import { spaceHash } from "../app/router.js";
-import { FAQ_COST, FAQ_TIME, FAQ_EMPLOYER, FAQ_ACCOUNT } from "../content/faq.js";
 import { useReducedMotion, useInView, Reveal } from "../motion.jsx";
 import { Pin } from "./shared.jsx";
 
@@ -143,43 +142,28 @@ export function ForWho({ go, openSpace }) {
 }
 
 /* ─── Bandeau de réassurance, sous le héros (rapport du panel, section 5, bloc 2) ───
-   Coût, durée et appareil, vidéo, employeur. La gratuité pour la personne est validée par le propriétaire. */
+   Quatre engagements courts (demande du propriétaire), chacun précisé en une ligne. La gratuité pour la personne est
+   validée par le propriétaire ; « Démarrage rapide » : pas de compte, on entre avec le code donné par le coach. */
 export const REASSURE = [
-  [I.check, "Sans frais pour vous : c'est compris dans votre accompagnement."],
-  [I.clock, "3 minutes au plus par réponse. Un téléphone suffit."],
-  [I.lock, "Votre vidéo reste sur votre appareil."],
-  [I.building, "Votre employeur ne voit pas vos réponses."],
+  [I.gift, "Sans frais pour vous", "Compris dans votre accompagnement."],
+  [I.zap, "Démarrage rapide", "Pas de compte\u00a0: vous entrez avec votre code."],
+  [I.shield, "Sécurisé", "Votre vidéo reste sur votre appareil."],
+  [I.eyeOff, "Confidentiel", "Votre employeur ne voit pas vos réponses."],
 ];
 export function Reassurance() {
   return (
     <section aria-label="L'essentiel" className="rs-reassure">
       <ul className="rs-g4" style={{ listStyle: "none", margin: 0, padding: "16px 24px", background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, boxShadow: SH.xs }}>
-        {REASSURE.map(([ic, t]) => (
-          <li key={t} style={{ display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}>
+        {REASSURE.map(([ic, t, d], i) => (
+          <Reveal as="li" key={t} delay={i * 90} style={{ display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}>
             <IconTile icon={ic} />
-            <span style={{ ...TY.bodyStrong, color: T.navy }}>{t}</span>
-          </li>
+            <span style={{ display: "grid", gap: 2 }}>
+              <span style={{ ...TY.bodyStrong, color: T.navy }}>{t}</span>
+              <span style={{ ...TY.small, color: T.body }}>{d}</span>
+            </span>
+          </Reveal>
         ))}
       </ul>
     </section>
-  );
-}
-
-/* ─── Mini FAQ de la personne accompagnée (rapport du panel, section 5, bloc 7) ─── */
-const HOME_FAQ = [
-  FAQ_COST,
-  FAQ_TIME,
-  FAQ_EMPLOYER,
-  ["Puis-je m'entraîner sur téléphone, ou sans caméra ?", "Oui. Un téléphone suffit. Sans caméra, vous répondez en voix seule : l'assistant ne décrit alors pas votre regard."],
-  FAQ_ACCOUNT,
-];
-export function MiniFaq() {
-  return (
-    <Section eyebrow="Questions fréquentes" title="Avant de commencer">
-      <div style={{ maxWidth: W.read, display: "grid", gap: 16 }}>
-        <Accordion idPrefix="home-faq" items={HOME_FAQ} />
-        <div><Link href="#/ressources/faq/personnes-accompagnees" style={{ display: "inline-flex", alignItems: "center", gap: 8, minHeight: 44 }}>Toutes les questions fréquentes <Icon d={I.arrow} s={16} /></Link></div>
-      </div>
-    </Section>
   );
 }

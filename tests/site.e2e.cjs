@@ -60,6 +60,19 @@ async function run(b, vw, vh, opts = {}) {
   check(await p.locator("#rp-loader").count() === 0, `[${tag}] écran de chargement encore présent`);
   check(await p.getByRole("heading", { level: 1 }).first().textContent().then(t => t.includes("Répétez votre entretien")), `[${tag}] titre du héros absent`);
   await p.getByRole("button", { name: "Lancer ma première répétition" }).waitFor();
+  /* Accueil (demandes du propriétaire) : héros sans « Voir comment ça marche » ni ligne sur le compte, pastille
+     « Sans jugement », bandeau en quatre engagements, phrase juste sous le bandeau, pas de mini FAQ. */
+  const homeTxt = (await p.locator("main").innerText()).replace(/[\u00A0\u202F]/g, " ");
+  check(await p.getByRole("button", { name: "Voir comment ça marche" }).count() === 0 && !homeTxt.includes("Pas de compte à créer"), `[${tag}] accueil : bouton « Voir comment ça marche » ou ligne « Pas de compte à créer » encore présents`);
+  check(homeTxt.includes("Sans jugement") && !/\bSans note\b/.test(homeTxt), `[${tag}] accueil : la pastille doit dire « Sans jugement »`);
+  const reassure = await p.locator(".rs-reassure li").allInnerTexts();
+  check(["Sans frais pour vous", "Démarrage rapide", "Sécurisé", "Confidentiel"].every((t, i) => (reassure[i] || "").startsWith(t)), `[${tag}] accueil : bandeau des quatre engagements attendu (${JSON.stringify(reassure)})`);
+  check(await p.locator("main").evaluate(m => { const r = m.querySelector(".rs-reassure"), ph = m.querySelector(".rs-phrase, .rs-phrase-r"), st = m.querySelector("#comment-ca-marche"); return !!(r && ph && st && (r.compareDocumentPosition(ph) & 4) && (ph.compareDocumentPosition(st) & 4)); }), `[${tag}] accueil : la phrase doit suivre le bandeau et précéder la strate`);
+  check(await p.locator("#home-faq-0, [id^=home-faq]").count() === 0 && !homeTxt.includes("Avant de commencer"), `[${tag}] accueil : la mini FAQ doit être retirée`);
+  if (!mobile) {
+    const hb = await p.locator("header").getByRole("button", { name: "Nous contacter" }).evaluate(el => { const c = getComputedStyle(el), r = el.getBoundingClientRect(); return { bg: c.backgroundColor, bw: c.borderTopWidth, h: r.height }; });
+    check(hb.bg === "rgba(0, 0, 0, 0)" && hb.bw === "0px" && hb.h >= 44, `[${tag}] en-tête : « Nous contacter » doit être un lien d'en-tête sans fond ni bordure, de 44 px (${JSON.stringify(hb)})`);
+  }
   await shot("01-accueil", false);
   const dot = p.getByRole("button", { name: /Scène 2 sur 4/ });
   await dot.click(); await p.waitForTimeout(700);

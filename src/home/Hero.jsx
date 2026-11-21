@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { T, FIX, Bare, GRAD_ACCROCHE, GLOW, PACE, RAD, SH, Halo, Tag, Btn, Icon, I, ON, TY, W, img } from "../ui.jsx";
 import { clock } from "../lib/format.js";
-import { useReducedMotion, scrollToTarget } from "../motion.jsx";
+import { useReducedMotion } from "../motion.jsx";
 import { Pin, lineStyle, useTicker } from "./shared.jsx";
 
 /* Fins d'accroche et scènes synchronisées : même cadence, même fondu, un lien de sens entre le mot et l'image. */
@@ -19,7 +19,7 @@ export function Hero({ openSpace }) {
               {/* Teinte coach (sarcelle de GRAD_COACH, ton « appui ») et violet de l'assistant (docs/design-system.md, 5.4) */}
               <Tag tone="appui" icon={I.users}>Avec votre coach</Tag>
               <Tag tone="ai" icon={I.sparkle}>Assistant IA</Tag>
-              <Tag tone="primary">Sans note</Tag>
+              <Tag tone="primary">Sans jugement</Tag>
             </div>
             <h1 className="ty-display" style={{ ...TY.display, color: T.primary, margin: 0 }}>
               <span className="rs-sr">Répétez votre entretien, {SCENES.map(x => x.ending.replace(".", "")).join(", ")}.</span>
@@ -38,9 +38,7 @@ export function Hero({ openSpace }) {
             <div className="rp-wide-m" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {/* Connecté : l'espace de la personne (ou l'espace coach), jamais la page de connexion (src/app/router.js, spaceHash) */}
               <Btn kind="objective" size="lg" onClick={() => openSpace("benef")} iconRight={I.arrow}>Lancer ma première répétition</Btn>
-              <Btn kind="secondary" size="lg" onClick={() => scrollToTarget("comment-ca-marche")}>Voir comment ça marche</Btn>
             </div>
-            <p style={{ ...TY.small, color: T.muted, margin: 0 }}>Pas de compte à créer : il vous faut le code donné par votre coach.</p>
           </div>
           <HeroStage reduced={reduced} i={w} setI={setW} stopped={stopped} setStopped={setStopped} setHover={setHover} />
         </div>

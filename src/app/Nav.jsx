@@ -14,7 +14,7 @@ export const LINKS = [["#/a-propos", "À propos", "about"], ["#/solutions", "Sol
 /* Sous-menus (deuxième niveau) : le clic sur l'intitulé mène toujours à la page principale. Troisième élément à
    true : entrée de troisième niveau (retrait), sous l'entrée qui la précède. */
 export const SUBS = {
-  solutions: [["#/solutions/usage-de-l-ia", "Usage de l'IA"], ["#/solutions/recherche", "Recherche en accompagnement"], ["#/solutions/fonctionnalites", "Fonctionnalités"]],
+  solutions: [["#/solutions/usage-de-l-ia", "Usage de l'IA"], ["#/solutions/recherche", "Recherche en accompagnement"], ["#/solutions/fonctionnalites", "Fonctionnalités"], ["#/solutions/methode", "Méthode"]],
   usecases: [["#/cas-d-usage/beneficiaires", "Personnes accompagnées"], ["#/cas-d-usage/beneficiaires/demandeurs-emploi", "Demandeurs d'emploi", true], ["#/cas-d-usage/beneficiaires/collaborateurs", "Collaborateurs en mobilité", true], ["#/cas-d-usage/coachs", "Coachs"], ["#/cas-d-usage/commanditaires", "Commanditaires"]],
   resources: [["#/ressources", "Conseils et guides"], ["#/ressources/faq", "Questions fréquentes"]],
 };

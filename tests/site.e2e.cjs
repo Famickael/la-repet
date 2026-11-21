@@ -170,6 +170,7 @@ async function run(b, vw, vh, opts = {}) {
   // Solutions : page d'entrée et sous-pages
   await visit("#/solutions"); await shot("06-solutions");
   for (const [h, t] of [["#/solutions/usage-de-l-ia", "Usage de l'IA"], ["#/solutions/recherche", "Recherche en accompagnement"], ["#/solutions/fonctionnalites", "Fonctionnalités"],
+    ["#/solutions/methode", "Méthode : comment l'outil sert l'accompagnement"],
     ["#/cas-d-usage", "Un accompagnement outillé, pour chaque public"], ["#/cas-d-usage/beneficiaires", "Personnes accompagnées"], ["#/cas-d-usage/coachs", "Coachs"], ["#/cas-d-usage/commanditaires", "Commanditaires"], ["#/ressources/faq", "Questions fréquentes"]]) {
     await visit(h);
     const h1 = ((await p.getByRole("heading", { level: 1 }).first().textContent()) || "").replace(/[\u00A0\u202F]/g, " ");
@@ -187,7 +188,7 @@ async function run(b, vw, vh, opts = {}) {
   await p.keyboard.press("ArrowRight");
   check(await p.getByRole("tab", { name: "Cadre et données" }).getAttribute("aria-selected") === "true", `[${tag}] onglets : la flèche droite ne change pas d'onglet`);
   /* Repositionnement : publics de l'organisme, aucun discours de logiciel vendu, moteur d'IA jamais nommé. */
-  for (const h of ["#/solutions", "#/solutions/usage-de-l-ia", "#/cas-d-usage", "#/cas-d-usage/commanditaires"]) {
+  for (const h of ["#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/methode", "#/a-propos", "#/cas-d-usage", "#/cas-d-usage/commanditaires"]) {
     await visit(h);
     check(!/licence|abonnement|tarif|équipez votre structure|Claude|Anthropic/i.test(await p.locator("main").innerText()), `[${tag}] ${h} : discours de logiciel ou nom du fournisseur d'IA`);
   }
@@ -196,6 +197,34 @@ async function run(b, vw, vh, opts = {}) {
   await visit("#/a-propos"); await shot("07-a-propos");
   check(await p.getByText("Texte d'exemple.").count() === 1, `[${tag}] À propos : encart « Texte d'exemple » absent`);
   check(await p.locator("#faq").count() === 0, `[${tag}] À propos : la FAQ doit être sur sa propre page`);
+  /* Page organisme : son expertise d'accompagnement (approche, méthode en sept étapes, références…), et un renvoi vers
+     Solutions pour ce qui concerne l'outil. Aucune note ni score dans le texte. */
+  for (const id of ["approche", "methode", "accompagnements", "references", "equipe", "commanditaires", "outil"]) check(await p.locator(`main #${id}`).count() === 1, `[${tag}] À propos : section #${id} absente`);
+  check(await p.locator("#methode ol > li").count() === 7, `[${tag}] À propos : la méthode doit compter sept étapes`);
+  const aboutTxt = await p.locator("main").innerText();
+  check(!/\bscore|\/\s?10\b|\bnoté/i.test(aboutTxt), `[${tag}] À propos : vocabulaire de notation`);
+  await p.getByRole("button", { name: "Lire la méthode outillée" }).click(); await p.waitForTimeout(600);
+  check(p.url().endsWith("#/solutions/methode"), `[${tag}] À propos : le bouton « Lire la méthode outillée » ne mène pas à #/solutions/methode (${p.url()})`);
+  check(await p.locator("main ol > li").count() >= 12, `[${tag}] Méthode : les cinq temps et les sept étapes doivent être listés`);
+  /* Méthode et Recherche : contenu attendu (retour qui décrit, rôle du coach, références) ; références justes sur
+     les trois pages. Apparition au défilement sur À propos, Recherche et Méthode : tous les blocs, éléments de liste
+     compris (Reveal as="li"), avec des délais décalés ; en mouvement réduit, tout est visible sans attendre. */
+  for (const id of ["Pourquoi le retour décrit au lieu de noter", "Le rôle irremplaçable du coach"]) check(await p.getByRole("heading", { name: id }).count() === 1, `[${tag}] Méthode : section « ${id} » absente`);
+  const refs = { "#/a-propos": ["Clot", "Vermersch", "Rogers", "Le Bossé", "Bandura", "Schön", "Hattie"], "#/solutions/recherche": ["Ericsson", "Dowrick", "Kluger", "Hattie", "Bandura", "Kanfer", "Liu", "Schön", "Baldwin"], "#/solutions/methode": ["Bandura", "Clot", "Hattie", "Schön"] };
+  for (const [h, names] of Object.entries(refs)) {
+    await visit(h);
+    const txt = await p.locator("main").innerText();
+    names.forEach(n => check(txt.includes(n), `[${tag}] ${h} : référence ${n} absente`));
+    check(!/\bscore|\/\s?10\b|\bnoté/i.test(txt), `[${tag}] ${h} : vocabulaire de notation`);
+    const rv = await p.evaluate(() => { const els = [...document.querySelectorAll("main .rv")]; return { n: els.length, li: els.filter(e => e.tagName === "LI").length }; });
+    check(rv.n >= 20 && rv.li >= 3, `[${tag}] ${h} : blocs ou éléments de liste sans apparition (${JSON.stringify(rv)})`);
+    await p.evaluate(async () => { const H = document.documentElement.scrollHeight; for (let y = 0; y <= H; y += innerHeight * 0.4) { scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); } scrollTo(0, H); await new Promise(r => setTimeout(r, 300)); });
+    await p.waitForTimeout(opts.reduced ? 300 : 1500);
+    const hidden = await p.evaluate(() => [...document.querySelectorAll("main .rv:not(.is-in)")].map(e => (e.textContent || "").trim().slice(0, 30)));
+    check(hidden.length === 0, `[${tag}] ${h} : ${hidden.length} bloc(s) jamais apparu(s) après défilement (${hidden.slice(0, 3).join(" | ")})`);
+    const delays = await p.evaluate(() => [...new Set([...document.querySelectorAll("main .rv.is-in")].map(e => e.style.transitionDelay))]);
+    check(delays.length >= 3, `[${tag}] ${h} : pas de décalage entre les apparitions (${delays.join(", ")})`);
+  }
   await p.goto(BASE + "#/ressources/faq/coachs"); await p.waitForTimeout(1600);
   const faqTop = await p.locator("#coachs").evaluate(el => Math.round(el.getBoundingClientRect().top));
   check(faqTop < 200, `[${tag}] #/ressources/faq/coachs ne défile pas jusqu'à la section Coachs (${faqTop})`);
@@ -387,11 +416,11 @@ async function run(b, vw, vh, opts = {}) {
       .filter(v => v.nodes.length));
     res.forEach(v => check(false, `[${tag}] axe ${label} : ${v.id} (${v.nodes.slice(0, 3).join(" | ")})`));
   };
-  if (opts.reduced) for (const h of ["#/", "#/a-propos", "#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/recherche", "#/solutions/fonctionnalites", "#/cas-d-usage", "#/cas-d-usage/beneficiaires", "#/cas-d-usage/coachs", "#/cas-d-usage/commanditaires", "#/ressources", "#/ressources/faq", "#/ressources/se-presenter-en-deux-minutes", "#/demo", "#/espace", "#/vos-donnees"]) { await visit(h); await revealAll(); await axe(h); }
+  if (opts.reduced) for (const h of ["#/", "#/a-propos", "#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/recherche", "#/solutions/fonctionnalites", "#/solutions/methode", "#/cas-d-usage", "#/cas-d-usage/beneficiaires", "#/cas-d-usage/coachs", "#/cas-d-usage/commanditaires", "#/ressources", "#/ressources/faq", "#/ressources/se-presenter-en-deux-minutes", "#/demo", "#/espace", "#/vos-donnees"]) { await visit(h); await revealAll(); await axe(h); }
 
   /* Animation d'apparition (docs/design-system.md, section 7) : sur les pages publiques, chaque carte, question de FAQ,
      encadré, porte d'entrée et élément de grille apparaît au défilement (Reveal, classe .rv, sur lui ou un parent). */
-  if (!opts.reduced && !mobile) for (const h of ["#/", "#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/fonctionnalites", "#/cas-d-usage", "#/cas-d-usage/beneficiaires", "#/cas-d-usage/coachs", "#/cas-d-usage/commanditaires", "#/ressources", "#/ressources/faq", "#/ressources/se-presenter-en-deux-minutes", "#/demo", "#/espace", "#/vos-donnees", "#/vos-donnees/video", "#/mentions-legales"]) {
+  if (!opts.reduced && !mobile) for (const h of ["#/", "#/a-propos", "#/solutions", "#/solutions/usage-de-l-ia", "#/solutions/recherche", "#/solutions/fonctionnalites", "#/solutions/methode", "#/cas-d-usage", "#/cas-d-usage/beneficiaires", "#/cas-d-usage/coachs", "#/cas-d-usage/commanditaires", "#/ressources", "#/ressources/faq", "#/ressources/se-presenter-en-deux-minutes", "#/demo", "#/espace", "#/vos-donnees", "#/vos-donnees/video", "#/mentions-legales"]) {
     await visit(h);
     const bare = await p.evaluate(() => [...document.querySelectorAll("main .rs-acc, main .rs-card-btn, main .rs-fcard, main .rs-door, main .rs-callout, main .rs-prose > *, main .rs-g2 > *, main .rs-g3 > *, main .rs-g4 > *")]
       .filter(el => !el.closest(".rv") && !el.closest(".rs-hero, .rs-page-hero, header, .rs-strate, .rs-phrase, .rs-stage, .rs-fvis")).map(el => `${el.tagName.toLowerCase()}.${String(el.className).split(" ")[0]} « ${(el.textContent || "").trim().slice(0, 40)} »`));

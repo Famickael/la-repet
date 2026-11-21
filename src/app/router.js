@@ -8,6 +8,7 @@ import { getState } from "../lib/store.js";
                     #/solutions/usage-de-l-ia               ce que fait l'assistant, garde-fous, AI Act
                     #/solutions/recherche                   recherche en accompagnement
                     #/solutions/fonctionnalites             l'outil pas à pas
+                    #/solutions/methode                     comment l'outil sert l'accompagnement
      Cas d'usage    #/cas-d-usage                           page d'entrée par public
                     #/cas-d-usage/beneficiaires(/section)   personnes accompagnées (demandeurs-emploi, collaborateurs)
                     #/cas-d-usage/coachs                    coachs
@@ -17,7 +18,7 @@ import { getState } from "../lib/store.js";
                     #/ressources/faq(/section)              questions fréquentes (personnes, coachs, commanditaires)
    Anciennes adresses redirigées (history.replaceState) : voir REDIRECTS et la fonction redirect. */
 
-export const SOLUTION_PAGES = ["usage-de-l-ia", "recherche", "fonctionnalites"];
+export const SOLUTION_PAGES = ["usage-de-l-ia", "recherche", "fonctionnalites", "methode"];
 export const USECASE_PAGES = ["beneficiaires", "coachs", "commanditaires"];
 export const FAQ_SECTIONS = ["personnes-accompagnees", "coachs", "commanditaires"];
 

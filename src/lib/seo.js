@@ -27,7 +27,7 @@ export const SEO = {
   },
   "#/a-propos": {
     title: t("Qui sommes-nous"),
-    description: "L'organisme d'accompagnement derrière La Répét' : des coachs qui préparent aux entretiens, pour des commanditaires publics et des entreprises.",
+    description: "L'organisme derrière La Répét' : approche, méthode d'accompagnement en sept étapes, équipe, références et travail avec les commanditaires publics et privés.",
   },
   "#/solutions": {
     title: t("Solutions"),
@@ -114,6 +114,10 @@ export const SEO = {
   "#/solutions/fonctionnalites": {
     title: t("Fonctionnalités"),
     description: "Questions d'entretien choisies avec le coach, enregistrement vidéo sur l'appareil, retour descriptif, relecture par le coach et rapport : l'outil pas à pas.",
+  },
+  "#/solutions/methode": {
+    title: t("Méthode d'accompagnement"),
+    description: "Comment La Répét' sert l'accompagnement : répéter, se revoir, lire un retour qui décrit sans noter, débriefer avec le coach et transférer vers l'entretien.",
   },
   "#/cas-d-usage": {
     title: t("Cas d'usage"),

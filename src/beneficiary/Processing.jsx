@@ -4,6 +4,7 @@ import { createTake } from "../lib/store.js";
 import { PHRASES } from "../content/legal.js";
 import { transcribe } from "../lib/transcribe.js";
 import { analyze } from "../lib/analysis.js";
+import { cleanRepetitions } from "../lib/repetitions.js";
 import { useLeaveGuard } from "../lib/hooks.js";
 import { hasMedia } from "../lib/takes.js";
 import { duration } from "../lib/format.js";
@@ -51,7 +52,9 @@ export function Processing({ p, ctx, go }) {
         if (!alive) return;
         step = "save";
         const { tr, analysis } = done.current;
-        const id = await createTake({ code: p.code, question: ctx.question, duration: rec.duration, blob: rec.blob, transcript: tr?.text || "", segments: tr?.segments || [], gaze: rec.gaze, analysis });
+        /* Texte gardé sans les boucles de répétition de la transcription (B3), comme celui qu'a lu l'analyse. */
+        const clean = tr ? cleanRepetitions(tr.segments || []) : null;
+        const id = await createTake({ code: p.code, question: ctx.question, duration: rec.duration, blob: rec.blob, transcript: clean ? (clean.loops ? clean.text : tr.text || "") : "", segments: clean?.segments || [], gaze: rec.gaze, analysis });
         const [v, mode] = openView({ hasMedia: !!rec.blob, analysis });
         if (alive) go(v, { takeId: id, mode, recording: null, seriesTakes: ctx.queue ? { ...(ctx.seriesTakes || {}), [ctx.qi || 0]: id } : null });
       } catch (e) {
@@ -68,7 +71,7 @@ export function Processing({ p, ctx, go }) {
       {!err ? (<>
         <h1 className="rp-sr">{p.consent.ai ? "Préparation de votre retour" : "Enregistrement de votre réponse"}</h1>
         <BrandLoader label={stage} size={88} />
-        <Txt v="body" color={T.body}>Tout se passe sur votre appareil. Cela peut prendre un moment.</Txt>
+        <Txt v="body" color={T.body}>{p.consent.ai ? PHRASES.processing : PHRASES.processingLocal}</Txt>
         {p.consent.ai && <Txt v="caption" color={T.muted}>{PHRASES.download}</Txt>}
       </>) : (<>
         <Txt v="h2" as="h1" color={T.navy}>{title}</Txt>

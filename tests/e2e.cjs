@@ -55,7 +55,7 @@ require("fs").mkdirSync(SC, { recursive: true });
   await p.getByRole("button", { name: "Fermer la bulle" }).click();
 
   // Espace : choix du métier (combobox) et bulles d'information
-  const job = p.getByRole("combobox", { name: "Métier visé" });
+  const job = p.getByRole("combobox", { name: "Métier ou poste visé" });
   await job.fill(""); await job.type("serv");
   await p.getByRole("option", { name: "serveur(se)", exact: true }).waitFor();
   await shot("03b-espace-metier");

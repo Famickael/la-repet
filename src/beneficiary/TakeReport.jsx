@@ -57,7 +57,7 @@ export function TakeReport({ p, take, mode, go, series, nextQuestion, stopSeries
             { label: "Supprimer cette réponse", icon: I.trash, danger: true, onClick: () => setConfirmDel(true) },
           ]} />
           {!series?.hasNext && <Btn kind="secondary" size="sm" onClick={() => go("pick", { queue: null, selection: null, preselect: null })} icon={I.redo}>M'entraîner encore</Btn>}
-          {take.shared && !take.report && <Btn kind="secondary" size="sm" onClick={() => unshareTake(take.id)} icon={I.redo}>Reprendre mon envoi</Btn>}
+          {take.shared && !take.report && <Btn kind="secondary" size="sm" onClick={() => unshareTake(take.id)} icon={I.redo}>Annuler l'envoi</Btn>}
           {!take.shared && <Btn kind={series?.hasNext || series?.full ? "secondary" : "objective"} size="sm" onClick={() => go("share")} icon={I.send}>Envoyer à mon coach</Btn>}
         </div>
       </Card>

@@ -38,7 +38,7 @@ export function JobField({ p }) {
 
   return (
     <div style={{ position: "relative", ...stack(8) }}>
-      <Field id="job" label="Métier visé" hint={`Écrivez votre métier. Vous pouvez aussi le choisir dans la liste. ${PHRASES.job}`}>
+      <Field id="job" label="Métier ou poste visé" hint={`Écrivez-le ou choisissez-le dans la liste. ${PHRASES.job}`}>
         <div style={{ position: "relative" }}>
           <Input id="job" icon={I.search} hint role="combobox" aria-autocomplete="list" aria-expanded={open && items.length > 0} aria-controls="job-list"
             aria-activedescendant={open && active >= 0 ? `job-opt-${active}` : undefined}

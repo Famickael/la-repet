@@ -60,8 +60,8 @@ export function Pick({ p, ctx, go }) {
         </div>
         <p style={{ ...TY.body, color: T.body, margin: 0 }}>
           {type === "mobilite"
-            ? <>Une simulation d'entretien de mobilité, dans l'ordre réel : accueil, parcours, projet, compétences, axes de progrès, mise en situation, vos questions. 7 questions liées au poste {posteLabel(p.poste) ? dePoste(posteLabel(p.poste)) : "que vous visez"}. La personne qui vous reçoit lit chaque question à voix haute.</>
-            : <>Une simulation d'entretien, dans l'ordre réel : accueil, présentation, motivation, expériences, qualités, mise en situation, vos questions. 7 questions liées au métier {posteLabel(p.poste) ? dePoste(posteLabel(p.poste)) : "que vous visez"}. Le recruteur lit chaque question à voix haute.</>}
+            ? <>Un entretien de mobilité du début à la fin : 7 questions liées au poste {posteLabel(p.poste) ? dePoste(posteLabel(p.poste)) : "que vous visez"}, dans l'ordre d'un vrai entretien. La personne qui vous reçoit lit chaque question à voix haute. Jusqu'à 3 minutes par réponse.</>
+            : <>Un entretien du début à la fin : 7 questions liées au métier {posteLabel(p.poste) ? dePoste(posteLabel(p.poste)) : "que vous visez"}, dans l'ordre d'un vrai entretien. Le recruteur lit chaque question à voix haute. Jusqu'à 3 minutes par réponse.</>}
         </p>
         <div className="rp-wide-m"><Btn kind="secondary" icon={I.play} onClick={startFull}>Faire un entraînement complet</Btn></div>
       </Card>

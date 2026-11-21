@@ -39,8 +39,22 @@ for (const k of ["contactDemo", "contactInfo"]) assert.ok(!/recontact|enregistr�
 /* Formulaire de contact : aucun envoi, message exact demandé par le propriétaire. */
 assert.equal(PHRASES.contactDemo, "Aucune demande envoyée, version de démonstration");
 assert.match(PHRASES.contactSent, /recontacte/);
-/* RED-07 : sans serveur, l'envoi est décrit comme local. */
-assert.match(PHRASES.sameDevice, /cet appareil/);
+/* RED-07 : sans serveur, l'envoi est décrit comme local (version d'essai, même navigateur). */
+assert.match(PHRASES.sameDevice, /^Version d'essai/);
+assert.match(PHRASES.sameDevice, /même navigateur/);
+/* Panel bénéficiaires : textes de l'espace réécrits (vocabulaire simple, annulation explicite, employeur nommé). */
+const { SUMMARY } = await import("../src/content/legal.js");
+assert.match(PHRASES.sent, /annuler l'envoi/);
+assert.ok(!/reprendre/i.test(PHRASES.sent + SUMMARY.envoi.map(x => x[1]).join(" ")), "plus de « reprendre votre envoi »");
+assert.match(SUMMARY.envoi[0][1], /employeur/);
+assert.ok(!/cookie/i.test(PHRASES.noTracking) && /professionnel/.test(PHRASES.sharedDevice) && /Retirer mon accord/.test(PHRASES.sharedDevice));
+assert.ok(!/modèle de langage/.test(PHRASES.feedbackLlm), "pas de jargon dans la mention du texte rédigé par l'IA");
+assert.ok(!/analyse/.test(PHRASES.download) && /85\u00a0Mo/.test(PHRASES.download + PHRASES.personalDevice));
+assert.match(PHRASES.personalDevice, /personnel/);
+/* C4 (B4) : sans proxy IA, la préparation se fait sur l'appareil et rien ne part. */
+assert.match(PHRASES.processing, /^Tout se passe sur votre appareil/);
+assert.ok(!/envoy/.test(PHRASES.processing) && !/envoy/.test(PHRASES.consentAi), "rien n'est annoncé comme envoyé sans proxy IA");
+for (const [k, v] of Object.entries(PHRASES)) assert.ok(!/\u2014/.test(v), `tiret cadratin dans PHRASES.${k}`);
 console.log("content.test : textes de la démo OK");
 
 /* TST-09 : une mise en situation propre à chaque famille de métiers, repli générique sinon. */

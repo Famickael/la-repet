@@ -33,25 +33,36 @@ export const PHRASES = {
   code: "Aucun compte, aucun mot de passe. Votre code suffit.",
   camera: "Votre vidéo reste sur cet appareil tant que vous ne l'envoyez pas à votre coach.",
   warmup: "Rien n'est enregistré pendant l'échauffement.",
-  job: "Le métier sert à adapter les questions. Votre coach le voit.",
+  job: "Il sert à adapter les questions. Votre coach le voit.",
   assistantChat: REMOTE_LLM
     ? "Vos questions sont envoyées à un service d'IA pour préparer la réponse. Ni image, ni son."
     : "Vos questions restent sur cet appareil. Elles sont effacées quand vous quittez la page.",
   assistantIsProgram: "L'assistant est un programme, pas une personne.",
   noPersonal: "N'écrivez pas votre nom, votre adresse ou des informations sur votre santé.",
   feedback: "Retour préparé automatiquement par l'assistant. Il décrit, il ne note pas.",
-  feedbackLlm: "Texte reformulé par un modèle de langage.",
+  feedbackLlm: "Texte rédigé avec l'aide d'une IA.",
   emotions: "L'assistant ne cherche pas à deviner vos émotions. Il décrit seulement ce qui se voit et ce qui s'entend.",
   download: SELF_HOSTED_MODELS
-    ? "La première fois, votre appareil télécharge un outil d'analyse. Préférez le Wi-Fi. Votre vidéo n'est pas envoyée."
-    : "La première fois, votre appareil télécharge un outil d'analyse (environ 85 Mo). Préférez le Wi-Fi. Votre vidéo n'est pas envoyée.",
+    ? "La première fois, votre appareil télécharge un outil. Le Wi-Fi est préférable. Votre vidéo, elle, n'est pas envoyée."
+    : "La première fois, votre appareil télécharge un outil (environ 85 Mo). Le Wi-Fi est préférable. Votre vidéo, elle, n'est pas envoyée.",
+  /* Écran de préparation (B4) : dit ce qui part vraiment. Avec le proxy IA, le texte transcrit (jamais la vidéo ni la
+     voix) est envoyé à l'assistant IA pour rédiger le retour ; sans lui, tout reste sur l'appareil. */
+  processing: REMOTE_LLM
+    ? "Votre réponse est mise par écrit sur votre appareil. Le texte, jamais la vidéo ni la voix, est ensuite envoyé à l'assistant IA pour rédiger votre retour. Cela prend en général moins d'une minute, un peu plus la première fois."
+    : "Tout se passe sur votre appareil. Cela prend en général moins d'une minute, un peu plus la première fois.",
+  processingLocal: "Tout se passe sur votre appareil.",
+  /* Case « retour de l'assistant » de l'accord (panel bénéficiaires) et conseil d'appareil, avant tout téléchargement. */
+  consentAi: `L'assistant est un programme. Il décrit des faits : vitesse de parole, pauses, direction du regard. Pas de note, pas d'émotion devinée.${REMOTE_LLM ? " Pour rédiger le retour, le texte de votre réponse est envoyé à l'assistant IA, jamais votre vidéo ni votre voix." : ""} Sans cette case, vous pouvez quand même vous enregistrer et vous revoir.`,
+  personalDevice: SELF_HOSTED_MODELS
+    ? "Conseil : utilisez de préférence votre téléphone ou votre ordinateur personnel. La première fois, l'assistant télécharge un outil : le Wi-Fi est préférable."
+    : "Conseil : utilisez de préférence votre téléphone ou votre ordinateur personnel. La première fois, l'assistant télécharge un outil d'environ 85 Mo : le Wi-Fi est préférable.",
   share: "Seul votre coach verra cette réponse.",
-  sent: "Vous pouvez reprendre votre envoi quand vous voulez, depuis votre espace.",
+  sent: "Tant que votre coach n'a pas répondu, vous pouvez annuler l'envoi depuis votre espace.",
   /* Sans serveur, l'envoi reste dans ce navigateur (RED-07) : dit là où la personne envoie. */
-  sameDevice: BACKEND ? "" : "Votre coach lit votre réponse sur cet appareil, dans ce navigateur. Son rapport arrive au même endroit : revenez-y avec le même code.",
+  sameDevice: BACKEND ? "" : "Version d'essai : votre coach lit votre réponse dans ce même navigateur. Revenez ici avec votre code pour lire son rapport.",
   logout: "Se déconnecter n'efface pas les données de cet appareil.",
   coachLogin: "Vous ne voyez que les réponses que l'on vous envoie.",
-  noTracking: "Ce site n'utilise pas de cookies publicitaires et ne vous suit pas.",
+  noTracking: "Pas de publicité, aucun suivi.",
   contactInfo: "Vos coordonnées servent seulement à répondre à votre demande. Elles sont destinées uniquement à notre équipe.",
   /* Formulaire « Nous contacter » (BUG-01) : rien n'est envoyé ; ce message s'affiche au clic, après validation.
      Jamais « l'équipe vous recontacte » tant qu'aucun envoi réel n'a eu lieu (contactSent). */
@@ -59,7 +70,7 @@ export const PHRASES = {
   contactSent: "Votre demande est envoyée. Notre équipe vous recontacte pour en parler.",
   refuse: "Vous pouvez refuser. Cela ne change rien à votre accompagnement : vous pouvez préparer votre entretien avec votre coach.",
   changeMind: "Vous pouvez changer d'avis à tout moment, dans « Mon compte ».",
-  sharedDevice: "Sur un ordinateur partagé, supprimez vos entraînements avant de partir.",
+  sharedDevice: "Sur un ordinateur partagé ou professionnel, supprimez vos réponses avant de partir (« Mon compte », puis « Retirer mon accord »).",
 };
 
 /* ─── Niveau 2 : les résumés ─── */
@@ -84,9 +95,9 @@ export const SUMMARY = {
     ["trash", "Vous pouvez **tout supprimer** quand vous voulez."],
   ],
   envoi: [
-    ["user", "**Qui la voit ?** Votre coach. Personne d'autre."],
+    ["user", "**Qui la voit ?** Votre coach. Personne d'autre, ni votre employeur ni l'organisme qui finance votre accompagnement."],
     ["send", "**Qu'est-ce qui part ?** Votre vidéo (ou votre voix), le texte de votre réponse, le retour de l'assistant et votre message."],
-    ["trash", "**Et si je change d'avis ?** Vous pouvez reprendre votre envoi ou supprimer la réponse, depuis votre espace."],
+    ["trash", "**Et si je change d'avis ?** Tant que votre coach n'a pas répondu, vous pouvez annuler l'envoi. Vous pouvez aussi supprimer la réponse, depuis votre espace."],
   ],
   conversation: [
     ["chat", "Vous parlez à **un programme**, pas à une personne."],
@@ -95,7 +106,7 @@ export const SUMMARY = {
   ],
   droits: [
     ["trash", "**Supprimer** : une réponse, ou tout, depuis votre espace."],
-    ["arrow", "**Récupérer** : téléchargez votre vidéo ou imprimez votre retour."],
+    ["arrow", "**Récupérer** : téléchargez vos données et vos vidéos (« Mes données », dans votre espace), ou imprimez votre retour."],
     ["note", "**Corriger** : vous changez votre métier vous-même, votre coach corrige votre prénom."],
     ["redo", "**Changer d'avis** : retirez votre accord quand vous voulez, sans explication."],
     ["user", "**Demander de l'aide** : votre coach, ou " + orgName() + ". Réponse en un mois au plus."],
@@ -171,7 +182,7 @@ export const FULL = {
     { p: ["Vos données vous appartiennent. Voici ce que vous pouvez faire."] },
     { h: "Voir vos données.", p: ["Tout ce qui vous concerne est dans votre espace : vos réponses, vos retours, les rapports de votre coach."] },
     { h: "Les supprimer.", p: ["Ouvrez une réponse, puis appuyez sur « Supprimer cette réponse ». Pour tout effacer : « Retirer mon accord », dans « Mon compte »."] },
-    { h: "Les récupérer.", p: ["Vous pouvez télécharger votre vidéo et imprimer votre retour."] },
+    { h: "Les récupérer.", p: ["Dans votre espace, « Mes données » crée un fichier lisible avec votre parcours, vos réponses, leurs textes, les retours et les rapports de votre coach. Vos vidéos se téléchargent à part. Vous pouvez aussi imprimer un retour."] },
     { h: "Les corriger.", p: ["Vous pouvez changer votre métier dans votre espace. Demandez à votre coach de corriger votre prénom."] },
     { h: "Changer d'avis.", p: ["Vous pouvez retirer votre accord à tout moment. Vos entraînements sont alors effacés. Votre accompagnement continue normalement."] },
     { h: "Besoin d'aide ?", p: [`Parlez-en à votre coach. Vous pouvez aussi écrire à ${orgName()}.`, dpoLine(), "Nous vous répondons en un mois au plus."] },

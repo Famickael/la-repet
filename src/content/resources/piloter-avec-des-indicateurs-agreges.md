@@ -45,7 +45,7 @@ Un total indique ce qui a été compté dans le périmètre décrit. Le nombre d
 
 ## Organiser un premier bilan
 
-La Répét’ est un prototype. Les modalités de production, de stockage et de diffusion du bilan doivent être définies avec l’organisme et le commanditaire avant le déploiement. Vous pouvez commencer par un modèle vide qui indique les destinataires, la période, les définitions et la décision visée. Testez ce modèle avec des données fictives clairement identifiées. Ajustez les regroupements et les accès avant de passer à des situations réelles.
+Les modalités de production, de stockage et de diffusion du bilan doivent être définies avec l’organisme et le commanditaire avant le déploiement. Vous pouvez commencer par un modèle vide qui indique les destinataires, la période, les définitions et la décision visée. Testez ce modèle avec des données fictives clairement identifiées. Ajustez les regroupements et les accès avant de passer à des situations réelles.
 
 > [!a-retenir] Avant de remettre un bilan
 > Vérifiez à quelle décision sert chaque information. Gardez des données collectives, relisez le risque d’identification et précisez le contexte nécessaire pour interpréter le bilan.

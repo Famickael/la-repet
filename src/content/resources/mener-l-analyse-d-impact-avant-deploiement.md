@@ -11,7 +11,7 @@ featured: false
 order: 31
 ---
 
-Avant d’utiliser des enregistrements réels pour l’entraînement à l’entretien, réunissez les personnes qui connaissent l’accompagnement, l’hébergement et la protection des données. Décrivez le dispositif qui serait effectivement mis en place. La Répét’ est un prototype. Le parcours, ses réglages et les mesures techniques doivent être vérifiés dans le contexte du déploiement.
+Avant d’utiliser des enregistrements réels pour l’entraînement à l’entretien, réunissez les personnes qui connaissent l’accompagnement, l’hébergement et la protection des données. Décrivez le dispositif qui serait effectivement mis en place. Le parcours, ses réglages et les mesures techniques doivent être vérifiés dans le contexte du déploiement.
 
 ## Décrire le traitement et décider quand mener l’analyse
 
@@ -24,7 +24,7 @@ Pour le déploiement envisagé, préparez cette analyse en amont avec le respons
 Suivez une réponse depuis l’ouverture du parcours jusqu’à sa suppression. Faites apparaître l’audio ou la vidéo, le texte transcrit, les observations et les remarques du coach. Précisez où chaque élément est conservé, qui peut le consulter et dans quelles circonstances il quitte l’appareil. Si une option de reformulation à distance est activée, vérifiez le contenu des requêtes et les conditions du service effectivement configuré.
 
 > [!conseil] Examiner les variantes séparément
-> Décrivez le mode local du prototype, puis l’architecture prévue pour le déploiement. Pour chaque variante, vérifiez l’accès d’un coach, l’envoi choisi par la personne, la conservation et la suppression.
+> Décrivez le fonctionnement actuel, entièrement sur l’appareil, puis l’architecture prévue pour le déploiement. Pour chaque variante, vérifiez l’accès d’un coach, l’envoi choisi par la personne, la conservation et la suppression.
 
 La section « Passage en production » du projet recense des travaux restant à mener, notamment sur l’authentification, la limitation des accès, les durées de conservation et la purge. Dans le dossier, indiquez ce qui existe déjà, ce qui doit être mis en place et la preuve que vous attendez avant une utilisation réelle.
 

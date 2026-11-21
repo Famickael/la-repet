@@ -25,7 +25,7 @@ Le commanditaire et l’équipe pourraient convenir d’une question à laquelle
 
 ## La démarche
 
-Avant l’ouverture, l’équipe décrirait le parcours, les appareils utilisés et les personnes qui pourront accéder aux enregistrements. Elle vérifierait avec des contenus fictifs les étapes du code d’accès, de la relecture et de la suppression. Elle définirait aussi qui répond à une demande d’aide et qui peut suspendre le pilote si l’accès ou l’effacement ne fonctionne pas comme prévu. La Répét’ étant un prototype, une utilisation réelle dépendrait de la validation des mesures prévues et du cadre de déploiement.
+Avant l’ouverture, l’équipe décrirait le parcours, les appareils utilisés et les personnes qui pourront accéder aux enregistrements. Elle vérifierait avec des contenus fictifs les étapes du code d’accès, de la relecture et de la suppression. Elle définirait aussi qui répond à une demande d’aide et qui peut suspendre le pilote si l’accès ou l’effacement ne fonctionne pas comme prévu. Une utilisation réelle dépendrait de la validation des mesures prévues et du cadre de déploiement.
 
 Lors du premier échange, le coach présenterait l’exercice et demanderait à la personne quel type d’entretien elle souhaite préparer. Il pourrait proposer un essai sans enregistrement pour prendre connaissance de la question. La personne qui choisit de s’enregistrer pourrait utiliser le micro seul ou la caméra. Si elle souhaite un avis du coach, elle déciderait quelle réponse lui montrer et quel passage elle veut discuter. Dans le mode local, l’équipe organiserait la relecture sur le même appareil et dans le même navigateur.
 

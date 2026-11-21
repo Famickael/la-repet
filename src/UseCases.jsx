@@ -148,7 +148,7 @@ function Coachs({ go, openSpace }) {
         <Section first id="relire" eyebrow="Au quotidien" title="Relire, nuancer, préparer le débriefing">
           <FeatureGrid features={COACH} />
           <p style={{ ...TY.body, color: T.body, margin: `${GAP.block}px 0 0`, maxWidth: W.read }}>
-            Pas à pas : <Link href="#/ressources/relire-une-prise-et-preparer-le-debriefing">relire un entretien et préparer le débriefing</Link>. Un exemple en groupe : <Link href="#/ressources/scenario-atelier-collectif">le scénario de l'atelier collectif</Link>.
+            Pas à pas : <Link href="#/ressources/relire-une-reponse-et-preparer-le-debriefing">relire un entretien et préparer le débriefing</Link>. Un exemple en groupe : <Link href="#/ressources/scenario-atelier-collectif">le scénario de l'atelier collectif</Link>.
           </p>
         </Section>
         <FinalBand title="Une question sur l'espace coach ?" text="Relecture, atelier collectif, indicateurs : les réponses sont dans les questions fréquentes.">

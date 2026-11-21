@@ -26,7 +26,7 @@ Suivez une réponse depuis l’ouverture du parcours jusqu’à sa suppression. 
 > [!conseil] Examiner les variantes séparément
 > Décrivez le mode local du prototype, puis l’architecture prévue pour le déploiement. Pour chaque variante, vérifiez l’accès d’un coach, l’envoi choisi par la personne, la conservation et la suppression.
 
-La section « Passage en production » du projet recense des travaux restant à mener, notamment sur l’authentification, la limitation des accès, les durées de conservation et la purge. Dans le dossier, indiquez ce qui existe déjà, ce qui doit être mis en place et la preuve que vous attendez avant une utilisation réelle.
+La section « Passage en production » du projet recense des travaux restant à mener, notamment sur l’authentification, la limitation des accès, les durées de conservation et la purge. Dans le dossier, indiquez ce qui existe déjà, ce qui doit être mis en place et la preuve que vous attendez avant une utilisation réelle.
 
 ## Examiner les risques du point de vue des personnes
 
@@ -39,7 +39,7 @@ Vérifiez aussi ce qui se passerait si un enregistrement était conservé trop l
 
 ## Examiner la finalité au regard du règlement sur l’IA
 
-Le [règlement (UE) 2024/1689, article 5, paragraphe 1, point f](https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=fr) interdit les usages qu’il vise pour inférer les émotions au travail ou dans les établissements d’enseignement, sous réserve des exceptions médicales ou de sécurité prévues par le texte. Les chapitres I et II s’appliquent depuis le 2 février 2025, selon l’article 113, point a.
+Le [règlement (UE) 2024/1689, article 5, paragraphe 1, point f](https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=fr) interdit les usages qu’il vise pour inférer les émotions au travail ou dans les établissements d’enseignement, sous réserve des exceptions médicales ou de sécurité prévues par le texte. Les chapitres I et II s’appliquent depuis le 2 février 2025, selon l’article 113, point a.
 
 La Répét’ est conçue pour l’entraînement et le débriefing descriptif. Documentez cette finalité et les accès qui la rendent effective. Si l’usage envisagé évolue vers l’évaluation de candidats, examinez la classification prévue à l’article 6 et à l’annexe III, point 4 a, du [règlement sur l’IA](https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=fr). Consignez également qui fournit le système et qui le déploie, puis vérifiez avec ces acteurs les mesures de maîtrise de l’IA de l’article 4 et, selon le mode d’interaction, les obligations de transparence de l’article 50.
 

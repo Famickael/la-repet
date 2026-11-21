@@ -50,7 +50,7 @@ export const SEO = {
     description: "Saisissez le code d'accès que votre coach vous a remis pour ouvrir votre espace d'entraînement. Vos vidéos restent sur cet appareil tant que vous le voulez.",
   },
   "#/s": {
-    title: t("Mon entraînement"),
+    title: t("Mon espace"),
     description: "Votre espace d'entraînement personnel : questions choisies avec votre coach, réponses enregistrées sur cet appareil, retours qui décrivent sans noter.",
   },
   "#/coach": {

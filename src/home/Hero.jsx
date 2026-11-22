@@ -18,13 +18,13 @@ export function Hero({ openSpace }) {
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {/* Vert du rôle « coach et accompagnement » (ton coach, même vert que GRAD_COACH) et violet de l'assistant (docs/design-system.md, 1.1 et 5.4) */}
               <Tag tone="coach" icon={I.users}>Avec votre coach</Tag>
-              <Tag tone="ai" icon={I.sparkle}>Assistant IA</Tag>
-              <Tag tone="primary">Sans jugement</Tag>
+              <Tag tone="ai" icon={I.sparkle}>Assisté par IA</Tag>
+              <Tag tone="primary">Sans avatar</Tag>
             </div>
             <h1 className="ty-display" style={{ ...TY.display, color: T.primary, margin: 0 }}>
-              <span className="rs-sr">Répétez votre entretien, {SCENES.map(x => x.ending.replace(".", "")).join(", ")}.</span>
+              <span className="rs-sr">Entraînez-vous pour votre entretien, {SCENES.map(x => x.ending.replace(".", "")).join(", ")}.</span>
               <span aria-hidden>
-                <span style={{ color: T.navy }}>Répétez votre entretien,</span>
+                <span style={{ color: T.navy }}>Entraînez-vous pour votre entretien,</span>
                 <span className="rs-rot">
                   {SCENES.map(({ ending: e }, i) => (
                     <span key={e} className={i === w ? "on" : ""} style={{ background: GRAD_ACCROCHE, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{e}</span>
@@ -33,11 +33,11 @@ export function Hero({ openSpace }) {
               </span>
             </h1>
             <p className="ty-lead" style={{ ...TY.lead, color: T.body, maxWidth: 520, margin: 0 }}>
-              Vous répondez à des questions d'entretien, à voix haute, autant de fois que vous voulez. Un assistant IA <strong style={{ color: T.navy }}>décrit votre réponse, sans la noter</strong> : rythme, pauses, exemples concrets. Votre vidéo reste sur votre appareil : vous choisissez ce que voit votre coach.
+              À voix haute, sans avatar, entraînez-vous autant de fois que vous voulez ! Un assistant IA <strong style={{ color: T.navy }}>décrit votre réponse, sans la noter</strong>, et vous propose des pistes : rythme, pauses, exemples concrets. Vous recommencez, vous voyez ce qui a changé, et votre coach vous soutient à chaque étape.
             </p>
             <div className="rp-wide-m" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {/* Connecté : l'espace de la personne (ou l'espace coach), jamais la page de connexion (src/app/router.js, spaceHash) */}
-              <Btn kind="objective" size="lg" onClick={() => openSpace("benef")} iconRight={I.arrow}>Lancer ma première répétition</Btn>
+              <Btn kind="objective" size="lg" onClick={() => openSpace("benef")} iconRight={I.arrow}>Je lance mon premier entraînement</Btn>
             </div>
           </div>
           <HeroStage reduced={reduced} i={w} setI={setW} stopped={stopped} setStopped={setStopped} setHover={setHover} />
@@ -55,7 +55,7 @@ export const SCENES = [
     bubble: { who: "Question 2 sur 3", text: "« Pourquoi ce poste vous intéresse-t-il ? »", rec: 38 }, bubbleTop: "6%", card: "reperes",
   },
   {
-    ending: "sans jugement.", src: "heros-echauffement.webp", pos: "40% 50%", alt: "Une femme parle devant son ordinateur portable, chez elle.", label: "Un échauffement chez soi, rien n'est enregistré",
+    ending: "à voix haute.", src: "heros-echauffement.webp", pos: "40% 50%", alt: "Une femme parle devant son ordinateur portable, chez elle.", label: "Un échauffement chez soi, à voix haute, rien n'est enregistré",
     bubble: { who: "Consigne 2 sur 7", text: "« Redites-la un peu plus lentement. »" }, bubbleTop: "56%", card: "warmup",
   },
   {

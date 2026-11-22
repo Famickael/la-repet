@@ -53,7 +53,7 @@ Apportez quelques questions qui vous aideront à vous représenter le travail. V
 
 Vous pouvez reprendre une réponse entendue pendant l’entretien pour poser une question plus précise. Si l’on vous explique que le travail varie selon la saison, demandez à quoi ressemble cette variation pour l’équipe qui vous recrute.
 
-## Faire une répétition courte
+## Faire un entraînement court
 
 Relisez votre préparation, puis essayez de répondre à voix haute sans lire. Vérifiez que votre phrase sur l’employeur est exacte, que votre exemple est compréhensible et que votre question appelle une réponse utile. Si vous ne disposez que de l’annonce, dites ce qui vous intéresse dans les tâches et formulez directement la question qui vous aidera à en savoir plus.
 

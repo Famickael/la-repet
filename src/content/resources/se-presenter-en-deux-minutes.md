@@ -34,7 +34,7 @@ Votre CV est déjà sur la table. Le relire mot pour mot n'apporte rien. Ce qui 
 - **Une phrase de fin** qui renvoie au poste. Elle signale que vous avez terminé et ouvre la discussion.
 
 > [!conseil] Préparez vos trois premières phrases
-> Le début est souvent le moment le plus stressant. Si vos trois premières phrases sont prêtes et répétées à voix haute, la suite vient beaucoup plus facilement.
+> Le début est souvent le moment le plus stressant. Si vos trois premières phrases sont prêtes et déjà dites à voix haute, la suite vient beaucoup plus facilement.
 
 ## Les pièges fréquents
 

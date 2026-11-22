@@ -12,7 +12,7 @@ order: 11
 context: Un acteur public de l'emploi fictif, qui confie à notre organisme l'accompagnement de personnes en zone rurale
 audience: Des personnes accompagnées individuellement, éloignées de l'agence
 duration: Plusieurs semaines, entre deux rendez-vous mensuels
-setup: Rendez-vous en visio ou par téléphone, répétitions autonomes à domicile
+setup: Rendez-vous en visio ou par téléphone, entraînements autonomes à domicile
 ---
 
 Ce scénario d'usage est fictif. Il illustre une manière de combiner l'accompagnement individuel et l'entraînement autonome, sans prétendre à des résultats mesurés.

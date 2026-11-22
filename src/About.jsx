@@ -118,7 +118,7 @@ export default function About({ go }) {
             <ul className="rp-sources" style={{ ...TY.small, color: T.body, margin: 0, paddingLeft: 20, display: "grid", gap: 8 }}>
               {BIBLIO.map((b, i) => <Reveal as="li" key={b} delay={stagger(i, 4)}>{b}</Reveal>)}
             </ul>
-            <Reveal><p style={{ ...TY.small, color: T.body, margin: 0 }}>Ce que la recherche dit de la répétition, du retour et de la pratique réflexive : <Link href="#/solutions/recherche">recherche en accompagnement</Link>.</p></Reveal>
+            <Reveal><p style={{ ...TY.small, color: T.body, margin: 0 }}>Ce que la recherche dit de l'entraînement, du retour et de la pratique réflexive : <Link href="#/solutions/recherche">recherche en accompagnement</Link>.</p></Reveal>
           </div>
         </Section>
 
@@ -178,7 +178,7 @@ export default function About({ go }) {
           <div className="rs-split" style={{ alignItems: "center" }}>
             <Reveal style={{ display: "grid", gap: 16, ...TY.bodyLg, color: T.body }}>
               <p style={{ margin: 0 }}>Nous avons conçu La Répét' pour prolonger l'étape de simulation entre deux rendez-vous, et pour nourrir le débriefing. L'outil ne remplace aucune des sept étapes, ni aucun rendez-vous.</p>
-              <p style={{ margin: 0 }}>Comment il s'articule avec la répétition, l'auto-observation, le débriefing et le transfert vers l'entretien réel : c'est expliqué dans Solutions.</p>
+              <p style={{ margin: 0 }}>Comment il s'articule avec l'entraînement en solo, l'auto-observation, le débriefing et le transfert vers l'entretien réel : c'est expliqué dans Solutions.</p>
             </Reveal>
             <Reveal delay={70} style={{ display: "grid", gap: 12, justifyItems: "start" }}>
               <Btn kind="secondary" size="lg" onClick={() => go("#/solutions/methode")} iconRight={I.arrow}>Lire la méthode outillée</Btn>
@@ -225,7 +225,7 @@ const STEPS = [
     coach: "Aide à nommer les compétences avec le vocabulaire du métier visé et des offres d'emploi. Vérifie que chaque compétence s'appuie sur un exemple.",
     person: "Choisit ses exemples et les reformule avec ses propres mots.",
     out: "Un répertoire de réalisations et une présentation qui lui ressemble." },
-  { t: "Simulation et répétition", why: "S'essayer en situation proche de l'entretien, autant de fois que nécessaire.",
+  { t: "Simulation et entraînement", why: "S'essayer en situation proche de l'entretien, autant de fois que nécessaire.",
     coach: "Construit des mises en situation fidèles à l'entretien visé : type de questions, interlocuteurs, format sur place ou en visio. En rendez-vous ou en atelier.",
     person: "Répond à voix haute, recommence, essaie une autre formulation. Entre deux séances, elle peut s'entraîner seule.",
     out: "Des réponses travaillées, prêtes à être reprises en débriefing." },

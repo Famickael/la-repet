@@ -429,7 +429,7 @@ export const KB = [
     id: "francais", q: "Le français n'est pas ma langue maternelle, comment faire ?",
     keys: ["francais", "langue maternelle", "accent", "mal parler", "je parle mal", "mon niveau de francais", "langue etrangere", "fle"],
     answer: "C'est une richesse, et un accent n'empêche pas d'être bien compris. Préparez des phrases simples et courtes pour les questions classiques, et parlez à un rythme posé. Vous pouvez demander de répéter une question, c'est normal.",
-    more: "Entraînez-vous plusieurs fois sur la même question : la répétition rend les phrases plus naturelles. Si vous parlez d'autres langues, mentionnez-le : c'est souvent un atout, selon le poste.",
+    more: "Entraînez-vous plusieurs fois sur la même question : les phrases deviennent plus naturelles d'un essai à l'autre. Si vous parlez d'autres langues, mentionnez-le : c'est souvent un atout, selon le poste.",
     example: "« Excusez-moi, pouvez-vous répéter la question, s'il vous plaît ? » est une phrase utile à préparer.",
     related: ["debit", "vocabulaire", "refaire"],
   },

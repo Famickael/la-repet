@@ -46,7 +46,7 @@ Il arrive que le recruteur demande plusieurs exemples ou reformule la question, 
 > [!conseil] Tester la clarté de votre réponse
 > Demandez à quelqu’un de vous écouter, puis de résumer ce qu’il a compris de votre action. Si la personne retient uniquement la difficulté, précisez ce que vous avez changé et donnez un exemple où vous avez utilisé cette méthode. Si la réponse est longue, gardez un seul contexte et une seule action principale.
 
-## Répéter en gardant vos propres mots
+## S’entraîner en gardant vos propres mots
 
 À l’écrit, notez quelques mots pour le contexte, l’effet et l’ajustement. Dites votre réponse une première fois à voix haute, puis recommencez avec des phrases différentes. Vous pourrez retrouver le fil même si la question arrive à un autre moment de l’entretien. Le guide [Parler de ses expériences avec la méthode situation, action, résultat](#/ressources/parler-de-ses-experiences-methode-sar) peut vous aider à choisir les détails.
 

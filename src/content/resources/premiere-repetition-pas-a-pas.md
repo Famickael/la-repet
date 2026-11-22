@@ -1,5 +1,5 @@
 ---
-title: Votre première répétition, pas à pas
+title: Votre premier entraînement, pas à pas
 category: guides
 type: guide
 summary: Du code transmis par votre coach à l'envoi de votre première réponse : le déroulé complet de La Répét', côté personne accompagnée.
@@ -12,7 +12,7 @@ featured: true
 order: 7
 ---
 
-Ce guide décrit le déroulé de La Répét' du point de vue de la personne accompagnée. Comptez une quinzaine de minutes pour une première répétition, échauffement compris.
+Ce guide décrit le déroulé de La Répét' du point de vue de la personne accompagnée. Comptez une quinzaine de minutes pour un premier entraînement, échauffement compris.
 
 ## 1. Ouvrir votre espace
 

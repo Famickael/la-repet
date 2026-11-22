@@ -32,7 +32,7 @@ const STEPS = [
 ];
 
 const GUARDS = [
-  [I.ban, "Un filtre sur chaque retour", "Avant d'afficher un retour, un filtre écarte tout texte qui contient une note ou un mot sur les émotions. Le retour décrit alors la réponse sans reformulation."],
+  [I.ban, "Un filtre sur chaque retour", "Avant l'affichage, un filtre relit chaque phrase. Il écarte tout texte qui contient une note, une appréciation globale ou un mot sur les émotions, et le remplace par le repère calculé sur l'appareil."],
   [I.check, "Ce qui fonctionne d'abord", "Les points d'appui sont toujours présentés en premier. Les pistes à explorer viennent ensuite, sans être des erreurs."],
   [I.users, "Le coach a le dernier mot", "Le coach peut confirmer, nuancer ou contredire chaque repère. Son commentaire apparaît à côté, dans le rapport."],
   [I.info, "Transparence", "Chaque écran dit quand un texte vient de l'assistant. L'assistant rappelle qu'il n'est pas une personne."],
@@ -110,7 +110,7 @@ export default function AiUsage({ go }) {
             ))}
           </ol>
           <Reveal style={{ marginTop: GAP.block, maxWidth: W.read }}>
-            <Notice tone="ai" icon={I.info}>Notre organisme peut activer une option : un service d'IA reformule alors le retour à partir du texte de la réponse. Il ne reçoit jamais l'image ni la voix, et les mêmes garde-fous s'appliquent. Dans ce cas, « Vos données » le précise.</Notice>
+            <Notice tone="ai" icon={I.info}>Notre organisme peut activer une option : un service d'IA rédige alors l'analyse à partir du texte de l'entretien et des repères calculés sur l'appareil. Il peut ajouter un repère sur ce qui est dit par rapport à la question. Il ne reçoit jamais l'image ni la voix, et les mêmes garde-fous s'appliquent. Dans ce cas, « Vos données » le précise.</Notice>
           </Reveal>
         </Section>
 

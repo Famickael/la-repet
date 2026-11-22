@@ -40,7 +40,8 @@ export const PHRASES = {
   assistantIsProgram: "L'assistant est un programme, pas une personne.",
   noPersonal: "N'écrivez pas votre nom, votre adresse ou des informations sur votre santé.",
   feedback: "Retour préparé automatiquement par l'assistant. Il décrit, il ne note pas.",
-  feedbackLlm: "Texte rédigé avec l'aide d'une IA.",
+  /* Affichée sous le résumé de l'analyse, côté personne et côté coach, quand le texte vient du service d'IA. */
+  feedbackLlm: "Texte rédigé avec l'aide d'une IA, à partir de ce qui a été mesuré dans l'entretien, puis vérifié par un filtre. Le coach peut le nuancer ou le contredire.",
   emotions: "L'assistant ne cherche pas à deviner vos émotions. Il décrit seulement ce qui se voit et ce qui s'entend.",
   download: SELF_HOSTED_MODELS
     ? "La première fois, votre appareil télécharge un outil. Le Wi-Fi est préférable. Votre vidéo, elle, n'est pas envoyée."

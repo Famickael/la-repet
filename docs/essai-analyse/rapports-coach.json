@@ -1,0 +1,28 @@
+{
+  "avertissement": "Coach fictive (Sophie M., le compte de coach prérempli du site). Remarques écrites pour l'essai, afin de montrer la relecture : confirmer, nuancer, contredire.",
+  "1-reconversion-accueil": {
+    "intro": "Nadia, j'ai regardé votre entretien. Votre parcours se suit bien : la boulangerie, le bilan, la formation, le stage. Jeudi, on travaille ensemble votre dernière phrase.",
+    "comments": {
+      "structure": "Je confirme : la phrase proposée vous irait bien, à dire avec vos mots.",
+      "regard": "Je nuance : vous regardez l'écran aux moments qui comptent. Ce n'est pas la priorité.",
+      "petits-mots": "Je ne suis pas d'accord sur ce point : pour une première présentation, ces petits mots ne me dérangent pas."
+    },
+    "notes": [{ "id": "n1", "t": 47.5, "text": "Ce passage sur le stage est le plus parlant. Gardez-le." }]
+  },
+  "2-preparateur-commandes": {
+    "intro": "Yanis, merci pour cet envoi. Vous allez droit au but. Lors de notre rendez-vous, on choisit ensemble une situation à raconter.",
+    "comments": {
+      "exemples": "Je confirme. On cherchera ensemble une situation de votre parcours, même courte.",
+      "duree": "Je nuance : pour cette question, une minute suffit."
+    },
+    "notes": [{ "id": "n1", "t": 9.9, "text": "La proximité de l'entrepôt compte pour des horaires décalés. Dites-le ainsi." }]
+  },
+  "3-mobilite-interne": {
+    "intro": "Claire, votre entretien est construit et illustré. La piste de l'assistant sur vos premières semaines en poste me paraît juste.",
+    "comments": {
+      "contenu": "Je confirme : préparez deux actions concrètes pour vos premières semaines.",
+      "structure": "D'accord. Vous pouvez raccourcir un peu la première raison."
+    },
+    "notes": [{ "id": "n1", "t": 37.8, "text": "Le remplacement de votre responsable est votre exemple le plus fort pour ce poste." }]
+  }
+}

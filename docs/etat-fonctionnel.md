@@ -167,14 +167,15 @@ Tous viennent de `computeMetrics` et `localAnalysis` (`src/lib/analysis.js`), à
 |---|---|---|---|
 | Rythme de parole (`debit`) | mots reconnus ÷ temps de parole (somme des segments) × 60 | 110 à 170 mots par minute : point d'appui | 269 puis 176 mots par minute (gonflé par les boucles, B3) |
 | Pauses (`pauses`) | silences de 2 s ou plus entre deux segments | 3 pauses ou moins : point d'appui | aucune (voix de synthèse continue) |
-| Exemples concrets (`exemples`) | motif : nombre + ans, mois, clients, personnes… ; « par exemple » ; « quand j'ai » ; « lors de » | présence : point d'appui | repéré (« trois ans », « par exemple ») |
-| Petits mots répétés (`petits-mots`) | « euh », « heu », « ben », « en fait », « du coup », « genre », « voilà »… | 4 par minute ou moins : point d'appui | « euh » (1) repéré |
+| Exemples concrets (`exemples`) | motif : nombre + ans, mois, clients, personnes… ; « par exemple » ; « quand j'ai » ; « lors de ». L'âge (« j'ai 46 ans ») n'est pas un exemple | présence : point d'appui | repéré (« trois ans », « par exemple ») |
+| Petits mots répétés (`petits-mots`) | « euh », « heu », « ben », « en fait », « du coup », « genre », « voilà »… | 4 par minute ou moins, ou moins de 3 en tout : point d'appui | « euh » (1) repéré |
 | Construction (`structure`) | nombre de phrases, mots par phrase, phrase de conclusion dans les deux derniers segments (« c'est pourquoi », « en résumé »…) | conclusion et 30 mots par phrase au plus : point d'appui | |
+| Durée (`duree`) | temps de parole (somme des segments) | affiché seulement sous 30 s ou au-delà de 3 min : « à explorer » (usage : 1 à 2 minutes par question) | ajouté le 22 novembre 2026 (essai, cas 2 : 18 s de parole) |
 | Mots qui reviennent (`repetitions`) | mots de 5 lettres ou plus présents 4 fois ou plus | toujours « à explorer » | faux positif dû aux boucles |
 | Direction du regard (`regard`) | part du temps visage absent, regard vers le bas, sur le côté (`gaze.js`, 2 images par seconde) ; affiché si plus de 10 échantillons | 60 % vers l'écran : point d'appui | « visage hors champ 100 % » avec la caméra simulée (B5) |
 | Son enregistré (`captation`) | moins de 15 mots reconnus | remplace tous les autres repères | |
 
-La synthèse liste les points d'appui, puis renvoie aux pistes.
+La synthèse liste les points d'appui, puis nomme une seule piste pour le prochain essai (le fond avant la forme : exemples, durée, construction, petits mots, rythme, pauses, mots qui reviennent, regard).
 
 ---
 
@@ -194,6 +195,8 @@ Constats de l'essai (site B, faux service Anthropic) :
 - retour de la prise en voix seule : `source: "llm"` ;
 - retour de la prise vidéo : **écarté** (« retour non conforme ») alors que le texte du faux service était neutre. Cause : bug B1.
 - après correction (même montage : `local.mjs`, faux service, site construit avec `VITE_LLM_ENDPOINT`) : une prise avec « euh » reçoit le retour IA (`source: "llm"`), une seule requête `task: "feedback"`, aucun message « non conforme » dans la console (section 4.4).
+
+Essai du 22 novembre 2026 (`docs/essai-analyse/`) : trois entretiens fictifs, requêtes exactes du site, réponses écrites par un Claude jouant le rôle du modèle (sans clé d'API), filtre, puis affichage dans le site construit avec `VITE_LLM_ENDPOINT` (proxy local et faux fournisseur). Corrections qui en sortent : C11 à C14 (section 8).
 
 Le proxy n'a pas été essayé avec une vraie clé Anthropic dans cet essai : la qualité des textes réels, leur taux de refus par `isCompliant` et les temps de réponse restent à mesurer.
 
@@ -268,6 +271,10 @@ Le proxy n'a pas été essayé avec une vraie clé Anthropic dans cet essai : la
 | C8 | Ouvert | `src/content/organisme.js`, `src/content/legal.js` | Décision DPO (B6) |
 | C9 | Fait | `src/lib/store.js` (`exportData`, `loadMediaBlob`), `src/beneficiary/shared.jsx`, `src/beneficiary/SpaceHome.jsx`, `src/content/legal.js` | Bloc « Mes données » dans l'espace de la personne (le menu « Mon compte » est hors du périmètre de cette correction) : « Télécharger mes données » (JSON lisible) et « Télécharger mes enregistrements ». Les textes « Vos droits » le mentionnent |
 | C10 | Ouvert | `vite.config.js`, nouveau service worker | Rechargement hors ligne, si l'usage hors ligne est voulu |
+| C11 | Fait | `src/lib/llm.js`, `src/lib/analysis.js`, tests | Prompt système de l'analyse (`FEEDBACK_SYSTEM_PROMPT`) : l'assistant analyse l'entretien sans le noter, points d'appui puis une piste prioritaire, pistes actionnables, longueurs, vocabulaire, interdits alignés sur le filtre. Données balisées et transcription horodatée (`feedbackMessages`). Le test vérifie la structure et les interdits du prompt |
+| C12 | Fait | `src/lib/analysis.js` (`reconcile`) | Filtre champ par champ : un texte du modèle refusé est remplacé par le texte local du même repère (le repère de fond est retiré), au lieu d'écarter toute l'analyse rédigée. Champ trop long coupé en fin de phrase |
+| C13 | Fait | `src/lib/analysis.js` | Analyse locale : synthèse « points d'appui, puis une piste » ; l'âge n'est plus cité comme exemple concret ; nombres en lettres jusqu'à trente ; deux petits mots sur un entretien court restent discrets ; repère « Durée » ; pistes reformulées en actions |
+| C14 | Fait | `src/Report.jsx`, `src/coach/Review.jsx`, `src/beneficiary/TakeReport.jsx`, `src/content/legal.js` | Repères groupés sous « Vos points d'appui » puis « Vos pistes à explorer » ; mention du texte rédigé avec l'aide d'une IA placée sous le résumé, côté personne et côté coach ; le coach voit le résumé lu par la personne ; lien vers l'autre entretien sur la même question (« voir ce qui a changé ») |
 
 Textes de l'espace bénéficiaire réécrits d'après le panel (`rapport-beneficiaire`, partie 4.3) : message après rechargement, case de l'accord, conseil d'appareil personnel et des 85 Mo dès l'accord, sous-titre de l'espace, champ « Métier ou poste visé », encadré du bas (« Pas de publicité, aucun suivi », ordinateur professionnel, comment supprimer), entraînement complet, `PHRASES.download`, durée de préparation, « Texte rédigé avec l'aide d'une IA », bouton « Annuler l'envoi », `PHRASES.sent`, `PHRASES.sameDevice` (« Version d'essai »), `SUMMARY.envoi` (employeur, financeur) et la phrase sur le prochain rendez-vous.
 

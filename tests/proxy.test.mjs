@@ -2,7 +2,7 @@
    fetch est remplacé par un faux fournisseur qui enregistre la requête reçue et renvoie une réponse type. */
 import assert from "assert/strict";
 import worker, { _resetMemory, detectTask, normalize, upstreamTimeout } from "../serveur/llm-proxy/worker.js";
-import { LLM_TIMEOUT_MS } from "../src/lib/llm.js";
+import { LLM_TIMEOUT_MS, FEEDBACK_SYSTEM_PROMPT, feedbackRequest } from "../src/lib/llm.js";
 
 const ORIGIN = "https://famickael.github.io";
 const ENV = { ALLOWED_ORIGINS: `${ORIGIN}, http://localhost:5173`, LLM_API_KEY: "cle-de-test", LLM_PROVIDER: "anthropic" };
@@ -34,7 +34,8 @@ const CHAT = {
   max_tokens: 400,
   temperature: 0.3,
 };
-const FEEDBACK = { model: "mistral-small-latest", messages: [{ role: "user", content: "Tu aides une personne accompagnée… Réponds uniquement en JSON." }], response_format: { type: "json_object" } };
+/* Requête d'analyse telle que la construit src/lib/llm.js (feedbackRequest) : prompt système, puis données balisées. */
+const FEEDBACK = feedbackRequest({ poste: "agent d'accueil", question: "Parlez-moi de vous.", segments: [{ start: 0, end: 5, text: "Bonjour, je m'appelle Alex." }], metrics: { wordCount: 5 }, dimensions: [] });
 const COACH = { model: "mistral-small-latest", messages: [{ role: "system", content: "Tu aides un coach en insertion professionnelle à rédiger le rapport…" }, { role: "user", content: "Propose des idées de mot d'introduction." }], max_tokens: 500 };
 
 let n = 0;
@@ -126,7 +127,12 @@ await test("modèle et réglages selon la tâche (retour, coach)", async () => {
   assert.equal(calls[0].body.max_tokens, 4096);
   assert.equal(calls[0].body.output_config.format.type, "json_schema");
   assert.deepEqual(calls[0].body.output_config.format.schema.required, ["synthese", "dimensions"]);
-  assert.equal(calls[0].body.system, undefined);
+  /* Contrat de l'analyse : le prompt système du site part dans le champ « system », les données dans le seul message. */
+  assert.equal(calls[0].body.system, FEEDBACK_SYSTEM_PROMPT);
+  assert.equal(calls[0].body.messages.length, 1);
+  assert.equal(calls[0].body.messages[0].role, "user");
+  assert.match(calls[0].body.messages[0].content, /^<poste>agent d'accueil<\/poste>\n<question>Parlez-moi de vous\.<\/question>\n<transcription>\n\[0:00\] Bonjour/);
+  assert.equal(detectTask({ messages: FEEDBACK.messages, response_format: FEEDBACK.response_format }), "feedback", "tâche reconnue même sans le champ task");
   await worker.fetch(req(COACH), ENV);
   assert.equal(calls[1].body.model, "claude-sonnet-5-5");
   assert.equal(calls[1].body.max_tokens, 2048);

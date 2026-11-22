@@ -80,12 +80,24 @@ export function LiveTime({ from, on, reduced }) {
   return <>{clock(t)}</>;
 }
 
+/* Indicateur des scènes (points et pause) : masqué par défaut, il apparaît en fondu au survol de la photo et au focus
+   clavier à l'intérieur (.rs-stage-nav, GStyle). Écran tactile (pas de survol) : il apparaît au toucher de la photo,
+   puis s'efface après PEEK_MS. Toujours dans la page : atteignable au clavier, libellés lus par les lecteurs d'écran. */
+const PEEK_MS = 3000;
+
 export function HeroStage({ reduced, i, setI, stopped, setStopped, setHover }) {
+  const [peek, setPeek] = useState(0); // nombre de touchers : chaque toucher relance le délai d'effacement
+  useEffect(() => {
+    if (!peek) return;
+    const id = setTimeout(() => setPeek(0), PEEK_MS);
+    return () => clearTimeout(id);
+  }, [peek]);
   return (
-    <div className="rs-stage" role="group" aria-roledescription="carrousel" aria-label="La Répét' en quatre images"
-      onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onFocus={() => setHover(true)} onBlur={() => setHover(false)}>
+    <div className={`rs-stage${peek ? " peek" : ""}`} role="group" aria-roledescription="carrousel" aria-label="La Répét' en quatre images"
+      onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onFocus={() => setHover(true)} onBlur={() => setHover(false)}
+      onTouchStart={() => setPeek(n => n + 1)}>
       {SCENES.map((sc, k) => <Scene key={sc.src} sc={sc} on={k === i} first={k === 0} reduced={reduced} />)}
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 4, marginTop: 40 }}>
+      <div className="rs-stage-nav">
         {SCENES.map((sc, k) => (
           <Bare key={sc.src} className="rs-dot" aria-current={k === i ? "true" : "false"} aria-label={`Scène ${k + 1} sur ${SCENES.length} : ${sc.label}`} onClick={() => setI(k)}><i /></Bare>
         ))}

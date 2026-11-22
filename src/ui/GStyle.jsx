@@ -208,6 +208,14 @@ export const GStyle = () => (
     .rs-dot{width:44px;height:44px;border:none;background:none;padding:0;cursor:pointer;display:inline-grid;place-items:center;color:${T.primary}}
     .rs-dot i{display:block;height:8px;width:8px;border-radius:4px;background:${T.faint};transition:width ${MO.reveal} ${MO.soft},background-color ${MO.reveal} ${MO.soft}}
     .rs-dot[aria-current=true] i{width:24px;background:${T.primary}}
+    /* Indicateur des scènes du héros (src/home/Hero.jsx) : sous la photo, hors du flux (il ne réserve aucune place),
+       masqué par défaut ; fondu d'apparition au survol de la photo (pointeur qui survole seulement), au focus clavier
+       à l'intérieur et, sur écran tactile, au toucher (.peek, 3 s). Le haut de la zone relie la photo aux points ;
+       z-index : au-dessus de la section suivante, qui peut recouvrir le bas du héros.
+       Masqué, il reste dans la page : atteignable au clavier et lu par les lecteurs d'écran. */
+    .rs-stage-nav{position:absolute;z-index:2;left:0;right:0;top:100%;padding-top:36px;display:flex;justify-content:center;align-items:center;gap:4px;opacity:0;pointer-events:none;transition:opacity ${MO.reveal} ${MO.soft}}
+    @media (hover:hover){.rs-stage:hover .rs-stage-nav{opacity:1;pointer-events:auto}}
+    .rs-stage:focus-within .rs-stage-nav,.rs-stage.peek .rs-stage-nav{opacity:1;pointer-events:auto}
     /* Strate épinglée */
     .rs-strate{position:relative}
     .rs-panel{position:-webkit-sticky;position:sticky;top:${HEADER_H}px;height:calc(100vh - ${HEADER_H}px);height:calc(100svh - ${HEADER_H}px);display:flex;flex-direction:column;justify-content:center;padding:24px 0;overflow:hidden}

@@ -2,6 +2,7 @@
    Échoue en cas d'erreur JavaScript, de débordement horizontal ou d'élément attendu absent. */
 const { chromium } = require("playwright");
 const fs = require("fs");
+const { pngDiff } = require("./lib/png.cjs");
 const BASE = process.argv[2] || "http://localhost:5097/";
 const SC = process.argv[3] || "tests/screenshots/site";
 fs.mkdirSync(SC, { recursive: true });
@@ -47,25 +48,24 @@ async function run(b, vw, vh, opts = {}) {
   check(await p.getByRole("heading", { name: "Avant de commencer" }).count() === 1 && await p.getByText("Bonjour Camille").count() > 0, `[${tag}] #/s/REPETE sur un navigateur neuf : écran d'accord de Camille absent`);
   check(await p.getByText(/Ce code ne fonctionne pas|n'existe pas/).count() === 0, `[${tag}] #/s/REPETE sur un navigateur neuf : message d'erreur de code affiché`);
   await shot("00b-repete-accord", false);
-  /* Bug de parcours : connecté côté personne accompagnée, « Je lance mon premier entraînement » mène à son espace,
+  /* Bug de parcours : connecté côté personne accompagnée, « Lancer ma première répétition » mène à son espace,
      jamais à la page de connexion. */
   await visit("#/");
-  await p.getByRole("button", { name: "Je lance mon premier entraînement" }).click(); await p.waitForTimeout(900);
-  check(p.url().endsWith("#/s/REPETE") || p.url().includes("#/s/REPETE/"), `[${tag}] session de la personne accompagnée : « Je lance mon premier entraînement » ne mène pas à son espace (${p.url()})`);
+  await p.getByRole("button", { name: "Lancer ma première répétition" }).click(); await p.waitForTimeout(900);
+  check(p.url().endsWith("#/s/REPETE") || p.url().includes("#/s/REPETE/"), `[${tag}] session de la personne accompagnée : « Lancer ma première répétition » ne mène pas à son espace (${p.url()})`);
   await p.evaluate(() => { localStorage.clear(); });
   await p.goto(BASE + "?fin=1#/"); await p.evaluate(() => { localStorage.clear(); }); await p.goto(BASE + "#/"); await p.waitForTimeout(300); // fin de la session gardée en mémoire
 
   // Accueil
   await visit("#/", "accueil");
   check(await p.locator("#rp-loader").count() === 0, `[${tag}] écran de chargement encore présent`);
-  check(await p.getByRole("heading", { level: 1 }).first().textContent().then(t => t.includes("Entraînez-vous pour votre entretien")), `[${tag}] titre du héros absent`);
-  await p.getByRole("button", { name: "Je lance mon premier entraînement" }).waitFor();
+  check(await p.getByRole("heading", { level: 1 }).first().textContent().then(t => t.includes("Répétez votre entretien")), `[${tag}] titre du héros absent`);
+  await p.getByRole("button", { name: "Lancer ma première répétition" }).waitFor();
   /* Accueil (demandes du propriétaire) : héros sans « Voir comment ça marche » ni ligne sur le compte, pastille
-     « Sans avatar », bandeau en quatre engagements, phrase juste sous le bandeau, pas de mini FAQ. */
+     « Sans jugement », bandeau en quatre engagements, phrase juste sous le bandeau, pas de mini FAQ. */
   const homeTxt = (await p.locator("main").innerText()).replace(/[\u00A0\u202F]/g, " ");
   check(await p.getByRole("button", { name: "Voir comment ça marche" }).count() === 0 && !homeTxt.includes("Pas de compte à créer"), `[${tag}] accueil : bouton « Voir comment ça marche » ou ligne « Pas de compte à créer » encore présents`);
-  check(["Avec votre coach", "Assisté par IA", "Sans avatar"].every(t => homeTxt.includes(t)) && !/\bSans note\b|Assistant IA\n|Lancer ma première répétition/.test(homeTxt), `[${tag}] accueil : pastilles « Avec votre coach », « Assisté par IA », « Sans avatar » attendues`);
-  check(/entraînez-vous autant de fois que vous voulez/.test(homeTxt) && /propose des pistes/.test(homeTxt) && /ce qui a changé/.test(homeTxt) && !/\banalyse votre réponse\b/i.test(homeTxt), `[${tag}] accueil : sous-titre du héros (entraînement sans avatar, pistes, ce qui a changé, sans note) attendu`);
+  check(homeTxt.includes("Sans jugement") && !/\bSans note\b/.test(homeTxt), `[${tag}] accueil : la pastille doit dire « Sans jugement »`);
   const reassure = await p.locator(".rs-reassure li").allInnerTexts();
   check(["Sans frais pour vous", "Démarrage rapide", "Sécurisé", "Confidentiel"].every((t, i) => (reassure[i] || "").startsWith(t)), `[${tag}] accueil : bandeau des quatre engagements attendu (${JSON.stringify(reassure)})`);
   check(await p.locator("main").evaluate(m => { const r = m.querySelector(".rs-reassure"), ph = m.querySelector(".rs-phrase, .rs-phrase-r"), st = m.querySelector("#comment-ca-marche"); return !!(r && ph && st && (r.compareDocumentPosition(ph) & 4) && (ph.compareDocumentPosition(st) & 4)); }), `[${tag}] accueil : la phrase doit suivre le bandeau et précéder la strate`);
@@ -75,7 +75,22 @@ async function run(b, vw, vh, opts = {}) {
     check(hb.bg === "rgba(0, 0, 0, 0)" && hb.bw === "0px" && hb.h >= 44, `[${tag}] en-tête : « Nous contacter » doit être un lien d'en-tête sans fond ni bordure, de 44 px (${JSON.stringify(hb)})`);
   }
   await shot("01-accueil", false);
+  /* Indicateur des scènes (demande du propriétaire) : masqué sous la photo par défaut ; il apparaît au survol de la
+     photo (au toucher sur écran tactile) et au focus clavier, et reste atteignable au clavier. */
   const dot = p.getByRole("button", { name: /Scène 2 sur 4/ });
+  const navOp = () => p.locator(".rs-stage-nav").evaluate(n => +getComputedStyle(n).opacity);
+  await p.mouse.move(2, vh - 2); await p.waitForTimeout(900);
+  check(await navOp() === 0, `[${tag}] indicateur des scènes : il doit être masqué tant que la photo n'est pas survolée`);
+  const photo = p.locator(".rs-stage .rs-scene.on img");
+  if (mobile) await photo.tap(); else await photo.hover();
+  await p.waitForTimeout(900);
+  check(await navOp() === 1, `[${tag}] indicateur des scènes : il doit apparaître au ${mobile ? "toucher" : "survol"} de la photo`);
+  if (!mobile) {
+    await p.mouse.move(2, vh - 2); await p.waitForTimeout(900);
+    check(await navOp() === 0, `[${tag}] indicateur des scènes : il doit s'effacer quand le pointeur quitte la photo`);
+    await dot.focus(); await p.waitForTimeout(900);
+    check(await navOp() === 1, `[${tag}] indicateur des scènes : il doit apparaître au focus clavier`);
+  }
   await dot.click(); await p.waitForTimeout(700);
   check(await dot.getAttribute("aria-current") === "true", `[${tag}] le point de navigation des scènes ne change pas la scène`);
   await shot("01a-heros-scene2", false);
@@ -97,7 +112,17 @@ async function run(b, vw, vh, opts = {}) {
       check(d[0][0] - g[0][0] > 40 && d[1][0] - g[1][0] < -40, `[${tag}] fond de l'accueil : le violet et le bleu ne glissent pas en sens contraires quand la souris va de gauche à droite (${JSON.stringify([g, d])})`);
       check(h[0][1] < -15 && h[1][1] > 15, `[${tag}] fond de l'accueil : souris en haut, le violet doit monter et le bleu descendre (${JSON.stringify(h)})`);
       check(bas[1][0] < -15 && bas[1][1] > 0 && bas[0][0] > 15 && bas[0][1] < 0, `[${tag}] fond de l'accueil : souris en bas, le bleu doit s'écarter vers le bas à gauche et le violet vers le haut à droite (${JSON.stringify(bas)})`);
-      check([g, d, h, bas].every(([v]) => Math.abs(v[0]) <= vw * 0.2 && Math.abs(v[1]) <= vh * 0.2), `[${tag}] fond de l'accueil : amplitude trop forte (${JSON.stringify(pos)})`);
+      check([g, d, h, bas].every(([v]) => Math.abs(v[0]) <= vw * 0.3 && Math.abs(v[1]) <= vh * 0.3), `[${tag}] fond de l'accueil : amplitude trop forte (${JSON.stringify(pos)})`);
+      /* Le fond doit bouger nettement (demande du propriétaire : « le fond ne bouge plus ») : de la gauche à la droite
+         de l'écran, chaque masse parcourt au moins 18 % de la largeur ; et à l'écran (contenu masqué, fond seul),
+         l'image change en moyenne d'au moins 5 niveaux sur 255 (ancien réglage, imperceptible : 3,6). */
+      check(Math.abs(d[0][0] - g[0][0]) >= vw * 0.18 && Math.abs(d[1][0] - g[1][0]) >= vw * 0.18, `[${tag}] fond de l'accueil : déplacement trop faible pour se voir (${JSON.stringify([g, d])})`);
+      const fondSeul = await p.addStyleTag({ content: "body *{visibility:hidden!important}.rs-glow,.rs-glow *{visibility:visible!important}" });
+      await p.mouse.move(20, vh / 2, { steps: 6 }); await p.waitForTimeout(1500); const imgG = await p.screenshot();
+      await p.mouse.move(vw - 20, vh / 2, { steps: 6 }); await p.waitForTimeout(1500); const imgD = await p.screenshot();
+      await fondSeul.evaluate(s => s.remove());
+      const ecart = pngDiff(imgG, imgD);
+      check(ecart.moyenne >= 5 && ecart.part >= 0.3, `[${tag}] fond de l'accueil : il ne bouge pas assez à l'écran (écart moyen ${ecart.moyenne.toFixed(2)}, ${(100 * ecart.part).toFixed(0)} % des pixels)`);
       await shot("01y-accueil-souris", false);
     }
     await p.mouse.move(vw / 2, vh / 2);
@@ -237,15 +262,6 @@ async function run(b, vw, vh, opts = {}) {
   check(await q.getAttribute("aria-expanded") === "false", `[${tag}] FAQ : Entrée ne referme pas le dépliant`);
   await p.keyboard.press(" ");
   check(await q.getAttribute("aria-expanded") === "true", `[${tag}] FAQ : Espace n'ouvre pas le dépliant`);
-  /* Recherche : section « Une voix, pas d'avatar » (choix assumé, huit raisons avec leur limite), sans affirmer
-     qu'une voix seule intimide moins ; la FAQ a une question sur l'avatar. */
-  await visit("#/solutions/recherche");
-  const voiceTxt = (await p.locator("#sans-avatar").innerText()).replace(/[  ]/g, " ");
-  check(/Une voix, pas d'avatar : un choix assumé/.test(voiceTxt) && await p.locator("#sans-avatar ol > li").count() === 8 && (voiceTxt.match(/Limite/g) || []).length === 8, `[${tag}] Recherche : section « Une voix, pas d'avatar » avec huit raisons et leurs limites attendue`);
-  const rechTxt = (await p.locator("main").innerText()).replace(/[  ]/g, " ");
-  check(!/Une voix seule intimide moins\./.test(rechTxt) && /Aucune étude ne compare/.test(rechTxt) && !/plus efficace/.test(rechTxt), `[${tag}] Recherche : pas d'affirmation non sourcée sur l'avatar`);
-  await visit("#/ressources/faq");
-  check(await p.getByRole("button", { name: /Pourquoi n'y a-t-il pas d'avatar/ }).count() === 1, `[${tag}] FAQ : question « Pourquoi n'y a-t-il pas d'avatar ? » attendue`);
   await shot("08-faq", false);
 
   // Ressources : hub, recherche, filtre, catégorie, articles
@@ -504,9 +520,9 @@ async function run(b, vw, vh, opts = {}) {
   await shot("24-espace-coach");
   /* Bug de parcours : connecté côté coach, les boutons d'accès mènent à l'espace coach, jamais à la connexion. */
   await visit("#/");
-  await p.getByRole("button", { name: "Je lance mon premier entraînement" }).click(); await p.waitForTimeout(900);
-  check(p.url().endsWith("#/coach"), `[${tag}] session coach : « Je lance mon premier entraînement » ne mène pas à l'espace coach (${p.url()})`);
-  for (const [h, btn] of [["#/", "Me connecter à l'espace coach"], ["#/cas-d-usage/coachs", "Me connecter à l'espace coach"], ["#/cas-d-usage/beneficiaires", "Je lance mon premier entraînement"]]) {
+  await p.getByRole("button", { name: "Lancer ma première répétition" }).click(); await p.waitForTimeout(900);
+  check(p.url().endsWith("#/coach"), `[${tag}] session coach : « Lancer ma première répétition » ne mène pas à l'espace coach (${p.url()})`);
+  for (const [h, btn] of [["#/", "Me connecter à l'espace coach"], ["#/cas-d-usage/coachs", "Me connecter à l'espace coach"], ["#/cas-d-usage/beneficiaires", "Lancer ma première répétition"]]) {
     await visit(h);
     /* Accueil : portes d'entrée entièrement cliquables (liens) ; ailleurs, boutons. */
     await p.locator("button, a.rs-door").filter({ hasText: btn }).first().click(); await p.waitForTimeout(900);

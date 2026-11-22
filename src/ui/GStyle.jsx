@@ -144,7 +144,7 @@ export const GStyle = () => (
     .navlink:hover{color:${T.primary}}
     .navlink.on{color:${T.primary};text-decoration:underline}
     /* En-tête */
-    .rs-progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:${T.primary};transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
+    .rs-progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:${GRAD_LOGO};transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
     .rs-menu{position:fixed;left:0;right:0;bottom:0;top:${HEADER_H}px;z-index:${Z.nav - 1};background:${T.bg};overflow-y:auto;padding:24px 24px 48px;display:flex;flex-direction:column;gap:8px;animation:rsMenu ${MO.base} ${MO.ease} both}
     @keyframes rsMenu{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
     .rs-menu a.rs-mlink{display:flex;align-items:center;justify-content:space-between;min-height:56px;padding:0 4px;border-bottom:1px solid ${T.line};text-decoration:none;color:${T.navy};font:${F("h2")}}
@@ -163,7 +163,20 @@ export const GStyle = () => (
     .rs-chip-ai{color:${T.violet};border-color:${T.violet};max-width:100%}
     .rs-chip-ai:hover{background:${T.violetBg};border-color:${T.violet};color:${T.violet}}
     .rs-card-btn{display:block;width:100%;text-align:left;background:${T.surface};border:1px solid ${T.line};border-radius:${RAD.lg}px;padding:0;cursor:pointer;box-shadow:${SH.xs};overflow:hidden;color:inherit;font:inherit;transition:box-shadow ${MO.base} ${MO.ease},transform ${MO.base} ${MO.ease},border-color ${MO.fast}}
-    .rs-card-btn:hover{box-shadow:${SH.lg};transform:translateY(-2px)}
+    .rs-card-btn:hover{box-shadow:${SH.lg};transform:translateY(-2px);border-color:${T.primaryLt}}
+    /* Charte v4 : couleurs du logo sur les pages secondaires (docs/design-system.md, 6 bis). Décor seulement, rien ne bouge. */
+    .rp-filet{display:block;width:24px;height:3px;border-radius:2px;background:${GRAD_LOGO};flex-shrink:0}
+    .rs-phero-filet{position:absolute;left:0;right:0;bottom:0;height:3px;background:${GRAD_LOGO}}
+    .rs-phero-mark{position:absolute;top:50%;right:max(48px,calc(50% - 552px));transform:translateY(-50%) rotate(-8deg);opacity:.13;pointer-events:none}
+    @media (max-width:1179px){ .rs-phero-mark{display:none} }
+    /* Tuiles d'icône des sections éditoriales : dégradé du logo (neutre), violet de l'assistant, vert du coach */
+    .rs-sec .rp-itile,.rs-phero~.rs-pad .rp-itile{background:${GRAD_LOGO}!important;color:${T.surface}!important}
+    .rs-sec .rp-itile-ai,.rs-phero~.rs-pad .rp-itile-ai{background:${GRAD_AI}!important;color:${T.surface}!important}
+    .rs-sec .rp-itile-coach,.rs-phero~.rs-pad .rp-itile-coach{background:${GRAD_COACH}!important;color:${ON.text}!important}
+    /* Rythme : après l'en-tête de page, une section sur deux sur une bande teintée pleine largeur (jamais la première) */
+    .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){margin-top:${GAP.section}px;padding-top:64px!important;padding-bottom:64px;background:${T.band};box-shadow:0 0 0 100vmax ${T.band};clip-path:inset(0 -100vmax)}
+    @media (max-width:760px){ .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){margin-top:48px;padding-top:40px!important;padding-bottom:40px} }
+    @media print{ .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){background:none;box-shadow:none;clip-path:none} .rs-phero-mark{display:none} }
     /* Accordéon */
     .rs-acc{border-bottom:1px solid ${T.line}}
     .rs-acc-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:16px 0;background:none;border:none;cursor:pointer;text-align:left;color:${T.navy};font:${F("h3")}}

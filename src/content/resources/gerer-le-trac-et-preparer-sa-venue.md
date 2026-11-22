@@ -17,11 +17,11 @@ Avoir le trac avant un entretien est très courant, y compris chez les personnes
 
 - **Renseignez-vous sur la structure** : son activité, ses clients ou usagers, ses valeurs affichées. Notez deux ou trois éléments qui vous parlent.
 - **Relisez l'offre** et soulignez ce qui est demandé. Pour chaque point, cherchez un exemple tiré de votre parcours.
-- **Entraînez-vous à voix haute**. Répéter dans sa tête ne suffit pas : c'est en parlant que l'on repère les phrases qui accrochent.
+- **Entraînez-vous à voix haute**. Se redire sa réponse dans sa tête ne suffit pas : c'est en parlant que l'on repère les phrases qui accrochent.
 - **Préparez vos documents** : plusieurs exemplaires de votre CV, la convocation, une pièce d'identité si elle est demandée, de quoi noter.
 
 > [!conseil] Une répétition générale
-> La veille, faites une répétition complète : présentation, deux ou trois questions, vos questions au recruteur. Avec La Répét', vous pouvez l'enregistrer puis vous revoir ou lire le retour, et recommencer autant que vous le souhaitez.
+> La veille, faites un entraînement complet : présentation, deux ou trois questions, vos questions au recruteur. Avec La Répét', vous pouvez l'enregistrer puis vous revoir ou lire le retour, et recommencer autant que vous le souhaitez.
 
 ## Préparer sa tenue
 

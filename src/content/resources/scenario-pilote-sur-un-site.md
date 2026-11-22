@@ -9,7 +9,7 @@ date: 2026-11-21
 author: Équipe La Répét'
 featured: false
 order: 32
-context: Un site d’accompagnement qui souhaite essayer une modalité de répétition.
+context: Un site d’accompagnement qui souhaite essayer une modalité d’entraînement.
 audience: Des personnes qui préparent un entretien et l’équipe qui les accompagne.
 duration: Une préparation, un temps d’essai et une restitution.
 setup: Des séances volontaires avec un débriefing individuel et un bilan collectif.
@@ -19,7 +19,7 @@ Ce scénario fictif décrit comment un organisme d’accompagnement et son comma
 
 ## Le défi
 
-L’équipe du site souhaite proposer un exercice entre le premier rendez-vous de préparation et le débriefing. Les personnes accompagnées n’ont pas toutes accès à un appareil ou à un endroit où elles peuvent parler tranquillement. L’organisme pourrait réserver un lieu et proposer un accompagnement qui laisse à chacun le choix de la voix seule, de la vidéo ou d’une répétition orale avec le coach.
+L’équipe du site souhaite proposer un exercice entre le premier rendez-vous de préparation et le débriefing. Les personnes accompagnées n’ont pas toutes accès à un appareil ou à un endroit où elles peuvent parler tranquillement. L’organisme pourrait réserver un lieu et proposer un accompagnement qui laisse à chacun le choix de la voix seule, de la vidéo ou d’un entraînement oral avec le coach.
 
 Le commanditaire et l’équipe pourraient convenir d’une question à laquelle le pilote doit répondre, par exemple vérifier si la réservation d’un espace calme et la relecture sur rendez-vous s’intègrent au fonctionnement du site. Ils pourraient définir ensemble les conditions nécessaires avant de proposer ce parcours à des personnes accompagnées.
 
@@ -29,7 +29,7 @@ Avant l’ouverture, l’équipe décrirait le parcours, les appareils utilisés
 
 Lors du premier échange, le coach présenterait l’exercice et demanderait à la personne quel type d’entretien elle souhaite préparer. Il pourrait proposer un essai sans enregistrement pour prendre connaissance de la question. La personne qui choisit de s’enregistrer pourrait utiliser le micro seul ou la caméra. Si elle souhaite un avis du coach, elle déciderait quelle réponse lui montrer et quel passage elle veut discuter. Dans le mode local, l’équipe organiserait la relecture sur le même appareil et dans le même navigateur.
 
-Pendant le débriefing, le coach proposerait de reprendre un passage choisi avec la personne. Ensemble, ils pourraient relever une action qui rend l’exemple compréhensible, puis décider d’une question ou d’un point à travailler. Si la personne préfère une répétition orale, le coach pourrait l’écouter et lui proposer le même type d’échange.
+Pendant le débriefing, le coach proposerait de reprendre un passage choisi avec la personne. Ensemble, ils pourraient relever une action qui rend l’exemple compréhensible, puis décider d’une question ou d’un point à travailler. Si la personne préfère un entraînement oral, le coach pourrait l’écouter et lui proposer le même type d’échange.
 
 Enfin, l’équipe pourrait préparer un bilan sur l’organisation du pilote. Elle y indiquerait les modalités testées, les contraintes rencontrées et les besoins matériels ou d’accueil pour une suite éventuelle. Le commanditaire recevrait des éléments collectifs. Les enregistrements, les observations et les remarques individuelles resteraient dans le cadre de l’accompagnement.
 

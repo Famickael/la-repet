@@ -23,7 +23,7 @@ export const SEO = {
   /* Routes actuelles (src/App.jsx, src/app/router.js) */
   "#/": {
     title: `S'entraîner aux entretiens avec un coach${SEP}${SITE_NAME}`,
-    description: "Préparez un entretien d'embauche ou de mobilité : vous répétez à votre rythme, un retour décrit votre réponse sans la noter et votre coach garde la main.",
+    description: "Entretien d'embauche ou de mobilité : entraînez-vous à voix haute, sans avatar. Un retour décrit votre réponse sans la noter, et votre coach vous soutient.",
   },
   "#/a-propos": {
     title: t("Qui sommes-nous"),
@@ -109,7 +109,7 @@ export const SEO = {
   },
   "#/solutions/recherche": {
     title: t("Ce que dit la recherche"),
-    description: "Les travaux sur la préparation aux entretiens qui ont guidé La Répét' : répétition, retour descriptif et rôle de l'accompagnant, avec leurs références.",
+    description: "Les travaux sur la préparation aux entretiens qui ont guidé La Répét' : entraînement, retour descriptif et rôle de l'accompagnant, avec leurs références.",
   },
   "#/solutions/fonctionnalites": {
     title: t("Fonctionnalités"),
@@ -117,7 +117,7 @@ export const SEO = {
   },
   "#/solutions/methode": {
     title: t("Méthode d'accompagnement"),
-    description: "Comment La Répét' sert l'accompagnement : répéter, se revoir, lire un retour qui décrit sans noter, débriefer avec le coach et transférer vers l'entretien.",
+    description: "Comment La Répét' sert l'accompagnement : s'entraîner, se revoir, lire un retour qui décrit sans noter, débriefer avec le coach et transférer vers l'entretien.",
   },
   "#/cas-d-usage": {
     title: t("Cas d'usage"),

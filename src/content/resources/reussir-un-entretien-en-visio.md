@@ -47,4 +47,4 @@ En visio, regarder la personne à l'écran donne l'impression de regarder vers l
 
 ## S'entraîner avec La Répét'
 
-S'enregistrer avec sa caméra est exactement la situation d'une visio. Dans votre espace, lancez une répétition en vidéo : le retour de l'assistant indique notamment la direction du regard (vers l'écran, vers le bas, sur le côté), sous forme de repère et sans note. Une bonne façon de tester votre installation et de vous habituer à regarder la caméra.
+S'enregistrer avec sa caméra est exactement la situation d'une visio. Dans votre espace, lancez un entraînement en vidéo : le retour de l'assistant indique notamment la direction du regard (vers l'écran, vers le bas, sur le côté), sous forme de repère et sans note. Une bonne façon de tester votre installation et de vous habituer à regarder la caméra.

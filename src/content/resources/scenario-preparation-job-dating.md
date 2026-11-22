@@ -2,7 +2,7 @@
 title: Préparer un job dating en atelier
 category: coachs
 type: cas
-summary: Un scénario d’atelier pour choisir un exemple de travail, répéter une présentation courte et organiser un retour avec un coach.
+summary: Un scénario d’atelier pour choisir un exemple de travail, s’entraîner à une présentation courte et organiser un retour avec un coach.
 image: categories/coachs.webp
 imageAlt:
 date: 2026-11-21
@@ -40,8 +40,8 @@ L’atelier pourrait aider les personnes à disposer d’un exemple qu’elles s
 Le coach pourrait recueillir ce que les personnes souhaitent conserver juste après l’atelier, puis revenir avec elles sur les situations rencontrées pendant l’événement. Il pourrait leur demander quelle question leur a été posée, quel exemple elles ont utilisé ou ce qu’elles aimeraient préparer pour un prochain rendez-vous. Ces éléments serviraient à ajuster l’accompagnement selon leurs besoins.
 
 > [!attention] Points de vigilance
-> Demandez l’accord de la personne avant toute relecture et prévoyez un espace où elle peut s’entraîner à l’écart du groupe. Laissez un choix entre une répétition orale, la voix seule et la vidéo. En mode local, organisez à l’avance l’accès au même appareil pour la relecture. Décidez avec chaque personne du passage qu’elle veut reprendre en débriefing.
+> Demandez l’accord de la personne avant toute relecture et prévoyez un espace où elle peut s’entraîner à l’écart du groupe. Laissez un choix entre un entraînement oral sans outil, la voix seule et la vidéo. En mode local, organisez à l’avance l’accès au même appareil pour la relecture. Décidez avec chaque personne du passage qu’elle veut reprendre en débriefing.
 
 ## Pour aller plus loin
 
-Le guide [Se présenter en deux minutes](#/ressources/se-presenter-en-deux-minutes) propose une trame pour choisir un exemple et le relier au poste. Si vous préparez un échange après la répétition, consultez aussi [Animer un débriefing à partir d’une réponse enregistrée](#/ressources/animer-un-debriefing-a-partir-d-une-reponse).
+Le guide [Se présenter en deux minutes](#/ressources/se-presenter-en-deux-minutes) propose une trame pour choisir un exemple et le relier au poste. Si vous préparez un échange après l’entraînement, consultez aussi [Animer un débriefing à partir d’une réponse enregistrée](#/ressources/animer-un-debriefing-a-partir-d-une-reponse).

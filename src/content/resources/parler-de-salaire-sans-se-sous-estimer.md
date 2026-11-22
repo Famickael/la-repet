@@ -50,7 +50,7 @@ Demandez ce que le montant comprend. Le salaire fixe, une prime, une part variab
 
 Vous pouvez demander un récapitulatif écrit des éléments discutés et convenir du moment où vous donnerez votre réponse. Vous pourrez ainsi comparer le salaire, le temps de travail et l’organisation annoncée. Si une proposition est en dessous de votre attente, demandez si le montant peut évoluer et sur quels éléments la rémunération peut être revue. Selon la réponse, vous pourrez expliquer les conditions dans lesquelles vous pourriez accepter.
 
-## Répéter deux versions de votre réponse
+## S’entraîner sur deux versions de votre réponse
 
 Préparez d’abord une phrase pour le cas où les informations sur le poste sont claires. Écrivez le montant ou la fourchette, avec l’unité et une courte raison liée au travail proposé. Préparez ensuite une question pour le cas où une information importante manque. Dites les deux phrases à voix haute et écoutez si votre interlocuteur pourrait les noter sans vous redemander de préciser le temps de travail ou la période du montant.
 

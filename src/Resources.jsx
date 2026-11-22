@@ -247,7 +247,7 @@ function Article({ a, go, openSpace }) {
             <Btn kind="white" size="lg" onClick={() => go("#/demo")} iconRight={I.arrow}>Nous contacter</Btn>
           </FinalBand>
         ) : (
-          <FinalBand title="Mettez ces conseils en pratique" text="Ouvrez votre espace et répétez à voix haute, à votre rythme." openSpace={openSpace} go={go}>
+          <FinalBand title="Mettez ces conseils en pratique" text="Ouvrez votre espace et entraînez-vous à voix haute, à votre rythme." openSpace={openSpace} go={go}>
             <Btn kind="white" size="lg" onClick={openSpace} iconRight={I.arrow}>Ouvrir mon espace</Btn>
             <Btn kind="ghostDark" size="lg" onClick={() => go("#/ressources")}>Toutes les ressources</Btn>
           </FinalBand>

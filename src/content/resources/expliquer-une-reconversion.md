@@ -47,7 +47,7 @@ Relisez les attentes et distinguez celles que vous pouvez illustrer de celles qu
 
 Vous pouvez aussi demander quelles tâches sont confiées les premières semaines, à qui adresser une question et comment l’équipe vérifie que les consignes sont comprises. Les réponses vous aideront à vous représenter votre arrivée et à décrire ce que vous pouvez apporter dès le début.
 
-## Répéter une réponse qui tient dans l’échange
+## S’entraîner à une réponse qui tient dans l’échange
 
 Préparez trois phrases. La première indique ce que vous cherchez. La deuxième relie une expérience utile au poste. La troisième explique votre démarche ou nomme l’étape que vous souhaitez apprendre. Dites ces phrases à voix haute, puis imaginez une question sur l’un des exemples. Vous pouvez détailler une action, décrire une journée d’immersion ou préciser ce que vous avez compris du rythme de travail.
 

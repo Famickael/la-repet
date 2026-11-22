@@ -52,7 +52,7 @@ Demandez à une personne de vous écouter puis de vous poser une question sur un
 
 Si la personne qui vous écoute a besoin de plusieurs questions pour situer une même période, trouvez une date ou une formulation plus simple. Si elle ne comprend pas le lien avec le poste, choisissez un exemple qu’elle pourra visualiser.
 
-## Répéter une version courte
+## S’entraîner sur une version courte
 
 Entraînez-vous à présenter votre parcours sans réciter vos dates. Partez de votre recherche actuelle, racontez une ou deux situations et revenez au poste proposé. Puis entraînez-vous à donner un détail supplémentaire sur chaque situation, au cas où la personne qui recrute vous le demanderait. La trame du guide [Se présenter en deux minutes](#/ressources/se-presenter-en-deux-minutes) peut servir de point de départ.
 

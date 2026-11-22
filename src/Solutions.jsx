@@ -36,7 +36,7 @@ export default function Solutions({ go }) {
             <Reveal style={{ display: "grid", gap: 16, ...TY.bodyLg, color: T.body }}>
               <p style={{ margin: 0 }}>Notre métier, c'est l'accompagnement. La Répét' nous appartient : c'est l'outil que nos coachs utilisent avec les personnes qu'ils accompagnent. Nous ne la vendons pas comme un logiciel.</p>
               <p style={{ margin: 0 }}>Des commanditaires nous confient l'accompagnement de leurs publics. Les acteurs publics de l'emploi et de l'insertion peuvent nous confier des demandeurs d'emploi. Les entreprises peuvent nous confier des collaborateurs qui préparent une mobilité, un entretien professionnel ou une reconversion.</p>
-              <p style={{ margin: 0 }}>Nos coachs mènent les rendez-vous et les ateliers. Entre deux séances, chaque personne s'entraîne seule avec La Répét', à son rythme.</p>
+              <p style={{ margin: 0 }}>Nos coachs mènent les rendez-vous et les ateliers. Entre deux rendez-vous, chaque personne s'entraîne seule avec La Répét', à son rythme.</p>
             </Reveal>
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 12 }}>
               {MODEL.map(([ic, t, d, h], i) => (

@@ -185,7 +185,7 @@ function Article({ a, go, openSpace }) {
       <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}><Icon d={I.clock} s={16} c={T.muted} /> {a.readingTime} min de lecture</span>
     </div>
   );
-  const facts = [["Contexte", a.facts.context], ["Public", a.facts.audience], ["Durée", a.facts.duration], ["Dispositif", a.facts.setup]].filter(([, v]) => v);
+  const facts = [["Contexte", a.facts.context], ["Public", a.facts.audience], ["Durée", a.facts.duration], ["Organisation", a.facts.setup]].filter(([, v]) => v);
 
   return (
     <main>

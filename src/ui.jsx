@@ -2,13 +2,13 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   T, ON, GLOW, GRAD, GRAD_MAIN, GRAD_COACH, GRAD_AI, GRAD_SOFT, GRAD_PAGE, FD, FB, FM, TY, PAD, PAD_MOBILE, GAP, W, RAD, SH, MO, Z,
-  TONE, HEADER_H, HEADER_H_M, TY_MOBILE, GRAD_AI_BORDER, FONT_STACKS, MASK, GRAD_LOGO, FADE_FOOT,
+  TONE, HEADER_H, HEADER_H_M, TY_MOBILE, GRAD_AI_BORDER, FONT_STACKS, MASK, GRAD_LOGO, FADE_FOOT, GRAD_CTA, GRAD_CTA_HOVER,
 } from "./tokens.js";
 import { Reveal, stagger } from "./motion.jsx";
 import { GStyle } from "./ui/GStyle.jsx";
 import { clock } from "./lib/format.js";
 
-/* Composants de base de La Répét' (référentiel UI/UX v3, docs/design-system.md).
+/* Composants de base de La Répét' (référentiel UI/UX v4, docs/design-system.md).
    Les jetons viennent de src/tokens.js et sont réexportés ici : les écrans n'importent que depuis ui.jsx.
    Aucune valeur de couleur n'est écrite dans ce fichier (règle X2 de tests/design-lint.mjs). */
 export * from "./tokens.js";
@@ -105,8 +105,13 @@ function Txt({ v = "body", as: As = "p", color, style, className, children, ...r
   return <As className={[`ty-${v}`, className].filter(Boolean).join(" ")} style={{ ...TY[v], color, margin: 0, ...style }} {...rest}>{children}</As>;
 }
 
-/* Surtitre (TY.overline), 4 mots au plus. */
-const Eyebrow = ({ children, c = T.primary, style }) => <div style={{ ...TY.overline, color: c, ...style }}>{children}</div>;
+/* Surtitre (TY.overline), 4 mots au plus. mark : précédé du filet de marque (dégradé du logo, décor), pour les en-têtes
+   de page et de section des pages publiques (charte v4). */
+const Eyebrow = ({ children, c = T.primary, style, mark }) => (
+  <div style={{ ...TY.overline, color: c, ...(mark ? { display: "flex", alignItems: "center", gap: 8 } : {}), ...style }}>
+    {mark && <span aria-hidden className="rp-filet" />}{children}
+  </div>
+);
 
 /* ─── BOUTONS ─── */
 
@@ -121,7 +126,7 @@ const BTN_SIZE = {
   md: { h: 48, px: 24, ty: TY.btn, ic: 16 },
   lg: { h: 56, px: 32, ty: TY.btnLg, ic: 20 },
 };
-/* Bouton (référentiel 5.1). kind : objective (une seule action principale par écran), ai, primary, secondary,
+/* Bouton (référentiel 5.1). kind : objective (une seule action principale par écran, dégradé du logo GRAD_CTA), ai, primary, secondary,
    ghost, danger, white, ghostDark. Icônes par icon (à gauche) et iconRight (flèche de progression). as="span" :
    aspect de bouton sans interaction (à l'intérieur d'une carte cliquable). */
 const Btn = React.forwardRef(function Btn({ children, onClick, kind = "primary", size = "md", disabled, full, icon, iconRight, as, type, className, style, ...rest }, ref) {
@@ -130,7 +135,7 @@ const Btn = React.forwardRef(function Btn({ children, onClick, kind = "primary",
   const sh = SH.btn[kind];
   const k = {
     primary: { background: h ? T.primaryDk : T.primary, color: T.surface, border: "none" },
-    objective: { background: h ? T.accentDk : T.accent, color: T.surface, border: "none" },
+    objective: { background: h ? GRAD_CTA_HOVER : GRAD_CTA, color: T.surface, border: "none" },
     ai: { background: GRAD_AI, color: T.surface, border: "none" },
     white: { background: T.surface, color: h ? T.primaryDk : T.primary, border: "none" },
     secondary: { background: T.surface, color: T.primary, border: `1.5px solid ${h ? T.primary : T.primaryLt}` },
@@ -251,8 +256,12 @@ const Quote = ({ children, icon = I.note, style, size }) => (
 );
 
 /* Pastille d'icône (référentiel 5.10) : 40, RAD.sm, fond primaryBg. */
-const IconTile = ({ icon, c = T.primary, bg = T.primaryBg, s = 40, round }) => (
-  <div aria-hidden style={{ width: s, height: s, borderRadius: round ? "50%" : RAD.sm, background: bg, display: "grid", placeItems: "center", flexShrink: 0, color: c }}>
+/* Pastille d'icône. Sans couleur imposée : neutre (primary sur primaryBg) dans les écrans d'application, et tuile de
+   marque (dégradé du logo, icône T.surface) dans une section éditoriale des pages publiques (.rs-sec, charte v4).
+   Les tons de rôle (violet de l'assistant, vert du coach) y deviennent pleins de la même façon, sans changer de rôle. */
+const IconTile = ({ icon, c, bg, s = 40, round }) => (
+  <div aria-hidden className={!c && !bg ? "rp-itile" : c === T.violet && bg === T.violetBg ? "rp-itile rp-itile-ai" : c === T.coach && bg === T.coachBg ? "rp-itile rp-itile-coach" : undefined}
+    style={{ width: s, height: s, borderRadius: round ? "50%" : RAD.sm, background: bg || T.primaryBg, display: "grid", placeItems: "center", flexShrink: 0, color: c || T.primary }}>
     <Icon d={icon} s={s >= 48 ? 24 : 20} />
   </div>
 );
@@ -565,12 +574,13 @@ function BrandLoader({ label, full = false, size = 72 }) {
 
 /* ─── PAGES PUBLIQUES ─── */
 
-/* Section éditoriale : surtitre, titre TY.xl, chapeau, contenu. */
+/* Section éditoriale : surtitre avec filet de marque, titre TY.xl, chapeau, contenu. Sur une page secondaire (après
+   PageHero), une section sur deux est posée sur une bande teintée pleine largeur (.rs-sec, GStyle, charte v4). */
 const Section = ({ id, eyebrow, title, sub, children, first }) => (
-  <section id={id} className="rs-section" style={{ paddingTop: first ? GAP.block + 16 : GAP.section, scrollMarginTop: GAP.section }}>
+  <section id={id} className="rs-section rs-sec" style={{ paddingTop: first ? GAP.block + 16 : GAP.section, scrollMarginTop: GAP.section }}>
     <Reveal>
       <div style={{ display: "grid", gap: 12, maxWidth: W.read }}>
-        {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+        {eyebrow && <Eyebrow mark>{eyebrow}</Eyebrow>}
         <h2 className="ty-xl" style={{ ...TY.xl, color: T.navy, margin: 0 }}>{title}</h2>
         {sub && <p className="ty-lead" style={{ ...TY.lead, color: T.body, margin: 0 }}>{sub}</p>}
       </div>
@@ -578,14 +588,17 @@ const Section = ({ id, eyebrow, title, sub, children, first }) => (
     <div style={{ marginTop: GAP.block }}>{children}</div>
   </section>
 );
-/* En-tête des pages secondaires : surtitre, titre, chapeau, visuel facultatif. */
+/* En-tête des pages secondaires : surtitre, titre, chapeau, visuel facultatif. Charte v4 : fond du bleu teinté au violet
+   teinté (GRAD_PAGE), filet de marque dessous, et symbole du logo en filigrane à droite quand il n'y a pas de visuel
+   (décor, grand écran seulement, jamais sous le texte). */
 function PageHero({ eyebrow, title, lead, children, aside }) {
   return (
-    <section style={{ background: GRAD_PAGE, borderBottom: `1px solid ${T.line}` }}>
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "64px 24px" }}>
+    <section className="rs-phero" style={{ position: "relative", overflow: "hidden", background: GRAD_PAGE }}>
+      {!aside && <div aria-hidden className="rs-phero-mark rp-deco"><RepetMark s={280} /></div>}
+      <div className="rs-pad" style={{ position: "relative", maxWidth: W.page, margin: "0 auto", padding: "64px 24px" }}>
         <div className={aside ? "rs-split" : undefined} style={aside ? { alignItems: "start" } : undefined}>
           <div className="up" style={{ display: "grid", gap: 16, maxWidth: W.read }}>
-            {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+            {eyebrow && <Eyebrow mark>{eyebrow}</Eyebrow>}
             <h1 className="ty-xl" style={{ ...TY.pageTitle, color: T.navy, margin: 0 }}>{title}</h1>
             {lead && <p className="ty-lead" style={{ ...TY.lead, color: T.body, margin: 0 }}>{lead}</p>}
             {children}
@@ -593,6 +606,7 @@ function PageHero({ eyebrow, title, lead, children, aside }) {
           {aside}
         </div>
       </div>
+      <div aria-hidden className="rs-phero-filet" />
     </section>
   );
 }

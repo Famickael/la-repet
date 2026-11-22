@@ -1,0 +1,177 @@
+{
+  "cas": "2-preparateur-commandes",
+  "avertissement": "Personne fictive. Texte écrit pour l'essai, au format des segments horodatés produits par Whisper. Aucune personne réelle n'a été enregistrée.",
+  "filtre": {
+    "textesVerifies": 13,
+    "textesRefuses": [
+      "synthese",
+      "petits-mots.conseil",
+      "exemples.observation",
+      "contenu.observation"
+    ],
+    "textesRemplacesParLeTexteLocal": 4,
+    "analyseFinaleConforme": true,
+    "horsLimiteDeLongueur": []
+  },
+  "verdicts": [
+    {
+      "champ": "synthese",
+      "accepte": false,
+      "caracteres": 83,
+      "limiteDemandee": 400,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.titre",
+      "accepte": true,
+      "caracteres": 16,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.observation",
+      "accepte": true,
+      "caracteres": 62,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.conseil",
+      "accepte": true,
+      "caracteres": 73,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "petits-mots.titre",
+      "accepte": true,
+      "caracteres": 19,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "petits-mots.observation",
+      "accepte": true,
+      "caracteres": 53,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "petits-mots.conseil",
+      "accepte": false,
+      "caracteres": 55,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.titre",
+      "accepte": true,
+      "caracteres": 17,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.observation",
+      "accepte": false,
+      "caracteres": 68,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.conseil",
+      "accepte": true,
+      "caracteres": 97,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.titre",
+      "accepte": true,
+      "caracteres": 17,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.observation",
+      "accepte": false,
+      "caracteres": 74,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.conseil",
+      "accepte": true,
+      "caracteres": 86,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    }
+  ],
+  "analyseAffichee": {
+    "synthese": "Vos points d'appui : rythme de parole, petits mots répétés. Une piste pour votre prochain essai : exemples concrets. Les autres pistes sont à explorer si vous le souhaitez.",
+    "dimensions": [
+      {
+        "id": "debit",
+        "type": "appui",
+        "t": 0,
+        "titre": "Rythme de parole",
+        "observation": "Vous parlez à environ 163 mots par minute, sur 0:18 de parole.",
+        "conseil": "Ce rythme reste facile à suivre pour un recruteur. Vous pouvez le garder."
+      },
+      {
+        "id": "petits-mots",
+        "type": "appui",
+        "t": 0,
+        "titre": "Petits mots répétés",
+        "observation": "2 petits mots répétés : « ben » (1) et « voilà » (1).",
+        "conseil": "Leur présence reste discrète et vos phrases restent faciles à suivre."
+      },
+      {
+        "id": "exemples",
+        "type": "explorer",
+        "t": 10,
+        "titre": "Exemples concrets",
+        "observation": "Aucune situation datée ou chiffrée n'a été repérée dans votre entretien.",
+        "conseil": "Vous pouvez raconter une situation vécue : où, quand, ce que vous avez fait, ce que cela a donné."
+      },
+      {
+        "id": "duree",
+        "titre": "Durée",
+        "type": "explorer",
+        "t": 15.4,
+        "observation": "Vous parlez pendant 0:18.",
+        "conseil": "En entretien, une réponse dure souvent entre 1 et 2 minutes. Vous pouvez la développer avec une situation vécue, puis dire ce que vous en retenez pour ce poste."
+      },
+      {
+        "id": "structure",
+        "titre": "Construction de la réponse",
+        "type": "explorer",
+        "t": 15.4,
+        "observation": "5 phrases, 10 mots en moyenne par phrase, sans phrase de conclusion repérée.",
+        "conseil": "Selon le poste, terminer par une phrase de synthèse (« c'est pour cela que ce poste me correspond ») aide à clore la réponse."
+      }
+    ],
+    "metrics": {
+      "wordCount": 48,
+      "duration": 21,
+      "speakingTime": 18,
+      "wpm": 163,
+      "fillers": {
+        "ben": 1,
+        "voilà": 1
+      },
+      "fillerTotal": 2,
+      "firstFillerAt": 0,
+      "pauses": [],
+      "sentences": 5,
+      "avgSentence": 10,
+      "repeated": [],
+      "concreteAt": null,
+      "concreteText": null,
+      "hasClosing": false,
+      "closingAt": 15.4,
+      "loops": 0,
+      "loopWords": 0
+    },
+    "source": "llm"
+  }
+}

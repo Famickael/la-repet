@@ -1,0 +1,266 @@
+{
+  "cas": "1-reconversion-accueil",
+  "avertissement": "Personne fictive. Texte écrit pour l'essai, au format des segments horodatés produits par Whisper. Aucune personne réelle n'a été enregistrée.",
+  "filtre": {
+    "textesVerifies": 22,
+    "textesRefuses": [],
+    "textesRemplacesParLeTexteLocal": 0,
+    "analyseFinaleConforme": true,
+    "horsLimiteDeLongueur": []
+  },
+  "verdicts": [
+    {
+      "champ": "synthese",
+      "accepte": true,
+      "caracteres": 287,
+      "limiteDemandee": 400,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.titre",
+      "accepte": true,
+      "caracteres": 16,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.observation",
+      "accepte": true,
+      "caracteres": 62,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.conseil",
+      "accepte": true,
+      "caracteres": 116,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.titre",
+      "accepte": true,
+      "caracteres": 17,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.observation",
+      "accepte": true,
+      "caracteres": 166,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.conseil",
+      "accepte": true,
+      "caracteres": 130,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "pauses.titre",
+      "accepte": true,
+      "caracteres": 6,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "pauses.observation",
+      "accepte": true,
+      "caracteres": 115,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "pauses.conseil",
+      "accepte": true,
+      "caracteres": 104,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "petits-mots.titre",
+      "accepte": true,
+      "caracteres": 19,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "petits-mots.observation",
+      "accepte": true,
+      "caracteres": 115,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "petits-mots.conseil",
+      "accepte": true,
+      "caracteres": 172,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "regard.titre",
+      "accepte": true,
+      "caracteres": 19,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "regard.observation",
+      "accepte": true,
+      "caracteres": 119,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "regard.conseil",
+      "accepte": true,
+      "caracteres": 188,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "structure.titre",
+      "accepte": true,
+      "caracteres": 26,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "structure.observation",
+      "accepte": true,
+      "caracteres": 152,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "structure.conseil",
+      "accepte": true,
+      "caracteres": 193,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.titre",
+      "accepte": true,
+      "caracteres": 17,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.observation",
+      "accepte": true,
+      "caracteres": 150,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.conseil",
+      "accepte": true,
+      "caracteres": 189,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    }
+  ],
+  "analyseAffichee": {
+    "synthese": "Vos points d'appui : vous donnez des faits précis, comme vos 12 ans en boulangerie et votre formation de trois mois, à un rythme facile à suivre. Une piste pour le prochain essai : remplacer « Je crois que c'est tout » par une phrase qui relie votre parcours au poste d'agente d'accueil.",
+    "dimensions": [
+      {
+        "id": "debit",
+        "type": "appui",
+        "t": 0,
+        "titre": "Rythme de parole",
+        "observation": "Vous parlez à environ 130 mots par minute, sur 0:52 de parole.",
+        "conseil": "À ce rythme, la personne qui vous écoute a le temps de suivre chaque étape de votre parcours. Vous pouvez le garder."
+      },
+      {
+        "id": "exemples",
+        "type": "appui",
+        "t": 4.8,
+        "titre": "Exemples concrets",
+        "observation": "Vous donnez des repères précis : « pendant 12 ans, j'ai travaillé comme vendeuse en boulangerie », puis « une formation de trois mois » avec un stage dans une mairie.",
+        "conseil": "Ces durées et ces lieux aident un recruteur à se représenter votre parcours et à s'en souvenir. Vous pouvez les garder tels quels."
+      },
+      {
+        "id": "pauses",
+        "type": "appui",
+        "t": 27.9,
+        "titre": "Pauses",
+        "observation": "3 pauses de plus de 2 secondes, la plus longue à 0:28 (3 s), juste après avoir parlé de votre bilan de compétences.",
+        "conseil": "Ces pauses séparent les étapes de votre parcours et laissent le temps de suivre. Vous pouvez les garder."
+      },
+      {
+        "id": "contenu",
+        "type": "appui",
+        "t": 30.5,
+        "titre": "Ce que vous dites",
+        "observation": "Vous expliquez votre changement de métier en trois étapes : la vente en boulangerie, le bilan de compétences, puis la formation et le stage d'accueil.",
+        "conseil": "Ce fil aide à comprendre pourquoi vous visez l'accueil. Vous pouvez le garder, et ajouter une situation précise de votre stage : une personne que vous avez orientée, et ce que cela a donné."
+      },
+      {
+        "id": "petits-mots",
+        "type": "explorer",
+        "t": 0,
+        "titre": "Petits mots répétés",
+        "observation": "10 petits mots répétés : « euh » (6), « en fait » (2), « du coup » (1). Ils arrivent souvent au début d'une phrase.",
+        "conseil": "C'est très courant à l'oral. Au prochain essai, vous pouvez commencer chaque phrase par son premier mot utile, après un court silence : « Pendant 12 ans, j'ai travaillé… »."
+      },
+      {
+        "id": "regard",
+        "type": "explorer",
+        "t": 31,
+        "titre": "Direction du regard",
+        "observation": "Votre regard est orienté vers l'écran environ 54 % du temps, vers le bas 30 %, sur le côté 14 %, visage hors champ 2 %.",
+        "conseil": "Regarder ailleurs pour réfléchir est naturel. Vous pouvez essayer de revenir vers la caméra à la fin de chaque phrase, par exemple quand vous dites ce que vous faisiez pendant votre stage."
+      },
+      {
+        "id": "structure",
+        "type": "explorer",
+        "t": 57.6,
+        "titre": "Construction de la réponse",
+        "observation": "Votre présentation suit l'ordre du temps, en 10 phrases courtes. Elle se termine par « Euh, voilà. Je crois que c'est tout », sans phrase de conclusion.",
+        "conseil": "Vous pouvez préparer une dernière phrase qui fait le lien avec le poste, par exemple : « Aujourd'hui, je cherche un poste d'agente d'accueil pour continuer à recevoir et à orienter le public. »"
+      }
+    ],
+    "metrics": {
+      "wordCount": 113,
+      "duration": 64,
+      "speakingTime": 52,
+      "wpm": 130,
+      "fillers": {
+        "euh": 6,
+        "en fait": 2,
+        "du coup": 1,
+        "voilà": 1
+      },
+      "fillerTotal": 10,
+      "firstFillerAt": 0,
+      "pauses": [
+        {
+          "t": 11.5,
+          "d": 2.5
+        },
+        {
+          "t": 27.9,
+          "d": 2.6
+        },
+        {
+          "t": 55,
+          "d": 2.6
+        }
+      ],
+      "sentences": 10,
+      "avgSentence": 11,
+      "repeated": [],
+      "concreteAt": 4.8,
+      "concreteText": "Euh, pendant 12 ans, j'ai travaillé comme vendeuse en boulangerie, dans mon quartier",
+      "hasClosing": false,
+      "closingAt": 57.6,
+      "loops": 0,
+      "loopWords": 0
+    },
+    "source": "llm"
+  }
+}

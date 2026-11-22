@@ -1,0 +1,16 @@
+{
+  "cas": "2-preparateur-commandes",
+  "avertissement": "Personne fictive. Texte écrit pour l'essai, au format des segments horodatés produits par Whisper. Aucune personne réelle n'a été enregistrée.",
+  "personne": "Yanis T. (fictif), jeune préparateur de commandes",
+  "poste": "préparateur de commandes",
+  "question": "Pourquoi ce poste ?",
+  "mode": "voix seule",
+  "duration": 21,
+  "gaze": null,
+  "segments": [
+    { "start": 0.0, "end": 4.0, "text": " Ben, parce que je cherche du travail et que la logistique, ça recrute." },
+    { "start": 4.5, "end": 9.4, "text": " Je suis quelqu'un de sérieux, de ponctuel, et j'aime bien quand ça bouge." },
+    { "start": 9.9, "end": 14.8, "text": " L'entrepôt est pas loin de chez moi, donc c'est pratique pour les horaires." },
+    { "start": 15.4, "end": 19.3, "text": " Et je suis motivé, je veux vraiment travailler. Voilà." }
+  ]
+}

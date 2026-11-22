@@ -1,0 +1,90 @@
+{
+  "metrics": {
+    "wordCount": 113,
+    "duration": 64,
+    "speakingTime": 52,
+    "wpm": 130,
+    "fillers": {
+      "euh": 6,
+      "en fait": 2,
+      "du coup": 1,
+      "voilà": 1
+    },
+    "fillerTotal": 10,
+    "firstFillerAt": 0,
+    "pauses": [
+      {
+        "t": 11.5,
+        "d": 2.5
+      },
+      {
+        "t": 27.9,
+        "d": 2.6
+      },
+      {
+        "t": 55,
+        "d": 2.6
+      }
+    ],
+    "sentences": 10,
+    "avgSentence": 11,
+    "repeated": [],
+    "concreteAt": 4.8,
+    "concreteText": "Euh, pendant 12 ans, j'ai travaillé comme vendeuse en boulangerie, dans mon quartier",
+    "hasClosing": false,
+    "closingAt": 57.6,
+    "loops": 0,
+    "loopWords": 0
+  },
+  "synthese": "Vos points d'appui : rythme de parole, exemples concrets, pauses. Une piste pour votre prochain essai : construction de la réponse. Les autres pistes sont à explorer si vous le souhaitez.",
+  "dimensions": [
+    {
+      "id": "debit",
+      "titre": "Rythme de parole",
+      "type": "appui",
+      "t": 0,
+      "observation": "Environ 130 mots par minute sur 0:52 de parole.",
+      "conseil": "Ce rythme laisse à l'interlocuteur le temps de suivre. Vous pouvez le garder."
+    },
+    {
+      "id": "exemples",
+      "titre": "Exemples concrets",
+      "type": "appui",
+      "t": 4.8,
+      "observation": "Vous citez un élément précis : « Euh, pendant 12 ans, j'ai travaillé comme vendeuse en boulangerie, dans mon quartier ».",
+      "conseil": "Les exemples datés ou chiffrés rendent une réponse plus facile à retenir pour un recruteur."
+    },
+    {
+      "id": "pauses",
+      "titre": "Pauses",
+      "type": "appui",
+      "t": 27.9,
+      "observation": "3 pauses de plus de 2 secondes, la plus longue à 0:28 (3 s).",
+      "conseil": "Quelques pauses donnent du rythme et laissent le temps de réfléchir. Vous pouvez les garder."
+    },
+    {
+      "id": "petits-mots",
+      "titre": "Petits mots répétés",
+      "type": "explorer",
+      "t": 0,
+      "observation": "10 petits mots répétés : « euh » (6), « en fait » (2), « du coup » (1).",
+      "conseil": "C'est très courant à l'oral. Au prochain essai, vous pouvez marquer un court silence à la place, surtout en début de phrase."
+    },
+    {
+      "id": "regard",
+      "titre": "Direction du regard",
+      "type": "explorer",
+      "t": 31,
+      "observation": "Regard orienté vers l'écran environ 54 % du temps, vers le bas 30 %, sur le côté 14 %, visage hors champ 2 %.",
+      "conseil": "Regarder ailleurs pour réfléchir est naturel. Selon le poste visé, vous pouvez choisir de revenir vers la caméra en fin de phrase."
+    },
+    {
+      "id": "structure",
+      "titre": "Construction de la réponse",
+      "type": "explorer",
+      "t": 57.6,
+      "observation": "10 phrases, 11 mots en moyenne par phrase, sans phrase de conclusion repérée.",
+      "conseil": "Selon le poste, terminer par une phrase de synthèse (« c'est pour cela que ce poste me correspond ») aide à clore la réponse."
+    }
+  ]
+}

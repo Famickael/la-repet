@@ -1,0 +1,222 @@
+{
+  "cas": "2-preparateur-commandes",
+  "avertissement": "Personne fictive. Texte écrit pour l'essai, au format des segments horodatés produits par Whisper. Aucune personne réelle n'a été enregistrée.",
+  "filtre": {
+    "textesVerifies": 19,
+    "textesRefuses": [],
+    "textesRemplacesParLeTexteLocal": 0,
+    "analyseFinaleConforme": true,
+    "horsLimiteDeLongueur": []
+  },
+  "verdicts": [
+    {
+      "champ": "synthese",
+      "accepte": true,
+      "caracteres": 247,
+      "limiteDemandee": 400,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.titre",
+      "accepte": true,
+      "caracteres": 16,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.observation",
+      "accepte": true,
+      "caracteres": 62,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.conseil",
+      "accepte": true,
+      "caracteres": 102,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "petits-mots.titre",
+      "accepte": true,
+      "caracteres": 19,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "petits-mots.observation",
+      "accepte": true,
+      "caracteres": 71,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "petits-mots.conseil",
+      "accepte": true,
+      "caracteres": 87,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.titre",
+      "accepte": true,
+      "caracteres": 17,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.observation",
+      "accepte": true,
+      "caracteres": 115,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.conseil",
+      "accepte": true,
+      "caracteres": 243,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "duree.titre",
+      "accepte": true,
+      "caracteres": 5,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "duree.observation",
+      "accepte": true,
+      "caracteres": 39,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "duree.conseil",
+      "accepte": true,
+      "caracteres": 199,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "structure.titre",
+      "accepte": true,
+      "caracteres": 26,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "structure.observation",
+      "accepte": true,
+      "caracteres": 97,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "structure.conseil",
+      "accepte": true,
+      "caracteres": 208,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.titre",
+      "accepte": true,
+      "caracteres": 17,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.observation",
+      "accepte": true,
+      "caracteres": 160,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.conseil",
+      "accepte": true,
+      "caracteres": 194,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    }
+  ],
+  "analyseAffichee": {
+    "synthese": "Vos points d'appui : vous répondez tout de suite à la question, avec des phrases courtes et faciles à suivre. Une piste pour le prochain essai : développer votre entretien, qui dure 0:18, avec une situation vécue qui montre que vous êtes ponctuel.",
+    "dimensions": [
+      {
+        "id": "debit",
+        "type": "appui",
+        "t": 0,
+        "titre": "Rythme de parole",
+        "observation": "Vous parlez à environ 163 mots par minute, sur 0:18 de parole.",
+        "conseil": "Ce rythme reste facile à suivre pour un recruteur. Vous pouvez le garder, même en ajoutant un exemple."
+      },
+      {
+        "id": "petits-mots",
+        "type": "appui",
+        "t": 0,
+        "titre": "Petits mots répétés",
+        "observation": "2 petits mots répétés : « ben » (1) au début et « voilà » (1) à la fin.",
+        "conseil": "Ils restent discrets et vos phrases se suivent facilement. Vous pouvez continuer ainsi."
+      },
+      {
+        "id": "contenu",
+        "type": "explorer",
+        "t": 0,
+        "titre": "Ce que vous dites",
+        "observation": "Vos raisons parlent surtout de votre situation : chercher du travail, un secteur qui recrute, un entrepôt près de chez vous. Le métier lui-même est peu présent.",
+        "conseil": "Vous pouvez ajouter ce qui vous intéresse dans le travail de préparateur de commandes : préparer une commande sans oubli, tenir un rythme, travailler en équipe. Une phrase suffit pour commencer."
+      },
+      {
+        "id": "exemples",
+        "type": "explorer",
+        "t": 10,
+        "titre": "Exemples concrets",
+        "observation": "Vous vous présentez comme « quelqu'un de sérieux, de ponctuel », sans situation datée ou chiffrée pour l'illustrer.",
+        "conseil": "Vous pouvez raconter une situation vécue en trois temps : où et quand, ce que vous avez fait, ce que cela a donné. Par exemple, à adapter à votre parcours : « Pendant mon stage de deux mois, j'ai commencé chaque jour à 6 heures, sans retard. »"
+      },
+      {
+        "id": "duree",
+        "type": "explorer",
+        "t": 15.4,
+        "titre": "Durée",
+        "observation": "Vous parlez pendant 0:18, en 5 phrases.",
+        "conseil": "En entretien, une réponse à cette question dure souvent entre 1 et 2 minutes. Vous pouvez garder vos trois idées (le secteur, vos habitudes de travail, la distance) et donner un exemple pour chacune."
+      },
+      {
+        "id": "structure",
+        "type": "explorer",
+        "t": 15.4,
+        "titre": "Construction de la réponse",
+        "observation": "Votre entretien se termine par « je veux vraiment travailler. Voilà », sans phrase de conclusion.",
+        "conseil": "Vous pouvez finir par une phrase qui relie vos raisons au poste, par exemple : « C'est pour ça que le poste de préparateur de commandes me correspond : un travail actif, avec des horaires que je peux tenir. »"
+      }
+    ],
+    "metrics": {
+      "wordCount": 48,
+      "duration": 21,
+      "speakingTime": 18,
+      "wpm": 163,
+      "fillers": {
+        "ben": 1,
+        "voilà": 1
+      },
+      "fillerTotal": 2,
+      "firstFillerAt": 0,
+      "pauses": [],
+      "sentences": 5,
+      "avgSentence": 10,
+      "repeated": [],
+      "concreteAt": null,
+      "concreteText": null,
+      "hasClosing": false,
+      "closingAt": 15.4,
+      "loops": 0,
+      "loopWords": 0
+    },
+    "source": "llm"
+  }
+}

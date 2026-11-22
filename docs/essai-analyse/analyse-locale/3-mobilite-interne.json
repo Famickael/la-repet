@@ -1,0 +1,73 @@
+{
+  "metrics": {
+    "wordCount": 185,
+    "duration": 86,
+    "speakingTime": 77,
+    "wpm": 145,
+    "fillers": {},
+    "fillerTotal": 0,
+    "firstFillerAt": null,
+    "pauses": [
+      {
+        "t": 35.5,
+        "d": 2.3
+      },
+      {
+        "t": 56,
+        "d": 2.2
+      }
+    ],
+    "sentences": 11,
+    "avgSentence": 17,
+    "repeated": [],
+    "concreteAt": 7.5,
+    "concreteText": "D'abord, je travaille au service clients depuis 6 ans. Je connais les outils, les procédures et la plupart des situations que rencontrent les conseillers",
+    "hasClosing": true,
+    "closingAt": 75.6,
+    "loops": 0,
+    "loopWords": 0
+  },
+  "synthese": "Vos points d'appui : rythme de parole, exemples concrets, pauses, direction du regard, construction de la réponse. Vous pouvez garder cette façon de faire pour votre prochain essai.",
+  "dimensions": [
+    {
+      "id": "debit",
+      "titre": "Rythme de parole",
+      "type": "appui",
+      "t": 0,
+      "observation": "Environ 145 mots par minute sur 1:17 de parole.",
+      "conseil": "Ce rythme laisse à l'interlocuteur le temps de suivre. Vous pouvez le garder."
+    },
+    {
+      "id": "exemples",
+      "titre": "Exemples concrets",
+      "type": "appui",
+      "t": 7.5,
+      "observation": "Vous citez un élément précis : « D'abord, je travaille au service clients depuis 6 ans. Je connais les outils, les procédur… ».",
+      "conseil": "Les exemples datés ou chiffrés rendent une réponse plus facile à retenir pour un recruteur."
+    },
+    {
+      "id": "pauses",
+      "titre": "Pauses",
+      "type": "appui",
+      "t": 35.5,
+      "observation": "2 pauses de plus de 2 secondes, la plus longue à 0:36 (2 s).",
+      "conseil": "Quelques pauses donnent du rythme et laissent le temps de réfléchir. Vous pouvez les garder."
+    },
+    {
+      "id": "regard",
+      "titre": "Direction du regard",
+      "type": "appui",
+      "t": 41,
+      "observation": "Regard orienté vers l'écran environ 82 % du temps, vers le bas 10 %, sur le côté 8 %.",
+      "conseil": "Le regard est majoritairement tourné vers l'interlocuteur. En visioconférence, regarder la caméra plutôt que l'écran renforce encore ce repère."
+    },
+    {
+      "id": "structure",
+      "titre": "Construction de la réponse",
+      "type": "appui",
+      "t": 75.6,
+      "observation": "11 phrases, 17 mots en moyenne par phrase, avec une phrase de conclusion.",
+      "conseil": "La réponse se termine par une idée de synthèse, ce qui facilite la relance du recruteur."
+    }
+  ]
+}

@@ -185,6 +185,10 @@ export const GStyle = () => (
     /* Rythme : après l'en-tête de page, une section sur deux sur une bande teintée pleine largeur (jamais la première) */
     .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){margin-top:${GAP.section}px;padding-top:64px!important;padding-bottom:64px;background:${T.band};box-shadow:0 0 0 100vmax ${T.band};clip-path:inset(0 -100vmax)}
     @media (max-width:760px){ .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){margin-top:48px;padding-top:40px!important;padding-bottom:40px} }
+    /* Héros de l'accueil sur mobile (charte v4) : trois pastilles sur une ligne, bouton d'action sur une ligne, titre sur
+       deux lignes plus la fin d'accroche ; l'action reste dans la première vue (390 × 844 et 360 × 740) */
+    @media (max-width:760px){ .rs-hero-tags{gap:4px!important} .rs-hero-tags>span{padding:2px 8px!important} .rs-hero-cta .rp-btn{width:100%!important;padding-left:16px!important;padding-right:16px!important} }
+    @media (max-width:380px){ h1.ty-display{font-size:calc(32px * var(--fs))!important} .rs-hero-tags svg{display:none} .rs-hero-cta .rp-btn{font-size:calc(14px * var(--fs))!important} }
     @media print{ .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){background:none;box-shadow:none;clip-path:none} .rs-phero-mark{display:none} }
     /* Accordéon */
     .rs-acc{border-bottom:1px solid ${T.line}}

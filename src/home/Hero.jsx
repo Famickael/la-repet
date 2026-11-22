@@ -15,7 +15,7 @@ export function Hero({ openSpace }) {
       <div className="rs-pad" style={{ position: "relative", maxWidth: W.page, margin: "0 auto", padding: "80px 24px" }}>
         <div className="rs-hero">
           <div className="up" style={{ display: "grid", gap: 24, justifyItems: "start" }}>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <div className="rs-hero-tags" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {/* Vert du rôle « coach et accompagnement » (ton coach, même vert que GRAD_COACH) et violet de l'assistant (docs/design-system.md, 1.1 et 5.4) */}
               <Tag tone="coach" icon={I.users}>Avec votre coach</Tag>
               <Tag tone="ai" icon={I.sparkle}>Assisté par IA</Tag>
@@ -35,7 +35,7 @@ export function Hero({ openSpace }) {
             <p className="ty-lead" style={{ ...TY.lead, color: T.body, maxWidth: 520, margin: 0 }}>
               À voix haute, sans avatar, entraînez-vous autant de fois que vous voulez ! Un assistant IA <strong style={{ color: T.navy }}>décrit votre réponse, sans la noter</strong>, et vous propose des pistes : rythme, pauses, exemples concrets. Vous recommencez, vous voyez ce qui a changé, et votre coach vous soutient à chaque étape.
             </p>
-            <div className="rp-wide-m" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <div className="rp-wide-m rs-hero-cta" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {/* Connecté : l'espace de la personne (ou l'espace coach), jamais la page de connexion (src/app/router.js, spaceHash) */}
               <Btn kind="objective" size="lg" onClick={() => openSpace("benef")} iconRight={I.arrow}>Je lance mon premier entraînement</Btn>
             </div>

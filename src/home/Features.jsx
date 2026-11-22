@@ -57,7 +57,7 @@ export function Features() {
             {Array.from({ length: 22 }, (_, i) => <i key={i} style={{ animationDelay: `${(i * 137) % 900}ms`, height: `${30 + ((i * 53) % 60)}%` }} />)}
           </div>
         </FCard>
-        <FCard i={3} title="Votre réponse mise par écrit" text="Votre réponse est mise par écrit sur votre appareil. Les passages utiles sont repérés, sans jugement.">
+        <FCard i={3} title="Votre entretien mis par écrit" text="Votre entretien est mis par écrit sur votre appareil. Les passages utiles sont repérés, sans jugement.">
           <p style={{ ...TY.small, color: T.navy, margin: 0 }}>
             Bonjour, je m'appelle Sami. <span className="rs-fhl h2" style={{ backgroundImage: HL.ai }}>Euh</span>, j'ai <span className="rs-fhl" style={{ backgroundImage: HL.appui }}>géré la caisse d'une supérette pendant trois ans</span>.
           </p>
@@ -89,8 +89,8 @@ export function Features() {
 /* ─── Ce que La Répét' ne fait pas ─── */
 export function NotDo() {
   const items = [
-    ["7/10", I.ban, "Aucune note", "Ni score, ni classement. L'assistant décrit, vous décidez quoi en faire."],
-    ["humeur", I.shield, "Aucune émotion devinée", "L'assistant ne cherche pas à deviner votre humeur ni votre personnalité. Il décrit ce qui se voit et ce qui s'entend."],
+    ["7/10", I.ban, "Aucune note", "Ni score, ni classement. L'assistant analyse, vous décidez quoi en faire."],
+    ["humeur", I.shield, "Aucune émotion devinée", "L'assistant ne cherche pas à deviner votre humeur ni votre personnalité. Il analyse ce qui se voit et ce qui s'entend."],
     ["envoi auto", I.lock, "Aucun envoi sans votre accord", "Votre coach voit seulement ce que vous lui envoyez. Vous pouvez tout supprimer, à tout moment."],
     ["employeur", I.building, "Rien pour votre employeur ni pour votre financeur", "Votre employeur, ou l'organisme qui finance votre accompagnement, ne voit ni vos vidéos ni vos retours. Il reçoit seulement un bilan d'ensemble, sans information sur vous."],
   ];
@@ -120,7 +120,7 @@ export function NotDo() {
 export function ForWho({ go, openSpace }) {
   const doors = [
     { bg: GRAD_DOOR_BLUE, t: "Vous avez un code d'accès", d: "Votre coach vous a donné un code d'accès de 6\u00a0caractères. Il ouvre votre espace.", cta: "Ouvrir mon espace", href: () => spaceHash("benef"), on: () => openSpace("benef") },
-    { bg: GRAD_DOOR_GREEN, t: "Vous êtes coach", d: "Créez un parcours et transmettez le code d'accès. Relisez les réponses que l'on vous envoie. Préparez vos débriefings.", cta: "Me connecter à l'espace coach", href: () => spaceHash("coach"), on: () => openSpace("coach") },
+    { bg: GRAD_DOOR_GREEN, t: "Vous êtes coach", d: "Créez un parcours et transmettez le code d'accès. Relisez les entretiens que l'on vous envoie. Préparez vos débriefings.", cta: "Me connecter à l'espace coach", href: () => spaceHash("coach"), on: () => openSpace("coach") },
     { bg: GRAD_DOOR_VIOLET, t: "Vous portez un projet d'accompagnement", d: "Acteur public de l'emploi ou entreprise\u00a0: confiez-nous l'accompagnement de demandeurs d'emploi ou de collaborateurs en mobilité.", cta: "Parler de votre projet", href: () => "#/demo", on: () => go("#/demo") },
   ];
   return (
@@ -151,7 +151,7 @@ export const REASSURE = [
   [I.gift, "Sans frais pour vous", "Compris dans votre accompagnement."],
   [I.zap, "Démarrage rapide", "Pas de compte\u00a0: vous entrez avec votre code."],
   [I.shield, "Sécurisé", "Votre vidéo reste sur votre appareil."],
-  [I.eyeOff, "Confidentiel", "Votre employeur ne voit pas vos réponses."],
+  [I.eyeOff, "Confidentiel", "Votre employeur ne voit pas vos entretiens."],
 ];
 export function Reassurance() {
   return (

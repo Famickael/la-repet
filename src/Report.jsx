@@ -71,8 +71,8 @@ export function Player({ take, url, status = url ? "ready" : "missing", markers,
       <div style={{ background: T.videoBg, aspectRatio: audio ? "auto" : "16/9", display: "grid", placeItems: "center", padding: audio ? 24 : 0 }}>
         {url
           ? (audio
-            ? <audio ref={ref} src={url} controls aria-label="Enregistrement de la réponse" style={{ width: "90%" }} />
-            : <video ref={ref} src={url} controls playsInline aria-label="Vidéo de la réponse" style={{ width: "100%", height: "100%", objectFit: "contain" }} />)
+            ? <audio ref={ref} src={url} controls aria-label="Enregistrement de l'entretien" style={{ width: "90%" }} />
+            : <video ref={ref} src={url} controls playsInline aria-label="Vidéo de l'entretien" style={{ width: "100%", height: "100%", objectFit: "contain" }} />)
           : status === "loading" ? <div role="status" style={{ ...TY.small, color: ON.text, padding: 32 }}>Chargement de votre enregistrement…</div>
           : <div style={{ ...TY.small, color: ON.text, padding: 32 }}>{audio ? "Enregistrement non disponible sur cet appareil." : "Vidéo non disponible sur cet appareil."}</div>}
       </div>
@@ -146,7 +146,7 @@ export function Transcript({ take, onSeek }) {
   if (!take.transcript || !take.segments?.length) return null;
   return (
     <details>
-      <summary style={{ ...TY.label, color: T.primary, cursor: "pointer", minHeight: 44, display: "flex", alignItems: "center" }}>Afficher le texte de la réponse</summary>
+      <summary style={{ ...TY.label, color: T.primary, cursor: "pointer", minHeight: 44, display: "flex", alignItems: "center" }}>Afficher le texte de l'entretien</summary>
       <Card style={{ marginTop: 8, display: "grid", gap: 4 }}>
         <p style={{ ...TY.caption, color: T.muted, margin: "0 0 4px" }}>Ce texte est écrit par un programme, il peut contenir des erreurs.</p>
         {take.segments.map((sg, i) => {
@@ -172,7 +172,7 @@ export function ReportBody({ take, mode, counselorName }) {
   const intro = rep && (
     <Quote size="lg" icon={I.chat}>
       <div style={{ ...TY.label, color: T.primary, marginBottom: 4 }}>Le message de {counselorName || "votre coach"} · votre coach</div>
-      <div style={{ whiteSpace: "pre-wrap" }}>{rep.intro || "Votre coach a regardé votre réponse."}</div>
+      <div style={{ whiteSpace: "pre-wrap" }}>{rep.intro || "Votre coach a regardé votre entretien."}</div>
     </Quote>
   );
   const notes = rep?.notes?.length > 0 && (

@@ -36,7 +36,7 @@ export function List({ s, open, create }) {
           <Stat n={benefWithTakes >= MIN_AGG ? `${Math.round((retrain / benefWithTakes) * 100)}\u00a0%` : <span style={{ ...TY.h4, color: T.muted }}>Pas assez de parcours pour un chiffre</span>} l="Personnes qui se réentraînent" />
         </div>
         <Txt v="caption" color={T.muted}>
-          Ces chiffres portent sur l'ensemble de vos parcours. Aucun ne mesure une personne : le pourcentage s'affiche à partir de {MIN_AGG} parcours avec au moins une réponse.{avgDelay != null && ` Votre délai moyen de relecture, pour vous seul : ${avgDelay} h.`}
+          Ces chiffres portent sur l'ensemble de vos parcours. Aucun ne mesure une personne : le pourcentage s'affiche à partir de {MIN_AGG} parcours avec au moins un entretien.{avgDelay != null && ` Votre délai moyen de relecture, pour vous seul : ${avgDelay} h.`}
         </Txt>
       </div>
       {rows.length === 0 ? (

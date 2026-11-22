@@ -11,13 +11,13 @@ featured: false
 order: 24
 ---
 
-Après un entraînement avec le retour de l’assistant activé, La Répét’ vous propose de découvrir des repères sur votre réponse. Vous pouvez les lire ou les retrouver pendant la relecture de l’enregistrement. Choisissez un point d’appui à garder pour votre prochain essai et, si vous le souhaitez, une piste à essayer.
+Après un entraînement avec le retour de l’assistant activé, La Répét’ vous propose de découvrir des repères sur votre entretien. Vous pouvez les lire ou les retrouver pendant la relecture de l’enregistrement. Choisissez un point d’appui à garder pour votre prochain essai et, si vous le souhaitez, une piste à essayer.
 
 ## Choisir comment découvrir le retour
 
 Lorsque l’écran « Comment voulez-vous voir votre retour ? » apparaît, choisissez « Lire mon retour » si vous souhaitez commencer par le texte. Si vous avez enregistré une vidéo et qu’elle est disponible, choisissez « Me revoir en vidéo » pour ouvrir le lecteur avec les repères. Après une réponse en voix seule, « Me réécouter » vous permet de retrouver votre enregistrement lorsqu’il est disponible. Dans l’écran de retour, vous pouvez changer de mode avec le bouton proposé.
 
-Le retour écrit vous permet d’avancer à votre rythme. Vous pouvez parcourir les repères et revenir sur un passage lorsque vous le souhaitez. La relecture vous aide à retrouver un moment à partir d’un repère. Si vous avez choisi de faire l’entraînement sans retour de l’assistant, vous pouvez consulter votre réponse sans les repères de l’assistant.
+Le retour écrit vous permet d’avancer à votre rythme. Vous pouvez parcourir les repères et revenir sur un passage lorsque vous le souhaitez. La relecture vous aide à retrouver un moment à partir d’un repère. Si vous avez choisi de faire l’entraînement sans retour de l’assistant, vous pouvez consulter votre entretien sans les repères de l’assistant.
 
 > [!conseil] Commencer par un seul repère
 > Choisissez un repère lié à la question à laquelle vous venez de répondre. Relisez la question ou rappelez-vous ce que vous vouliez expliquer, puis regardez ce que le repère décrit.
@@ -52,7 +52,7 @@ Si un repère ne correspond pas à ce que vous entendez, gardez votre propre lec
 
 ## Choisir ce que vous faites ensuite
 
-Vous pouvez garder ce retour dans votre espace et reprendre l’entraînement quand vous le souhaitez. Si vous voulez envoyer cette réponse, le bouton « Envoyer à mon coach » ouvre l’étape d’envoi. Vous pouvez préciser le passage ou la question sur laquelle vous souhaitez un avis, par exemple votre manière d’expliquer une consigne.
+Vous pouvez garder ce retour dans votre espace et reprendre l’entraînement quand vous le souhaitez. Si vous voulez envoyer cet entretien, le bouton « Envoyer à mon coach » ouvre l’étape d’envoi. Vous pouvez préciser le passage ou la question sur laquelle vous souhaitez un avis, par exemple votre manière d’expliquer une consigne.
 
 > [!a-retenir] Pour votre prochain entraînement
 > Gardez un détail qui aide à comprendre votre réponse, choisissez une piste concrète et essayez-la une fois. Revenez au texte ou à l’enregistrement selon ce qui vous aide à retrouver le passage.

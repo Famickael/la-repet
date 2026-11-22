@@ -24,7 +24,7 @@ Définissez chaque indicateur avant de le collecter. Précisez la période obser
 
 ## Définir les limites de ce qui remonte
 
-Dans La Répét’, le bilan du commanditaire porte sur le fonctionnement d’ensemble. Les enregistrements, les textes des réponses et les remarques du coach servent à l’accompagnement. Ils restent dans le cadre de cet accompagnement. Écartez du bilan les informations qui identifient une réponse ou retracent l’activité d’une personne. Les retours de l’assistant et les remarques des coachs ne servent pas à mesurer une performance individuelle, à établir un classement ou à prendre une décision de recrutement.
+Dans La Répét’, le bilan du commanditaire porte sur le fonctionnement d’ensemble. Les enregistrements, les textes des entretiens et les remarques du coach servent à l’accompagnement. Ils restent dans le cadre de cet accompagnement. Écartez du bilan les informations qui identifient un entretien ou retracent l’activité d’une personne. Les retours de l’assistant et les remarques des coachs ne servent pas à mesurer une performance individuelle, à établir un classement ou à prendre une décision de recrutement.
 
 Si votre méthode de production du bilan nécessite un traitement de données personnelles, demandez à la personne chargée de la protection des données de vérifier la finalité, le périmètre et la durée de conservation. Le [RGPD, article 5, paragraphe 1, points b, c et e](https://eur-lex.europa.eu/eli/reg/2016/679/oj?locale=fr) encadre notamment la finalité, la minimisation et la conservation des données personnelles. Examinez d’abord si un relevé organisé directement au niveau du groupe suffit à répondre à la question.
 

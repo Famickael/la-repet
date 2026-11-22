@@ -26,9 +26,9 @@ export function Recap({ p, ctx, s, go }) {
                 <div style={{ flex: 1, minWidth: 200, ...stack(4) }}>
                   <div style={{ ...TY.overline, color: T.primary }}>{steps[i]}</div>
                   <div style={{ ...TY.h4, color: T.navy }}>{q}</div>
-                  <div style={{ ...TY.caption, color: T.muted }}>{t ? `${dur(t.duration)} · ${t.shared ? "envoyée à votre coach" : "gardée sur cet appareil"}` : "Pas de réponse enregistrée"}</div>
+                  <div style={{ ...TY.caption, color: T.muted }}>{t ? `${dur(t.duration)} · ${t.shared ? "envoyé à votre coach" : "gardé sur cet appareil"}` : "Pas de réponse enregistrée"}</div>
                 </div>
-                {t && <Btn kind="secondary" size="sm" onClick={() => { const [v, mode] = openView(t); go(v, { takeId: t.id, mode, from: "recap" }); }}>{noFeedback(t) ? "Ouvrir ma réponse" : "Ouvrir mon retour"}</Btn>}
+                {t && <Btn kind="secondary" size="sm" onClick={() => { const [v, mode] = openView(t); go(v, { takeId: t.id, mode, from: "recap" }); }}>{noFeedback(t) ? "Ouvrir l'entretien" : "Ouvrir mon retour"}</Btn>}
               </Card>
             </li>
           );

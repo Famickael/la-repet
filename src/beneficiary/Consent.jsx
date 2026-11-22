@@ -20,7 +20,7 @@ export function Consent({ p, onBack }) {
       <div className="rp-pad-lg" style={{ padding: PAD.lg, ...stack(GAP.grid) }}>
         <Summary items={SUMMARY.accord} />
         <div style={stack(GAP.stack)}>
-          {box("local", "Je veux m'enregistrer sur cet appareil.", "Ma vidéo et ma voix restent sur cet appareil. Mon coach les voit seulement si je les lui envoie, réponse par réponse.", true)}
+          {box("local", "Je veux m'enregistrer sur cet appareil.", "Ma vidéo et ma voix restent sur cet appareil. Mon coach les voit seulement si je les lui envoie, entretien par entretien.", true)}
           {box("ai", "Je veux recevoir un retour de l'assistant.", PHRASES.consentAi)}
         </div>
         <div style={stack(8)}>

@@ -206,7 +206,7 @@ export function localAnalysis({ segments, duration, gaze }) {
   const appuis = dims.filter(d => d.type === "appui").map(d => d.titre.toLowerCase());
   const synthese = appuis.length
     ? `Vos points d'appui : ${appuis.join(", ")}. Les autres repères sont des pistes, à explorer si vous le souhaitez.`
-    : "Les repères ci-dessous décrivent votre réponse. Ce sont des pistes, à explorer si vous le souhaitez.";
+    : "Les repères ci-dessous portent sur votre entretien. Ce sont des pistes, à explorer si vous le souhaitez.";
 
   return { metrics: m, synthese, dimensions: dims };
 }

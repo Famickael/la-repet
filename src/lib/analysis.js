@@ -196,8 +196,8 @@ export function localAnalysis({ segments, duration, gaze }) {
     dims.push({
       id: "transcription", titre: "Texte de la réponse", type: "explorer", t: 0,
       observation: m.loopWords
-        ? `Une phrase revenait plusieurs fois de suite dans le texte, sans doute une erreur de l'outil d'écriture : ${m.loopWords} mots répétés ont été retirés avant de préparer ce retour.`
-        : "Une syllabe revenait plusieurs fois de suite dans un mot, sans doute une erreur de l'outil d'écriture : elle a été retirée avant de préparer ce retour.",
+        ? `Une phrase revenait plusieurs fois de suite dans le texte, sans doute une erreur de la mise par écrit : ${m.loopWords} mots répétés ont été retirés avant de préparer ce retour.`
+        : "Une syllabe revenait plusieurs fois de suite dans un mot, sans doute une erreur de la mise par écrit : elle a été retirée avant de préparer ce retour.",
       conseil: "Si le texte ne correspond pas à ce que vous avez dit, vous pouvez recommencer, plus près du micro et dans un endroit sans bruit.",
     });
   }

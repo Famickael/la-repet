@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import { themeCSS } from "./tokens.js";
 import { loadA11y, applyA11y } from "./lib/a11y.js";
-import { T, TY, W, Txt, Btn } from "./ui.jsx";
+import { T, TY, W, Txt, Btn, PAD, GAP } from "./ui.jsx";
 
 /* Thème et options d'accessibilité appliqués avant le premier rendu : pas de flash. */
 const themeStyle = document.createElement("style");
@@ -25,7 +25,7 @@ class ErrorBoundary extends React.Component {
     if (!this.state.error) return this.props.children;
     const home = () => { location.hash = ""; location.reload(); };
     return (
-      <div style={{ maxWidth: W.form, margin: "80px auto", padding: "0 24px", display: "grid", gap: 16, justifyItems: "start", color: T.navy }}>
+      <div style={{ maxWidth: W.form, margin: `${GAP.section}px auto`, padding: PAD.wrap, display: "grid", gap: 16, justifyItems: "start", color: T.navy }}>
         <Txt v="h1" as="h1" color={T.navy}>Un problème d'affichage est survenu</Txt>
         <Txt v="bodyLg" color={T.body}>Vos données restent enregistrées sur cet appareil. Vous pouvez revenir à l'accueil et réessayer.</Txt>
         <Btn kind="primary" onClick={home}>Revenir à l'accueil</Btn>

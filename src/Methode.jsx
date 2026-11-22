@@ -1,5 +1,5 @@
 import React from "react";
-import { T, RAD, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Notice, Tag, Link } from "./ui.jsx";
+import { T, RAD, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Notice, Tag, Link, PAD } from "./ui.jsx";
 import { Reveal, stagger } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
@@ -12,7 +12,7 @@ import { FinalBand } from "./home/FinalBand.jsx";
 
 const LOOP = [
   { ic: I.mic, who: "La personne", t: "S'entraîner",
-    what: "La personne répond seule, à voix haute et sans avatar, aux questions choisies avec son coach. Elle recommence autant de fois qu'elle le souhaite, entre deux rendez-vous.",
+    what: "La personne répond seule, à voix haute et sans avatar, aux questions choisies avec son coach. Elle recommence autant de fois qu'elle veut, entre deux rendez-vous.",
     why: "Dire sa réponse n'est pas la même activité que la penser. S'entraîner rend les exemples disponibles le jour de l'entretien. Les travaux sur la pratique délibérée le précisent : on progresse quand chaque essai vise un point précis, puis reçoit un retour." },
   { ic: I.video, who: "La personne", t: "Se revoir",
     what: "La personne revoit sa vidéo ou relit sa réponse mise par écrit, avant de décider si elle la garde.",
@@ -71,7 +71,7 @@ export default function Methode({ go }) {
         <p style={{ ...TY.body, color: T.body, margin: 0 }}>La méthode d'accompagnement de l'organisme, en sept étapes : <Link href="#/a-propos">À propos</Link>. Ce que fait l'assistant : <Link href="#/solutions/usage-de-l-ia">usage de l'IA</Link>.</p>
       </PageHero>
 
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         <Section first eyebrow="L'articulation" title="Cinq temps qui s'enchaînent" sub="Pour chaque temps : ce qui se passe, et ce qu'il apporte à l'apprentissage.">
           <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: GAP.grid }}>
             {LOOP.map((s, i) => (
@@ -110,7 +110,7 @@ export default function Methode({ go }) {
               <Reveal delay={210}><p style={{ margin: 0 }}>Le retour ne cherche jamais à interpréter l'état intérieur de la personne. Il décrit ce qui se voit et s'entend, et rien d'autre.</p></Reveal>
             </div>
             <Reveal delay={70}>
-              <div style={{ background: T.primaryBg, borderRadius: RAD.lg, padding: 24, display: "grid", gap: 16 }}>
+              <div className="rp-pad-md" style={{ background: T.primaryBg, borderRadius: RAD.lg, padding: PAD.md, display: "grid", gap: 16 }}>
                 <h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>Les quatre niveaux de retour</h3>
                 <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 12 }}>
                   {LEVELS.map(([t, d], i) => (
@@ -164,7 +164,7 @@ export default function Methode({ go }) {
         </Section>
 
         <Section eyebrow="Sources" title="Pour aller plus loin">
-          <ul className="rp-sources" style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: 24, display: "grid", gap: 8, maxWidth: W.read }}>
+          <ul className="rp-sources" style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8, maxWidth: W.read }}>
             {SOURCES.map((s, i) => <Reveal as="li" key={s} delay={stagger(i, 4)}>{s}</Reveal>)}
           </ul>
           <Reveal><p style={{ ...TY.body, color: T.body, margin: 0, marginTop: GAP.grid, maxWidth: W.read }}>Ce que ces travaux établissent, et leurs limites : <Link href="#/solutions/recherche">recherche en accompagnement</Link>.</p></Reveal>

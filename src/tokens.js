@@ -167,16 +167,24 @@ export const TY = {
   /* Exceptions nommées : rendus validés (accueil) dont la taille reste dans SIZES */
   quote:    { font: `700 calc(20px * var(--fs, 1))/1.45 ${FD}` },                          // citation d'article, phrase qui se colore (mobile)
   pageTitle: { font: `800 calc(38px * var(--fs, 1))/1.1 ${FD}`, letterSpacing: "-.03em" }, // h1 des pages secondaires (PageHero)
+  proseH2:  { font: `800 calc(24px * var(--fs, 1))/1.25 ${FD}`, letterSpacing: "-.02em" }, // intertitre d'article (.rs-prose h2)
+  proseH3:  { font: `700 calc(18px * var(--fs, 1))/1.4 ${FD}` },                          // sous-intertitre d'article (.rs-prose h3)
   inherit:  { font: "inherit" },
 };
-export const TY_MOBILE = { display: 38, xl: 26, h1: 24, lead: 16 };   // appliqué par les classes .ty-* de GStyle
+export const TY_MOBILE = { display: 38, pageTitle: 28, xl: 24, h1: 24, lead: 16, quote: 18, proseH2: 20 };   // h1 de page > h2 de section, aussi sur mobile   // appliqué par les classes .ty-* de GStyle
 
 /* Espacement (section 3). */
 export const SPACE = [0, 2, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80];
 export const sp = n => n * 4;
-export const PAD = { sm: 16, md: 24, lg: 32, row: "16px 24px", notice: "12px 16px", page: "40px 24px 64px" };
-export const PAD_MOBILE = { sm: 16, md: 20, lg: 24, row: "16px 20px", page: "24px 16px 48px" };
-export const GAP = { section: 80, block: 32, grid: 24, stack: 12, field: 20, actions: 12 };
+/* x : gouttière latérale des pages (mobile 16, tablette xTablet, classes .rs-pad, .rp-pad, .rp-page) ; wrap : conteneur de page (W.page) ;
+   callout : encart (citation du coach en grand, encadré d'article, consigne) ; list : retrait d'une liste à puces ou numérotée. */
+export const PAD = { sm: 16, md: 24, lg: 32, row: "16px 24px", notice: "12px 16px", callout: "16px 20px", page: "40px 24px 64px", x: 24, xTablet: 40, wrap: "0 24px", list: 24 };
+export const PAD_MOBILE = { sm: 16, md: 20, lg: 24, row: "16px 20px", page: "24px 16px 48px", x: 16 };
+/* Rythme vertical des pages (référentiel 3.2), le même partout : section entre deux sections éditoriales et en haut et
+   bas du héros ; band marge intérieure d'une section sur bande teintée et de l'en-tête de page (PageHero) ; head du haut
+   d'une page sans en-tête teinté (article, Nous contacter, pages légales) ou de l'en-tête de page à la première section. */
+export const GAP = { section: 80, band: 64, head: 48, block: 32, grid: 24, stack: 12, field: 20, actions: 12 };
+export const GAP_MOBILE = { section: 48, band: 40, head: 32, grid: 16 };
 export const W = { page: 1200, wide: 1120, read: 760, form: 600, narrow: 440 };
 export const HEADER_H = 64, HEADER_H_M = 56;
 

@@ -34,7 +34,7 @@ function Blocks({ blocks }) {
     <Reveal as="section" key={i} style={{ display: "grid", gap: 12 }}>
       {b.h && <h2 style={{ ...TY.h2, color: T.navy, margin: 0 }}>{b.h}</h2>}
       {(b.p || []).map((p, k) => <p key={k} style={{ ...TY.bodyLg, color: T.body, margin: 0, maxWidth: "70ch" }}><Rich text={p} /></p>)}
-      {b.list && <ul style={{ ...TY.bodyLg, color: T.body, margin: 0, paddingLeft: 24, display: "grid", gap: 8 }}>{b.list.map(l => <li key={l}><Rich text={l} /></li>)}</ul>}
+      {b.list && <ul style={{ ...TY.bodyLg, color: T.body, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8 }}>{b.list.map(l => <li key={l}><Rich text={l} /></li>)}</ul>}
       {b.table && (
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", ...TY.body, color: T.body }}>
@@ -67,7 +67,7 @@ export default function LegalPage({ page = "hub" }) {
       <PageHero eyebrow={inData ? "Vos données" : "Informations légales"} title={meta.title} lead={LEADS[page]}>
         <div className="noprint" style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center" }}><BackToSpace /></div>
       </PageHero>
-      <div className="rs-pad" style={{ maxWidth: W.read, margin: "0 auto", padding: "48px 24px 0", display: "grid", gap: GAP.block }}>
+      <div className="rs-pad" style={{ maxWidth: W.read, margin: "0 auto", padding: `${GAP.head}px ${PAD.x}px 0`, display: "grid", gap: GAP.block }}>
         {page === "hub" ? <Hub /> : (<>
           {SUMMARY[page] && (
             <Reveal><Card pad="lg" level={2} style={{ display: "grid", gap: 16 }}>
@@ -81,7 +81,7 @@ export default function LegalPage({ page = "hub" }) {
         <div className="noprint" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
           <Btn kind="ghost" size="sm" icon={I.print} onClick={() => window.print()}>Imprimer cette page</Btn>
         </div>
-        <nav aria-label="Autres pages d'information" className="noprint" style={{ borderTop: `1px solid ${T.line}`, paddingTop: 24, display: "flex", flexWrap: "wrap", gap: "8px 24px" }}>
+        <nav aria-label="Autres pages d'information" className="noprint" style={{ borderTop: `1px solid ${T.line}`, paddingTop: GAP.grid, display: "flex", flexWrap: "wrap", gap: `8px ${GAP.grid}px` }}>
           {RELATED.filter(k => k !== page).map(k => <Link key={k} href={PAGES[k].route} style={{ minHeight: 44, display: "inline-flex", alignItems: "center" }}>{PAGES[k].label}</Link>)}
         </nav>
       </div>
@@ -93,7 +93,7 @@ function Hub() {
   return (<>
     <div className="rs-g2">
       {HUB_CARDS.map(([ic, t, d, to], i) => (
-        <Reveal key={t} delay={stagger(i, 2)} style={{ display: "grid" }}><a href={PAGES[to].route} className="rs-card-btn" style={{ padding: PAD.md, display: "grid", gap: 12, textDecoration: "none", borderRadius: RAD.lg }}>
+        <Reveal key={t} delay={stagger(i, 2)} style={{ display: "grid" }}><a href={PAGES[to].route} className="rs-card-btn rp-pad-md" style={{ padding: PAD.md, display: "grid", gap: 12, textDecoration: "none", borderRadius: RAD.lg }}>
           <IconTile icon={I[ic]} />
           <span style={{ ...TY.h3, color: T.navy }}>{t}</span>
           <span style={{ ...TY.body, color: T.body }}>{d}</span>

@@ -1,5 +1,5 @@
 import React from "react";
-import { T, Btn, I, TY, W, Section, PageHero, IconTile } from "./ui.jsx";
+import { T, Btn, I, TY, W, Section, PageHero, IconTile, PAD } from "./ui.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { LinkCards, LinkChips } from "./LinkCards.jsx";
 import { Reveal, stagger } from "./motion.jsx";
@@ -26,7 +26,7 @@ export default function Solutions({ go }) {
         <LinkChips items={SOLUTIONS} label="Pages de Solutions" />
       </PageHero>
 
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         <Section first eyebrow="Quatre sujets" title="Comprendre la solution, sujet par sujet">
           <LinkCards cols={2} items={SOLUTIONS} />
         </Section>
@@ -36,7 +36,7 @@ export default function Solutions({ go }) {
             <Reveal style={{ display: "grid", gap: 16, ...TY.bodyLg, color: T.body }}>
               <p style={{ margin: 0 }}>Notre métier, c'est l'accompagnement. La Répét' nous appartient : c'est l'outil que nos coachs utilisent avec les personnes qu'ils accompagnent. Nous ne la vendons pas comme un logiciel.</p>
               <p style={{ margin: 0 }}>Des commanditaires nous confient l'accompagnement de leurs publics. Les acteurs publics de l'emploi et de l'insertion peuvent nous confier des demandeurs d'emploi. Les entreprises peuvent nous confier des collaborateurs qui préparent une mobilité, un entretien professionnel ou une reconversion.</p>
-              <p style={{ margin: 0 }}>Nos coachs mènent les rendez-vous et les ateliers. Entre deux séances, chaque personne s'entraîne seule avec La Répét', à son rythme.</p>
+              <p style={{ margin: 0 }}>Nos coachs mènent les rendez-vous et les ateliers. Entre deux rendez-vous, chaque personne s'entraîne seule avec La Répét', à son rythme.</p>
             </Reveal>
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 12 }}>
               {MODEL.map(([ic, t, d, h], i) => (

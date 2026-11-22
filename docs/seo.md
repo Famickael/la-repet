@@ -69,13 +69,13 @@ Format « Page · La Répét' », le mot utile en premier (un onglet tronqué ga
 | Route | Titre actuel | Titre proposé |
 |---|---|---|
 | `#/` | S'entraîner à ses entretiens · La Répét' | S'entraîner aux entretiens avec un coach · La Répét' |
-| `#/a-propos` | À propos | Qui sommes-nous · La Répét' |
+| `#/a-propos` | À propos | À propos · La Répét' |
 | `#/a-propos/faq` | À propos | Questions fréquentes · La Répét' |
 | `#/a-propos/ia-et-recherche` | L'IA et la recherche | IA et recherche : nos choix · La Répét' |
 | `#/solutions` | Solutions | Nos accompagnements · La Répét' |
 | `#/solutions/demandeurs-emploi` | Solutions | Demandeurs d'emploi · La Répét' |
 | `#/solutions/collaborateurs` | Solutions | Salariés en mobilité · La Répét' |
-| `#/solutions/coachs` | Solutions | Coachs et conseillers · La Répét' |
+| `#/solutions/coachs` | Solutions | Coachs · La Répét' |
 | `#/solutions/commanditaires` | Solutions | Commanditaires · La Répét' |
 | `#/ressources` | Ressources | Conseils pour l'entretien · La Répét' |
 | `#/ressources/c/...` | Ressources | « Catégorie » · Ressources · La Répét' (`seoCategory`) |
@@ -100,7 +100,7 @@ Format « Page · La Répét' », le mot utile en premier (un onglet tronqué ga
 | `#/solutions/recherche` (à venir) | | Ce que dit la recherche · La Répét' |
 | `#/solutions/fonctionnalites` (à venir) | | Fonctionnalités · La Répét' |
 | `#/cas-d-usage/beneficiaires` (à venir) | | Personnes accompagnées · La Répét' |
-| `#/cas-d-usage/coachs` (à venir) | | Coachs et conseillers · La Répét' |
+| `#/cas-d-usage/coachs` (à venir) | | Coachs · La Répét' |
 | `#/cas-d-usage/commanditaires` (à venir) | | Commanditaires publics et privés · La Répét' |
 | `#/ressources/faq` (à venir) | | Questions fréquentes · La Répét' |
 

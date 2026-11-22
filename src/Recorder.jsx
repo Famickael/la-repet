@@ -130,7 +130,8 @@ export default function Recorder({ onDone, onCancel, trackGaze = true, setModal,
     : phase === "done" ? "Enregistrement terminé. Vous pouvez l'écouter, recommencer ou continuer." : "";
   const mm = String(Math.floor(sec / 60)).padStart(2, "0"), ss = String(sec % 60).padStart(2, "0");
 
-  const pill = { position: "absolute", top: 12, display: "flex", alignItems: "center", gap: 8, height: 32, padding: "0 12px", borderRadius: RAD.pill, color: ON.text };
+  /* Pastilles du haut de l'aperçu : une rangée qui passe à la ligne sur petit écran (jamais l'une sur l'autre). */
+  const pill = { display: "flex", alignItems: "center", gap: 8, height: 32, padding: "0 12px", borderRadius: RAD.pill, color: ON.text };
   return (
     <div style={{ display: "grid", gap: 16 }}>
       <div role="status" className="rp-sr">{said}</div>
@@ -157,18 +158,20 @@ export default function Recorder({ onDone, onCancel, trackGaze = true, setModal,
           </div>
         )}
 
+        <div style={{ position: "absolute", top: 12, left: 12, right: 12, display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: 8, pointerEvents: "none" }}>
         {phase === "recording" && (
-          <div style={{ ...pill, left: 12, background: ON.scrim }}>
+          <div style={{ ...pill, background: ON.scrim }}>
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: T.error, animation: "blink 1.1s infinite" }} />
             <span style={{ ...TY.time, color: ON.text }}>{mm}:{ss}</span>
             <span style={{ ...TY.time, color: ON.text }}>/ 03:00</span>
           </div>
         )}
         {(phase === "live" || phase === "recording") && (
-          <div style={{ ...pill, right: 12, background: FIX.successDk, ...TY.tag }}>
+          <div style={{ ...pill, marginLeft: "auto", background: FIX.successDk, ...TY.tag }}>
             <Icon d={I.lock} s={12} /> Reste sur cet appareil
           </div>
         )}
+        </div>
       </div>
 
       {lowSpace && phase === "live" && (

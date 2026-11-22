@@ -15,7 +15,7 @@ Après l’entretien, vous savez peut-être quand vous aurez une réponse. Il ar
 
 ## Garder une trace pendant que l’échange est frais
 
-Notez le poste, la date du rendez-vous et le nom de la personne qui vous a reçu. Ajoutez ce que vous avez appris sur le travail, par exemple les horaires de démarrage, la façon dont l’équipe accueille une nouvelle personne ou les tâches qui occupent une journée habituelle. Vous pourrez ainsi reprendre un détail exact dans votre message ou retrouver les informations si vous êtes invité à un autre échange.
+Notez le poste, la date du rendez-vous et le nom de la personne qui vous a reçu. Ajoutez ce que vous avez appris sur le travail, par exemple les horaires de démarrage, la façon dont l’équipe accueille une nouvelle personne ou les tâches qui occupent une journée habituelle. Vous pourrez ainsi reprendre un détail exact dans votre message ou retrouver les informations si l’on vous propose un autre échange.
 
 Vérifiez aussi ce que chaque personne a dit qu’elle ferait. Si vous avez proposé d’envoyer une attestation ou des disponibilités, notez le document, le destinataire et le délai convenu. Séparez cette action de la date de réponse annoncée par le recruteur. Vous pouvez envoyer une pièce promise dès qu’elle est prête et attendre le délai convenu pour demander où en est la candidature.
 

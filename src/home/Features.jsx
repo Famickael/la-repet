@@ -1,5 +1,5 @@
 import React from "react";
-import { T, HL, RAD, SH, Tag, Card, I, Icon, TY, Section, IconTile } from "../ui.jsx";
+import { T, HL, RAD, SH, Tag, Card, I, Icon, TY, Section, IconTile, PAD, GAP } from "../ui.jsx";
 import { ON, GRAD_DOOR_BLUE, GRAD_DOOR_GREEN, GRAD_DOOR_VIOLET } from "../tokens.js";
 import { spaceHash } from "../app/router.js";
 import { useReducedMotion, useInView, Reveal, stagger } from "../motion.jsx";
@@ -45,7 +45,7 @@ export function Features() {
             ))}
           </div>
         </FCard>
-        <FCard i={2} title="Caméra ou micro seul" text="Répondez en vidéo, ou en voix seule si vous préférez. Trois minutes maximum par réponse.">
+        <FCard i={2} title="Caméra ou voix seule" text="Répondez en vidéo, ou en voix seule si vous préférez. 3 minutes au plus par réponse.">
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 8, background: T.surface, borderRadius: RAD.pill, padding: "4px 12px", boxShadow: SH.xs }}>
               <span style={{ width: 8, height: 8, borderRadius: "50%", background: T.error, animation: "blink 1.2s infinite" }} />
@@ -53,11 +53,11 @@ export function Features() {
             </span>
             <Tag tone="muted" icon={I.mic}>Voix seule</Tag>
           </div>
-          <div className="rs-wave" style={{ marginTop: 24, justifyContent: "center" }}>
+          <div className="rs-wave" style={{ marginTop: GAP.grid, justifyContent: "center" }}>
             {Array.from({ length: 22 }, (_, i) => <i key={i} style={{ animationDelay: `${(i * 137) % 900}ms`, height: `${30 + ((i * 53) % 60)}%` }} />)}
           </div>
         </FCard>
-        <FCard i={3} title="Une transcription repérée" text="Votre réponse est transcrite sur votre appareil. Les passages utiles sont repérés, sans jugement.">
+        <FCard i={3} title="Votre réponse mise par écrit" text="Votre réponse est mise par écrit sur votre appareil. Les passages utiles sont repérés, sans jugement.">
           <p style={{ ...TY.small, color: T.navy, margin: 0 }}>
             Bonjour, je m'appelle Sami. <span className="rs-fhl h2" style={{ backgroundImage: HL.ai }}>Euh</span>, j'ai <span className="rs-fhl" style={{ backgroundImage: HL.appui }}>géré la caisse d'une supérette pendant trois ans</span>.
           </p>
@@ -75,8 +75,8 @@ export function Features() {
             </div>
           </div>
         </FCard>
-        <FCard i={5} title="Rapport écrit ou vidéo, au choix" text="Découvrez votre retour comme vous le préférez : en lisant, ou en vous revoyant avec des repères.">
-          <div className="rs-seg"><i /><span>Rapport écrit</span><span>Me revoir en vidéo</span></div>
+        <FCard i={5} title="Un retour à lire ou à regarder" text="Découvrez votre retour comme vous le préférez : en lisant, ou en vous revoyant avec des repères.">
+          <div className="rs-seg"><i /><span>Lire mon retour</span><span>Me revoir en vidéo</span></div>
           <div style={{ ...miniCard, marginTop: 12, display: "flex", alignItems: "center", gap: 8 }}>
             <Pin ap /><span style={{ ...TY.caption, color: T.navy, flex: 1 }}>Ouverture directe à 0:04</span><span style={{ ...TY.time, color: T.muted }}>0:04</span>
           </div>
@@ -128,8 +128,8 @@ export function ForWho({ go, openSpace }) {
       <div className="rs-g3">
         {doors.map((x, i) => (
           <Reveal key={x.t} delay={i * 90} style={{ height: "100%" }}>
-            <a className="rs-door" href={x.href()} onClick={e => { e.preventDefault(); x.on(); }}
-              style={{ background: x.bg, color: ON.text, borderRadius: RAD.lg, boxShadow: SH.sm, padding: 24, height: "100%", display: "flex", flexDirection: "column", gap: 12, textDecoration: "none" }}>
+            <a className="rs-door rp-pad-md" href={x.href()} onClick={e => { e.preventDefault(); x.on(); }}
+              style={{ background: x.bg, color: ON.text, borderRadius: RAD.lg, boxShadow: SH.sm, padding: PAD.md, height: "100%", display: "flex", flexDirection: "column", gap: 12, textDecoration: "none" }}>
               <h3 style={{ ...TY.h2, margin: 0, color: ON.text }}>{x.t}</h3>
               <p style={{ ...TY.body, color: ON.text, margin: 0, flex: 1 }}>{x.d}</p>
               <span style={{ ...TY.bodyStrong, color: ON.text, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, minHeight: 44 }}>
@@ -156,7 +156,7 @@ export const REASSURE = [
 export function Reassurance() {
   return (
     <section aria-label="L'essentiel" className="rs-reassure">
-      <ul className="rs-g4" style={{ listStyle: "none", margin: 0, padding: "16px 24px", background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, boxShadow: SH.xs }}>
+      <ul className="rs-g4" style={{ listStyle: "none", margin: 0, padding: PAD.row, background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, boxShadow: SH.xs }}>
         {REASSURE.map(([ic, t, d], i) => (
           <Reveal as="li" key={t} delay={i * 90} style={{ display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}>
             <IconTile icon={ic} />

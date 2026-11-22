@@ -15,6 +15,7 @@ Ce dépôt est travaillé par plusieurs assistants IA. Ce fichier est leur point
 - Textes en français, vouvoiement côté bénéficiaire, ton positif et non évaluatif, **pas de tiret cadratin**.
 - La vidéo reste sur l'appareil tant que la personne ne décide pas de l'envoyer.
 - Aucun secret (clé d'API, mot de passe) dans le dépôt.
+- Décisions de vocabulaire et de présentation du propriétaire (version fonctionnelle sans mention d'essai, « entretien », « analyse ») : voir `CLAUDE.md`, elles s'appliquent à tous les agents.
 
 ## 3. Répartition des rôles
 

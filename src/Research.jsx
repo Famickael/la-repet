@@ -1,5 +1,5 @@
 import React from "react";
-import { T, TY, W, GAP, Card, I, PageHero, Section, Notice, Link } from "./ui.jsx";
+import { T, TY, W, GAP, Card, I, PageHero, Section, Notice, Link, PAD } from "./ui.jsx";
 import { Reveal, stagger } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
@@ -138,7 +138,7 @@ export default function Research({ go, openSpace }) {
       <PageHero eyebrow="Solutions" title="Recherche en accompagnement" lead="Ce que disent les études sur l'entraînement aux entretiens et sur l'apprentissage en accompagnement, ce qu'elles ne disent pas, et les choix que nous en tirons.">
         <p style={{ ...TY.body, color: T.body, margin: 0 }}>Ce que fait l'assistant : <Link href="#/solutions/usage-de-l-ia">usage de l'IA</Link>. Comment ces travaux se traduisent dans l'outil : <Link href="#/solutions/methode">méthode</Link>.</p>
       </PageHero>
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         <Section first eyebrow="Ce que disent les études" title="S'entraîner avec un interlocuteur virtuel" sub="Plusieurs équipes ont étudié l'entraînement aux entretiens d'embauche avec un recruteur simulé. Voici ce que leurs travaux permettent de dire, et ce qu'ils ne permettent pas de dire.">
           <div style={{ display: "grid", gap: GAP.grid, maxWidth: W.read }}>
             <Reveal style={{ display: "grid", gap: 8 }}>
@@ -185,7 +185,7 @@ export default function Research({ go, openSpace }) {
           <div className="rs-g2">
             <Reveal style={{ height: "100%" }}><Card style={{ height: "100%", display: "grid", gap: 12, alignContent: "start" }}>
               <h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>Ce que la recherche ne dit pas</h3>
-              <ul style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: 20, display: "grid", gap: 8 }}>
+              <ul style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8 }}>
                 <Reveal as="li">Aucun des travaux cités n'a évalué La Répét'. Ils portent sur d'autres outils ou d'autres situations, souvent dans d'autres pays.</Reveal>
                 <Reveal as="li" delay={70}>Leurs résultats ne se transposent pas automatiquement à notre public ni à nos repères.</Reveal>
                 <Reveal as="li" delay={140}>Les repères de l'assistant sont des habitudes d'entretien en France. Ils ne conviennent pas à tout le monde.</Reveal>
@@ -193,7 +193,7 @@ export default function Research({ go, openSpace }) {
             </Card></Reveal>
             <Reveal delay={70} style={{ height: "100%" }}><Card style={{ height: "100%", display: "grid", gap: 12, alignContent: "start" }}>
               <h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>Nos principes</h3>
-              <ul style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: 20, display: "grid", gap: 8 }}>
+              <ul style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8 }}>
                 <Reveal as="li">Pas d'inférence émotionnelle : le règlement européen sur l'IA l'interdit sur le lieu de travail et dans les établissements d'enseignement, et nous l'excluons partout.</Reveal>
                 <Reveal as="li" delay={70}>L'assistant décrit, il ne note pas. Un humain, votre coach, garde la main.</Reveal>
                 <Reveal as="li" delay={140}>La vidéo reste sur votre appareil tant que vous ne l'envoyez pas.</Reveal>
@@ -212,19 +212,19 @@ export default function Research({ go, openSpace }) {
           <div style={{ display: "grid", gap: GAP.block, maxWidth: W.read }}>
             <div style={{ display: "grid", gap: 12 }}>
               <Reveal><h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>Entraînement aux entretiens avec un interlocuteur virtuel</h3></Reveal>
-              <ol className="rp-sources" style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: 24, display: "grid", gap: 8 }}>
+              <ol className="rp-sources" style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8 }}>
                 {SOURCES.slice(0, FIRST).map(([t, u], i) => <Reveal as="li" key={u} delay={stagger(i, 4)}><a href={u} target="_blank" rel="noopener" className="rp-link" style={{ ...TY.link, color: T.primary, overflowWrap: "anywhere" }}>{t}</a> <span className="rp-sr">(nouvel onglet)</span></Reveal>)}
               </ol>
             </div>
             <div style={{ display: "grid", gap: 12 }}>
               <Reveal><h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>Une voix, pas d'avatar</h3></Reveal>
-              <ol start={FIRST + 1} className="rp-sources" style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: 24, display: "grid", gap: 8 }}>
+              <ol start={FIRST + 1} className="rp-sources" style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8 }}>
                 {SOURCES.slice(FIRST).map(([t, u], i) => <Reveal as="li" key={u} delay={stagger(i, 4)}><a href={u} target="_blank" rel="noopener" className="rp-link" style={{ ...TY.link, color: T.primary, overflowWrap: "anywhere" }}>{t}</a> <span className="rp-sr">(nouvel onglet)</span></Reveal>)}
               </ol>
             </div>
             <div style={{ display: "grid", gap: 12 }}>
               <Reveal><h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>Apprentissage et accompagnement</h3></Reveal>
-              <ul className="rp-sources" style={{ ...TY.small, color: T.body, margin: 0, paddingLeft: 24, display: "grid", gap: 8 }}>
+              <ul className="rp-sources" style={{ ...TY.small, color: T.body, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8 }}>
                 {WORKS.map((w, i) => <Reveal as="li" key={w} delay={stagger(i, 4)}>{w}</Reveal>)}
               </ul>
             </div>

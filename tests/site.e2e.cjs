@@ -325,7 +325,7 @@ async function run(b, vw, vh, opts = {}) {
   // Nous contacter (formulaire destiné aux commanditaires : acteurs publics, entreprises)
   await visit("#/demo"); await shot("13-demo");
   const status = p.getByTestId("demo-status");
-  const DEMO_MSG = "Aucune demande envoyée, version de démonstration";
+  const DEMO_MSG = "Aucune demande envoyée : l'envoi en ligne n'est pas encore ouvert";
   check(await p.getByRole("checkbox").count() === 0, `[${tag}] formulaire : aucune case de recontact ne doit être obligatoire`);
   check(await p.getByRole("radio", { name: "Acteur public" }).count() === 1 && await p.getByRole("radio", { name: "Entreprise" }).count() === 1, `[${tag}] formulaire : type de structure absent`);
   check((await p.locator("main").innerText()).indexOf(DEMO_MSG) < 0, `[${tag}] formulaire : le message de démonstration ne doit pas s'afficher avant l'envoi`);

@@ -26,7 +26,7 @@ Reculez un peu dans le lecteur pour entendre ce qui précède. Une phrase peut s
 > [!exemple] Une remarque sur un rôle dans l’équipe
 > « Quand vous dites que vous avez prévenu la personne à la caisse, on comprend à qui vous avez transmis l’information. Vous pouvez garder ce détail si vous reprenez cet exemple. »
 
-Vous pouvez aussi signaler un passage qui soulève une question. Si la personne dit qu’elle a « organisé le matériel », demandez ce qu’elle a préparé ou vérifié. Une question précise aide à retrouver un détail dans l’expérience. Lorsque le son ou la transcription ne sont pas clairs, réécoutez le passage avant de citer ses mots. Vous pouvez également formuler votre remarque sans reprendre de citation.
+Vous pouvez aussi signaler un passage qui soulève une question. Si la personne dit qu’elle a « organisé le matériel », demandez ce qu’elle a préparé ou vérifié. Une question précise aide à retrouver un détail dans l’expérience. Lorsque le son ou le texte de la réponse ne sont pas clairs, réécoutez le passage avant de citer ses mots. Vous pouvez également formuler votre remarque sans reprendre de citation.
 
 ## Proposer un essai que la personne peut choisir
 

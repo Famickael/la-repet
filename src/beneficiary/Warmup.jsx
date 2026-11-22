@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { T, TY, RAD, GAP, W, Card, Tag, Btn, Back, Link, IconBtn, Icon, I, Txt, Modal } from "../ui.jsx";
+import { T, TY, RAD, GAP, W, Card, Tag, Btn, Back, Link, IconBtn, Icon, I, Txt, Modal, PAD } from "../ui.jsx";
 import WarmupStage from "../WarmupStage.jsx";
 import { updateParcours } from "../lib/store.js";
 import { WARMUP_PHRASES, WARMUP_PROMPTS, fillPhrase, randomPhraseIndex } from "../lib/questions.js";
@@ -42,7 +42,7 @@ export function Warmup({ p, go, setModal }) {
         </div>
 
         <div><Link onClick={() => setTips(true)} style={{ display: "inline-flex", alignItems: "center", gap: 8, minHeight: 44 }}><Icon d={I.bulb} s={16} />Voir les astuces pour bien démarrer</Link></div>
-        <div style={{ background: T.primaryBg, borderRadius: RAD.md, padding: "16px 20px", ...stack(12) }}>
+        <div style={{ background: T.primaryBg, borderRadius: RAD.md, padding: PAD.callout, ...stack(12) }}>
           <div style={{ ...TY.overline, color: T.primary }}>Votre phrase</div>
           <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
             <p aria-live="polite" data-testid="warmup-phrase" style={{ ...TY.h2, color: T.navy, margin: 0, flex: 1, minWidth: 0 }}>« {phrase} »</p>

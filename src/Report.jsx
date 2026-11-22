@@ -68,15 +68,15 @@ export function Player({ take, url, status = url ? "ready" : "missing", markers,
   const audio = isAudio(take);
   return (
     <Card pad="none">
-      <div style={{ background: T.videoBg, aspectRatio: audio ? "auto" : "16/9", display: "grid", placeItems: "center", padding: audio ? 24 : 0 }}>
+      <div style={{ background: T.videoBg, aspectRatio: audio ? "auto" : "16/9", display: "grid", placeItems: "center", padding: audio ? PAD.md : 0 }}>
         {url
           ? (audio
             ? <audio ref={ref} src={url} controls aria-label="Enregistrement de la réponse" style={{ width: "90%" }} />
             : <video ref={ref} src={url} controls playsInline aria-label="Vidéo de la réponse" style={{ width: "100%", height: "100%", objectFit: "contain" }} />)
-          : status === "loading" ? <div role="status" style={{ ...TY.small, color: ON.text, padding: 32 }}>Chargement de votre enregistrement…</div>
-          : <div style={{ ...TY.small, color: ON.text, padding: 32 }}>{audio ? "Enregistrement non disponible sur cet appareil." : "Vidéo non disponible sur cet appareil."}</div>}
+          : status === "loading" ? <div role="status" className="rp-pad-lg" style={{ ...TY.small, color: ON.text, padding: PAD.lg }}>Chargement de votre enregistrement…</div>
+          : <div className="rp-pad-lg" style={{ ...TY.small, color: ON.text, padding: PAD.lg }}>{audio ? "Enregistrement non disponible sur cet appareil." : "Vidéo non disponible sur cet appareil."}</div>}
       </div>
-      <div style={{ padding: "16px 16px 16px", display: "grid", gap: 8 }}>
+      <div style={{ padding: PAD.sm, display: "grid", gap: 8 }}>
         <div style={{ position: "relative", height: 44 }}>
           {/* Barre au pointeur seulement (A11Y-09) : au clavier, les commandes natives et les repères suffisent */}
           <Bare tabIndex={-1} aria-hidden="true" onClick={e => { const r = e.currentTarget.getBoundingClientRect(); seek(((e.clientX - r.left) / r.width) * dur); }}
@@ -151,7 +151,7 @@ export function Transcript({ take, onSeek }) {
         <p style={{ ...TY.caption, color: T.muted, margin: "0 0 4px" }}>Ce texte est écrit par un programme, il peut contenir des erreurs.</p>
         {take.segments.map((sg, i) => {
           const row = <><span style={{ ...TY.time, color: T.muted, minWidth: 40, paddingTop: 4 }}>{fmt(sg.start)}</span><span style={{ ...TY.small, color: T.navy }}>{sg.text}</span></>;
-          const st = { display: "flex", gap: 12, padding: "4px 0", width: "100%", textAlign: "left" };
+          const st = { display: "flex", gap: 12, padding: "4px 0", width: "100%", textAlign: "left", ...(onSeek ? { minHeight: 44, alignItems: "center" } : {}) }; // rangée cliquable : cible de 44 px
           return onSeek ? <Bare key={i} onClick={() => onSeek(sg.start)} style={st}>{row}</Bare> : <div key={i} style={st}>{row}</div>;
         })}
       </Card>
@@ -180,7 +180,7 @@ export function ReportBody({ take, mode, counselorName }) {
       <h3 style={{ ...TY.h4, color: T.navy, margin: "0 0 8px" }}>Remarques de votre coach</h3>
       {rep.notes.slice().sort((a, b) => a.t - b.t).map(n => {
         const row = <><TimeChip t={n.t} tone="primary" /><span style={{ ...TY.body, color: T.navy }}>{n.text}</span></>;
-        const st = { display: "flex", gap: 12, alignItems: "flex-start", width: "100%", padding: "8px 0", borderTop: `1px solid ${T.lineLt}` };
+        const st = { display: "flex", gap: 12, alignItems: "flex-start", width: "100%", minHeight: 44, padding: "8px 0", borderTop: `1px solid ${T.lineLt}` };
         return mode === "video"
           ? <Bare key={n.id} onClick={() => seekTo(n.t, n.id)} style={st}>{row}</Bare>
           : <div key={n.id} style={st}>{row}</div>;

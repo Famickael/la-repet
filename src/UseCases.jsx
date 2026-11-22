@@ -1,5 +1,5 @@
 import React from "react";
-import { T, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Tabs, Notice, Link } from "./ui.jsx";
+import { T, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Tabs, Notice, Link, PAD } from "./ui.jsx";
 import { Reveal, stagger, useSectionScroll } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { LinkCards, LinkChips } from "./LinkCards.jsx";
@@ -29,7 +29,7 @@ export default function UseCases({ go, openSpace, page, section }) {
   return <Hub go={go} />;
 }
 
-const wrap = { maxWidth: W.page, margin: "0 auto", padding: "0 24px" };
+const wrap = { maxWidth: W.page, margin: "0 auto", padding: PAD.wrap };
 
 function Hub({ go }) {
   return (
@@ -73,7 +73,7 @@ function FeatureGrid({ features }) {
 }
 
 const BENEF = [
-  [I.lock, "Accès par code, sans compte", "Un code de 6 caractères remis par votre coach. Ni adresse électronique, ni mot de passe."],
+  [I.lock, "Accès par code, sans compte", "Un code d'accès de 6 caractères donné par votre coach. Ni adresse électronique, ni mot de passe."],
   [I.mic, "Échauffement sans enregistrement", "Des phrases à dire à voix haute, avec une consigne, pour vous lancer. Rien n'est enregistré."],
   [I.target, "Questions adaptées au métier", "Des questions selon le poste que vous visez. Vous pouvez aussi ajouter les vôtres."],
   [I.video, "Caméra ou voix seule", "3 minutes au plus par réponse. Vous vous revoyez avant de garder la réponse. Vous recommencez autant que vous voulez, et vous voyez ce qui a changé."],
@@ -164,7 +164,7 @@ const ORG = [
     tab: "Acteurs publics", icon: I.compass, title: "Accompagner le retour à l'emploi et l'insertion",
     points: [
       ["Pour qui", "Services publics de l'emploi, collectivités, départements, structures d'insertion : vous accompagnez des demandeurs d'emploi et vous cherchez un appui pour la préparation aux entretiens."],
-      ["Ce que nous faisons", "Nos coachs mènent les rendez-vous et les ateliers. Entre deux séances, les personnes s'entraînent avec La Répét' et arrivent avec des moments concrets à discuter."],
+      ["Ce que nous faisons", "Nos coachs mènent les rendez-vous et les ateliers. Entre deux rendez-vous, les personnes s'entraînent avec La Répét' et arrivent avec des moments concrets à discuter."],
       ["Un suivi sans surveillance", "Nous rendons compte de l'accompagnement avec des éléments d'ensemble : réponses relues, rapports envoyés, délai de relecture. Jamais une mesure individuelle."],
       ["Un cadre clair", "Aucune note, aucune émotion devinée, une vidéo qui reste sur l'appareil tant que la personne ne l'envoie pas. Le cadre est détaillé dans l'onglet « Cadre et données »."],
     ],

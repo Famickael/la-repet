@@ -15,9 +15,9 @@ Sommaire :
 
 ### 1.1 Plateforme de marque
 
-**Promesse.** Se préparer à l'entretien d'embauche en confiance : seul, à son rythme, sans jugement, avec son coach qui garde la main.
+**Promesse.** Se préparer à l'entretien en confiance : seul, à voix haute, sans avatar et sans jugement, avec des retours pour recommencer et son coach qui soutient la progression.
 
-**Preuve en une phrase.** L'assistant décrit la réponse sans la noter, la personne choisit ce qu'elle envoie, le coach a le dernier mot.
+**Preuve en une phrase.** L'assistant décrit la réponse sans la noter et propose des pistes, la personne recommence et choisit ce qu'elle envoie, le coach a le dernier mot.
 
 **Ton.** Celui d'un coach bienveillant et précis : il parle simplement, il dit ce qui se passe, il ne juge pas et ne promet rien qu'il ne tient pas. On s'adresse à la personne qui s'entraîne avec « vous », au présent, avec des mots de tous les jours. On s'adresse aux coachs et aux organismes avec la même simplicité, sans jargon commercial.
 
@@ -36,7 +36,10 @@ Un mot par chose, partout. Quand un mot du lexique apparaît pour la première f
 | Terme retenu | À éviter | Définition et usage |
 |---|---|---|
 | **entretien** | (pour désigner un enregistrement) | Le vrai rendez-vous avec un recruteur. Jamais un enregistrement fait dans l'outil. « Entretien du 12 mars » pour une réponse enregistrée est une erreur. |
-| **entraînement** | répétition (nom), session, séance, essai | L'activité : choisir une ou plusieurs questions et y répondre. Le verbe « répéter » reste autorisé dans les titres, en écho à la marque. |
+| **entraînement**, **s'entraîner** | répétition, répéter, répétez (pour l'activité), session, séance | L'activité : choisir une ou plusieurs questions et y répondre, seul et à voix haute. Depuis le 22 novembre 2026, « répéter » n'est plus employé pour l'activité, même dans les titres : seul le nom de marque « La Répét' » le porte. « Répéter » reste au sens propre : « répéter une question », « petits mots répétés », « une répétition générale ». |
+| **sans avatar** | sans recruteur virtuel, sans robot, sans personnage | Il n'y a pas d'interlocuteur animé à l'écran. La question est lue à voix haute, sans visage. Ne jamais écrire que l'avatar est « moins efficace » : aucune étude citée ne le dit (voir 1.2 ter). |
+| **piste**, **conseil** | amélioration, correction, défaut, verdict | Ce que l'assistant propose après un repère « à explorer », toujours avec « vous pouvez ». « Conseil » est le mot de l'interface du retour ; « piste » celui des pages publiques. |
+| **ce qui a changé** | progrès mesuré, score, niveau, courbe, jauge, « vous vous êtes amélioré » | La façon de parler de la progression : la personne relit deux réponses et regarde ce qui a changé, puis en parle avec son coach. On décrit un changement (un exemple ajouté, un autre rythme), on ne le mesure pas et on ne le qualifie pas. |
 | **réponse** | prise, enregistrement, entraînement (pour un élément de liste), vidéo (quand il peut s'agir de voix seule) | Ce que la personne enregistre pour une question. C'est l'objet que l'on garde, que l'on envoie, que l'on supprime. |
 | **échauffement** | mise en voix, se mettre en voix | Quelques minutes pour dire des phrases à voix haute avant l'entraînement. Rien n'est enregistré. |
 | **consigne** (d'échauffement) | relance | La petite instruction qui propose une autre façon de dire la phrase. |
@@ -80,12 +83,50 @@ Un mot par chose, partout. Quand un mot du lexique apparaît pour la première f
 - **Moteur d'IA** : jamais nommé dans le site ni dans les textes (ni nom de fournisseur, ni nom de modèle). On écrit « assistant IA » une fois par page, puis « l'assistant ». Contrôlé par `npm run test:content`.
 - **Carte du site (21 novembre 2026)** : « À propos » décrit l'organisme (aujourd'hui un organisme imaginaire, « Capes & Carrières », qui accompagne des super-héros : texte d'exemple signalé par un encart, à remplacer ; l'humour reste sur cette seule page). « Solutions » : ce qui nourrit la solution (« Usage de l'IA », « Recherche en accompagnement », « Fonctionnalités »). « Cas d'usage » : une page par public (« Personnes accompagnées » avec « Demandeurs d'emploi » et « Collaborateurs en mobilité », « Coachs », « Commanditaires » avec les onglets « Acteurs publics », « Entreprises », « Cadre et données »). « Ressources » : une seule page (recherche, « À la une », toutes les ressources filtrables par thème) ; « Questions fréquentes » sur sa propre page.
 - **« Demander de l'aide »** : quand une session est ouverte, « Nous contacter » devient « Demander de l'aide » et mène aux questions fréquentes, sur la section de la personne connectée (personnes accompagnées ou coachs). Choix retenu plutôt que l'assistant de l'espace : l'assistant répond aux questions sur l'entretien, pas sur le site, et il n'existe pas sur toutes les pages.
-- **Accueil (panel bénéficiaires)** : pastilles « Avec votre coach », « Assistant IA », « Sans note » ; sous-titre : « Vous répondez à des questions d'entretien, à voix haute, autant de fois que vous voulez. Un assistant IA décrit votre réponse, sans la noter : rythme, pauses, exemples concrets. Votre vidéo reste sur votre appareil : vous choisissez ce que voit votre coach. » ; sous le bouton : « Pas de compte à créer : il vous faut le code donné par votre coach. » ; bandeau de réassurance en trois puces. En attente du propriétaire : « Sans frais pour vous » et la question « Est-ce payant pour moi ? » ne sont pas publiées.
-- **Conservé** : code d'essai `REPETE` prérempli, identifiants coach préremplis, « Lancer ma première répétition », « Entretien du 12 mars », aucun texte qui révèle un test.
+- **Accueil (panel bénéficiaires, textes remplacés le 22 novembre 2026, voir 1.2 ter)** : pastilles « Avec votre coach », « Assistant IA », « Sans note » ; sous-titre : « Vous répondez à des questions d'entretien, à voix haute, autant de fois que vous voulez. Un assistant IA décrit votre réponse, sans la noter : rythme, pauses, exemples concrets. Votre vidéo reste sur votre appareil : vous choisissez ce que voit votre coach. » ; sous le bouton : « Pas de compte à créer : il vous faut le code donné par votre coach. » ; bandeau de réassurance en trois puces. En attente du propriétaire : « Sans frais pour vous » et la question « Est-ce payant pour moi ? » ne sont pas publiées.
+- **Conservé** : code d'essai `REPETE` prérempli, identifiants coach préremplis, « Entretien du 12 mars », aucun texte qui révèle un test. Le bouton « Lancer ma première répétition » devient « Je lance mon premier entraînement » (1.2 ter).
 
-Les lignes des tableaux de la section 2 qui parlent d'« organismes », de déploiement, d'onglet DSI ou de « Demander une démo » datent d'avant cette décision : elles sont remplacées par les textes actuels du code.
+### 1.2 ter Précision du positionnement : s'entraîner seul, sans avatar, et recommencer (22 novembre 2026)
 
-> **Décision du propriétaire (21 novembre 2026).** Côté coach, on dit « entretiens » pour les réponses reçues (« Entretiens à relire », « Entretiens reçus ») ; « Entretien du 12 mars » (accueil) et « Lancer ma première répétition » sont conservés. Le constat RED-01 de `docs/audit-complet.md` n'est donc pas appliqué.
+Cette section ne remplace pas le positionnement de 1.2 bis : elle le précise. Tout ce qui précède reste vrai : un outil d'entraînement porté par un organisme d'accompagnement, un assistant qui décrit sans noter, une vidéo qui reste sur l'appareil, une personne qui choisit ce qu'elle envoie, un coach qui relit et débriefe.
+
+**La précision, en cinq lignes.**
+
+1. **Pas besoin d'avatar pour s'entraîner.** La personne s'entraîne seule, à voix haute. La question est lue à voix haute, sans visage qui observe. C'est plus simple : un téléphone suffit, rien à apprivoiser.
+2. **Un retour, puis des pistes.** L'assistant décrit la réponse sans la noter (rythme de parole, pauses, exemples concrets), en commençant par les points d'appui. Il propose ensuite des pistes, toujours avec « vous pouvez ».
+3. **Recommencer.** La personne refait la même question autant de fois qu'elle veut, avec une piste en tête. C'est la boucle de la page Méthode : s'entraîner, se revoir, lire le retour, en parler, transférer.
+4. **Voir ce qui a changé.** Elle relit deux réponses et leurs retours, et regarde ce qui a changé : un exemple ajouté, des pauses à d'autres moments, un autre rythme. Jamais de note, de score, de jauge ni de courbe.
+5. **Le coach soutient la progression.** Il relit ce qu'elle choisit d'envoyer, confirme ou nuance les repères, et fait le point avec elle. La relation humaine est avec lui, pas avec un personnage à l'écran.
+
+**Ce que l'on peut affirmer, et ce que l'on n'affirme pas.**
+
+- On peut écrire : « sans avatar », « plus simple », « vous n'avez pas besoin d'avatar pour vous entraîner », « ce qui compte : dire sa réponse à voix haute, lire un retour précis, recommencer ».
+- On n'écrit pas que l'entraînement sans avatar est « plus efficace » qu'avec un avatar, ni qu'« une voix seule intimide moins » : aucune source ne le montre (la phrase a été retirée de la page Recherche et de la FAQ le 22 novembre 2026). Les essais VR-JIT et MACH donnent des résultats encourageants avec un recruteur virtuel ; aucune étude ne compare un avatar et une voix seule dans un outil comme le nôtre.
+- On n'écrit pas non plus : que l'avatar n'aide pas (un personnage bien animé aide à apprendre, selon Mayer) ; qu'une voix de synthèse vaut une voix humaine ; que la « vallée de l'étrange » vaut pour tous les avatars (on écrit « peut ») ; que la plupart des entretiens se font par téléphone ; que le règlement européen sur l'IA interdit les avatars. Aucun chiffre sur le poids d'un avatar, les entretiens vidéo différés ou les heures de pratique. On ne nomme et ne critique aucun autre outil.
+- Le choix se présente toujours comme **un choix de conception assumé, pas un résultat prouvé**. La section « Une voix, pas d'avatar : un choix assumé » de la page Recherche donne huit raisons, chacune avec sa limite et ses sources (rapport de recherche du 22 novembre 2026) : attention sur la réponse, voix pour poser la question, retour précis puis nouvel essai, se revoir, pas de visage presque humain, proximité avec la présélection au téléphone, outil léger, IA qui dit ce qu'elle est. Les pages Méthode et Usage de l'IA y renvoient par un encart court. La page Recherche reste sans chiffre.
+- L'appui positif vient des travaux sur l'apprentissage déjà cités (pratique délibérée, retour qui porte sur la tâche, réflexion sur l'action) : ils décrivent la boucle essai, retour, nouvel essai, sans la lier à un avatar.
+- On ne promet pas un écran de comparaison : il n'existe pas. La personne retrouve ses réponses et leurs retours dans « Mes réponses » et les relit. On écrit « relire deux réponses », « voir ce qui a changé », jamais « l'outil compare » ni « l'outil mesure vos progrès ».
+- « Progression » et « progresser » sont permis pour parler du chemin de la personne avec son coach (« votre coach vous soutient »). Ils ne sont jamais suivis d'un chiffre, d'un niveau ou d'un adjectif qui évalue.
+
+**Vocabulaire.** « Entraînement » et « s'entraîner » partout ; « répéter » seulement au sens propre (voir le lexique, 1.2). Le nom de marque « La Répét' » ne change pas.
+
+**Accueil (remplace la ligne « Accueil » de 1.2 bis).**
+
+- Pastilles : « Avec votre coach », « Assisté par IA » (icône étincelle, violet de l'assistant), « Sans avatar ».
+- Titre : « Entraînez-vous pour votre entretien, » puis une fin qui change avec la scène : « à votre rythme. », « à voix haute. », « avec vos mots. », « en confiance. ».
+- Sous-titre : « À voix haute, sans avatar, entraînez-vous autant de fois que vous voulez ! Un assistant IA décrit votre réponse, sans la noter, et vous propose des pistes : rythme, pauses, exemples concrets. Vous recommencez, vous voyez ce qui a changé, et votre coach vous soutient à chaque étape. »
+  - « décrit » plutôt qu'« analyse » : « analyse » se lit comme une évaluation (panel bénéficiaires, point 5) ;
+  - « des pistes » plutôt que « des améliorations » : une amélioration suppose un défaut constaté, une piste se prend ou se laisse ;
+  - le point d'exclamation est le seul de la page ;
+  - « Votre vidéo reste sur votre appareil » quitte le sous-titre : l'engagement est dans le bandeau de réassurance, juste dessous (« Sécurisé »).
+- Bouton principal : « Je lance mon premier entraînement » (accueil et page « Personnes accompagnées »).
+- Sous la grande phrase : « Entraînez-vous, lisez votre retour, recommencez. Vous voyez ce qui change, et votre coach vous soutient. »
+
+**Où la précision apparaît.** Accueil (héros, grande phrase, étapes), « Personnes accompagnées », « Usage de l'IA », « Méthode » (temps 1, 3 et 4), « Recherche en accompagnement » (« Présence sociale ou pression ? »), questions fréquentes (« Pourquoi n'y a-t-il pas d'avatar ? », « Comment voir ce qui a changé d'un entraînement à l'autre ? », « Pourquoi un entraînement sans avatar ? » côté coachs), titres et descriptions (`src/lib/seo.js`, `index.html`), image d'aperçu de lien. La page « À propos » ne change que de vocabulaire (étape « Simulation et entraînement »).
+
+Les lignes des tableaux de la section 2 qui parlent d'« organismes », de déploiement, d'onglet DSI ou de « Demander une démo » datent d'avant cette décision : elles sont remplacées par les textes actuels du code.
+
+> **Décision du propriétaire (21 novembre 2026).** Côté coach, on dit « entretiens » pour les réponses reçues (« Entretiens à relire », « Entretiens reçus ») ; « Entretien du 12 mars » (accueil) est conservé ; « Lancer ma première répétition » l'a été jusqu'au 22 novembre 2026 (voir 1.2 ter). Le constat RED-01 de `docs/audit-complet.md` n'est donc pas appliqué.
 
 ### 1.3 Règles de style
 

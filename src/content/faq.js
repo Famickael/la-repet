@@ -4,7 +4,7 @@
    l'ajouter sans son accord (rapport du panel bénéficiaires, 21 novembre 2026). */
 
 export const FAQ_COST = ["Est-ce payant pour moi ?", "Non. L'accès à La Répét' est compris dans votre accompagnement. Vous n'avez rien à payer."];
-export const FAQ_TIME = ["Combien de temps faut-il ?", "Une réponse dure 3 minutes au plus. Un premier entraînement prend quelques minutes. Vous vous entraînez quand vous voulez, aussi souvent que vous le souhaitez."];
+export const FAQ_TIME = ["Combien de temps faut-il ?", "Une réponse dure 3 minutes au plus. Un premier entraînement prend quelques minutes. Vous vous entraînez quand vous voulez, autant de fois que vous voulez."];
 export const FAQ_DEVICE = ["Faut-il un matériel particulier ?", "Non. Un téléphone suffit. Un ordinateur fonctionne aussi, avec une caméra et un micro, ou seulement un micro. La première fois, votre appareil télécharge un outil d'environ 130 Mo : le Wi-Fi est préférable. Sur les appareils modestes, la mise par écrit peut prendre un peu plus de temps."];
 export const FAQ_EMPLOYER = ["Je suis en entreprise : mon employeur voit-il mes réponses ?", ["Non. Seul votre coach voit les réponses que vous choisissez de lui envoyer. Votre employeur ne reçoit qu'un bilan d'ensemble de l'accompagnement, sans information sur vous en particulier.", "Conseil : entraînez-vous de préférence sur un appareil personnel plutôt que sur votre ordinateur professionnel."]];
 export const FAQ_ACCOUNT = ["Faut-il créer un compte ?", "Non. Votre coach vous donne un code d'accès de 6 caractères. Il ouvre votre espace. On ne vous demande ni adresse électronique ni mot de passe."];

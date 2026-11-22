@@ -30,7 +30,7 @@ export const KB = [
     id: "fonctionnement", q: "Comment fonctionne La Répét' ?",
     keys: ["fonctionne", "fonctionnement", "comment ca marche", "marche comment", "utiliser le site", "a quoi sert", "sert a quoi le site", "repet", "mode d emploi", "comment on fait"],
     answer: "La Répét' vous permet de vous entraîner seul à l'entretien, à votre rythme. Vous choisissez une ou plusieurs questions, vous vous enregistrez, puis l'assistant vous fait un retour qui décrit des faits (rythme, pauses, exemples, structure). Vous décidez ensuite, réponse par réponse, de l'envoyer ou non à votre coach.",
-    more: "Le déroulé type : un échauffement facultatif pour vous lancer, puis un entraînement sur les questions de votre choix. Après chaque réponse, vous choisissez de lire votre retour ou de vous revoir en vidéo avec les repères. Vous pouvez recommencer autant de fois que vous le souhaitez.",
+    more: "Le déroulé type : un échauffement facultatif pour vous lancer, puis un entraînement sur les questions de votre choix. Après chaque réponse, vous choisissez de lire votre retour ou de vous revoir en vidéo avec les repères. Vous pouvez recommencer autant de fois que vous voulez.",
     example: "Par exemple : vous sélectionnez « Pouvez-vous vous présenter ? » et « Pourquoi ce poste ? », vous répondez à la première, vous lisez le retour, puis vous passez à la seconde. À la fin, vous envoyez à votre coach seulement la réponse qui vous semble la plus utile à travailler ensemble.",
     related: ["echauffement", "entrainement", "confidentialite"],
   },
@@ -158,7 +158,7 @@ export const KB = [
   {
     id: "refaire", q: "Combien de fois puis-je recommencer ?",
     keys: ["recommencer", "refaire", "combien de fois", "illimite", "encore", "reessayer", "limite"],
-    answer: "Autant de fois que vous le souhaitez. Vous pouvez recommencer une réponse avant de la garder, et relancer un entraînement à tout moment, y compris après avoir reçu le rapport de votre coach.",
+    answer: "Autant de fois que vous voulez. Vous pouvez recommencer une réponse avant de la garder, et relancer un entraînement à tout moment, y compris après avoir reçu le rapport de votre coach.",
     more: "S'entraîner plusieurs fois sur la même question est très efficace : à chaque essai, la réponse devient plus claire et plus naturelle.",
     example: "Par exemple : un premier essai pour trouver les idées, un deuxième pour ajouter un exemple concret, un troisième pour soigner la conclusion.",
     related: ["entrainement", "duree"],

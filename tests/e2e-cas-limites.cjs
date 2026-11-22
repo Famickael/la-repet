@@ -48,13 +48,14 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     const { ctx, p } = await fresh(seed({ takes: { t1: take("t1", "CASAAA", { shared: true, sharedAt: now() }) } }));
     await p.goto(BASE + "#/coach");
     await p.getByRole("button", { name: "Relire" }).first().click();
-    await p.getByRole("button", { name: "Relire et annoter" }).click();
+    await p.getByRole("heading", { name: "Entretiens reçus" }).waitFor({ timeout: 15000 });
+    await p.getByRole("button", { name: "Relire", exact: true }).first().click();
     await p.locator("#review-intro").fill("Lou, voici mes remarques.");
     const q = await ctx.newPage();
     await q.goto(BASE + "#/s/CASAAA");
     await q.getByRole("button", { name: "Ouvrir", exact: true }).first().click();
     await q.getByRole("button", { name: "Annuler l'envoi" }).click();
-    await p.getByText("La personne a repris cette réponse").waitFor({ timeout: 5000 });
+    await p.getByText("La personne a annulé l'envoi de cet entretien").waitFor({ timeout: 5000 });
     check(await p.getByRole("button", { name: /Envoyer le rapport/ }).count() === 0, "BUG-02 : le bouton d'envoi du rapport reste affiché après la reprise");
     const st = await p.evaluate(k => JSON.parse(localStorage.getItem(k)), KEY);
     check(!st.takes.t1.report, "BUG-02 : un rapport a été enregistré sur une réponse reprise");
@@ -67,7 +68,8 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     const { ctx, p } = await fresh(seed({ takes: { t1: take("t1", "CASAAA", { shared: true, sharedAt: now() }) } }));
     await p.goto(BASE + "#/coach");
     await p.getByRole("button", { name: "Relire" }).first().click();
-    await p.getByRole("button", { name: "Relire et annoter" }).click();
+    await p.getByRole("heading", { name: "Entretiens reçus" }).waitFor({ timeout: 15000 });
+    await p.getByRole("button", { name: "Relire", exact: true }).first().click();
     check(await p.getByRole("button", { name: "Envoyer le rapport" }).isDisabled(), "BUG-18 : « Envoyer le rapport » actif sans aucun texte");
     await p.locator("#review-intro").fill("Lou, merci.");
     check(!(await p.getByRole("button", { name: "Envoyer le rapport" }).isDisabled()), "BUG-18 : « Envoyer le rapport » reste inactif après saisie");
@@ -136,11 +138,12 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     const { ctx, p } = await fresh(seed({ takes: { t1: take("t1", "CASAAA", { shared: true, sharedAt: now() }) } }));
     await p.goto(BASE + "#/coach");
     await p.getByRole("button", { name: "Relire" }).first().click();
-    await p.getByRole("button", { name: "Relire et annoter" }).click();
+    await p.getByRole("heading", { name: "Entretiens reçus" }).waitFor({ timeout: 15000 });
+    await p.getByRole("button", { name: "Relire", exact: true }).first().click();
     await p.evaluate(k => { const st = JSON.parse(localStorage.getItem(k)); delete st.takes.t1; st.parcours.CASAAA.consent = null; localStorage.setItem(k, JSON.stringify(st)); }, KEY);
     const q = await ctx.newPage(); await q.goto(BASE + "#/"); // un autre onglet écrit : l'événement « storage » parvient au premier
     await q.evaluate(k => { const st = JSON.parse(localStorage.getItem(k)); st.touched = Date.now(); localStorage.setItem(k, JSON.stringify(st)); }, KEY);
-    await p.getByText("Cette réponse n'existe plus.").waitFor({ timeout: 5000 });
+    await p.getByText("Cet entretien n'existe plus.").waitFor({ timeout: 5000 });
     await ctx.close();
   });
 

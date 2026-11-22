@@ -142,7 +142,7 @@ require("fs").mkdirSync(SC, { recursive: true });
   await p.locator("textarea").fill("Je parle peut-être trop vite ?"); await click("Envoyer à mon coach"); await shot("08-envoye");
   await click("Mon compte"); await p.getByRole("navigation", { name: "Mon compte" }).getByRole("button", { name: "Se déconnecter" }).waitFor(); await shot("08b-mon-compte");
   await p.getByRole("navigation", { name: "Mon compte" }).getByRole("button", { name: "Se déconnecter" }).click(); await click("Mon compte"); await coachForm(); await click("Se connecter"); await p.waitForTimeout(300); await shot("09-liste-conseiller");
-  await click("Relire"); await click("Relire et annoter"); await p.waitForTimeout(800);
+  await click("Relire"); await p.getByRole("heading", { name: "Entretiens reçus" }).waitFor({ timeout: 15000 }); await click("Relire"); await p.waitForTimeout(800);
   await p.getByPlaceholder("Votre remarque", { exact: true }).fill("Belle entrée en matière."); await click("Ajouter");
   await p.locator("textarea").fill("Alex, ta présentation est claire. On en parle jeudi.");
   await p.getByPlaceholder("Votre remarque sur ce repère (facultatif)").first().fill("D'accord, garde ce rythme.");

@@ -87,7 +87,7 @@ export const TIPS = {
     appui: [
       "Votre rythme laisse au recruteur le temps de suivre chaque idée.",
       "Vous parlez à un rythme régulier du début à la fin de la réponse.",
-      "Votre débit reste posé, même quand la réponse se prolonge.",
+      "Votre rythme reste posé, même quand la réponse se prolonge.",
       "Le rythme de votre réponse permet de bien entendre les informations importantes.",
       "Vous prenez le temps de terminer vos phrases, ce qui rend la réponse facile à suivre.",
       "Votre rythme correspond à ce que l'on observe souvent dans un échange d'entretien.",
@@ -136,7 +136,7 @@ export const TIPS = {
       "Vous pouvez boire une gorgée d'eau avant de répondre : c'est accepté en entretien et cela laisse un temps de préparation.",
       "Une piste : préparer une phrase d'ouverture fixe pour chaque question fréquente, le reste vient plus facilement.",
       "Si une pause vient d'un oubli, vous pouvez dire simplement « Je reviens à mon exemple » et reprendre.",
-      "Vous pouvez vous enregistrer en son seulement pour vous concentrer sur l'enchaînement des idées.",
+      "Vous pouvez vous enregistrer en voix seule pour vous concentrer sur l'enchaînement des idées.",
     ],
   },
   exemples: {
@@ -287,7 +287,7 @@ export const KIND_TIPS = {
   parcours: ["Vous pouvez présenter les faits en une ou deux phrases, puis parler de ce que vous en retirez.", "Une piste : préparer une phrase de transition vers votre projet actuel.", "Vous pouvez citer ce que vous avez fait pendant la période (formation, bénévolat, démarches)."],
   questions: ["Vous pouvez préparer deux questions sur le poste ou l'équipe.", "Une piste : demander comment se passe une journée type dans le poste.", "Vous pouvez demander quelles sont les prochaines étapes du recrutement."],
   accueil: ["Vous pouvez préparer une réponse courte sur la façon dont vous avez connu l'offre.", "Une piste : remercier le recruteur en une phrase avant de commencer.", "Vous pouvez enchaîner sur ce qui vous a donné envie de répondre à l'annonce."],
-  generique: ["Vous pouvez reprendre la même question à l'entraînement en visant une seule amélioration à la fois.", "Une piste : réécouter la réponse le lendemain, avec un regard neuf.", "Vous pouvez noter les questions qui vous semblent les plus difficiles et les travailler en premier."],
+  generique: ["Vous pouvez reprendre la même question à l'entraînement en visant une seule piste à la fois.", "Une piste : réécouter la réponse le lendemain, avec un regard neuf.", "Vous pouvez noter les questions qui vous semblent les plus difficiles et les travailler en premier."],
 };
 
 /* Repère « Petits mots répétés » : identifiant « petits-mots », ancien « appui » encore lu (ARC-19). */
@@ -332,7 +332,7 @@ export function introIdeas({ prenom, question, poste, dims = [] }) {
     `${hi}j'ai relu votre réponse à ${q}. ${ap ? `Je retiens d'abord un point d'appui : ${ap.titre.toLowerCase()}. ` : ""}Vous trouverez mes remarques à côté de chaque repère.`,
     `${hi}merci pour cet entraînement${job}. ${ex ? `Je vous propose de travailler en priorité sur un point : ${ex.titre.toLowerCase()}. ` : ""}Nous pourrons en reparler ensemble lors de notre prochain rendez-vous.`,
     `${hi}vous avez fait la démarche de vous entraîner et de m'envoyer votre réponse : c'est précieux. Voici ce que j'ai observé, avec une ou deux pistes concrètes.`,
-    `${hi}voici mon retour sur votre réponse à ${q}. Les repères de l'assistant sont complétés par mes remarques : prenez ce qui vous est utile.`,
+    `${hi}voici mes remarques sur votre réponse à ${q}. Les repères de l'assistant sont complétés par mes remarques : prenez ce qui vous est utile.`,
     `${hi}j'ai regardé votre vidéo. J'ai ajouté des remarques à certains moments précis : cliquez sur un repère pour revoir le passage.`,
     `${hi}merci pour votre envoi. Mon conseil pour la prochaine fois tient en une phrase, vous la trouverez plus bas. Le reste est déjà une bonne base.`,
     `${hi}votre réponse${job} nous donne de quoi travailler ensemble. Je vous propose de la refaire après avoir lu mes remarques, puis de me renvoyer la nouvelle version si vous le souhaitez.`,

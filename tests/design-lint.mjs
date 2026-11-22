@@ -1,6 +1,7 @@
 /* Vérification automatique du référentiel UI/UX (docs/design-system.md, section 11).
    Script Node sans dépendance : node tests/design-lint.mjs (npm run test:design).
    Lit les échelles dans src/tokens.js (aucune valeur dupliquée ici), parcourt src/**\/*.{js,jsx},
+   contrôle la charte v4 (dégradés de marque G1 à G5 : couleurs du logo pour l'action et les bandeaux, violet seul pour l'IA),
    liste toutes les violations au format « fichier:ligne  règle  extrait  correction attendue »
    et sort avec le code 1 s'il y en a, ou si les dérogations dépassent MAX_WAIVERS. */
 import { readFileSync, readdirSync, statSync } from "fs";
@@ -111,6 +112,9 @@ function checkFile(file) {
     each(/\b(rgba?|hsla?)\(/g, m => report(m.index, "C2", text.slice(m.index, m.index + 30), "jeton T.* ou ON.*"));
     each(/\$\{[^}]+\}[0-9a-fA-F]{2}(?![0-9a-zA-Z])/g, m => report(m.index, "C3", m[0], "fond teinté T.*Bg"));
     each(/:\s*["'](white|black|red|green|blue|gray|grey)["']/g, m => report(m.index, "C4", m[0], "jeton T.*"));
+    // G2 dégradé écrit à la main (charte v4) ; G3 dégradé d'action réservé au bouton objective
+    each(/\b(linear|radial|conic)-gradient\(/g, m => report(m.index, "G2", text.slice(m.index, m.index + 40), "jeton GRAD_* de tokens.js"));
+    each(/\bGRAD_CTA(_HOVER)?\b/g, m => report(m.index, "G3", m[0], "<Btn kind=\"objective\"> : le dégradé d'action n'habille que ce bouton"));
     // T1 propriété typographique ; T2 famille nommée
     each(/\b(font|fontSize|fontWeight|fontFamily|lineHeight|letterSpacing|font-size|font-weight|font-family|line-height|letter-spacing)\s*:/g, m => {
       const v = valueAt(text, m.index + m[0].length).trim();
@@ -215,6 +219,32 @@ for (const f of srcFiles) {
 docFiles.forEach(f => readFileSync(join(ROOT, f), "utf8").split("\n").forEach((l, i) => {
   if (l.includes("\u2014")) violations.push(`${f}:${i + 1}  L1  ${excerpt(l)}  → remplacer le tiret cadratin`);
 }));
+
+/* G1 (charte v4) : composition des dégradés de marque. Le logo va du bleu au violet ; l'action principale et le bandeau
+   de marque prennent ce même dégradé dans sa version lisible (blueDk vers violet) ; l'assistant reste en violet seul.
+   G4 : le bouton objective porte GRAD_CTA, plus la sarcelle. G5 : l'icône du site et l'écran de chargement recopient
+   les couleurs du logo des jetons (clair et sombre). */
+{
+  const { LIGHT, DARK, GRAD_LOGO, GRAD_CTA, GRAD_CTA_HOVER, GRAD, GRAD_AI, GRAD_AI_BORDER } = tokens;
+  const g1 = (ok, msg) => { if (!ok) violations.push(`src/tokens.js  G1  ${msg}`); };
+  const varsOf = g => [...String(g).matchAll(/var\(--c-(\w+)\)/g)].map(m => m[1]);
+  const hexOf = g => [...String(g).matchAll(/#[0-9a-f]{6}/gi)].map(m => m[0].toUpperCase());
+  g1(String(varsOf(GRAD_LOGO)) === "blue,violet", "GRAD_LOGO doit aller de T.blue à T.violet (couleurs du logo)");
+  g1(String(varsOf(GRAD_CTA)) === "blueDk,violet", "GRAD_CTA doit aller de T.blueDk à T.violet (dégradé du logo, version lisible)");
+  g1(String(varsOf(GRAD_CTA_HOVER)) === "primary,violetDk", "GRAD_CTA_HOVER doit aller de T.primary à T.violetDk");
+  g1(String(hexOf(GRAD)) === String([LIGHT.blueDk, LIGHT.violet].map(x => x.toUpperCase())), "GRAD (bandeau de marque) doit aller de blueDk à violet, valeurs claires fixes");
+  for (const [n, g] of [["GRAD_LOGO", GRAD_LOGO], ["GRAD_CTA", GRAD_CTA], ["GRAD", GRAD]]) g1(/^linear-gradient\(45deg,/.test(g), `${n} : même sens que le logo (45deg)`);
+  for (const [n, g] of [["GRAD_AI", GRAD_AI], ["GRAD_AI_BORDER", GRAD_AI_BORDER]]) g1(varsOf(g).length > 0 && varsOf(g).every(v => /^(violet|violetDk|lavender)$/.test(v)) && !hexOf(g).length, `${n} : violet seul, sans bleu (rôle IA)`);
+  const ui = strip(readFileSync(join(ROOT, "src/ui.jsx"), "utf8"));
+  const obj = ui.match(/\bobjective:\s*\{[^}]*\}/);
+  if (!obj || !/GRAD_CTA_HOVER\s*:\s*GRAD_CTA\b/.test(obj[0]) || /T\.accent/.test(obj[0])) violations.push("src/ui.jsx  G4  le bouton objective doit porter GRAD_CTA (survol GRAD_CTA_HOVER), jamais la sarcelle");
+  for (const f of ["public/favicon.svg", "index.html"]) {
+    const t = readFileSync(join(ROOT, f), "utf8").toUpperCase();
+    for (const [k, pal, nom] of [["blue", LIGHT, "clair"], ["violet", LIGHT, "clair"], ["navy", LIGHT, "clair"], ["blue", DARK, "sombre"], ["violet", DARK, "sombre"], ["navy", DARK, "sombre"]]) {
+      if (!t.includes(pal[k].toUpperCase())) violations.push(`${f}  G5  couleur du logo ${k} (${pal[k]}, thème ${nom}) absente  → recopier la valeur du jeton`);
+    }
+  }
+}
 
 /* A1 : contrastes déclarés dans PAIRS, recalculés dans chaque thème (clair, sombre, contraste renforcé) */
 const lum = hex => {

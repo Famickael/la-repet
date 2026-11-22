@@ -1,18 +1,18 @@
-/* Jetons du référentiel UI/UX v3 (docs/design-system.md, section 12.1).
+/* Jetons du référentiel UI/UX v4 (docs/design-system.md, section 12.1 ; charte v4 : docs/charte-v4-dialogue.md).
    JavaScript pur, sans JSX : importé par src/ui.jsx (qui les réexporte pour les écrans)
    et par tests/design-lint.mjs (échelles et contrastes). Toute valeur visuelle vient d'ici. */
 
 /* Palette claire (valeurs de référence, section 1.1). Les écrans n'utilisent jamais ces valeurs brutes :
    ils passent par T, dont chaque couleur est une variable CSS (thèmes clair, sombre, contraste renforcé). */
 export const LIGHT = {
-  // Structure et marque (dominante)
-  primary: "#386097", primaryDk: "#2C4D7C", primaryLt: "#4A72A8",
-  // Secondaire décoratif (jamais en texte ni en fond de bouton)
-  blue: "#3893CD", blueDk: "#2E7CB0",
-  // Action principale et points d'appui
+  // Structure et marque (dominante) : bleu de la famille du logo, entre son bleu et son violet (v4)
+  primary: "#2B5CAB", primaryDk: "#234A8C", primaryLt: "#4A78C6",
+  // Bleu du logo : blue en décor (jamais en texte ni sous du texte), blueDk sa version lisible sous du texte blanc (4,8:1)
+  blue: "#3893CD", blueDk: "#2A78AC",
+  // Points d'appui de l'analyse et étape en cours (v4 : plus de bouton sarcelle, l'action principale prend GRAD_CTA)
   accent: "#0B7A75", accentDk: "#0A6663", accentLt: "#7FD6CF",
   // Assistant (IA) et points à explorer
-  violet: "#5C4BB9", lavender: "#736BDE",
+  violet: "#5C4BB9", violetDk: "#45369E", lavender: "#736BDE",
   // Coach et accompagnement (côté coach, pastille « Avec votre coach », porte « Vous êtes coach ») : vert émeraude
   coach: "#13795A", coachDk: "#0F5E46",
   // Sémantique : les teintes claires servent au décor, les « Dk » au texte
@@ -20,11 +20,12 @@ export const LIGHT = {
   warning: "#FFB547", warningDk: "#8A5A0A",
   error: "#FF5A72", errorDk: "#C62F47",
   // Texte et neutres
-  navy: "#1B3A66", body: "#4A5568", muted: "#64748B", faint: "#A4AFBF",
+  navy: "#1B3A66", body: "#4A5568", muted: "#5B6B82", faint: "#A4AFBF",
   lineStrong: "#7C8AA0", line: "#E7EBF2", lineLt: "#F0F3F8",
   bg: "#F8FAFC", surface: "#FFFFFF",
+  band: "#F0F4FC",                        // bande d'une section sur deux, pages secondaires (v4) : entre bg et primaryBg
   // Fonds teintés (un par teinte, opaques)
-  primaryBg: "#EEF2F8", accentBg: "#ECF5F4", violetBg: "#F2F1F9",
+  primaryBg: "#EAF0FB", accentBg: "#ECF5F4", violetBg: "#F2F1F9",
   successBg: "#E9F8F0", warningBg: "#FFF6E8", errorBg: "#FFECEF", coachBg: "#E7F4EE",
   // Voiles et fonds particuliers
   overlay: "rgba(27,58,102,.45)", videoBg: "#000000",
@@ -37,7 +38,7 @@ export const DARK = {
   primary: "#8DB4EA", primaryDk: "#B7D0F3", primaryLt: "#6F98D3",
   blue: "#5AAEE0", blueDk: "#7DC2EC",
   accent: "#4ECBC1", accentDk: "#7FDCD4", accentLt: "#7FD6CF",
-  violet: "#B4A9F5", lavender: "#9D93EC",
+  violet: "#B4A9F5", violetDk: "#CFC7FA", lavender: "#9D93EC",
   coach: "#5ED1A6", coachDk: "#8FE0C0",
   success: "#41C77A", successDk: "#6FD69B",
   warning: "#FFB547", warningDk: "#F3C46C",
@@ -45,6 +46,7 @@ export const DARK = {
   navy: "#E8EEF8", body: "#C5CEDC", muted: "#9DA9BB", faint: "#5E6A7C",
   lineStrong: "#7F8CA2", line: "#2B3649", lineLt: "#222C3D",
   bg: "#0E141E", surface: "#161F2E",
+  band: "#121A27",
   primaryBg: "#1D2A3F", accentBg: "#13302F", violetBg: "#252347",
   successBg: "#142E20", warningBg: "#30260F", errorBg: "#3A1B23", coachBg: "#123026",
   overlay: "rgba(0,0,0,.6)", videoBg: "#000000",
@@ -52,8 +54,8 @@ export const DARK = {
   studio: "#DCE6F2",
 };
 /* Contraste renforcé : textes secondaires et bordures plus marqués (s'ajoute au thème clair ou sombre). */
-export const HC_LIGHT = { body: "#1F2937", muted: "#374151", faint: "#4B5563", lineStrong: "#4B5563", line: "#9AA6B8", lineLt: "#D5DBE5", primary: "#24477A", accent: "#06605B", violet: "#45369E", coach: "#0D5F46" };
-export const HC_DARK = { body: "#E8EEF8", muted: "#D2DAE7", faint: "#AEB9CB", lineStrong: "#AEB9CB", line: "#4B5567", lineLt: "#323D50", primary: "#B7D0F3", accent: "#7FDCD4", violet: "#CFC7FA", coach: "#8FE0C0" };
+export const HC_LIGHT = { body: "#1F2937", muted: "#374151", faint: "#4B5563", lineStrong: "#4B5563", line: "#9AA6B8", lineLt: "#D5DBE5", primary: "#24477A", accent: "#06605B", violet: "#45369E", violetDk: "#372A85", coach: "#0D5F46" };
+export const HC_DARK = { body: "#E8EEF8", muted: "#D2DAE7", faint: "#AEB9CB", lineStrong: "#AEB9CB", line: "#4B5567", lineLt: "#323D50", primary: "#B7D0F3", accent: "#7FDCD4", violet: "#CFC7FA", violetDk: "#E0DAFC", coach: "#8FE0C0" };
 export const THEMES = {
   clair: LIGHT, sombre: DARK,
   "clair, contraste renforcé": { ...LIGHT, ...HC_LIGHT }, "sombre, contraste renforcé": { ...DARK, ...HC_DARK },
@@ -85,27 +87,34 @@ export const ON = {
   glow: "rgba(255,255,255,.16)", scrim: "rgba(0,0,0,.5)",
 };
 
-/* Dégradés (section 1.3). */
-export const GRAD_PREMIUM = `linear-gradient(135deg, ${FIX.primary} 0%, ${FIX.blueDk} 50%, ${FIX.violet} 100%)`;
+/* Dégradés (section 1.3). Charte v4 : tout dégradé de marque va du bleu au violet du logo, dans le sens du logo (45°). */
+/* Symbole du logo (bulles) : bleu clair vers violet, en variables (variante claire en thème sombre). Décor seulement :
+   symbole, filet de marque, tuile d'icône de marque, barre des cartes. Jamais sous du texte (blanc sur blue : 3,4:1).
+   Mêmes couleurs dans le logo animé d'attente (BrandLoader) et l'écran de chargement d'index.html. */
+export const GRAD_LOGO = `linear-gradient(45deg, ${T.blue} 0%, ${T.violet} 100%)`;
+/* Action principale (bouton objective) : le dégradé du logo dans sa version lisible, blueDk vers violet, en variables.
+   Texte T.surface : blanc en clair (4,8:1 à 6,6:1), encre sombre sur le dégradé clair du thème sombre. */
+export const GRAD_CTA = `linear-gradient(45deg, ${T.blueDk} 0%, ${T.violet} 100%)`;
+export const GRAD_CTA_HOVER = `linear-gradient(45deg, ${T.primary} 0%, ${T.violetDk} 100%)`;   // survol : même dégradé, un cran plus dense
+/* Bandeau de marque (GradHead, en-tête de modale, bandeau d'appel final) : mêmes couleurs, fixes, sous du texte blanc. */
+export const GRAD_PREMIUM = `linear-gradient(45deg, ${FIX.blueDk} 0%, ${FIX.violet} 100%)`;
 export const GRAD = GRAD_PREMIUM;
 export const GRAD_MAIN = `linear-gradient(135deg, ${FIX.blue} 0%, ${FIX.violet} 100%)`;
 /* Coach et accompagnement : un seul dégradé vert (coach vers coachDk), barre des cartes côté coach et porte « Vous êtes coach ». */
 export const GRAD_COACH = `linear-gradient(135deg, ${FIX.coach} 0%, ${FIX.coachDk} 100%)`;
-export const GRAD_AI = `linear-gradient(135deg, ${FIX.blueDk} 0%, ${FIX.violet} 100%)`;
+/* Assistant (IA) : violet seul, sans bleu (v4), pour ne jamais se confondre avec le dégradé de marque de l'action principale. */
+export const GRAD_AI = `linear-gradient(135deg, ${T.violet} 0%, ${T.violetDk} 100%)`;
 /* Portes d'entrée de l'accueil (« Par où commencer ? ») : un dégradé par public, texte blanc AA sur tout le dégradé. */
 export const GRAD_DOOR_BLUE = `linear-gradient(135deg, ${FIX.primary} 0%, ${FIX.primaryDk} 100%)`;   // personne accompagnée
 export const GRAD_DOOR_GREEN = GRAD_COACH;                                                          // coach (même vert que partout côté coach)
 export const GRAD_DOOR_VIOLET = `linear-gradient(135deg, ${FIX.violet} 0%, ${FIX.primaryDk} 100%)`; // commanditaire
-export const GRAD_SOFT = `linear-gradient(135deg, rgba(56,96,151,.08), rgba(92,75,185,.07))`;
-/* Bordure animée du panneau de l'assistant (bleu vers violet, rôle IA). */
-export const GRAD_AI_BORDER = `linear-gradient(120deg, ${FIX.blueDk} 0%, ${FIX.violet} 50%, ${FIX.blueDk} 100%)`;
+export const GRAD_SOFT = `linear-gradient(135deg, rgba(43,92,171,.08), rgba(92,75,185,.07))`;
+/* Bordure animée du panneau de l'assistant (violet et lavande, rôle IA). */
+export const GRAD_AI_BORDER = `linear-gradient(120deg, ${T.violet} 0%, ${T.lavender} 50%, ${T.violet} 100%)`;
 /* Masque opaque (découpe des bordures en dégradé) : la couleur n'est jamais visible. */
 export const MASK = "linear-gradient(#000 0 0)";
 /* Fond de l'accueil : opaque jusqu'à 160 px avant le pied de page (--fy, position du pied dans la fenêtre), puis transparent. */
 export const FADE_FOOT = "linear-gradient(to bottom, #000 0, #000 calc(var(--fy, 200vh) - 160px), transparent var(--fy, 200vh))";
-/* Symbole du logo (bulles) : dégradé de la marque du site, bleu clair vers violet, en variables (variante claire en thème sombre).
-   Mêmes couleurs dans le logo animé d'attente (BrandLoader) et l'écran de chargement d'index.html. */
-export const GRAD_LOGO = `linear-gradient(45deg, ${T.blue} 0%, ${T.violet} 100%)`;
 export const GRAD_NIGHT = `linear-gradient(160deg, ${FIX.navy} 0%, ${FIX.primaryDk} 60%, ${FIX.violet} 100%)`;
 /* Profondeur et marque (v3.1, demande du propriétaire) : titre d'accroche et fonds des sections clés. */
 export const GRAD_ACCROCHE = `linear-gradient(90deg, ${T.blueDk} 0%, ${T.violet} 100%)`;    // fin d'accroche, mots-clés de la phrase (texte large, AA)
@@ -113,7 +122,9 @@ export const GRAD_HERO = `linear-gradient(180deg, ${T.surface} 0%, ${T.primaryBg
 export const GRAD_SECTION = `linear-gradient(180deg, ${T.bg} 0%, ${T.primaryBg} 50%, ${T.bg} 100%)`; // fond d'une section clé (strate)
 /* Lueurs colorées diffuses (halos derrière les photos et les visuels), décor seulement. */
 export const GLOW = { blue: "rgba(56,147,205,.22)", violet: "rgba(92,75,185,.20)" };
-export const GRAD_PAGE = `linear-gradient(180deg, ${T.primaryBg}, ${T.bg})`;   // fond de PageHero (pages secondaires)
+/* Pages secondaires (v4) : en-tête de page du bleu teinté au violet teinté (les deux teintes du logo), filet de marque
+   dessous ; une section sur deux posée sur une bande teintée. Fonds opaques : les contrastes sont ceux de PAIRS. */
+export const GRAD_PAGE = `linear-gradient(100deg, ${T.primaryBg} 0%, ${T.surface} 55%, ${T.violetBg} 100%)`;   // fond de PageHero
 /* Surlignage progressif (strate épinglée, cartes animées) : teintes de fond des rôles. */
 export const HL = {
   appui: `linear-gradient(${T.accentBg}, ${T.accentBg})`,
@@ -177,12 +188,12 @@ export const SH = {
   lg: "0 20px 60px rgba(27,58,102,.10)",
   ring: `0 0 0 4px ${T.primaryBg}`,
   /* Ombres colorées diffuses (v3.1) : photos et visuels du héros, visuel de la strate, bandeau d'appel final */
-  glow: "0 32px 64px -16px rgba(56,96,151,.30), 0 12px 32px -12px rgba(56,147,205,.22)",
-  glowAi: "0 32px 64px -16px rgba(92,75,185,.28), 0 12px 32px -12px rgba(56,96,151,.18)",
+  glow: "0 32px 64px -16px rgba(43,92,171,.30), 0 12px 32px -12px rgba(56,147,205,.22)",
+  glowAi: "0 32px 64px -16px rgba(92,75,185,.28), 0 12px 32px -12px rgba(43,92,171,.18)",
   /* Ombres colorées des boutons pleins [repos, survol], utilisées par Btn uniquement */
   btn: {
-    primary: ["0 4px 12px rgba(56,96,151,.20)", "0 8px 20px rgba(56,96,151,.30)"],
-    objective: ["0 4px 12px rgba(11,122,117,.20)", "0 8px 20px rgba(11,122,117,.30)"],
+    primary: ["0 4px 12px rgba(43,92,171,.20)", "0 8px 20px rgba(43,92,171,.30)"],
+    objective: ["0 4px 14px rgba(66,98,180,.30)", "0 10px 24px rgba(66,98,180,.40)"],
     ai: ["0 4px 12px rgba(92,75,185,.24)", "0 8px 20px rgba(92,75,185,.34)"],
     white: ["0 4px 12px rgba(27,58,102,.15)", "0 8px 20px rgba(27,58,102,.25)"],
   },
@@ -219,19 +230,26 @@ export const PAIRS = [
   ["navy", "surface", 4.5], ["navy", "bg", 4.5], ["navy", "primaryBg", 4.5], ["navy", "accentBg", 4.5], ["navy", "violetBg", 4.5],
   ["navy", "successBg", 4.5], ["navy", "warningBg", 4.5], ["navy", "errorBg", 4.5],
   ["body", "surface", 4.5], ["body", "bg", 4.5], ["body", "primaryBg", 4.5], ["body", "accentBg", 4.5], ["body", "successBg", 4.5], ["body", "lineLt", 4.5],
-  ["muted", "surface", 4.5], ["muted", "bg", 4.5],
+  ["muted", "surface", 4.5], ["muted", "bg", 4.5], ["muted", "primaryBg", 4.5],
+  // bande de section (T.band, v4) : tout ce qui peut s'y poser directement
+  ["navy", "band", 4.5], ["body", "band", 4.5], ["muted", "band", 4.5], ["primary", "band", 4.5], ["primaryDk", "band", 4.5],
+  ["accent", "band", 4.5], ["violet", "band", 4.5], ["coach", "band", 4.5], ["successDk", "band", 4.5], ["errorDk", "band", 4.5], ["lineStrong", "band", 3],
   ["primary", "surface", 4.5], ["primary", "bg", 4.5], ["primary", "primaryBg", 4.5],
   ["primaryDk", "surface", 4.5], ["primaryDk", "bg", 4.5], ["primaryDk", "primaryBg", 4.5],
   ["accent", "surface", 4.5], ["accent", "bg", 4.5], ["accent", "accentBg", 4.5],
   ["violet", "surface", 4.5], ["violet", "bg", 4.5], ["violet", "violetBg", 4.5],
+  // en-tête de page (GRAD_PAGE, v4) : texte et surtitre jusqu'au violet teinté
+  ["body", "violetBg", 4.5], ["primary", "violetBg", 4.5],
   ["successDk", "surface", 4.5], ["successDk", "successBg", 4.5],
   ["coach", "surface", 4.5], ["coach", "bg", 4.5], ["coach", "coachBg", 4.5], ["navy", "coachBg", 4.5], ["body", "coachBg", 4.5],
   ["warningDk", "surface", 4.5], ["warningDk", "warningBg", 4.5],
   ["errorDk", "surface", 4.5], ["errorDk", "bg", 4.5], ["errorDk", "errorBg", 4.5],
   ["surface", "primary", 4.5], ["surface", "primaryDk", 4.5], ["surface", "accent", 4.5], ["surface", "accentDk", 4.5],
-  ["surface", "violet", 4.5], ["surface", "errorDk", 4.5], ["surface", "successDk", 4.5], ["surface", "coach", 4.5], ["surface", "coachDk", 4.5], ["surface", "blueDk", 4.5], ["surface", "navy", 4.5],
+  ["surface", "violet", 4.5], ["surface", "violetDk", 4.5], ["surface", "errorDk", 4.5], ["surface", "successDk", 4.5], ["surface", "coach", 4.5], ["surface", "coachDk", 4.5], ["surface", "blueDk", 4.5], ["surface", "navy", 4.5],
   ["accentLt", "navy", 4.5, "clair"],
   ["lineStrong", "surface", 3], ["lineStrong", "bg", 3],
+  // tuile d'icône de marque (GRAD_LOGO, icône de 20 px : seuil 3)
+  ["surface", "blue", 3],
   // dégradés de texte de l'accueil (texte de 32 px et plus : seuil 3) 
   ["primary", "primaryBg", 3], ["blueDk", "bg", 3], ["blueDk", "primaryBg", 3], ["violet", "primaryBg", 3],
 ];

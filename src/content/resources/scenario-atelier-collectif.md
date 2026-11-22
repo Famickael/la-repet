@@ -2,7 +2,7 @@
 title: Un atelier collectif de préparation aux entretiens
 category: coachs
 type: cas
-summary: Scénario d'usage : comment un atelier hebdomadaire pourrait s'appuyer sur les répétitions faites à la maison pour gagner en concret.
+summary: Scénario d'usage : comment un atelier hebdomadaire pourrait s'appuyer sur les entraînements faits à la maison pour gagner en concret.
 image: ressources/scenario-atelier-collectif.webp
 imageAlt: Des personnes discutent autour d’une petite table dans un espace de travail.
 date: 2026-11-20
@@ -13,7 +13,7 @@ order: 10
 context: Un organisme d'accompagnement de taille moyenne, fictif et générique
 audience: Une dizaine de personnes en recherche d'emploi, accompagnées par deux coachs
 duration: Quatre séances hebdomadaires
-setup: Atelier collectif et répétitions autonomes entre les séances
+setup: Atelier collectif et entraînements autonomes entre les séances
 ---
 
 Ce scénario d'usage décrit une façon possible d'utiliser La Répét'. L'organisme et les situations sont fictifs ; ils servent à illustrer le dispositif, pas à en mesurer les effets.

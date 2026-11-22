@@ -4,16 +4,16 @@
 <meta charset="utf-8" />
 <title>Image d'aperçu La Répét'</title>
 <!-- Source de public/og-image.png (1200 x 630), régénérée par `node scripts/og-image.mjs`.
-     Couleurs : dégradé de marque GRAD (primary #386097, blueDk #2E7CB0, violet #5C4BB9, src/tokens.js), texte et logo
-     en blanc (contraste 4,5:1 au moins sur le milieu du dégradé, docs/design-system.md, 1.3). Polices : Outfit 800
-     (titres, police du logo) et Inter 600, servies par public/fonts. Logo : masques de public/img/logo. -->
+     Couleurs : dégradé de marque GRAD de la charte v4 (blueDk #2A78AC vers violet #5C4BB9 à 45°, couleurs du logo, src/tokens.js), texte et logo
+     en blanc (contraste 4,5:1 au moins sur le milieu du dégradé, docs/design-system.md, 1.3). Polices : Manrope 800
+     (titres du site) et Inter 600, servies par public/fonts. Logo : masques de public/img/logo. -->
 <style>
-  @font-face{font-family:'Outfit';font-weight:800;src:url('../public/fonts/outfit-latin-800-normal.woff2') format('woff2')}
+  @font-face{font-family:'Manrope';font-weight:800;src:url('../public/fonts/manrope-latin-800-normal.woff2') format('woff2')}
   @font-face{font-family:'Inter';font-weight:600;src:url('../public/fonts/inter-latin-600-normal.woff2') format('woff2')}
   html,body{margin:0}
   body{width:1200px;height:630px;overflow:hidden}
   .card{position:relative;width:1200px;height:630px;box-sizing:border-box;padding:84px 96px;
-    background:linear-gradient(135deg,#386097 0%,#2E7CB0 50%,#5C4BB9 100%);color:#fff;
+    background:linear-gradient(45deg,#2A78AC 0%,#5C4BB9 100%);color:#fff;
     display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
   .logo{display:flex;align-items:center;gap:30px;position:relative}
   .layer{position:absolute;inset:0;background:#fff;-webkit-mask-size:100% 100%;-webkit-mask-repeat:no-repeat}
@@ -23,7 +23,7 @@
   .points{-webkit-mask-image:url('../public/img/logo/points.png')}
   .lettres{-webkit-mask-image:url('../public/img/logo/lettres.png')}
   .accents{-webkit-mask-image:url('../public/img/logo/accents.png')}
-  h1{position:relative;margin:0;font:800 66px/1.08 'Outfit',sans-serif;letter-spacing:-.025em;max-width:960px}
+  h1{position:relative;margin:0;font:800 66px/1.08 'Manrope',sans-serif;letter-spacing:-.025em;max-width:960px}
   p{position:relative;margin:22px 0 0;font:600 32px/1.3 'Inter',sans-serif;opacity:.95}
 </style>
 </head>
@@ -34,8 +34,8 @@
       <div class="word"><span class="layer lettres"></span><span class="layer accents"></span></div>
     </div>
     <div>
-      <h1>Répétez votre entretien,<br />avec votre coach.</h1>
-      <p>Un retour qui décrit, sans noter.</p>
+      <h1>Entraînez-vous pour<br />votre entretien,<br />avec votre coach.</h1>
+      <p>À voix haute, sans avatar. Un retour qui décrit, sans noter.</p>
     </div>
   </div>
 <script>

@@ -18,6 +18,7 @@ import { Choose } from "./Choose.jsx";
 import { TakeReport } from "./TakeReport.jsx";
 import { Sent, Share } from "./Share.jsx";
 import { Recap } from "./Recap.jsx";
+import Interlocutor, { VignetteSwitch } from "./Interlocutor.jsx";
 
 /* Écran demandé par l'ancre : rouvert s'il ne dépend d'aucun état gardé en mémoire (BUG-07). Un enregistrement en
    cours, une série ou une préparation ne survivent pas à un rechargement : retour à l'accueil de l'espace. */
@@ -112,9 +113,11 @@ export default function Beneficiary({ initialCode, sub = "", setModal, onCode })
               <Txt v="body" color={T.body}>Rien ne vous interrompt pendant que vous parlez. Vous pouvez recommencer autant de fois que vous voulez.</Txt>
             </div>
             <RecruiterVoice key={`${ctx.qi || 0}-${ctx.question}`} label={series?.full ? `Le recruteur · ${series.step}` : "Question du recruteur"} text={series?.full && series.i === 0 ? `${FULL_INTRO} ${ctx.question}` : ctx.question} onSpeaking={setSpeaking} />
+            <Interlocutor speaking={speaking} />
             <Recorder speaking={speaking} beforeStart={() => { try { window.speechSynthesis?.cancel(); } catch { /* rien */ } }} setModal={setModal} onCancel={() => go("pick")}
               trackGaze={!!p.consent.ai} validateLabel={p.consent.ai ? "Voir mon retour" : "Garder cette réponse"}
               onDone={rec => go("processing", { recording: rec })} />
+            <VignetteSwitch />
             {/* Sous la caméra (UI-13) : la caméra reste au-dessus de la ligne de flottaison sur téléphone */}
             <EmotionNote setModal={setModal} />
           </Card>

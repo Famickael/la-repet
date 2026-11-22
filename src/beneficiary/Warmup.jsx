@@ -5,6 +5,7 @@ import { updateParcours } from "../lib/store.js";
 import { WARMUP_PHRASES, WARMUP_PROMPTS, fillPhrase, randomPhraseIndex } from "../lib/questions.js";
 import { actions, stack, wrap } from "./shared.jsx";
 import { WarmupDebrief } from "./WarmupDebrief.jsx";
+import Interlocutor, { VignetteSwitch } from "./Interlocutor.jsx";
 
 /* ─── Échauffement (ni enregistré, ni analysé) ─── */
 export const WARMUP_TIPS = [
@@ -55,7 +56,9 @@ export function Warmup({ p, go, setModal }) {
           </div>
         </div>
 
+        <Interlocutor />
         <WarmupStage setModal={setModal} />
+        <VignetteSwitch />
       </Card>
 
       {tips && (

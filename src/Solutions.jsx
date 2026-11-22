@@ -15,7 +15,7 @@ export const SOLUTIONS = [
   { href: "#/solutions/fonctionnalites", icon: I.layers, title: "Fonctionnalités", short: "Fonctionnalités",
     text: "L'outil pas à pas : échauffement, questions adaptées, caméra ou voix seule, retour qui décrit, envoi au coach, relecture et rapport." },
   { href: "#/solutions/methode", icon: I.compass, tone: "coach", title: "Méthode", short: "Méthode",
-    text: "Comment l'outil sert l'accompagnement : répétition, auto-observation, retour qui décrit, débriefing avec le coach et transfert vers l'entretien réel." },
+    text: "Comment l'outil sert l'accompagnement : entraînement en solo, auto-observation, retour qui décrit, débriefing avec le coach et transfert vers l'entretien réel." },
 ];
 
 export default function Solutions({ go }) {

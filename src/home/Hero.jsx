@@ -15,16 +15,16 @@ export function Hero({ openSpace }) {
       <div className="rs-pad" style={{ position: "relative", maxWidth: W.page, margin: "0 auto", padding: "80px 24px" }}>
         <div className="rs-hero">
           <div className="up" style={{ display: "grid", gap: 24, justifyItems: "start" }}>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <div className="rs-hero-tags" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {/* Vert du rôle « coach et accompagnement » (ton coach, même vert que GRAD_COACH) et violet de l'assistant (docs/design-system.md, 1.1 et 5.4) */}
               <Tag tone="coach" icon={I.users}>Avec votre coach</Tag>
-              <Tag tone="ai" icon={I.sparkle}>Assistant IA</Tag>
-              <Tag tone="primary">Sans jugement</Tag>
+              <Tag tone="ai" icon={I.sparkle}>Assisté par IA</Tag>
+              <Tag tone="primary">Sans avatar</Tag>
             </div>
             <h1 className="ty-display" style={{ ...TY.display, color: T.primary, margin: 0 }}>
-              <span className="rs-sr">Répétez votre entretien, {SCENES.map(x => x.ending.replace(".", "")).join(", ")}.</span>
+              <span className="rs-sr">Entraînez-vous pour votre entretien, {SCENES.map(x => x.ending.replace(".", "")).join(", ")}.</span>
               <span aria-hidden>
-                <span style={{ color: T.navy }}>Répétez votre entretien,</span>
+                <span style={{ color: T.navy }}>Entraînez-vous pour votre entretien,</span>
                 <span className="rs-rot">
                   {SCENES.map(({ ending: e }, i) => (
                     <span key={e} className={i === w ? "on" : ""} style={{ background: GRAD_ACCROCHE, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{e}</span>
@@ -33,11 +33,11 @@ export function Hero({ openSpace }) {
               </span>
             </h1>
             <p className="ty-lead" style={{ ...TY.lead, color: T.body, maxWidth: 520, margin: 0 }}>
-              Vous répondez à des questions d'entretien, à voix haute, autant de fois que vous voulez. Un assistant IA <strong style={{ color: T.navy }}>décrit votre réponse, sans la noter</strong> : rythme, pauses, exemples concrets. Votre vidéo reste sur votre appareil : vous choisissez ce que voit votre coach.
+              À voix haute, sans avatar, entraînez-vous autant de fois que vous voulez ! Un assistant IA <strong style={{ color: T.navy }}>décrit votre réponse, sans la noter</strong>, et vous propose des pistes : rythme, pauses, exemples concrets. Vous recommencez, vous voyez ce qui a changé, et votre coach vous soutient à chaque étape.
             </p>
-            <div className="rp-wide-m" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <div className="rp-wide-m rs-hero-cta" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {/* Connecté : l'espace de la personne (ou l'espace coach), jamais la page de connexion (src/app/router.js, spaceHash) */}
-              <Btn kind="objective" size="lg" onClick={() => openSpace("benef")} iconRight={I.arrow}>Lancer ma première répétition</Btn>
+              <Btn kind="objective" size="lg" onClick={() => openSpace("benef")} iconRight={I.arrow}>Je lance mon premier entraînement</Btn>
             </div>
           </div>
           <HeroStage reduced={reduced} i={w} setI={setW} stopped={stopped} setStopped={setStopped} setHover={setHover} />
@@ -55,7 +55,7 @@ export const SCENES = [
     bubble: { who: "Question 2 sur 3", text: "« Pourquoi ce poste vous intéresse-t-il ? »", rec: 38 }, bubbleTop: "6%", card: "reperes",
   },
   {
-    ending: "sans jugement.", src: "heros-echauffement.webp", pos: "40% 50%", alt: "Une femme parle devant son ordinateur portable, chez elle.", label: "Un échauffement chez soi, rien n'est enregistré",
+    ending: "à voix haute.", src: "heros-echauffement.webp", pos: "40% 50%", alt: "Une femme parle devant son ordinateur portable, chez elle.", label: "Un échauffement chez soi, à voix haute, rien n'est enregistré",
     bubble: { who: "Consigne 2 sur 7", text: "« Redites-la un peu plus lentement. »" }, bubbleTop: "56%", card: "warmup",
   },
   {
@@ -80,12 +80,24 @@ export function LiveTime({ from, on, reduced }) {
   return <>{clock(t)}</>;
 }
 
+/* Indicateur des scènes (points et pause) : masqué par défaut, il apparaît en fondu au survol de la photo et au focus
+   clavier à l'intérieur (.rs-stage-nav, GStyle). Écran tactile (pas de survol) : il apparaît au toucher de la photo,
+   puis s'efface après PEEK_MS. Toujours dans la page : atteignable au clavier, libellés lus par les lecteurs d'écran. */
+const PEEK_MS = 3000;
+
 export function HeroStage({ reduced, i, setI, stopped, setStopped, setHover }) {
+  const [peek, setPeek] = useState(0); // nombre de touchers : chaque toucher relance le délai d'effacement
+  useEffect(() => {
+    if (!peek) return;
+    const id = setTimeout(() => setPeek(0), PEEK_MS);
+    return () => clearTimeout(id);
+  }, [peek]);
   return (
-    <div className="rs-stage" role="group" aria-roledescription="carrousel" aria-label="La Répét' en quatre images"
-      onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onFocus={() => setHover(true)} onBlur={() => setHover(false)}>
+    <div className={`rs-stage${peek ? " peek" : ""}`} role="group" aria-roledescription="carrousel" aria-label="La Répét' en quatre images"
+      onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onFocus={() => setHover(true)} onBlur={() => setHover(false)}
+      onTouchStart={() => setPeek(n => n + 1)}>
       {SCENES.map((sc, k) => <Scene key={sc.src} sc={sc} on={k === i} first={k === 0} reduced={reduced} />)}
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 4, marginTop: 40 }}>
+      <div className="rs-stage-nav">
         {SCENES.map((sc, k) => (
           <Bare key={sc.src} className="rs-dot" aria-current={k === i ? "true" : "false"} aria-label={`Scène ${k + 1} sur ${SCENES.length} : ${sc.label}`} onClick={() => setI(k)}><i /></Bare>
         ))}

@@ -11,7 +11,8 @@ import React, { useEffect, useRef } from "react";
 import { useReducedMotion } from "../motion.jsx";
 
 const U = [0.56, -0.83];          // du centre vers le violet (le bleu est à l'opposé) ; W = [0.83, 0.56] lui est perpendiculaire
-const SPREAD = 0.14, SLIDE = 0.09; // écartement le long de U et glissement le long de W, en part de la fenêtre
+const SPREAD = 0.26, SLIDE = 0.17; // écartement le long de U et glissement le long de W, en part de la fenêtre (presque doublés le
+                                   // 22 novembre 2026 : à 0,14 et 0,09, le mouvement tournait mais ne se voyait presque pas)
 const SOFT = 0.35;                // arrondi de l'écartement autour du centre : aucun rebond quand le pointeur le traverse
 const TAU = 220;                  // constante de temps de l'amorti, en ms
 const REST = [0.72, 0.18];        // repère d'origine du violet, pour le suivi du doigt

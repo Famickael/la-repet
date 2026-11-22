@@ -3,6 +3,7 @@ import { T, RAD, GAP, TY, SH, Btn, Bare, Txt, Icon, I, Modal } from "../ui.jsx";
 import { openA11y } from "../A11y.jsx";
 import { closeAssistant } from "../lib/bus.js";
 import { setLastSpace, logoutCounselor, withdrawConsent } from "../lib/store.js";
+import { readVignette, toggleVignette } from "../lib/vignette.js";
 import { go } from "./router.js";
 import { STILL } from "./Nav.jsx";
 
@@ -25,7 +26,7 @@ export function accountOf(route, s) {
   const who = coach ? s.counselor?.name || "Coach" : p?.prenom || "Mon espace";
   const items = coach
     ? [["space", "Retour à mon espace", I.user], ["help", "Demander de l'aide", I.info], ["data", "Vos données", I.shield], ["a11y", "Options d'accessibilité", I.a11y], ["logout", "Se déconnecter", I.logout]]
-    : [["space", "Retour à mon espace", I.user], ["help", "Demander de l'aide", I.info], ["data", "Vos données", I.shield], ["a11y", "Options d'accessibilité", I.a11y], ["code", "Changer de code", I.redo], ["withdraw", "Retirer mon accord", I.trash], ["logout", "Se déconnecter", I.logout]];
+    : [["space", "Retour à mon espace", I.user], ["help", "Demander de l'aide", I.info], ["data", "Vos données", I.shield], ["a11y", "Options d'accessibilité", I.a11y], ["vignette", readVignette() ? "Masquer la vignette d'interlocuteur" : "Afficher la vignette d'interlocuteur", I.video], ["code", "Changer de code", I.redo], ["withdraw", "Retirer mon accord", I.trash], ["logout", "Se déconnecter", I.logout]];
   return { coach, code, who, items };
 }
 
@@ -37,6 +38,7 @@ export function runAccountAction(k, { coach, code, onWithdraw }) {
   if (k === "data") go(coach ? "#/vos-donnees/coachs" : "#/vos-donnees");
   if (k === "code") { setLastSpace(null); go("#/beneficiaire"); }
   if (k === "withdraw") onWithdraw?.();
+  if (k === "vignette") toggleVignette(); // vignette d'interlocuteur de l'entraînement (src/beneficiary/Interlocutor.jsx)
   if (k === "logout") { if (coach) logoutCounselor(); setLastSpace(null); go("#/"); }
 }
 
@@ -104,7 +106,7 @@ export function AccountMenu({ route, s, className }) {
   };
   const act = k => {
     setOpen(false);
-    if (["a11y", "withdraw"].includes(k)) btn.current?.focus();
+    if (["a11y", "withdraw", "vignette"].includes(k)) btn.current?.focus();
     runAccountAction(k, { ...acc, onWithdraw: () => setConfirm(true) });
   };
   return (

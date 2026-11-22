@@ -281,6 +281,95 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     await ctx.close();
   });
 
+  /* Vignette d'interlocuteur (design-system 5.9 quinquies) : désactivée par défaut, activée par l'interrupteur,
+     visible pendant l'enregistrement, immobile pendant que la personne parle, mémorisée après rechargement,
+     sans chevauchement avec la question ni les commandes. Voix de synthèse simulée : une voix française qui lit
+     1,5 s, pour vérifier que l'indicateur « parle » suit la lecture et elle seule. */
+  await scenario("vignette d'interlocuteur", async () => {
+    const { ctx, p } = await fresh(seed({ ai: false }));
+    await ctx.addInitScript(() => {
+      const voice = { name: "Voix d'essai", lang: "fr-FR", localService: true, default: true, voiceURI: "essai" };
+      let cur = null, t = 0;
+      const fake = {
+        getVoices: () => [voice], addEventListener() {}, removeEventListener() {},
+        speak(u) { cur = u; t = setTimeout(() => { cur = null; u.onend?.({}); }, 1500); },
+        cancel() { clearTimeout(t); const u = cur; cur = null; if (u) u.onerror?.({}); },
+      };
+      Object.defineProperty(window, "speechSynthesis", { configurable: true, get: () => fake });
+      window.SpeechSynthesisUtterance = class { constructor(text) { this.text = text; } };
+    });
+    await p.goto(BASE + "#/s/CASAAA");
+    await p.getByRole("button", { name: "Commencer l'entraînement" }).click();
+    await p.getByRole("button", { name: "Tout retirer" }).click().catch(() => {});
+    await p.getByRole("checkbox", { name: /Pouvez-vous vous présenter/ }).click();
+    await p.getByRole("button", { name: "Commencer (1 question)" }).click();
+    const sw = p.getByRole("switch", { name: /Afficher une vignette d'interlocuteur/ });
+    await sw.waitFor({ timeout: 5000 });
+    const tile = p.getByTestId("interlocutor");
+    check(await tile.count() === 0, "vignette : affichée sans avoir été activée");
+    check(await sw.getAttribute("aria-checked") === "false", "vignette : interrupteur activé par défaut");
+    await sw.click();
+    await tile.waitFor({ timeout: 3000 });
+    check(await sw.getAttribute("aria-checked") === "true", "vignette : interrupteur non coché après activation");
+    check(await p.evaluate(() => localStorage.getItem("larepet.vignette")) === "1", "vignette : choix non mémorisé");
+    /* Décorative : rien de lisible par un lecteur d'écran, hors le bouton pour la masquer. */
+    const exposed = await tile.evaluate(el => [...el.querySelectorAll("*")].filter(n => !n.closest("[aria-hidden=true]") && !n.closest("button") && n.childNodes.length && [...n.childNodes].some(c => c.nodeType === 3 && c.textContent.trim())).length);
+    check(exposed === 0, "vignette : du texte est exposé aux lecteurs d'écran");
+    check(await tile.getByRole("button", { name: "Masquer la vignette" }).count() === 1, "vignette : bouton « Masquer la vignette » absent");
+    /* Relecture de la question : l'indicateur « parle » suit la voix, puis s'arrête. */
+    await p.getByRole("button", { name: "Réécouter" }).click();
+    await p.waitForFunction(() => document.querySelector("[data-testid=interlocutor]")?.dataset.speaking === "true", null, { timeout: 3000 });
+    await p.waitForFunction(() => document.querySelector("[data-testid=interlocutor]")?.dataset.speaking === "false", null, { timeout: 5000 });
+    /* Enregistrement : la vignette reste visible et immobile pendant que la personne parle. */
+    await p.getByRole("button", { name: "Voix seule" }).click();
+    const start = p.getByRole("button", { name: "Démarrer l'enregistrement" });
+    await start.waitFor({ timeout: 15000 });
+    await start.click();
+    const stop = p.getByRole("button", { name: "Arrêter l'enregistrement" });
+    await stop.waitFor({ timeout: 5000 });
+    await p.waitForTimeout(1200);
+    check(await tile.isVisible(), "vignette : invisible pendant l'enregistrement");
+    check(await tile.getAttribute("data-speaking") === "false", "vignette : indicateur « parle » actif pendant que la personne parle");
+    check(await tile.evaluate(el => [...el.querySelectorAll("*")].every(n => getComputedStyle(n).animationName === "none")), "vignette : animée pendant l'enregistrement");
+    /* Aucun chevauchement : chaque commande est amenée dans l'écran, puis comparée à la vignette. */
+    const overlap = async loc => {
+      await loc.scrollIntoViewIfNeeded();
+      const [a, v] = [await loc.boundingBox(), await tile.boundingBox()];
+      return a && v && a.x < v.x + v.width && v.x < a.x + a.width && a.y < v.y + v.height && v.y < a.y + a.height;
+    };
+    for (const [n, loc] of [["sous-titre de la question", p.getByTestId("recruiter-subtitle")], ["Arrêter l'enregistrement", stop], ["Réécouter", p.getByRole("button", { name: "Réécouter" })], ["interrupteur", sw]])
+      check(!(await overlap(loc)), `vignette : chevauche « ${n} » (${vw} px)`);
+    const fab = p.locator(".rp-ai-fab");
+    if (await fab.count() && await fab.isVisible()) check(!(await overlap(fab)), "vignette : chevauche le bouton de l'assistant");
+    check(await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), "vignette : défilement horizontal");
+    await p.getByRole("heading", { name: "À vous de répondre" }).scrollIntoViewIfNeeded();
+    await p.screenshot({ path: `${SC}/vignette-enregistrement.png` });
+    await stop.click();
+    await p.getByRole("button", { name: "Garder cette réponse" }).waitFor({ timeout: 10000 });
+    /* Fin de l'enregistrement : le bouton de l'assistant revient, sans être recouvert. */
+    if (await fab.count() && await fab.isVisible()) check(!(await overlap(fab)), "vignette : chevauche le bouton de l'assistant après l'enregistrement");
+    for (const n of ["Garder cette réponse", "Recommencer"]) check(!(await overlap(p.getByRole("button", { name: n }))), `vignette : chevauche « ${n} » (${vw} px)`);
+    /* Mémorisation : après rechargement, l'option reste active à la question suivante. */
+    p.on("dialog", d => d.accept());
+    await p.evaluate(() => { history.replaceState(null, "", "#/s/CASAAA"); location.reload(); });
+    await p.getByRole("button", { name: "Commencer l'entraînement" }).click({ timeout: 8000 });
+    await p.getByRole("button", { name: "Tout retirer" }).click().catch(() => {});
+    await p.getByRole("checkbox", { name: /Pouvez-vous vous présenter/ }).click();
+    await p.getByRole("button", { name: "Commencer (1 question)" }).click();
+    await tile.waitFor({ timeout: 5000 });
+    check(await sw.getAttribute("aria-checked") === "true", "vignette : option perdue après rechargement");
+    /* Masquer depuis la vignette, puis réactiver depuis « Mon compte » (ordinateur) ou le menu de l'espace. */
+    await tile.getByRole("button", { name: "Masquer la vignette" }).click();
+    check(await tile.count() === 0, "vignette : toujours affichée après « Masquer la vignette »");
+    check(await p.evaluate(() => localStorage.getItem("larepet.vignette")) === "0", "vignette : masquage non mémorisé");
+    if (!mobile) {
+      await p.getByRole("button", { name: "Mon compte" }).click();
+      await p.getByRole("button", { name: "Afficher la vignette d'interlocuteur" }).click();
+      await tile.waitFor({ timeout: 3000 });
+    }
+    await ctx.close();
+  });
+
   await b.close();
   if (errors.length) fails.push("erreurs JavaScript : " + errors.join(" | "));
   if (fails.length) { console.error("ECHEC\n- " + fails.join("\n- ")); process.exit(1); }

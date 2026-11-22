@@ -25,7 +25,7 @@ export const miniCard = { background: T.surface, borderRadius: RAD.sm, padding: 
 
 export function Features() {
   return (
-    <Section eyebrow="Au fil de l'entraînement" title="Tout ce qu'il faut pour répéter à votre rythme" sub="Des outils simples, pour vous entraîner de votre côté et garder la main sur ce que vous partagez.">
+    <Section eyebrow="Au fil de l'entraînement" title="Tout ce qu'il faut pour vous entraîner à votre rythme" sub="Des outils simples, sans avatar, pour vous entraîner de votre côté et garder la main sur ce que vous envoyez.">
       <div className="rs-fcards" tabIndex={0} role="group" aria-label="Fonctions, liste à faire défiler">
         <FCard i={0} title="Un échauffement sans enregistrement" text="Des phrases à lire à voix haute pour se mettre en route. Rien n'est enregistré ni analysé.">
           <div style={{ ...TY.overline, color: T.muted, marginBottom: 8 }}>Échauffement · lisez à voix haute</div>

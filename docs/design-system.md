@@ -1,6 +1,6 @@
 # Référentiel UI/UX de La Répét'
 
-Source unique de vérité pour l'interface. Version 3.1 (20 novembre 2026). Remplace le paragraphe « Couleurs (design system v2) » du README, qui doit désormais renvoyer ici.
+Source unique de vérité pour l'interface. Version 4.0 (22 novembre 2026 ; charte v4 : couleurs du logo, voir 1.0 et `docs/charte-v4-dialogue.md`). Remplace le paragraphe « Couleurs (design system v2) » du README, qui doit désormais renvoyer ici.
 
 ## 0. Mode d'emploi (à lire en premier)
 
@@ -18,20 +18,32 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 
 ## 1. Couleurs
 
+### 1.0 Charte v4 : les couleurs du logo (22 novembre 2026)
+
+Retours du propriétaire : les boutons d'appel n'ont pas les couleurs du logo ; les pages secondaires sont fades. La charte v4 est l'accord entre la direction artistique et le design UI/UX, consigné dans `docs/charte-v4-dialogue.md`. Elle tient en six règles.
+
+1. **Le logo donne la palette.** Bleu `blue` (`#3893CD`), violet `violet` (`#5C4BB9`), encre `navy` (`#1B3A66`). Tout dégradé de marque va du bleu au violet, dans le sens du logo (45°).
+2. **L'action principale porte le dégradé du logo**, dans sa version lisible (`GRAD_CTA`, `blueDk` vers `violet`). Plus de bouton sarcelle.
+3. **Le dégradé complet, c'est la marque et l'action ; le violet seul, c'est l'assistant.** `GRAD_AI` ne contient plus de bleu.
+4. **Le bleu de structure appartient à la famille du logo** : `primary` `#2B5CAB`.
+5. **Les pages secondaires prennent la couleur par le décor, pas par le texte** : en-tête du bleu teinté au violet teinté, filet de marque, bande teintée une section sur deux, tuiles d'icône de marque (section 6 bis).
+6. **Aucune animation ajoutée, rien qui évoque une note** : pas de chiffre coloré, pas de barre qui se remplit, pas de jauge.
+
 ### 1.1 Un rôle par couleur
 
 | Rôle | Jeton | Valeur | Où l'utiliser | Où ne jamais l'utiliser |
 |---|---|---|---|---|
-| Structure et marque (dominante) | `T.primary` | `#386097` | Navigation, liens, bouton neutre fort, bordure du bouton secondaire, icônes d'interface, notes du coach, barre de lecture, focus | Action principale de l'écran, points d'appui, contenu de l'assistant |
-| Structure, survol et texte sur fond teinté | `T.primaryDk` | `#2C4D7C` | Survol de `primary`, lien survolé | Fond de grande surface |
-| Bordure du bouton secondaire | `T.primaryLt` | `#4A72A8` | Bordure au repos du bouton secondaire uniquement | Texte |
-| Secondaire décoratif | `T.blue` | `#3893CD` | Dégradés, halos, icônes décoratives de 16 px et plus, illustrations | Texte, fond de bouton, bordure de champ (3,4:1 sur blanc) |
-| Secondaire sous texte blanc | `T.blueDk` | `#2E7CB0` | Milieu des dégradés qui portent du texte blanc | Texte sur fond clair (4,5:1 de justesse, 4,3:1 sur `bg`) |
-| Action principale et points d'appui | `T.accent` | `#0B7A75` | Bouton `objective` (un seul par écran), étape en cours du rail, étiquette et repère « Point d'appui », ligne « à traiter » | Liens, titres, décor, état « validé » (c'est le rôle du vert) |
-| Action principale, survol | `T.accentDk` | `#0A6663` | Survol du bouton `objective` | Ailleurs |
+| Structure et marque (dominante) | `T.primary` **modifié v4** | `#2B5CAB` | Navigation, liens, bouton neutre fort, bordure du bouton secondaire, icônes d'interface, surtitres, notes du coach, focus. Bleu de la famille du logo (teinte 217°, entre son bleu et son violet) | Action principale de l'écran, points d'appui, contenu de l'assistant |
+| Structure, survol et texte sur fond teinté | `T.primaryDk` **modifié v4** | `#234A8C` | Survol de `primary`, lien survolé | Fond de grande surface |
+| Bordure du bouton secondaire | `T.primaryLt` **modifié v4** | `#4A78C6` | Bordure au repos du bouton secondaire, bordure d'une carte de lien survolée | Texte |
+| Bleu du logo (décor) | `T.blue` | `#3893CD` | Début de `GRAD_LOGO` : symbole, filet de marque, tuile d'icône de marque, halos, icônes décoratives de 16 px et plus | Texte, fond sous du texte, bordure de champ (3,4:1 sur blanc) |
+| Bleu du logo, version lisible | `T.blueDk` **modifié v4** | `#2A78AC` | Début de `GRAD_CTA` (bouton d'action) et de `GRAD` (bandeaux de marque), sous du texte blanc (4,8:1) ; début de `GRAD_ACCROCHE` | Texte courant sur fond clair |
+| Points d'appui et étape en cours | `T.accent` **rôle modifié v4** | `#0B7A75` | Étiquette et repère « Point d'appui », étape en cours du rail et de la strate, ligne « à traiter ». **N'habille plus aucun bouton** (l'action principale porte `GRAD_CTA`) | Boutons, liens, titres, décor, état « validé » (c'est le rôle du vert) |
+| Sarcelle dense | `T.accentDk` | `#0A6663` | Réservé (plus de survol de bouton depuis la v4) | Ailleurs |
 | Sarcelle sur fond sombre | `T.accentLt` | `#7FD6CF` | Texte ou icône d'appui posé sur `navy` ou sur la vidéo | Sur fond clair |
-| Assistant (IA) et points à explorer | `T.violet` | `#5C4BB9` | Bouton `ai`, étiquette `ai`, repère « À explorer », encart « ce que fait l'assistant », chargement de l'analyse | Liens, actions sans IA, icônes génériques, statut |
-| Assistant, dégradé seulement | `T.lavender` | `#736BDE` | Sélection de texte, illustrations | Texte, fond sous texte blanc (4,3:1) |
+| Assistant (IA) et points à explorer ; violet du logo | `T.violet` | `#5C4BB9` | Seul : bouton `ai`, étiquette `ai`, repère « À explorer », encart « ce que fait l'assistant », chargement de l'analyse. Associé au bleu dans un dégradé : la marque (logo, action, bandeaux) | Seul : liens, actions sans IA, icônes génériques, statut |
+| Assistant, violet dense | `T.violetDk` **nouveau v4** | `#45369E` | Fin de `GRAD_AI` et de `GRAD_CTA_HOVER` (texte blanc 9,2:1) | Texte |
+| Assistant, dégradé seulement | `T.lavender` | `#736BDE` | Sélection de texte, illustrations, milieu de `GRAD_AI_BORDER` | Texte, fond sous texte blanc (4,3:1) |
 | Coach et accompagnement | `T.coach` **nouveau** | `#13795A` | Tout ce qui signale le côté coach ou l'accompagnement humain : pastille « Avec votre coach », ton `coach` des étiquettes et des cartes de liens (« Coachs », scénarios d'accompagnement), encart « Conseil » des articles, dégradé `GRAD_COACH` | Action, point d'appui, validation |
 | Coach, fin de dégradé | `T.coachDk` **nouveau** | `#0F5E46` | Fin de `GRAD_COACH` (texte blanc 7,8:1) | Texte sur fond clair hors dégradé |
 | Validation (décor) | `T.success` | `#41C77A` | Pastille pleine décorative, point « en ligne », illustration | Texte, icône porteuse de sens sur fond clair (2,2:1) |
@@ -42,12 +54,13 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 | Enregistrement en cours (décor) | `T.error` | `#FF5A72` | Point rouge d'enregistrement, trait barré | Texte, fond de bouton (3,0:1) |
 | Titres et texte fort | `T.navy` | `#1B3A66` | Titres, texte de contenu à lire, valeur des champs | Fond de bouton |
 | Texte courant | `T.body` | `#4A5568` | Paragraphes, descriptions | Titres |
-| Texte secondaire | `T.muted` | `#64748B` | Légendes, aides, métadonnées, espace réservé des champs, lien « Retour » | Texte de moins de 12 px, texte sur `lineLt` ou `line` |
+| Texte secondaire | `T.muted` **modifié v4** | `#5B6B82` | Légendes, aides, métadonnées, espace réservé des champs, lien « Retour ». Assombri en v4 pour rester lisible sur la bande de section (4,9:1) | Texte de moins de 12 px |
 | Décor neutre | `T.faint` | `#A4AFBF` | Icônes décoratives, flèches entre étapes, pointillés | Texte, bordure de champ (2,2:1) |
 | Bordure des contrôles | `T.lineStrong` **nouveau** | `#7C8AA0` | Bordure des champs, cases à cocher, pastille d'étape à venir | Séparateurs |
 | Bordure et séparateur | `T.line` | `#E7EBF2` | Contour des cartes, séparateurs de section, fond du bouton désactivé | Bordure de champ |
 | Séparateur interne | `T.lineLt` | `#F0F3F8` | Lignes entre rangées d'une même carte, piste de la barre de lecture, fond d'étiquette neutre | |
 | Fond de page | `T.bg` | `#F8FAFC` | Fond de l'application, bloc « conseil » dans une carte | Fond de champ |
+| Bande de section | `T.band` **nouveau v4** | `#F0F4FC` (sombre `#121A27`) | Bande teintée pleine largeur d'une section sur deux, pages secondaires (section 6 bis). Entre `bg` et `primaryBg` : un message `Notice` y reste visible | Carte, champ, autre fond |
 | Surface | `T.surface` | `#FFFFFF` | Cartes, champs, modales, pied de page, texte sur fond plein | |
 | Voile de modale | `T.overlay` **nouveau** | `rgba(27,58,102,.45)` | Fond assombri des modales | |
 | Fond vidéo | `T.videoBg` **nouveau** | `#000000` | Derrière un lecteur vidéo | Ailleurs |
@@ -58,13 +71,13 @@ Statut des jetons cités : **existant** (déjà dans `ui.jsx`), **modifié**, **
 
 | Vert | Jetons | Rôle unique | Exemples |
 |---|---|---|---|
-| Sarcelle | `accent`, `accentDk`, `accentLt`, `accentBg` | Action principale (`objective`) et points d'appui de l'analyse | « Lancer ma première répétition », repère « Point d'appui », étape en cours du rail et de la strate, « Entretiens à relire » |
+| Sarcelle | `accent`, `accentDk`, `accentLt`, `accentBg` | Points d'appui de l'analyse et étape en cours (v4 : plus aucun bouton) | Repère « Point d'appui », étape en cours du rail et de la strate, « Entretiens à relire » |
 | Émeraude | `coach`, `coachDk`, `coachBg`, `GRAD_COACH` (= `GRAD_DOOR_GREEN`) | Coach et accompagnement humain | Pastille « Avec votre coach », barre `topbar="coach"`, porte « Vous êtes coach », carte « Coachs », scénarios d'accompagnement, encart « Conseil » |
 | Vert de validation | `success` (décor), `successDk` (lisible), `successBg` | Fait, reçu, envoyé, prêt | Étiquettes `success`, `Notice tone="success"`, étapes terminées du rail, rond de confirmation, « Rapports envoyés » |
 
 Aucun autre vert. Le dégradé coach ne mélange plus la sarcelle et le vert de validation. Seule exception : les icônes du bandeau d'engagements du pied de page (section 1.5, validée par le propriétaire). Un cadenas ou une icône de confidentialité n'est pas une validation : il prend `primary`.
 
-**Pourquoi** : une couleur qui a deux rôles n'en signale plus aucun. Aujourd'hui « Se connecter » est bleu, « Accéder à mon espace » sarcelle, « Démarrer l'enregistrement » bleu clair : la personne ne peut pas apprendre où est la suite.
+**Pourquoi** : une couleur qui a deux rôles n'en signale plus aucun. Depuis la v4, l'action principale ne se reconnaît plus à une teinte à part mais à un aspect unique : c'est le seul bouton en dégradé du logo (bleu vers violet), avec une ombre colorée. Le bouton neutre fort est un aplat `primary`, le bouton de l'assistant un violet seul.
 
 `T.ink` (doublon de `navy`) est supprimé. Le blanc s'écrit `T.surface`, jamais `"#fff"`.
 
@@ -72,9 +85,9 @@ Aucun autre vert. Le dégradé coach ne mélange plus la sarcelle et le vert de 
 
 | Jeton | Valeur | Emploi unique |
 |---|---|---|
-| `T.primaryBg` **nouveau** | `#EEF2F8` | Message d'information, état sélectionné (bascule, case de consentement), bloc « code d'accès », commentaire du coach, avatar à initiale, pastille d'icône neutre |
+| `T.primaryBg` **modifié v4** | `#EAF0FB` | Message d'information, état sélectionné (bascule, case de consentement), bloc « code d'accès », commentaire du coach, avatar à initiale, pastille d'icône neutre, début de `GRAD_PAGE` |
 | `T.accentBg` | `#ECF5F4` | Étiquette et pastille « Point d'appui », rangée « à traiter », observation d'appui active |
-| `T.violetBg` **nouveau** | `#F2F1F9` | Étiquette `ai`, encart sur l'assistant, observation « à explorer » active |
+| `T.violetBg` **nouveau** | `#F2F1F9` | Étiquette `ai`, encart sur l'assistant, observation « à explorer » active ; fin de `GRAD_PAGE` (avec le bleu teinté : dégradé de marque) |
 | `T.successBg` | `#E9F8F0` | Message de succès, rond de confirmation |
 | `T.coachBg` **nouveau** | `#E7F4EE` | Étiquette `coach`, pastille d'icône des cartes « coach », encart « Conseil » |
 | `T.warningBg` | `#FFF6E8` | Message d'attention, étiquette d'attente |
@@ -86,10 +99,14 @@ Aucun autre vert. Le dégradé coach ne mélange plus la sarcelle et le vert de 
 
 | Jeton | Composition | Emploi unique |
 |---|---|---|
-| `GRAD` (= `GRAD_PREMIUM`) **modifié** | `primary` 0 %, `blueDk` 50 %, `violet` 100 % | `GradHead`, en-tête de modale, bandeau d'appel final. Milieu en `blueDk` et non `blue` : le texte blanc y passe de 3,4:1 à 4,5:1 |
-| `GRAD_MAIN` | `blue` vers `violet` | Barre supérieure de 4 px des cartes côté bénéficiaire (`topbar`) |
+| `GRAD_LOGO` | `blue` vers `violet`, 45°, en variables | Symbole du logo, filet de marque (`.rp-filet`, `.rs-phero-filet`), barre de lecture, tuile d'icône de marque. Décor seulement : jamais sous du texte |
+| `GRAD_CTA` **nouveau v4** | `blueDk` vers `violet`, 45°, en variables | Fond du bouton `objective`, et de lui seul (règle G3). Texte `surface` : blanc en clair (4,8:1 à 6,6:1), encre sombre sur les teintes claires du thème sombre (8,5:1 à 7,8:1) |
+| `GRAD_CTA_HOVER` **nouveau v4** | `primary` vers `violetDk`, 45° | Survol du bouton `objective` : le même dégradé, un cran plus dense |
+| `GRAD` (= `GRAD_PREMIUM`) **modifié v4** | `blueDk` vers `violet`, 45°, valeurs claires fixes | `GradHead`, en-tête de modale, bandeau d'appel final : les couleurs exactes du logo dans sa version lisible, texte blanc (`ON.text`) dans tous les thèmes. Le départ en `primary` (bleu gris) est supprimé |
+| `GRAD_MAIN` | `blue` vers `violet` | Barre supérieure de 4 px des cartes côté personne accompagnée (`topbar`) |
 | `GRAD_COACH` **modifié** | `coach` vers `coachDk` | Barre supérieure des cartes côté coach (`topbar="coach"`) et porte « Vous êtes coach » de l'accueil : le seul dégradé vert |
-| `GRAD_AI` **modifié** | `blueDk` vers `violet` | Bouton `ai`, barre `topbar="ai"`, indicateur de chargement de l'analyse |
+| `GRAD_AI` **modifié v4** | `violet` vers `violetDk`, en variables | Bouton `ai`, bouton flottant de l'assistant, barre `topbar="ai"`, tuile d'icône de l'assistant. **Violet seul, sans bleu** (règle G1) : il ne se confond pas avec `GRAD_CTA` |
+| `GRAD_AI_BORDER` **modifié v4** | `violet`, `lavender`, `violet` | Bordure animée du panneau et de la bulle de l'assistant |
 | `GRAD_SOFT` | `primary` 8 % vers `violet` 7 % | `GradHead soft` et en-tête de modale `soft` uniquement |
 | `GRAD_NIGHT` **nouveau** | `navy`, `primaryDk` 60 %, `violet` | Fond de scène vidéo simulée (accueil) et fond d'attente de l'enregistreur |
 | `GRAD_DOOR_BLUE`, `GRAD_DOOR_GREEN`, `GRAD_DOOR_VIOLET` **nouveau** | `primary` vers `primaryDk` ; `GRAD_DOOR_GREEN` = `GRAD_COACH` ; `violet` vers `primaryDk` | Portes d'entrée de l'accueil (« Par où commencer ? ») : bleu pour la personne accompagnée, vert pour le coach, violet pour le commanditaire. Carte entièrement cliquable, sans bouton bordé, texte blanc (AA sur tout le dégradé), flèche dans une pastille `ON.chip` |
@@ -103,20 +120,20 @@ Demande du propriétaire : plus de profondeur et de présence de la marque sur l
 | `GRAD_ACCROCHE` | `blueDk` vers `violet` | Fin d'accroche qui change et mots-clés de la phrase qui se colore (texte de 32 px et plus, seuil 3:1 vérifié par `PAIRS`) |
 | `GRAD_HERO` | `surface` vers `primaryBg` | Fond du héros de l'accueil |
 | `GRAD_SECTION` | `bg`, `primaryBg` au milieu, `bg` | Fond de la strate épinglée (section clé) |
-| `GRAD_PAGE` | `primaryBg` vers `bg` | Fond de `PageHero` (pages secondaires) |
+| `GRAD_PAGE` **modifié v4** | `primaryBg`, `surface` à 55 %, `violetBg`, à 100° | Fond de `PageHero` (pages secondaires) et de l'en-tête d'un article : les deux teintes du logo, en fonds opaques |
 | `GLOW.blue`, `GLOW.violet` | bleu clair 22 %, violet 20 % | Halos (`Halo`) derrière les photos et le héros : décor, jamais sous du texte |
 | `FADE_FOOT` | masque opaque puis transparent sur 160 px avant le pied de page | Fond de l'accueil (deux masses qui se déplacent en sens opposés) : il s'efface avant le pied de page |
 | `HL.appui`, `HL.ai`, `HL.primary` | teintes de fond des rôles | Surlignage progressif d'un passage (cartes animées, strate) |
 
-Début du titre d'accroche (« Répétez votre entretien d'embauche, ») : couleur pleine `navy` dans les deux thèmes (presque blanc en sombre), sans dégradé ; seule la fin d'accroche qui change garde `GRAD_ACCROCHE`.
+Début du titre d'accroche (« Entraînez-vous pour votre entretien, ») : couleur pleine `navy` dans les deux thèmes (presque blanc en sombre), sans dégradé ; seule la fin d'accroche qui change garde `GRAD_ACCROCHE`.
 
-**Fond de l'accueil.** Un seul calque fixe (`.rs-glow`, `src/home/Background.jsx`) derrière toutes les sections de l'accueil, qui n'ont aucun fond propre (ni halo de section, ni `GRAD_HERO`, ni `GRAD_SECTION`) : aucune rupture entre le héros, la phrase et la strate. Il porte deux masses de couleur, le violet en haut à droite (`GLOW.violet`) et le bleu en bas à gauche (`GLOW.blue`). Souris : **rien ne suit le pointeur**, ni halo ni point clair ; les deux masses reçoivent toujours des décalages **opposés** (`opposed`). Sur la diagonale qui les relie, elles s'écartent l'une de l'autre dès que le pointeur s'approche de l'une d'elles (souris en haut à droite : le violet recule vers le haut, le bleu vers le bas ; souris en bas à gauche : de même) ; sur l'autre diagonale, elles glissent en sens contraires (souris vers la droite : le violet glisse à droite, le bleu à gauche). La zone claire du milieu reste ainsi autour du pointeur, et la souris au centre redonne la composition d'origine. Course maximale : environ 15 % de la fenêtre par masse, souris dans un coin. Mouvement amorti (constante de temps de 220 ms), `transform` seulement, écrit dans le style à chaque image par `requestAnimationFrame`, sans rendu React ; la boucle s'arrête dès que les masses ont rejoint leur cible. Sur tactile, le calque dérive lentement seul (`rsDrift`, 26 s, aller-retour, `transform` seulement) et glisse un peu au défilement et au doigt (`touchmove`), avec le même amorti, sans capteur d'orientation. Il s'efface avant le pied de page (`FADE_FOOT`, variable `--fy`), et le pied de page garde son fond opaque au-dessus. Fixe en mouvement réduit, masqué en mode concentration.
+**Fond de l'accueil.** Un seul calque fixe (`.rs-glow`, `src/home/Background.jsx`) derrière toutes les sections de l'accueil, qui n'ont aucun fond propre (ni halo de section, ni `GRAD_HERO`, ni `GRAD_SECTION`) : aucune rupture entre le héros, la phrase et la strate. Il porte deux masses de couleur, le violet en haut à droite (`GLOW.violet`) et le bleu en bas à gauche (`GLOW.blue`). Souris : **rien ne suit le pointeur**, ni halo ni point clair ; les deux masses reçoivent toujours des décalages **opposés** (`opposed`). Sur la diagonale qui les relie, elles s'écartent l'une de l'autre dès que le pointeur s'approche de l'une d'elles (souris en haut à droite : le violet recule vers le haut, le bleu vers le bas ; souris en bas à gauche : de même) ; sur l'autre diagonale, elles glissent en sens contraires (souris vers la droite : le violet glisse à droite, le bleu à gauche). La zone claire du milieu reste ainsi autour du pointeur, et la souris au centre redonne la composition d'origine. Course maximale : environ 28 % de la fenêtre par masse, souris dans un coin (`SPREAD` 0,26, `SLIDE` 0,17 ; de la gauche à la droite de l'écran, chaque masse parcourt environ 23 % de la largeur). Chaque masse garde un cœur plein jusqu'à 30 % de son rayon avant de s'estomper : le déplacement se voit nettement, sans dépasser l'intensité des jetons `GLOW` (contraste du texte inchangé au pire endroit). Demande du propriétaire, 22 novembre 2026 : « le fond ne bouge plus » (l'effet tournait, mais à peine visible : écart moyen de 3,6 niveaux sur 255 entre souris à gauche et à droite, contre 7,1 désormais). Mouvement amorti (constante de temps de 220 ms), `transform` seulement, écrit dans le style à chaque image par `requestAnimationFrame`, sans rendu React ; la boucle s'arrête dès que les masses ont rejoint leur cible. Sur tactile, le calque dérive lentement seul (`rsDrift`, 26 s, aller-retour, `transform` seulement) et glisse un peu au défilement et au doigt (`touchmove`), avec le même amorti, sans capteur d'orientation. Il s'efface avant le pied de page (`FADE_FOOT`, variable `--fy`), et le pied de page garde son fond opaque au-dessus. Fixe en mouvement réduit, masqué en mode concentration.
 
 Le bleu et le violet de ces dégradés et halos relèvent de l'exception « dégradé de la marque » ci-dessous : ils ne signalent ni l'assistant ni une action.
 
-Interdits : dégradé au survol d'un bouton non IA (le bouton `primary` devient `primaryDk` uni), `GRAD_AI` sur un élément sans rapport avec l'assistant (ex. vignette d'une prise), `GRAD_AI_SOFT` (supprimé).
+Interdits : dégradé écrit à la main hors de `tokens.js` (règle G2) ; un bouton uni qui devient un dégradé au survol (le bouton `primary` devient `primaryDk` uni) ; `GRAD_CTA` ailleurs que sur le bouton `objective` (règle G3) ; `GRAD_LOGO` sous du texte ; `GRAD_AI` sur un élément sans rapport avec l'assistant (ex. vignette d'une prise) ; du bleu dans un dégradé de l'assistant ; `GRAD_AI_SOFT` (supprimé).
 
-Le violet présent dans `GRAD` et `GRAD_MAIN` est la seule exception à « violet = IA » : c'est le dégradé de la marque (logo).
+**Marque ou assistant ?** Le violet associé au bleu dans un même dégradé (`GRAD_LOGO`, `GRAD_CTA`, `GRAD`, `GRAD_MAIN`, `GRAD_ACCROCHE`, `GRAD_PAGE`) est le dégradé de la marque : c'est la seule exception à « violet = IA ». Le violet seul (`violet`, `violetDk`, `lavender`, `violetBg`) désigne toujours l'assistant.
 
 #### Logo (v3.3)
 
@@ -150,18 +167,18 @@ Seuils : 4,5:1 pour le texte, 3:1 pour le texte de 24 px et plus (ou 19 px gras)
 
 | Texte | sur `surface` | sur `bg` | Autres fonds vérifiés | Verdict |
 |---|---|---|---|---|
-| `navy` | 11,4 | 10,9 | `primaryBg` 10,1 · `accentBg` 10,3 · `violetBg` 10,2 · `successBg` 10,4 · `warningBg` 10,6 · `errorBg` 10,0 | Partout |
-| `body` | 7,5 | 7,2 | `primaryBg` 6,7 · `accentBg` 6,8 · `successBg` 6,9 · `lineLt` 6,8 | Partout |
-| `muted` | 4,8 | 4,6 | `lineLt` 4,3 · `line` 4,0 | Sur `surface` et `bg` seulement |
-| `primary` | 6,4 | 6,1 | `primaryBg` 5,7 | OK |
-| `primaryDk` | 8,5 | 8,2 | `primaryBg` 7,6 | OK |
+| `navy` | 11,4 | 10,9 | `primaryBg` 10,0 · `band` 10,3 · `accentBg` 10,3 · `violetBg` 10,2 · `successBg` 10,4 · `warningBg` 10,6 · `errorBg` 10,0 | Partout |
+| `body` | 7,5 | 7,2 | `primaryBg` 6,6 · `band` 6,8 · `accentBg` 6,8 · `violetBg` 6,7 · `successBg` 6,9 · `lineLt` 6,8 | Partout |
+| `muted` (v4) | 5,4 | 5,2 | `band` 4,9 · `primaryBg` 4,7 · `lineLt` 4,9 | Sur `surface`, `bg` et `band`. Sur un autre fond teinté, préférer `body` (règle A2 maintenue) |
+| `primary` (v4) | 6,5 | 6,2 | `primaryBg` 5,7 · `band` 5,9 · `violetBg` 5,8 | OK |
+| `primaryDk` (v4) | 8,6 | 8,3 | `primaryBg` 7,6 | OK |
 | `accent` | 5,2 | 5,0 | `accentBg` 4,7 | OK |
 | `violet` | 6,6 | 6,4 | `violetBg` 5,9 | OK |
 | `successDk` | 5,3 | | `successBg` 4,9 | OK |
 | `coach` | 5,4 | 5,1 | `coachBg` 4,8 | OK |
 | `warningDk` | 5,9 | | `warningBg` 5,5 | OK |
 | `errorDk` | 5,4 | 5,2 | `errorBg` 4,7 | OK |
-| `surface` (blanc) | | | sur `primary` 6,4 · `primaryDk` 8,5 · `accent` 5,2 · `accentDk` 6,8 · `violet` 6,6 · `errorDk` 5,4 · `successDk` 5,3 · `blueDk` 4,5 · `navy` 11,4 | OK |
+| `surface` (blanc) | | | sur `primary` 6,5 · `primaryDk` 8,6 · `accent` 5,2 · `accentDk` 6,8 · `violet` 6,6 · `violetDk` 9,2 · `errorDk` 5,4 · `successDk` 5,3 · `blueDk` 4,8 · `navy` 11,4 ; icône de 20 px sur `blue` 3,4 (seuil 3) | OK |
 | `accentLt` | | | sur `navy` 6,7 | OK sur `navy` seulement (3,8 sur `primary`) |
 | `lineStrong` (bordure) | 3,5 | 3,4 | | OK pour une bordure |
 
@@ -171,7 +188,7 @@ Combinaisons **interdites** (mesurées dans le code actuel) : blanc sur `blue` 3
 
 | État | Règle | Jeton |
 |---|---|---|
-| Survol d'un bouton plein | Fond de la variante « Dk » (`primaryDk`, `accentDk`), ombre du niveau supérieur, déplacement de 1 px vers le haut | section 5.1 |
+| Survol d'un bouton plein | Bouton uni : fond de la variante « Dk » (`primaryDk`). Bouton `objective` : `GRAD_CTA_HOVER`, le même dégradé un cran plus dense. Dans les deux cas : ombre du niveau supérieur, déplacement de 1 px vers le haut | section 5.1 |
 | Survol d'un bouton secondaire ou d'une carte cliquable | Bordure `primary` (bouton), ombre `SH.lg` et déplacement de 2 px (carte) | |
 | Focus clavier | Contour 2 px `primary`, décalage 2 px, sur tout élément interactif (`button`, `a`, `summary`, `[role=button]`, `[tabindex]`). Sur fond sombre : contour `ON.text` | `FOCUS` **nouveau** |
 | Focus d'un champ | Bordure `primary` 1,5 px + halo `SH.ring` (`0 0 0 4px` `primaryBg`) | `SH.ring` **nouveau** |
@@ -321,8 +338,8 @@ Les ombres colorées des boutons sont définies dans `Btn` et nulle part ailleur
 
 | Variante `kind` | Aspect | Emploi unique |
 |---|---|---|
-| `objective` | Fond `accent`, texte blanc | **L'action qui fait avancer** : une seule par écran (et par modale) |
-| `ai` | Fond `GRAD_AI`, texte blanc | L'action lance ou relance l'assistant. Elle tient alors lieu d'action principale de l'écran |
+| `objective` **modifié v4** | Fond `GRAD_CTA` (dégradé du logo, `blueDk` vers `violet`, 45°), texte `surface`, ombre colorée `SH.btn.objective` | **L'action qui fait avancer** : une seule par écran (et par modale). C'est le seul bouton en dégradé bleu vers violet |
+| `ai` **modifié v4** | Fond `GRAD_AI` (violet seul, `violet` vers `violetDk`), texte `surface` | L'action lance ou relance l'assistant. Elle tient alors lieu d'action principale de l'écran |
 | `primary` | Fond `primary`, texte blanc | Action neutre forte hors parcours : « Mon espace » dans l'en-tête, fermeture d'une modale d'information, onglet actif |
 | `secondary` | Fond blanc, bordure 1,5 px `primaryLt`, texte `primary` | Toute autre action |
 | `ghost` | Transparent, texte `primary` | Action tertiaire, utilitaire (imprimer, copier) |
@@ -345,6 +362,7 @@ Règles :
 - **Icônes** : passées par les propriétés `icon` (à gauche) et `iconRight` (flèche de progression uniquement), couleur `currentColor`, écart 8. Plus de `&nbsp;` ni de couleur d'icône écrite à la main.
 - Libellé : verbe à l'infinitif ou à la première personne, 4 mots au plus, sans point.
 - Rayon `RAD.md`, transition `MO.base`, survol et désactivé selon 1.6.
+- **Trois pleins, trois aspects (v4)** : dégradé du logo pour l'action (`objective`), aplat `primary` pour le neutre fort, violet seul pour l'assistant (`ai`). Aucun bouton sarcelle.
 - Bouton icône seul : composant `IconBtn`, 44 × 44, rond, `aria-label` obligatoire.
 
 ### 5.2 Liens (`Link`, **nouveau**)
@@ -443,6 +461,22 @@ Bouton « Mon compte » dans l'en-tête, sur toutes les pages. Déconnecté : il
 
 Même panneau que 5.9 bis (`DockPanel`, bouton flottant `Fab`, bordure `GRAD_AI_BORDER`), dans la relecture coach. Titre « Assistant de rédaction du rapport ». Cinq choix (puces `role="radio"`) : Astuces, Remarques positives, Reformuler, Introduction, Débriefing ; puces `tone="ai"` pour l'observation concernée. Chaque proposition (fond `violetBg`, `RAD.sm`) porte ses insertions en boutons `secondary` taille `sm` : « Dans l'introduction », « Sur l'observation », « Note à 0:12 » (moment courant de la vidéo). Confirmation dans un `Notice tone="success"` (`role="status"`) qui rappelle de relire avant d'envoyer. Grand écran (1180 px et plus) : le contenu se décale de 432 px pour rester visible à côté du panneau.
 
+### 5.9 quinquies Vignette d'interlocuteur (`Interlocutor`, `src/beneficiary/Interlocutor.jsx`)
+
+Option de l'espace de la personne accompagnée (demande du propriétaire, 22 novembre 2026) : comme en visioconférence quand l'autre personne a coupé sa caméra, une petite fenêtre neutre donne le sentiment de parler à quelqu'un, sans avatar animé ni visage. Affichée pendant l'entraînement (écran « À vous de répondre ») et l'échauffement.
+
+| Point | Règle |
+|---|---|
+| Option | Désactivée par défaut. Interrupteur « Afficher une vignette d'interlocuteur » (`VignetteSwitch`, rangée `Bare role="switch"` de 48 px, même interrupteur visible que les options d'accessibilité, `rp-a11y-row`) sous l'aperçu caméra de l'entraînement et de l'échauffement ; même réglage dans « Mon compte » et le menu mobile (« Afficher » ou « Masquer la vignette d'interlocuteur »). Mémorisé dans `localStorage`, clé `larepet.vignette` (`"1"` ou `"0"`), sous `try/catch` (`src/lib/vignette.js`, événement `rp-vignette` pour les écrans ouverts) |
+| Contenu | Silhouette générique pleine (tête et épaules, sans trait de visage) dans un disque `T.line`, silhouette `T.faint` ; libellé « Votre interlocuteur » (`TY.label`, `T.navy`) ; « Caméra coupée » avec icône de caméra barrée (`TY.caption`, `T.body`). Jamais de photo, de visage, d'initiales d'une vraie personne ni d'expression |
+| Teinte | Neutre : fond `T.lineLt`, bordure `T.line`. Ni le violet de l'assistant, ni le vert du coach, ni le dégradé de marque de l'action principale |
+| Indicateur « parle » | Quatre barres (`.rp-vig-voice`, `T.lineStrong` au repos, `T.navy` actives, animation `rpVoice` déjà comptée parmi les boucles de la section 7) et liseré `ringOf(T.lineStrong)` autour du disque, **uniquement pendant la lecture de la question** par la voix de synthèse (`onSpeaking` de `RecruiterVoice`). Démarrer l'enregistrement coupe la voix : pendant que la personne parle, la vignette est immobile. Rien ne réagit à sa voix ni à son image (aucune inférence d'émotion, AI Act, art. 5(1)(f)) ; échauffement : barres toujours au repos. Mouvement réduit : barres fixes, sans animation |
+| Grand écran (1240 px et plus) | Fenêtre fixe en bas à droite (`.rp-vig-float`) : 208 px, à 16 px du bord et 88 px du bas (au-dessus du bouton de l'assistant), fond `surface`, bordure `line`, `RAD.md`, `SH.lg`, zone de 120 px `lineLt` avec disque de 72, puis rangée nom et bouton. Elle tient dans la marge de la colonne `W.read` : elle ne recouvre ni le sous-titre de la question ni les commandes. Rendue dans `document.body` (portail). Masquée sous l'assistant ouvert, le menu mobile, « Mon compte » et une fenêtre (`html.rp-lock`) |
+| Sous 1240 px | Bandeau dans le flux, entre la question et l'aperçu caméra (disque de 40, nom, barres, bouton), fond `lineLt`, bordure `line`, `RAD.md` : il ne se superpose à rien, à 390 comme à 320 px |
+| Masquer | Bouton icône « Masquer la vignette » (`IconBtn`, 44 × 44, ton `muted`) : désactive l'option, que l'interrupteur rétablit |
+| Accessibilité | Visuel décoratif (`aria-hidden`) ; seuls l'interrupteur et le bouton « Masquer la vignette » sont atteignables. Classe `noprint` |
+| Données | Rien n'est enregistré : la vignette est un élément de la page, l'enregistrement ne capture que la caméra et le micro |
+
 ### 5.10 Autres éléments normalisés
 
 | Élément | Règle |
@@ -483,8 +517,25 @@ Remplace 1000, 920, 820, 720, 680, 640, 580, 560, 460.
 - Point de rupture principal : 760 px (autres seuils de `GStyle` : 1023 px pour le menu repliable, 360 px pour les très petits écrans, hauteur 520 px en paysage). Sous 760 px : une colonne, gouttière latérale 16, cartes en `pad` mobile, groupes de boutons en pleine largeur, titres en taille mobile. Aucun défilement horizontal de page.
 - En-tête collant de 64 (mobile 56), `z-index` 50 ; modale 100 (`Z.nav`, `Z.modal`).
 - Impression : en-tête, pied et éléments `.noprint` masqués, fond blanc.
+- **Héros de l'accueil sur mobile** (charte v4) : pastilles sur une ligne, titre en deux lignes plus la fin d'accroche (`TY.display` à 38, puis 32 sous 380 px de large), bouton d'action sur une ligne en pleine largeur, visible sans défilement à 390 × 844 et 360 × 740 (classes `rs-hero-tags`, `rs-hero-cta`).
 - **Première vue sans défilement** (demande du propriétaire) : un écran qui propose un choix à la personne (« Mon espace », `#/espace` et `#/coach` sans connexion) le montre entièrement dans la première vue, à 1280 × 800 comme à 390 × 844. « Mon espace » n'a donc pas d'en-tête de page visible : son `h1` « Mon espace » est masqué visuellement (`.rp-sr`), les deux cartes (code d'accès, connexion coach) suivent directement l'en-tête du site. Sous 760 px, la carte coach, préremplie, est repliée sous le lien « Vous êtes coach ? Afficher la connexion » (`aria-expanded`, `aria-controls`) pour laisser la place à la saisie du code. Vérifié par `test:site`.
 - **Pied de page complet** (`src/app/Footer.jsx`) : engagements (icônes colorées, exception de la section 1.5) sur une ligne en haut, répartis sur la largeur ; dessous, une seule rangée de quatre blocs, la présentation (logo et brief) à gauche, à côté des groupes « Vos données », « Le site », « Informations légales ». Colonnes 3/2/2/2 (`.rp-fgrid`), gouttières 24 × 40 ; 1023 px et moins : deux colonnes (la présentation à côté de « Vos données ») ; 560 px et moins : présentation sur toute la largeur, groupes sur deux colonnes ; sous 760 px, 64 px d'espace sous le pied pour que les boutons flottants ne masquent pas les derniers liens. Pied réduit des espaces inchangé.
+
+### 6 bis. Pages secondaires : la couleur par le décor (charte v4)
+
+S'applique à toute page qui s'ouvre sur `PageHero` (À propos, Solutions, Cas d'usage, Ressources, FAQ, Nous contacter, Vos données et pages légales). L'accueil garde son fond propre (1.3) ; les espaces (personne, coach) restent sobres et ne reçoivent que ce qui vient des jetons.
+
+| Élément | Règle | Pourquoi | Jeton, composant |
+|---|---|---|---|
+| En-tête de page | Fond du bleu teinté au violet teinté, en fonds opaques ; titre `navy`, chapeau `body` (jamais de texte blanc sur un dégradé plein en haut de page) | Les deux teintes du logo, sans toucher à la lisibilité du titre | `GRAD_PAGE`, `PageHero` |
+| Filet de marque | 3 px en `GRAD_LOGO` sous l'en-tête ; 24 × 3 px devant le surtitre de l'en-tête et de chaque section | Signature de la marque, remplace une bordure grise | `.rs-phero-filet`, `Eyebrow mark` (`.rp-filet`) |
+| Filigrane | Symbole du logo, 280 px, opacité 13 %, incliné de 8°, à droite de l'en-tête. Seulement à partir de 1180 px de large, seulement sans visuel (`aside`), jamais sous le texte ; masqué du lecteur d'écran, à l'impression et en mode concentration ; immobile | Forme de marque sans charge de lecture | `.rs-phero-mark` |
+| Rythme des sections | Une section sur deux (la 2e, la 4e…) est posée sur une bande `band` pleine largeur, avec 64 px de marge intérieure (40 sur mobile). Jamais la première, jamais deux de suite. La règle vient de `Section` : elle ne se décide pas page par page | Voir où une section commence et finit ; cartes blanches qui ressortent | `T.band`, `.rs-sec` |
+| Tuile d'icône | Dans une section éditoriale ou sous un `PageHero`, la pastille d'icône neutre devient une tuile de marque : fond `GRAD_LOGO`, icône `surface`. Les tuiles de rôle deviennent pleines sans changer de rôle : `GRAD_AI` (assistant), `GRAD_COACH` (coach). Dans les espaces, la pastille reste neutre (`primary` sur `primaryBg`) | Les icônes de carte sont décoratives : c'est la place de la marque. Dans un espace, elles feraient concurrence au bouton d'action | `IconTile`, `.rp-itile` |
+| Bandeau d'appel final | `GRAD` (couleurs du logo), bouton `white` | | `FinalBand` |
+| Carte de lien | Bordure `primaryLt` au survol, en plus de l'ombre | | `.rs-card-btn` |
+
+Interdits sur ces pages : une teinte de section autre que `band` (pas de section violette, verte ou sarcelle : ces couleurs ont un rôle) ; une couleur par carte ; une animation de décor ; un chiffre mis en couleur ou une barre qui se remplit.
 
 ---
 
@@ -500,9 +551,9 @@ Remplace 1000, 920, 820, 720, 680, 640, 580, 560, 460.
 | `MO.slow` (v3.1) | 900 ms | Fin d'accroche qui change, étapes et visuels de la strate épinglée |
 | `MO.fade` (v3.1) | 1,1 s | Fondu entre deux scènes du héros |
 | `MO.soft` (v3.1) | `cubic-bezier(.45,0,.55,1)` | Courbe douce (ease-in-out) des transitions lentes ci-dessus |
-| `PACE.scene` (v3.2) | 11 500 ms | Durée d'une scène du héros (laisse le temps de lire la scène à côté du titre). Pause au survol, au focus et par le bouton pause |
+| `PACE.scene` (v3.2) | 11 500 ms | Durée d'une scène du héros (laisse le temps de lire la scène à côté du titre). Pause au survol, au focus et par le bouton pause. **Indicateur des scènes** (points et pause, `.rs-stage-nav`, demande du propriétaire du 22 novembre 2026) : sous la photo mais hors du flux, masqué par défaut ; fondu d'apparition (`MO.reveal`) au survol de la photo (pointeur qui survole seulement, `hover: hover`) et au focus clavier à l'intérieur. Écran tactile, sans survol : il apparaît au toucher de la photo et s'efface 3 s après le dernier toucher (choix retenu plutôt qu'un indicateur toujours visible, que le propriétaire voulait retirer). Masqué, il reste dans la page (`opacity`, jamais `display` ni `visibility`) : atteignable au clavier et libellés lus par les lecteurs d'écran |
 | `PACE.accroche` (v3.2) | 11 500 ms | Fin d'accroche synchronisée avec sa scène : même cadence, même fondu (`MO.fade`) |
-| Écran de chargement (v3.5) | 2,5 s minimum (décision du propriétaire : rapprochement des bulles 1,3 s, puis les points), barre de chargement de 3 px sous le logo, sortie en trois temps : écart des bulles 0,6 s, pause 0,3 s, fondu 0,6 s (`MO.soft`) | Durée comptée depuis le début de la navigation. **Barre** : 112 × 3 px, `RAD` 2, remplissage `T.violet` sur piste `T.line` (valeurs recopiées dans `index.html`, clair et sombre), progresse jusqu'à 90 % pendant la durée minimale (`transform: scaleX`), puis se complète en 250 ms en repartant de sa valeur affichée. **Sortie** (demande du propriétaire : « qu'on voie bien la séparation ») : 1. les deux bulles du logo s'écartent (`.rpl-split`, `transform` sur un groupe intérieur, distinct de l'animation d'entrée : aucun saut), points et barre en fondu court ; 2. pause, bulles écartées ; 3. le calque passe en fondu (`.rpl-out`, `opacity`). **Page immobile avant la sortie** (`pageSettled`, `src/Loader.jsx`) : la sortie ne commence que lorsque les polices sont chargées, les images visibles décodées et qu'aucune animation ou transition finie (entrée du héros, lignes de la scène) ne tourne dans `#root` ; les boucles infinies (dérive du fond, point d'enregistrement) ne comptent pas. Attente bornée à 8 s. Le retrait attend aussi qu'aucun écran d'attente de page (`BrandLoader` de `Suspense`) ne soit affiché : pas de double rendu. Calque de `100vw` et barre de défilement réservée dès `index.html` (`overflow-y: scroll`, `scrollbar-gutter: stable`) : rien ne se décale quand le site arrive. « Réduire les animations » : écran statique sans barre, 0,6 s, puis fondu simple de 0,4 s. Navigateur piloté : retrait immédiat. Retrait de secours en CSS à 10 s, y compris en mouvement réduit (`index.html`, `src/Loader.jsx`) |
+| Écran de chargement (v3.5) | 2,5 s minimum (décision du propriétaire : rapprochement des bulles 1,3 s, puis les points), barre de chargement de 3 px sous le logo, sortie en trois temps : écart des bulles 0,6 s, pause 0,3 s, fondu 0,6 s (`MO.soft`) | Durée comptée depuis le début de la navigation. **Barre** : 112 × 3 px, `RAD` 2, remplissage `T.violet` sur piste `T.line` (valeurs recopiées dans `index.html`, clair et sombre), progresse jusqu'à 90 % pendant la durée minimale (`transform: scaleX`), puis se complète en 250 ms en repartant de sa valeur affichée. **Sortie** (demande du propriétaire : « qu'on voie bien la séparation ») : 1. les deux bulles du logo s'écartent (`.rpl-split`, `transform` sur une boîte intérieure, distincte de l'animation d'entrée : aucun saut), points et barre en fondu court ; 2. pause, bulles écartées ; 3. le calque passe en fondu (`.rpl-out`, `opacity`). **Page immobile avant la sortie** (`pageSettled`, `src/Loader.jsx`) : la sortie ne commence que lorsque les polices sont chargées, les images visibles décodées et qu'aucune animation ou transition finie (entrée du héros, lignes de la scène) ne tourne dans `#root` ; les boucles infinies (dérive du fond, point d'enregistrement) ne comptent pas. Attente bornée à 8 s. Le retrait attend aussi qu'aucun écran d'attente de page (`BrandLoader` de `Suspense`) ne soit affiché : pas de double rendu. **Logo animé sur le compositeur** : chaque bulle et chaque point est une boîte HTML (et non un groupe SVG), animée par `transform` et `opacity` seulement, déplacements en pourcentage de la boîte : l'assemblage, les points et l'écart restent fluides même quand le démarrage de React occupe le fil principal (Firefox et Safari animent les groupes SVG sur le fil principal : gel puis saut). Calque de `100vw` et barre de défilement réservée dès `index.html` (`overflow-y: scroll`, `scrollbar-gutter: stable`) : rien ne se décale quand le site arrive. « Réduire les animations » : écran statique sans barre, 0,6 s, puis fondu simple de 0,4 s. Navigateur piloté : retrait immédiat. Retrait de secours en CSS à 10 s, y compris en mouvement réduit (`index.html`, `src/Loader.jsx`) |
 | « Revenir en haut » (v3.4) | 300 ms, `MO.ease` | Apparaît et disparaît en fondu (`opacity`, déplacement de 8 px vers le haut), jamais d'apparition sèche ; masqué, il reste dans la page sans être atteignable (`tabIndex` -1, `aria-hidden`, `pointer-events: none`). Mouvement réduit : opacité seule, même durée (prioritaire sur la règle globale) |
 
 Les pages publiques (accueil, à propos, solutions, ressources) utilisent les durées lentes ; l'application (espaces bénéficiaire et coach) garde `MO.fast`, `MO.base` et `MO.enter` pour rester réactive.
@@ -576,8 +627,10 @@ Décrire, ne jamais noter. Formulation positive, appui avant exploration. Un bou
 4. Rayon ou ombre hors des jetons `RAD` et `SH`.
 5. `input`, `textarea`, `select` ou `button` natif hors de `ui.jsx`.
 6. Deux actions pleines colorées sur le même écran.
-7. Violet sans rapport avec l'assistant ; sarcelle hors action principale et points d'appui ; vert `coach` hors côté coach et accompagnement ; vert `success` ou rouge `error` en texte.
+7. Violet **seul** sans rapport avec l'assistant (associé au bleu dans un dégradé, c'est la marque) ; sarcelle hors points d'appui et étape en cours, et sur tout bouton ; vert `coach` hors côté coach et accompagnement ; vert `success` ou rouge `error` en texte.
 8. `div` cliquable, `transition: all`, emoji utilisé comme icône, `&nbsp;` pour espacer une icône.
+9. Dégradé écrit à la main hors de `tokens.js` ; `GRAD_CTA` ailleurs que sur le bouton `objective` ; `GRAD_LOGO` sous du texte ; bleu dans un dégradé de l'assistant (v4).
+10. Animation décorative ajoutée sur une page secondaire ; chiffre coloré, barre qui se remplit ou tout élément de décor qui évoque une note ou une jauge (v4).
 
 ---
 
@@ -614,7 +667,12 @@ Décrire, ne jamais noter. Formulation positive, appui avant exploration. Un bou
 | L1 | un tiret cadratin ou un emoji figure dans une chaîne | le caractère U+2014 ; `\p{Extended_Pictographic}` (drapeau `u`) | aucune ; s'applique aussi à `docs/*.md` pour le tiret |
 | X1 | dans `tokens.js`, `ui.jsx` et `src/ui/` : une taille de police hors de `SIZES`, une graisse hors de `WEIGHTS` | `(\d+(?:\.\d+)?)px` dans les valeurs `font`, `font-size` ; `\b[1-9]00\b` en tête de `font` | logos (`RepetLogo`, `OrgLogo`) dont la taille est calculée à partir de `s` ; les valeurs non littérales (`${TY.h3.font}`) ne sont pas contrôlées |
 | X2 | dans `ui.jsx` et `src/ui/` : une couleur hexadécimale ou `rgba` hors de l'import de `tokens.js` | motifs C1 et C2 | ombres colorées de `Btn`, à déplacer dans `tokens.js` (`SH.btn*`) pour ramener l'exception à zéro |
-| A1 | une paire texte/fond déclarée dans `tokens.js` (`PAIRS`) a un contraste inférieur à son seuil | calcul WCAG de la luminance relative | aucune |
+| A1 | une paire texte/fond déclarée dans `tokens.js` (`PAIRS`) a un contraste inférieur à son seuil, dans l'un des quatre thèmes | calcul WCAG de la luminance relative | aucune. Depuis la v4, `PAIRS` couvre aussi la bande de section (`band`), l'en-tête de page (`violetBg`), `violetDk` et l'icône des tuiles de marque (`blue`, seuil 3) |
+| G1 | (v4) un dégradé de marque de `tokens.js` n'a plus la composition de la section 1.3 : `GRAD_LOGO` de `blue` à `violet`, `GRAD_CTA` de `blueDk` à `violet`, `GRAD_CTA_HOVER` de `primary` à `violetDk`, `GRAD` de `blueDk` à `violet` en valeurs claires fixes, tous trois à 45° ; `GRAD_AI` et `GRAD_AI_BORDER` en violet seul (`violet`, `violetDk`, `lavender`), sans bleu | lecture des jetons importés | aucune |
+| G2 | (v4) un dégradé est écrit à la main hors fichiers de jetons | `\b(linear\|radial\|conic)-gradient\(` | aucune : utiliser un jeton `GRAD_*` |
+| G3 | (v4) `GRAD_CTA` ou `GRAD_CTA_HOVER` est utilisé hors fichiers de jetons | `\bGRAD_CTA(_HOVER)?\b` | aucune : le dégradé d'action n'habille que `<Btn kind="objective">` |
+| G4 | (v4) dans `ui.jsx`, le bouton `objective` ne porte pas `GRAD_CTA` (survol `GRAD_CTA_HOVER`), ou porte la sarcelle | lecture de la variante `objective` de `Btn` | aucune |
+| G5 | (v4) `public/favicon.svg` ou `index.html` (écran de chargement) ne contient pas les couleurs du logo des jetons, claires et sombres (`blue`, `violet`, `navy`) | recherche des valeurs de `LIGHT` et `DARK` | aucune : le logo et le site ont les mêmes couleurs |
 | A2 | un objet de style en ligne pose `background: T.*Bg` et `color: T.muted` (contraste sous 4,5:1, section 1.5) | `style={{…}}` d'un seul niveau | aucune ; passer le texte en `T.body` |
 | L3 | lexique côté personne accompagnée (`docs/redaction.md`, 1.2) : « Bénéficiaire », « consentement », « mots d'appui », « Analyse de votre réponse » | chaînes et textes JSX de `src/beneficiary/`, `Recorder`, `WarmupStage`, `Report`, `Assistant`, `RecruiterVoice`, `Demo`, `CodeForm`, `StageIdle`, `app/AccountMenu`, `app/Espace` (commentaires exclus) | les textes légaux (`content/legal.js`) et les pages destinées aux organismes |
 | U1 | un lien d'article (`src/content/resources/*.md`) utilise un autre schéma que `https:`, `http:`, `mailto:` ou `#/` | `\]\(([^)\s]+)\)` | aucune |
@@ -690,6 +748,25 @@ export const PAIRS = [ /* [T.navy, T.surface, 4.5], … toutes les lignes de la 
 ```
 
 Dégradés : `GRAD` et `GRAD_AI` recomposés selon 1.3, `GRAD_NIGHT` ajouté, `GRAD_AI_SOFT` supprimé.
+
+### 12.1 bis Charte v4 (22 novembre 2026)
+
+Le bloc ci-dessus est l'esquisse d'origine ; `src/tokens.js` fait foi. Changements de la v4 :
+
+| Jeton | Avant | Après |
+|---|---|---|
+| `primary`, `primaryDk`, `primaryLt`, `primaryBg` (clair) | `#386097`, `#2C4D7C`, `#4A72A8`, `#EEF2F8` | `#2B5CAB`, `#234A8C`, `#4A78C6`, `#EAF0FB` |
+| `blueDk` (clair) | `#2E7CB0` | `#2A78AC` |
+| `muted` (clair) | `#64748B` | `#5B6B82` |
+| `violetDk` | absent | clair `#45369E`, sombre `#CFC7FA`, contraste renforcé `#372A85` et `#E0DAFC` |
+| `band` | absent | clair `#F0F4FC`, sombre `#121A27` |
+| `GRAD_CTA`, `GRAD_CTA_HOVER` | absents | voir 1.3 |
+| `GRAD` | `primary`, `blueDk`, `violet`, 135° | `blueDk`, `violet`, 45° |
+| `GRAD_AI`, `GRAD_AI_BORDER` | `blueDk` et `violet`, valeurs fixes | violet seul, en variables |
+| `GRAD_PAGE` | `primaryBg` vers `bg` | `primaryBg`, `surface`, `violetBg` |
+| `SH.btn.objective`, `SH.btn.primary`, `SH.glow`, `SH.glowAi`, `GRAD_SOFT` | teintes sarcelle et `#386097` | teintes du dégradé d'action et de `#2B5CAB` |
+
+Composants de `ui.jsx` : `Btn` (`objective` en `GRAD_CTA`), `Eyebrow` (propriété `mark` : filet de marque), `Section` (classe `rs-sec`, surtitre avec filet), `PageHero` (classe `rs-phero`, filet, filigrane), `IconTile` (classes `rp-itile`, `rp-itile-ai`, `rp-itile-coach`). Styles dans `src/ui/GStyle.jsx` (bloc « Charte v4 »).
 
 ### 12.2 `src/ui.jsx`
 
@@ -791,9 +868,24 @@ Dégradés : `GRAD` et `GRAD_AI` recomposés selon 1.3, `GRAD_NIGHT` ajouté, `G
 | 2026-11-21 | Accueil : phrase « Un entretien, ça se prépare à voix haute » remontée juste sous le héros et le bandeau ; bandeau en quatre engagements (« Sans frais pour vous », « Démarrage rapide », « Sécurisé », « Confidentiel », icônes `gift`, `zap`, `shield`, `eyeOff`, chacun précisé en une ligne) ; mini FAQ retirée ; héros sans « Voir comment ça marche » ni ligne sur le compte ; pastille « Sans jugement » ; « Nous contacter » et « Demander de l'aide » de l'en-tête au style `navlink` | Demande du propriétaire |
 | 2026-11-21 | Verts (v3.5) : un rôle par vert. Nouveau rôle « coach et accompagnement » (`coach`, `coachDk`, `coachBg`, ton `coach` de `Tag`) ; `GRAD_COACH` recomposé (`coach` vers `coachDk`) et `GRAD_DOOR_GREEN` = `GRAD_COACH` ; pastille « Avec votre coach », carte « Coachs », scénarios d'accompagnement et encart « Conseil » en vert coach ; cadenas de la scène du héros en `primary` ; aside « Commanditaires » de « Nous contacter » en barre de marque | Demande du propriétaire : un seul rôle par vert, même vert partout côté coach |
 | 2026-11-21 | Titres : retour à la police précédente à la demande du propriétaire. **Manrope** 700 et 800 (`FONT_STACKS.display`, donc `FD`), mêmes graisses et mêmes interlettrages qu'avant (`display` -0,035em, `xl` et `pageTitle` -0,03em, `h1` -0,02em, `h2` -0,01em) ; fichiers `public/fonts/manrope-latin-{700,800}-normal.woff2` restaurés, préchargement de Manrope 800 dans `index.html` ; Outfit retirée du site (fichier 700 supprimé, `@font-face` et préchargement retirés), Outfit 800 gardée pour l'image d'aperçu de lien (`scripts/og-image.html`) ; crédits des mentions légales et `public/fonts/LICENCES.txt` mis à jour | Demande du propriétaire : titres en Outfit gras non retenus |
+| 2026-11-22 | Image d'aperçu de lien régénérée aux couleurs de la charte v4 (`GRAD` : `blueDk` vers `violet` à 45°) et en Manrope 800 ; Outfit 800 retirée du dépôt (plus aucun usage) | Cohérence de l'aperçu de lien avec le logo et le site |
 | 2026-11-21 | Apparition au défilement étendue à tous les blocs des pages publiques (questions de FAQ, cartes, listes, encadrés, onglets, tableaux et sections des pages légales, cartes et corps des articles, formulaire et encart de « Nous contacter », cartes de « Mon espace », cartes animées de l'accueil) ; `stagger(i, n)` (70 ms, remis à zéro par rangée) et `Reveal as` ; contenu visible à l'impression ; contrôle ajouté dans `test:site` | Demande du propriétaire : animation d'apparition oubliée (FAQ) |
 | 2026-11-21 | Accueil : pastilles « Avec votre coach » (ton `appui`, sarcelle de `GRAD_COACH`, et non le vert de validation), « Assistant IA » (ton `ai`), « Sans note » ; bandeau de réassurance (trois puces) sous le héros ; « Ce que La Répét' ne fait pas » sur quatre cartes (`rs-g4`) | Demande du propriétaire, panel bénéficiaires |
 
 | 2026-11-21 | Écran de chargement (v3.5) : sortie en trois temps (écart des bulles 0,6 s, pause 0,3 s, fondu 0,6 s) ; la sortie attend une page immobile (polices, images visibles, animations d'entrée terminées) ; barre de défilement réservée dès `index.html`. Cause du sursaut : quand le JavaScript arrivait tard, l'animation d'entrée du héros et des lignes de la scène se jouait pendant le fondu. Vérifié image par image à 1280 et 390 px, clair et sombre, réseau ralenti | Demande du propriétaire : sursaut à la fin du chargement, voir la séparation du logo |
+| 2026-11-22 | Écran de chargement : bulles et points du logo en boîtes HTML animées sur le compositeur (`transform`, `opacity`), au lieu de groupes SVG animés sur le fil principal dans Firefox et Safari ; rendu identique (captures comparées au pixel près, hors anticrénelage) | Demande du propriétaire : sursaut à la fin du chargement du logo |
+| 2026-11-22 | Fond de l'accueil : course des deux masses presque doublée (`SPREAD` 0,26, `SLIDE` 0,17) et cœur plein à 30 % du rayon, même intensité maximale (`GLOW`) ; le test du site vérifie le déplacement à l'écran | Demande du propriétaire : « le fond ne bouge plus »|
+| 2026-11-22 | Héros : indicateur des scènes (points et pause) masqué sous la photo, visible au survol de la photo, au focus clavier et, sur tactile, 3 s après un toucher ; toujours atteignable au clavier et lu par les lecteurs d'écran | Demande du propriétaire : retirer l'indicateur sous les photos |
+| 2026-11-22 | Vignette d'interlocuteur (5.9 quinquies) : option désactivée par défaut, silhouette neutre sans visage, barres « parle » liées à la seule voix de synthèse, fenêtre fixe dans la marge sur grand écran, bandeau dans le flux en dessous de 1240 px | Demande du propriétaire ; aucune réaction à la personne (AI Act), ne masque aucune commande |
+
+| 2026-11-22 | **Charte v4, couleurs du logo** (accord DA et UI/UX, `docs/charte-v4-dialogue.md`). Action principale en dégradé du logo (`GRAD_CTA`, `blueDk` vers `violet`, 45° ; survol `GRAD_CTA_HOVER`) : plus de bouton sarcelle, la sarcelle garde les points d'appui et l'étape en cours | Demande du propriétaire : les boutons d'appel n'avaient pas les couleurs du logo |
+| 2026-11-22 | Assistant en violet seul : `GRAD_AI` (`violet` vers `violetDk`), `GRAD_AI_BORDER` (`violet`, `lavender`), nouveau jeton `violetDk` | Le dégradé bleu vers violet devient celui de l'action : l'assistant ne doit pas lui ressembler |
+| 2026-11-22 | Bleu de structure dans la famille du logo : `primary` `#2B5CAB`, `primaryDk` `#234A8C`, `primaryLt` `#4A78C6`, `primaryBg` `#EAF0FB` ; `blueDk` `#2A78AC` (blanc dessus : 4,8:1 au lieu de 4,5) ; ombres colorées et `GRAD_SOFT` alignés | `#386097` (saturation 46 %) était terne à côté du logo (60 %) |
+| 2026-11-22 | Bandeaux de marque (`GRAD` : appel final, `GradHead`, en-tête de modale) de `blueDk` à `violet`, à 45° comme le logo ; départ en `primary` supprimé | Mêmes couleurs que le logo |
+| 2026-11-22 | Pages secondaires (6 bis) : `GRAD_PAGE` du bleu teinté au violet teinté, filet de marque, filigrane du symbole (1180 px et plus), bande `band` une section sur deux, tuiles d'icône de marque (rôles assistant et coach en plein), barre de lecture en `GRAD_LOGO` | Demande du propriétaire : pages fades |
+| 2026-11-22 | `muted` `#5B6B82` (5,4:1 sur blanc, 4,9:1 sur `band`) | Une section sur deux est teintée : le texte secondaire doit y rester lisible |
+| 2026-11-22 | Refusés par l'UI/UX : sections multicolores, une couleur par carte, en-tête de page en dégradé plein sous texte blanc, halos animés sur les pages secondaires, numéros d'étape en dégradé, barre qui se remplit | Rôle unique de chaque couleur, lisibilité, mouvement réduit, rien qui évoque une note |
+| 2026-11-22 | `design-lint` : règles G1 à G5 (composition des dégradés de marque, dégradé écrit à la main, dégradé d'action réservé au bouton `objective`, couleurs du logo recopiées dans l'icône du site et l'écran de chargement) ; 294 contrastes dans 4 thèmes | Contrôle automatique de la charte v4 |
+| 2026-11-22 | Héros de l'accueil sur mobile (nouveaux textes) : les trois pastilles tiennent sur une ligne (écart 4, marge intérieure 8 ; icônes masquées sous 380 px), le bouton d'action tient sur une ligne en pleine largeur (marge intérieure 16 ; `TY.btn` sous 380 px), le titre passe à 32 px sous 380 px (deux lignes plus la fin d'accroche). L'action reste dans la première vue à 390 × 844 et à 360 × 740. Si le texte est agrandi, le bouton passe à la ligne sans être coupé | Titre et libellés plus longs : bouton sur deux lignes, pastille rejetée à la ligne |
 
 Ajouter une ligne à chaque évolution d'une règle ou d'une échelle.

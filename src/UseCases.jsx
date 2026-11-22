@@ -44,7 +44,7 @@ function Hub({ go }) {
         </Section>
         <Section eyebrow="Exemples" title="Deux scénarios d'usage" sub="Des situations types, décrites dans le centre de ressources. Aucun résultat n'a été mesuré.">
           <LinkCards cols={2} items={[
-            { href: "#/ressources/scenario-atelier-collectif", icon: I.users, tag: "Scénario d'usage", tone: "coach", title: "Un atelier collectif", text: "Un atelier hebdomadaire qui s'appuie sur les répétitions faites à la maison pour parler de moments concrets.", cta: "Lire le scénario" },
+            { href: "#/ressources/scenario-atelier-collectif", icon: I.users, tag: "Scénario d'usage", tone: "coach", title: "Un atelier collectif", text: "Un atelier hebdomadaire qui s'appuie sur les entraînements faits à la maison pour parler de moments concrets.", cta: "Lire le scénario" },
             { href: "#/ressources/scenario-accompagnement-a-distance", icon: I.monitor, tag: "Scénario d'usage", tone: "coach", title: "Un accompagnement à distance", text: "Garder le fil entre deux rendez-vous espacés, quand la personne accompagnée habite loin de l'agence.", cta: "Lire le scénario" },
           ]} />
         </Section>
@@ -76,7 +76,7 @@ const BENEF = [
   [I.lock, "Accès par code, sans compte", "Un code de 6 caractères remis par votre coach. Ni adresse électronique, ni mot de passe."],
   [I.mic, "Échauffement sans enregistrement", "Des phrases à dire à voix haute, avec une consigne, pour vous lancer. Rien n'est enregistré."],
   [I.target, "Questions adaptées au métier", "Des questions selon le poste que vous visez. Vous pouvez aussi ajouter les vôtres."],
-  [I.video, "Caméra ou voix seule", "3 minutes au plus par réponse. Vous vous revoyez avant de garder la réponse, et vous recommencez autant que vous voulez."],
+  [I.video, "Caméra ou voix seule", "3 minutes au plus par réponse. Vous vous revoyez avant de garder la réponse. Vous recommencez autant que vous voulez, et vous voyez ce qui a changé."],
   [I.sparkle, "Un retour qui décrit", "Rythme de parole, pauses, exemples, petits mots répétés, regard. Ce qui fonctionne déjà est présenté en premier."],
   [I.layers, "Un retour à lire ou à regarder", "Lisez le retour, ou revoyez-vous avec les repères placés au bon moment de la vidéo."],
   [I.chat, "Un assistant de préparation d'entretien", "Il répond à vos questions sur l'entretien, sans remplacer votre coach. Un entraînement complet suit l'ordre d'un vrai entretien."],
@@ -97,9 +97,9 @@ function Beneficiaires({ go, openSpace }) {
   return (
     <main>
       <PageHero eyebrow="Cas d'usage" title="Personnes accompagnées"
-        lead="Vous suivez un accompagnement vers l'emploi, ou votre entreprise vous en propose un. Avec le code de votre coach, vous répétez à voix haute, autant de fois que vous voulez.">
+        lead="Vous suivez un accompagnement vers l'emploi, ou votre entreprise vous en propose un. Avec le code de votre coach, vous vous entraînez à voix haute, sans avatar, autant de fois que vous voulez.">
         <div className="rp-wide-m" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <Btn kind="objective" size="lg" onClick={() => openSpace("benef")} iconRight={I.arrow}>Lancer ma première répétition</Btn>
+          <Btn kind="objective" size="lg" onClick={() => openSpace("benef")} iconRight={I.arrow}>Je lance mon premier entraînement</Btn>
         </div>
         <LinkChips label="Sections de la page" items={[
           { href: "#/cas-d-usage/beneficiaires/demandeurs-emploi", icon: I.user, title: "Demandeurs d'emploi" },
@@ -108,7 +108,7 @@ function Beneficiaires({ go, openSpace }) {
       </PageHero>
       <div className="rs-pad" style={wrap}>
         <Section first id="demandeurs-emploi" eyebrow="Demandeurs d'emploi" title="Préparer vos entretiens d'embauche, sans jugement"
-          sub="Dans votre accompagnement vers l'emploi, vous répétez avec le code de votre coach, autant que nécessaire avant le jour J.">
+          sub="Dans votre accompagnement vers l'emploi, vous vous entraînez avec le code de votre coach, autant que nécessaire avant le jour J.">
           <FeatureGrid features={BENEF} />
         </Section>
         <Section id="collaborateurs" eyebrow="Collaborateurs en mobilité" title="Préparer un entretien de mobilité ou d'évolution"

@@ -234,8 +234,8 @@ export const GStyle = () => (
     /* Deux masses (violet en haut, bleu en bas), aux décalages opposés, déplacées par transform (src/home/Background.jsx) ; la dérive est portée par le conteneur */
     .rs-glow>span{position:absolute;inset:0;animation:rsDrift 26s ${MO.soft} infinite alternate}
     .rs-glow i,.rs-glow b{position:absolute;border-radius:50%;will-change:transform}
-    .rs-glow i{left:77.3%;top:10.3%;width:67.2vmax;height:67.2vmax;margin:-33.6vmax 0 0 -33.6vmax;background:radial-gradient(closest-side,${GLOW.violet},transparent)}
-    .rs-glow b{left:22.7%;top:89.7%;width:78.4vmax;height:78.4vmax;margin:-39.2vmax 0 0 -39.2vmax;background:radial-gradient(closest-side,${GLOW.blue},transparent)}
+    .rs-glow i{left:77.3%;top:10.3%;width:67.2vmax;height:67.2vmax;margin:-33.6vmax 0 0 -33.6vmax;background:radial-gradient(closest-side,${GLOW.violet},${GLOW.violet} 30%,transparent)}
+    .rs-glow b{left:22.7%;top:89.7%;width:78.4vmax;height:78.4vmax;margin:-39.2vmax 0 0 -39.2vmax;background:radial-gradient(closest-side,${GLOW.blue},${GLOW.blue} 30%,transparent)}
     @keyframes rsDrift{0%{transform:translate3d(0,0,0)}33%{transform:translate3d(-5%,3%,0)}66%{transform:translate3d(4%,-3%,0)}100%{transform:translate3d(-2%,5%,0)}}
     .rs-in{opacity:0;transform:translateY(12px);transition:opacity ${MO.reveal} ${MO.soft},transform ${MO.reveal} ${MO.soft}}
     .on .rs-in{opacity:1;transform:none}

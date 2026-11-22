@@ -2,6 +2,7 @@
    Échoue en cas d'erreur JavaScript, de débordement horizontal ou d'élément attendu absent. */
 const { chromium } = require("playwright");
 const fs = require("fs");
+const { pngDiff } = require("./lib/png.cjs");
 const BASE = process.argv[2] || "http://localhost:5097/";
 const SC = process.argv[3] || "tests/screenshots/site";
 fs.mkdirSync(SC, { recursive: true });
@@ -96,7 +97,17 @@ async function run(b, vw, vh, opts = {}) {
       check(d[0][0] - g[0][0] > 40 && d[1][0] - g[1][0] < -40, `[${tag}] fond de l'accueil : le violet et le bleu ne glissent pas en sens contraires quand la souris va de gauche à droite (${JSON.stringify([g, d])})`);
       check(h[0][1] < -15 && h[1][1] > 15, `[${tag}] fond de l'accueil : souris en haut, le violet doit monter et le bleu descendre (${JSON.stringify(h)})`);
       check(bas[1][0] < -15 && bas[1][1] > 0 && bas[0][0] > 15 && bas[0][1] < 0, `[${tag}] fond de l'accueil : souris en bas, le bleu doit s'écarter vers le bas à gauche et le violet vers le haut à droite (${JSON.stringify(bas)})`);
-      check([g, d, h, bas].every(([v]) => Math.abs(v[0]) <= vw * 0.2 && Math.abs(v[1]) <= vh * 0.2), `[${tag}] fond de l'accueil : amplitude trop forte (${JSON.stringify(pos)})`);
+      check([g, d, h, bas].every(([v]) => Math.abs(v[0]) <= vw * 0.3 && Math.abs(v[1]) <= vh * 0.3), `[${tag}] fond de l'accueil : amplitude trop forte (${JSON.stringify(pos)})`);
+      /* Le fond doit bouger nettement (demande du propriétaire : « le fond ne bouge plus ») : de la gauche à la droite
+         de l'écran, chaque masse parcourt au moins 18 % de la largeur ; et à l'écran (contenu masqué, fond seul),
+         l'image change en moyenne d'au moins 5 niveaux sur 255 (ancien réglage, imperceptible : 3,6). */
+      check(Math.abs(d[0][0] - g[0][0]) >= vw * 0.18 && Math.abs(d[1][0] - g[1][0]) >= vw * 0.18, `[${tag}] fond de l'accueil : déplacement trop faible pour se voir (${JSON.stringify([g, d])})`);
+      const fondSeul = await p.addStyleTag({ content: "body *{visibility:hidden!important}.rs-glow,.rs-glow *{visibility:visible!important}" });
+      await p.mouse.move(20, vh / 2, { steps: 6 }); await p.waitForTimeout(1500); const imgG = await p.screenshot();
+      await p.mouse.move(vw - 20, vh / 2, { steps: 6 }); await p.waitForTimeout(1500); const imgD = await p.screenshot();
+      await fondSeul.evaluate(s => s.remove());
+      const ecart = pngDiff(imgG, imgD);
+      check(ecart.moyenne >= 5 && ecart.part >= 0.3, `[${tag}] fond de l'accueil : il ne bouge pas assez à l'écran (écart moyen ${ecart.moyenne.toFixed(2)}, ${(100 * ecart.part).toFixed(0)} % des pixels)`);
       await shot("01y-accueil-souris", false);
     }
     await p.mouse.move(vw / 2, vh / 2);

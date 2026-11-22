@@ -42,7 +42,7 @@ function Hub({ go, openSpace, cat }) {
 
       <div className="rs-pad" style={wrap}>
         {featured.length > 0 && (
-          <section className="rs-section" aria-labelledby="rs-une" style={{ paddingTop: GAP.block }}>
+          <section className="rs-section rs-first" aria-labelledby="rs-une" style={{ paddingTop: GAP.head }}>
             <Reveal style={{ display: "grid", gap: 4, marginBottom: GAP.grid }}>
               <Eyebrow>À la une</Eyebrow>
               <h2 id="rs-une" style={{ ...TY.h2, color: T.navy, margin: 0 }}>Pour bien commencer</h2>

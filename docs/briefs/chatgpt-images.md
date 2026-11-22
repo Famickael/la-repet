@@ -6,7 +6,7 @@ Chaque image ci-dessous est déjà référencée par le code. Pour la remplacer,
 
 - **Format** : WebP (qualité 75 à 80), 150 Ko maximum, profil sRGB. Dimensions exactes indiquées pour chaque image (le code recadre en `object-fit: cover`, garder le sujet au centre et une marge de 10 % sur les bords).
 - **Style** : photographie réaliste, naturelle, en situation, lumière du jour douce, profondeur de champ modérée. Pas d'aspect « banque d'images » figé ni de pose exagérée.
-- **Palette cohérente avec la direction artistique** : fonds clairs (blanc cassé, gris très clair `#F8FAFC`), touches de bleu `#386097`, de sarcelle `#0B7A75` et de violet `#5C4BB9` dans les vêtements ou le décor, sans saturation forte.
+- **Palette cohérente avec la direction artistique** : fonds clairs (blanc cassé, gris très clair `#F8FAFC`), touches des couleurs du logo, bleu `#3893CD` et violet `#5C4BB9` (charte v4) dans les vêtements ou le décor, sans saturation forte.
 - **Personnes variées** : âges, genres, origines, morphologies, styles vestimentaires différents d'une image à l'autre ; tenues de travail ordinaires (pas uniquement des costumes). Contexte : France, organismes d'accompagnement vers l'emploi, petites entreprises, services publics.
 - **Interdits** : aucun texte lisible, aucun logo ni marque (ordinateurs, tasses, vêtements), aucun écran lisible, aucun visage stéréotypé ni caricatural, aucune expression d'émotion appuyée (larmes, stress mimé, triomphe), aucun graphique, score, jauge ou courbe, aucun enfant, aucune personne réelle identifiable.
 - **Texte alternatif** : celui indiqué ci-dessous est déjà dans le code ; si l'image produite diffère, mettre à jour le texte au même endroit.

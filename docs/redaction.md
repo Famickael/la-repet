@@ -714,3 +714,5 @@ Ces textes ne peuvent pas être réécrits sans une décision ou une vérificati
 - Les articles de `src/content/resources/*.md` n'ont été que survolés. Deux titres contiennent « prise » (« Relire une prise et préparer le débriefing », résumé de « Votre première répétition, pas à pas ») : à aligner sur le lexique lors de leur réécriture.
 - `src/lib/assistant.js` : survol seulement. Onze occurrences de « prise » et plusieurs points médians dans les réponses de l'assistant. Appliquer le lexique et la règle d'écriture inclusive à toute la base.
 - Apostrophes : le code utilise l'apostrophe droite. Le passage à l'apostrophe typographique peut se faire en une fois sur tout le site, à part de ce chantier.
+
+> 22 novembre 2026 : le message du formulaire de contact reste exactement « Aucune demande envoyée, version de démonstration », texte demandé par le propriétaire (seule exception à la règle « aucun texte visible ne révèle une version de test »).

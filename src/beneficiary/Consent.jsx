@@ -27,9 +27,9 @@ export function Consent({ p, onBack }) {
           <p style={{ ...TY.small, color: T.body, margin: 0 }}>{PHRASES.personalDevice}</p>
           <p style={{ ...TY.small, color: T.body, margin: 0 }}>{PHRASES.refuse}</p>
           <p style={{ ...TY.small, color: T.body, margin: 0 }}>{PHRASES.changeMind}</p>
-          <p style={{ ...TY.small, color: T.body, margin: 0, display: "flex", flexWrap: "wrap", gap: "4px 16px" }}>
-            <Link href={PAGES.hub.route} target="_blank" rel="noopener">Tout lire sur vos données (nouvel onglet)</Link>
-            <Link href={PAGES.conditions.route} target="_blank" rel="noopener">Règles d'utilisation (nouvel onglet)</Link>
+          <p style={{ ...TY.small, color: T.body, margin: 0, display: "flex", flexWrap: "wrap", columnGap: 16 }}>
+            <Link solo href={PAGES.hub.route} target="_blank" rel="noopener">Tout lire sur vos données (nouvel onglet)</Link>
+            <Link solo href={PAGES.conditions.route} target="_blank" rel="noopener">Règles d'utilisation (nouvel onglet)</Link>
           </p>
         </div>
         <div className="rp-actions" style={actions}>

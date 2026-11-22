@@ -2,7 +2,7 @@
    Aucune valeur de couleur écrite ici : tout vient des jetons (règle X2 de tests/design-lint.mjs). */
 import React from "react";
 import {
-  T, ON, GLOW, GRAD, GRAD_MAIN, GRAD_COACH, GRAD_AI, GRAD_SOFT, GRAD_PAGE, FD, FB, FM, TY, PAD, PAD_MOBILE, GAP, W, RAD, SH, MO, Z,
+  GAP_MOBILE, T, ON, GLOW, GRAD, GRAD_MAIN, GRAD_COACH, GRAD_AI, GRAD_SOFT, GRAD_PAGE, FD, FB, FM, TY, PAD, PAD_MOBILE, GAP, W, RAD, SH, MO, Z,
   TONE, HEADER_H, HEADER_H_M, TY_MOBILE, GRAD_AI_BORDER, FONT_STACKS, MASK, GRAD_LOGO, FADE_FOOT,
 } from "../tokens.js";
 
@@ -183,11 +183,11 @@ export const GStyle = () => (
     .rs-sec .rp-itile-ai,.rs-phero~.rs-pad .rp-itile-ai{background:${GRAD_AI}!important;color:${T.surface}!important}
     .rs-sec .rp-itile-coach,.rs-phero~.rs-pad .rp-itile-coach{background:${GRAD_COACH}!important;color:${ON.text}!important}
     /* Rythme : après l'en-tête de page, une section sur deux sur une bande teintée pleine largeur (jamais la première) */
-    .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){margin-top:${GAP.section}px;padding-top:64px!important;padding-bottom:64px;background:${T.band};box-shadow:0 0 0 100vmax ${T.band};clip-path:inset(0 -100vmax)}
-    @media (max-width:760px){ .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){margin-top:48px;padding-top:40px!important;padding-bottom:40px} }
+    .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){margin-top:${GAP.section}px;padding-top:${GAP.band}px!important;padding-bottom:${GAP.band}px;background:${T.band};box-shadow:0 0 0 100vmax ${T.band};clip-path:inset(0 -100vmax)}
+    @media (max-width:760px){ .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){margin-top:${GAP_MOBILE.section}px;padding-top:${GAP_MOBILE.band}px!important;padding-bottom:${GAP_MOBILE.band}px} }
     /* Héros de l'accueil sur mobile (charte v4) : trois pastilles sur une ligne, bouton d'action sur une ligne, titre sur
        deux lignes plus la fin d'accroche ; l'action reste dans la première vue (390 × 844 et 360 × 740) */
-    @media (max-width:760px){ .rs-hero-tags{gap:4px!important} .rs-hero-tags>span{padding:2px 8px!important} .rs-hero-cta .rp-btn{width:100%!important;padding-left:16px!important;padding-right:16px!important} }
+    @media (max-width:760px){ .rs-hero-pad{padding-top:${GAP_MOBILE.band}px!important;padding-bottom:${GAP_MOBILE.band}px!important} .rs-hero-tags{gap:4px!important} .rs-hero-tags>span{padding:2px 8px!important;letter-spacing:0!important} .rs-hero-cta .rp-btn{width:100%!important;padding-left:16px!important;padding-right:16px!important} }
     @media (max-width:380px){ h1.ty-display{font-size:calc(32px * var(--fs))!important} .rs-hero-tags svg{display:none} .rs-hero-cta .rp-btn{font-size:calc(14px * var(--fs))!important} }
     @media print{ .rs-phero~.rs-pad>.rs-sec:nth-of-type(even){background:none;box-shadow:none;clip-path:none} .rs-phero-mark{display:none} }
     /* Accordéon */
@@ -329,11 +329,11 @@ export const GStyle = () => (
     .play .rs-seg>i{animation:rsSeg 6s ${MO.ease} infinite both}
     @keyframes rsSeg{0%,40%{transform:none}50%,90%{transform:translateX(100%)}100%{transform:none}}
     .rs-seg>span{position:relative;text-align:center;padding:8px 4px;font:${F("label")};color:${T.navy}}
-    .rs-band{padding:48px}
+    .rs-band{padding:${GAP.head}px}
     /* Article */
     .rs-prose{color:${T.body};font:${F("bodyLg")}}
-    .rs-prose h2{font:800 calc(24px * var(--fs))/1.25 ${FD};letter-spacing:-.02em;color:${T.navy};margin:48px 0 16px;scroll-margin-top:${GAP.section + 16}px}
-    .rs-prose h3{font:700 calc(18px * var(--fs))/1.4 ${FD};color:${T.navy};margin:32px 0 12px}
+    .rs-prose h2{font:${F("proseH2")};letter-spacing:${TY.proseH2.letterSpacing};color:${T.navy};margin:${GAP.head}px 0 16px;scroll-margin-top:${GAP.section + 16}px}
+    .rs-prose h3{font:${F("proseH3")};color:${T.navy};margin:${GAP.block}px 0 12px}
     .rs-prose p{margin:0 0 16px}
     .rs-prose ul,.rs-prose ol{margin:0 0 16px;padding-left:24px}
     .rs-prose li{margin:0 0 8px;padding-left:4px}
@@ -366,6 +366,8 @@ export const GStyle = () => (
     /* « Mon espace » : lien qui déplie la carte coach, sur mobile seulement (la carte reste visible sur grand écran) */
     .rp-coach-toggle{display:none}
     @media (max-width:760px){ .rp-coach-toggle{display:block;margin-top:-8px} .rp-coach-card:not(.is-open){display:none} .rp-espace{padding-top:16px!important} }
+    /* Tablette : héros sur une colonne (titre d'accroche lisible, action sur une ligne), visuel centré dessous */
+    @media (max-width:1023px){ .rs-hero{grid-template-columns:minmax(0,1fr);gap:${GAP.head}px} }
     @media (max-width:1023px){ .rs-g4{grid-template-columns:repeat(2,minmax(0,1fr))} .rs-art{grid-template-columns:minmax(0,1fr);gap:32px} .rs-art-side{position:static} }
     @media (prefers-reduced-motion: reduce){
       *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important;scroll-behavior:auto!important}
@@ -423,7 +425,7 @@ export const GStyle = () => (
       .rp-nav button{font-size:calc(13px * min(var(--fs, 1), 1.15))!important}
       .rp-nav nav{gap:8px!important}
       .rp-nav nav .navlink{font-size:calc(13px * var(--fs))}
-      .ty-display{font-size:calc(${TY_MOBILE.display}px * var(--fs))!important} .ty-xl{font-size:calc(${TY_MOBILE.xl}px * var(--fs))!important} .ty-h1{font-size:calc(${TY_MOBILE.h1}px * var(--fs))!important} .ty-lead{font-size:calc(${TY_MOBILE.lead}px * var(--fs))!important}
+      .ty-display{font-size:calc(${TY_MOBILE.display}px * var(--fs))!important} .ty-xl{font-size:calc(${TY_MOBILE.xl}px * var(--fs))!important} .ty-pageTitle{font-size:calc(${TY_MOBILE.pageTitle}px * var(--fs))!important} .ty-h1{font-size:calc(${TY_MOBILE.h1}px * var(--fs))!important} .ty-lead{font-size:calc(${TY_MOBILE.lead}px * var(--fs))!important}
       .rp-pad-sm{padding:${PAD_MOBILE.sm}px!important} .rp-pad-md{padding:${PAD_MOBILE.md}px!important} .rp-pad-lg{padding:${PAD_MOBILE.lg}px!important}
       .rp-page{padding:${PAD_MOBILE.page}!important}
       .rp-btn-sm{min-height:44px!important}
@@ -456,7 +458,11 @@ export const GStyle = () => (
       .rs-steps-d{display:none!important}
       .rs-tabs-m{display:block}
       .rs-visbox{height:auto!important;min-height:300px}
-      .rs-section{padding-top:48px!important}
+      .rs-section{padding-top:${GAP_MOBILE.section}px!important}
+      /* Rythme vertical mobile (référentiel 3.2) : en-tête de page 40, en-tête vers première section 32, bandeau final 48 en haut et en bas */
+      .rs-phero>.rs-pad{padding-top:${GAP_MOBILE.band}px!important;padding-bottom:${GAP_MOBILE.band}px!important}
+      .rs-section.rs-first{padding-top:${GAP_MOBILE.head}px!important}
+      .rp-foot-full{margin-top:${GAP_MOBILE.section}px!important}
       .rp-a11y{--a11y-w:28px;--a11y-h:48px}
       .rp-a11y-tab{top:auto;bottom:16px;transform:none}
       .rp-a11y-knob{padding-left:4px}
@@ -466,8 +472,8 @@ export const GStyle = () => (
       .rp-a11y-head{padding-left:16px} .rp-a11y-body{padding:12px 8px} .rp-a11y-foot{padding-left:16px}
       html.rp-asst-open .rp-a11y-tab{display:none!important}
       .rs-chips.rs-scroll{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:0 16px 4px}
-      .rs-prose h2{font-size:calc(20px * var(--fs))}
-      .rs-quote{font-size:calc(18px * var(--fs))}
+      .rs-prose h2{font-size:calc(${TY_MOBILE.proseH2}px * var(--fs))}
+      .rs-quote{font-size:calc(${TY_MOBILE.quote}px * var(--fs))}
       .rs-band{padding:32px 24px}
     }
     @media (max-height:520px){ .rs-panel{position:static!important;height:auto!important} }
@@ -483,7 +489,42 @@ export const GStyle = () => (
       .rs-toc a{min-height:44px;display:flex;align-items:center}
       .rp-crumbs a,.rp-sources a{display:inline-flex;align-items:center;min-height:44px}
       .rp-ai-bubble a,.rp-ai-bubble button{min-height:44px}
+      .rp-btn-sm,.rp-subitem.rp-subitem3{min-height:44px!important}
     }
+    /* Bords de l'écran sur iPhone (encoche, barre d'accueil ; viewport-fit=cover dans index.html, référentiel 6) :
+       les éléments fixes et les gouttières s'écartent des zones réservées. Sans encoche, env() vaut 0 : rendu inchangé.
+       --fab-lift : place laissée au-dessus d'une barre d'action collante en bas d'écran (sélection des questions). */
+    :root{--sa-t:env(safe-area-inset-top,0px);--sa-r:env(safe-area-inset-right,0px);--sa-b:env(safe-area-inset-bottom,0px);--sa-l:env(safe-area-inset-left,0px);--fab-lift:0px}
+    header.rp-header{padding-top:var(--sa-t)}
+    .rp-nav{padding-left:max(${PAD.x}px,var(--sa-l))!important;padding-right:max(${PAD.x}px,var(--sa-r))!important}
+    .rs-pad,.rp-pad,.rp-page{padding-left:max(${PAD.x}px,var(--sa-l))!important;padding-right:max(${PAD.x}px,var(--sa-r))!important}
+    .rp-ai-fab{right:calc(16px + var(--sa-r));bottom:calc(16px + var(--fab-lift) + var(--sa-b))}
+    .rp-ai-bubble{right:calc(84px + var(--sa-r));bottom:calc(16px + var(--fab-lift) + var(--sa-b))}
+    .rp-totop{right:calc(22px + var(--sa-r));bottom:calc(16px + var(--sa-b))}
+    .rp-totop.rp-lift{bottom:calc(88px + var(--fab-lift) + var(--sa-b))}
+    .rp-vig-float{right:calc(16px + var(--sa-r));bottom:calc(88px + var(--sa-b))}
+    .rp-a11y-tab,.rp-a11y-panel{left:var(--sa-l)}
+    .rp-sel{bottom:calc(12px + var(--sa-b))}
+    .rs-menu{padding-bottom:calc(48px + var(--sa-b));padding-left:max(${PAD.x}px,var(--sa-l));padding-right:max(${PAD.x}px,var(--sa-r))}
+    .rp-modal{padding:max(16px,var(--sa-t)) max(16px,var(--sa-r)) max(16px,var(--sa-b)) max(16px,var(--sa-l))!important}
+    .rp-modal>[role=dialog]{max-height:86vh;max-height:86dvh}
+    /* Tablette et petit ordinateur (761 à 1215 px) : gouttière de 40 px, pour que la languette d'accessibilité (32 px, bord
+       gauche, mi-hauteur) ne passe jamais sur le texte ; l'en-tête garde le même alignement */
+    @media (min-width:761px) and (max-width:1215px){
+      .rp-nav,.rs-pad,.rp-pad,.rp-page{padding-left:max(${PAD.xTablet}px,var(--sa-l))!important;padding-right:max(${PAD.xTablet}px,var(--sa-r))!important}
+    }
+    @media (max-width:760px){
+      html:has(.rp-sel){--fab-lift:72px}
+      .rp-nav{padding-left:max(${PAD_MOBILE.x}px,var(--sa-l))!important;padding-right:max(${PAD_MOBILE.x}px,var(--sa-r))!important}
+      .rs-pad,.rp-pad{padding-left:max(${PAD_MOBILE.x}px,var(--sa-l))!important;padding-right:max(${PAD_MOBILE.x}px,var(--sa-r))!important}
+      .rp-page{padding-left:max(${PAD_MOBILE.x}px,var(--sa-l))!important;padding-right:max(${PAD_MOBILE.x}px,var(--sa-r))!important}
+      .rs-menu{padding-bottom:calc(40px + var(--sa-b));padding-left:max(${PAD_MOBILE.x}px,var(--sa-l));padding-right:max(${PAD_MOBILE.x}px,var(--sa-r))}
+      .rp-a11y-tab{bottom:calc(16px + var(--fab-lift) + var(--sa-b))}
+      .rp-a11y-panel{bottom:calc(16px + var(--sa-b))}
+      .rp-ai-panel{padding-bottom:var(--sa-b)}
+      .rp-foot{padding-bottom:calc(64px + var(--sa-b))}
+    }
+    @media (max-width:359px){ .rp-nav{padding-left:max(12px,var(--sa-l))!important;padding-right:max(12px,var(--sa-r))!important} }
     @media print{header,footer,.noprint{display:none!important}body{background:${T.surface}}.rv{opacity:1!important;transform:none!important}}
     ::-webkit-scrollbar{height:8px;width:8px}::-webkit-scrollbar-thumb{background:${T.line};border-radius:4px}
   `}</style>

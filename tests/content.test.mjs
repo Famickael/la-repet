@@ -107,6 +107,22 @@ assert.equal(llmEnabled(), false);
 assert.deepEqual(llmBody("feedback", { messages: [] }), { task: "feedback", messages: [] });
 console.log("content.test : types d'entretien et fournisseur d'IA OK");
 
+/* Positionnement précisé (docs/redaction.md, 1.2 ter) : « entraînement » et « s'entraîner » pour l'activité, « répéter »
+   seulement au sens propre ; une question sur l'avatar dans la FAQ ; la progression se dit sans note ni mesure. */
+const { FAQ } = await import("../src/content/faq.js");
+const faqText = JSON.stringify(FAQ);
+assert.ok(FAQ[0].items.some(([q]) => /avatar/.test(q)) && FAQ[1].items.some(([q]) => /avatar/.test(q)), "FAQ : une question sur l'avatar pour les personnes accompagnées et pour les coachs");
+assert.ok(!/plus efficace/.test(faqText), "FAQ : on n'affirme pas que l'entraînement sans avatar est plus efficace");
+const REPET_OK = /La Répét['’]|[Pp]etits? mots? répétés?|mots répétés|répétition générale|répéter (?:la|une|« gérer »)|de répéter\b|répété(?:e|es|s)? (?:en boucle|plus|\d)|Boucles? de répétition|boucles de répétition|sans répétition|entièrement répété|phrase répétée|passage répété|syllabe répétée/g;
+for (const f of walk(new URL("../src", import.meta.url).pathname).filter(f => /\.(jsx|md)$/.test(f) || /src\/(content|home)\/.*\.js$/.test(f) || /src\/lib\/seo\.js$/.test(f))) {
+  const left = readFileSync(f, "utf8").replace(REPET_OK, "").match(/.{0,40}(?<![\w.\/-])[Rr]épét(?:e[zr]?|ition|itions|ons|é|ée|és|ées)(?![\w-]).{0,20}/);
+  assert.ok(!left, `${f.replace(/.*\/src\//, "src/")} : « répéter » ou « répétition » pour l'activité (écrire « entraînement », « s'entraîner ») : ${left}`);
+}
+const heroSrc = readFileSync(new URL("../src/home/Hero.jsx", import.meta.url), "utf8");
+for (const t of ["Assisté par IA", "Sans avatar", "Avec votre coach", "Entraînez-vous pour votre entretien,", "Je lance mon premier entraînement"]) assert.ok(heroSrc.includes(t), `accueil : « ${t} » attendu`);
+assert.ok(!/\bjauge|\bcourbe|\bscore/i.test(heroSrc.replace(/\/\*[\s\S]*?\*\//g, "")), "accueil : la progression se dit sans jauge, courbe ni score");
+console.log("content.test : vocabulaire de l'entraînement et question sur l'avatar OK");
+
 /* RED-11 : typographie française des textes visibles (docs/redaction.md, 1.3). Aucune espace ordinaire avant
    ; ? ! : % » ni après «, et une insécable entre un nombre et son unité. Code, URL, expressions régulières et clés
    ne sont pas lus (tests/lib/typo-fr.mjs). */

@@ -221,6 +221,14 @@ export const GStyle = () => (
     .rs-dot{width:44px;height:44px;border:none;background:none;padding:0;cursor:pointer;display:inline-grid;place-items:center;color:${T.primary}}
     .rs-dot i{display:block;height:8px;width:8px;border-radius:4px;background:${T.faint};transition:width ${MO.reveal} ${MO.soft},background-color ${MO.reveal} ${MO.soft}}
     .rs-dot[aria-current=true] i{width:24px;background:${T.primary}}
+    /* Indicateur des scènes du héros (src/home/Hero.jsx) : sous la photo, hors du flux (il ne réserve aucune place),
+       masqué par défaut ; fondu d'apparition au survol de la photo (pointeur qui survole seulement), au focus clavier
+       à l'intérieur et, sur écran tactile, au toucher (.peek, 3 s). Le haut de la zone relie la photo aux points ;
+       z-index : au-dessus de la section suivante, qui peut recouvrir le bas du héros.
+       Masqué, il reste dans la page : atteignable au clavier et lu par les lecteurs d'écran. */
+    .rs-stage-nav{position:absolute;z-index:2;left:0;right:0;top:100%;padding-top:36px;display:flex;justify-content:center;align-items:center;gap:4px;opacity:0;pointer-events:none;transition:opacity ${MO.reveal} ${MO.soft}}
+    @media (hover:hover){.rs-stage:hover .rs-stage-nav{opacity:1;pointer-events:auto}}
+    .rs-stage:focus-within .rs-stage-nav,.rs-stage.peek .rs-stage-nav{opacity:1;pointer-events:auto}
     /* Strate épinglée */
     .rs-strate{position:relative}
     .rs-panel{position:-webkit-sticky;position:sticky;top:${HEADER_H}px;height:calc(100vh - ${HEADER_H}px);height:calc(100svh - ${HEADER_H}px);display:flex;flex-direction:column;justify-content:center;padding:24px 0;overflow:hidden}
@@ -247,8 +255,8 @@ export const GStyle = () => (
     /* Deux masses (violet en haut, bleu en bas), aux décalages opposés, déplacées par transform (src/home/Background.jsx) ; la dérive est portée par le conteneur */
     .rs-glow>span{position:absolute;inset:0;animation:rsDrift 26s ${MO.soft} infinite alternate}
     .rs-glow i,.rs-glow b{position:absolute;border-radius:50%;will-change:transform}
-    .rs-glow i{left:77.3%;top:10.3%;width:67.2vmax;height:67.2vmax;margin:-33.6vmax 0 0 -33.6vmax;background:radial-gradient(closest-side,${GLOW.violet},transparent)}
-    .rs-glow b{left:22.7%;top:89.7%;width:78.4vmax;height:78.4vmax;margin:-39.2vmax 0 0 -39.2vmax;background:radial-gradient(closest-side,${GLOW.blue},transparent)}
+    .rs-glow i{left:77.3%;top:10.3%;width:67.2vmax;height:67.2vmax;margin:-33.6vmax 0 0 -33.6vmax;background:radial-gradient(closest-side,${GLOW.violet},${GLOW.violet} 30%,transparent)}
+    .rs-glow b{left:22.7%;top:89.7%;width:78.4vmax;height:78.4vmax;margin:-39.2vmax 0 0 -39.2vmax;background:radial-gradient(closest-side,${GLOW.blue},${GLOW.blue} 30%,transparent)}
     @keyframes rsDrift{0%{transform:translate3d(0,0,0)}33%{transform:translate3d(-5%,3%,0)}66%{transform:translate3d(4%,-3%,0)}100%{transform:translate3d(-2%,5%,0)}}
     .rs-in{opacity:0;transform:translateY(12px);transition:opacity ${MO.reveal} ${MO.soft},transform ${MO.reveal} ${MO.soft}}
     .on .rs-in{opacity:1;transform:none}

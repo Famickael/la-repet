@@ -144,7 +144,7 @@
     }
   ],
   "analyseAffichee": {
-    "synthese": "Vos points d'appui : vous annoncez trois raisons, vous les illustrez par des faits précis (6 ans au service clients, 4 personnes accompagnées, 3 semaines de remplacement) et vous concluez en les reprenant. Une piste pour le prochain essai : dire en une phrase ce que vous feriez en premier comme responsable d'équipe.",
+    "synthese": "Vos points d'appui : vous annoncez trois raisons, vous les illustrez par des faits précis (6 ans au service clients, 4 personnes accompagnées, 3 semaines de remplacement) et vous concluez en les reprenant. Une piste pour le prochain essai : dire en une phrase ce que vous feriez en premier comme responsable d'équipe.",
     "dimensions": [
       {
         "id": "debit",
@@ -159,7 +159,7 @@
         "type": "appui",
         "t": 7.5,
         "titre": "Exemples concrets",
-        "observation": "Vous citez des faits précis : « depuis 6 ans » au service clients, « 4 personnes » accompagnées pendant leurs 3 premiers mois, une fiche des 10 demandes les plus fréquentes.",
+        "observation": "Vous citez des faits précis : « depuis 6 ans » au service clients, « 4 personnes » accompagnées pendant leurs 3 premiers mois, une fiche des 10 demandes les plus fréquentes.",
         "conseil": "Ces chiffres permettent au recruteur de se représenter ce que vous avez déjà fait, et de vous relancer dessus. Vous pouvez les garder."
       },
       {
@@ -175,7 +175,7 @@
         "type": "appui",
         "t": 41,
         "titre": "Direction du regard",
-        "observation": "Votre regard est orienté vers l'écran environ 82 % du temps, vers le bas 10 %, sur le côté 8 %.",
+        "observation": "Votre regard est orienté vers l'écran environ 82 % du temps, vers le bas 10 %, sur le côté 8 %.",
         "conseil": "La personne qui vous écoute voit que vous vous adressez à elle. En visioconférence, vous pouvez regarder la caméra plutôt que l'écran aux moments importants, par exemple pendant votre conclusion."
       },
       {
@@ -183,7 +183,7 @@
         "type": "appui",
         "t": 75.6,
         "titre": "Construction de la réponse",
-        "observation": "Vous annoncez « trois raisons », vous les reprenez avec « D'abord », « Ensuite », « Enfin », puis vous concluez par « C'est pour ça que je souhaite ce poste ». 11 phrases, 17 mots en moyenne.",
+        "observation": "Vous annoncez « trois raisons », vous les reprenez avec « D'abord », « Ensuite », « Enfin », puis vous concluez par « C'est pour ça que je souhaite ce poste ». 11 phrases, 17 mots en moyenne.",
         "conseil": "Ce plan annoncé puis suivi aide le recruteur à retenir vos raisons et à vous relancer. Vous pouvez le garder."
       },
       {
@@ -192,7 +192,7 @@
         "t": 58.2,
         "titre": "Ce que vous dites",
         "observation": "Vous dites ce qu'il vous reste à apprendre et la formation que vous avez demandée. Vous parlez moins de ce que vous feriez une fois en poste.",
-        "conseil": "Vous pouvez ajouter, avant la conclusion, une phrase tournée vers la suite, par exemple : « Dans les premières semaines, je commencerais par rencontrer chaque membre de l'équipe pour connaître ses besoins. »"
+        "conseil": "Vous pouvez ajouter, avant la conclusion, une phrase tournée vers la suite, par exemple : « Dans les premières semaines, je commencerais par rencontrer chaque membre de l'équipe pour connaître ses besoins. »"
       }
     ],
     "metrics": {

@@ -50,7 +50,7 @@ export function TakeReport({ p, take, mode, go, series, nextQuestion, stopSeries
       {other && !series?.hasNext && (
         <Card style={{ ...actions, gap: 16 }} className="noprint">
           {head(other.createdAt < take.createdAt ? "Vous avez déjà répondu à cette question" : "Vous avez répondu de nouveau à cette question",
-            `Relisez votre entretien du ${dateFr(other.createdAt)} pour voir ce qui a changé : un exemple ajouté, un autre rythme, une conclusion.`)}
+            `Relisez votre entretien du ${dateFr(other.createdAt)} pour voir ce qui a changé : un exemple ajouté, un autre rythme, une conclusion.`)}
           <Btn kind="secondary" size="sm" onClick={() => { const [v, m] = openView(other); go(v, { takeId: other.id, mode: m, queue: null, from: null }); }}>
             {other.createdAt < take.createdAt ? "Relire l'entretien précédent" : "Relire l'entretien suivant"}
           </Btn>

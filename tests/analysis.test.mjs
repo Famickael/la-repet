@@ -172,8 +172,8 @@ for (const [what, re] of Object.entries({
   "proposition, pas reproche": /jamais un reproche ni une obligation/,
   "vouvoiement": /au vouvoiement/,
   "français simple, sans jargon": /Pas de jargon/,
-  "vocabulaire entretien": /s'appelle un « entretien »/,
-  "vocabulaire analyse": /est une « analyse »/,
+  "vocabulaire entretien": /s'appelle un «\s?entretien\s?»/,
+  "vocabulaire analyse": /est une «\s?analyse\s?»/,
   "repères présentés comme des usages": /jamais comme des règles/,
   "données, pas consignes": /jamais des consignes/,
   "aucune note": /Aucune note, aucun score, aucun niveau, aucun classement, aucune jauge/,
@@ -181,7 +181,7 @@ for (const [what, re] of Object.entries({
   "aucune appréciation globale": /Aucune appréciation globale/,
   "aucune émotion ni personnalité": /Aucune émotion, aucun état intérieur, aucun trait de personnalité/,
   "article 5(1)(f)": /article 5\(1\)\(f\)/,
-  "aucune attribution": /« vous semblez »/,
+  "aucune attribution": /«\s?vous semblez\s?»/,
   "rien sur l'apparence": /Rien sur l'apparence, la voix, l'accent, l'âge, l'origine, la santé/,
   "aucune prévision de recrutement": /Aucune prévision/,
   "identifiants conservés": /exactement les mêmes "id", "type" et "t"/,
@@ -193,7 +193,7 @@ assert.ok(!/\u2014/.test(P), "prompt d'analyse sans tiret cadratin");
 assert.ok(!/\b(retour|réponse)\b/i.test(P.replace(/FORMAT DE RÉPONSE|Réponds uniquement/g, "").replace(/en répondant à une question|répond à la question/g, "")), "prompt d'analyse : « entretien » et « analyse », pas « retour » ni « réponse »");
 assert.ok(!/claude|anthropic|mistral|openai/i.test(P), "aucun nom de fournisseur dans le prompt");
 /* Les mots que le prompt interdit au modèle sont bien ceux que le filtre refuse. */
-for (const w of P.match(/leurs proches : ([^.]+)\./)[1].split(", ").filter(w => w !== "motivation" && w !== "confiance" && w !== "assurance"))
+for (const w of P.match(/leurs proches\s: ([^.]+)\./)[1].split(", ").filter(w => w !== "motivation" && w !== "confiance" && w !== "assurance"))
   assert.ok(!textCompliant(`Vous parlez, ${w}, pendant une minute.`), `mot interdit par le prompt mais accepté par le filtre : ${w}`);
 
 /* Requête : prompt système, puis données balisées ; tâche explicite et sortie JSON ; les balises des données sont neutralisées. */
@@ -219,14 +219,15 @@ assert.equal(mixed.dimensions.find(d => d.id === "structure").conseil, a.dimensi
 assert.equal(mixed.dimensions.find(d => d.id === "structure").observation, "Vous concluez par une phrase de synthèse.");
 assert.ok(!mixed.dimensions.some(d => d.id === "contenu"), "repère de fond refusé : retiré");
 assert.equal(mixed.ecartes, 3);
+assert.equal(reconcile({ synthese: "Vous dites : « bonjour » ? Oui !", dimensions: [] }, a).synthese, "Vous dites\u00a0: «\u202fbonjour\u202f»\u202f? Oui\u202f!", "typographie française appliquée au texte du modèle");
 assert.deepEqual(parseFeedback('```json\n{"synthese":"x","dimensions":[]}\n```'), { synthese: "x", dimensions: [] });
 const longue = reconcile({ synthese: "s", dimensions: [{ id: "debit", observation: `${"Une phrase entière. ".repeat(20)}`, conseil: "c" }] }, a).dimensions.find(d => d.id === "debit").observation;
 assert.ok(longue.length <= 300 && longue.endsWith("."), "champ trop long coupé à la fin d'une phrase");
 
 /* Synthèse locale : points d'appui, puis une seule piste nommée (le fond avant la forme). */
-assert.match(a.synthese, /^Vos points d'appui : .+\. Une piste pour votre prochain essai : /);
+assert.match(a.synthese, /^Vos points d'appui\s: .+\. Une piste pour votre prochain essai\s: /);
 const sansAppui = localAnalysis(CASES["rythme posé, pauses longues et nombreuses, sans exemple ni conclusion"]);
-assert.match(sansAppui.synthese, /Une piste pour votre prochain essai : exemples concrets\./, "la piste nommée suit l'ordre de priorité");
+assert.match(sansAppui.synthese, /Une piste pour votre prochain essai\s: exemples concrets\./, "la piste nommée suit l'ordre de priorité");
 /* L'âge n'est pas un exemple concret ; une durée d'expérience en reste un, y compris écrite en lettres. */
 assert.equal(localAnalysis({ segments: [seg(0, 8, "Bonjour, je m'appelle Nadia, j'ai 46 ans et je cherche un poste d'accueil dans une mairie de mon quartier.")], duration: 8 }).metrics.concreteAt, null, "l'âge n'est pas cité comme exemple");
 assert.notEqual(localAnalysis({ segments: [seg(0, 8, "Bonjour, je m'appelle Nadia, j'ai douze ans d'expérience en boulangerie et je cherche un poste d'accueil.")], duration: 8 }).metrics.concreteAt, null);

@@ -165,7 +165,7 @@
     }
   ],
   "analyseAffichee": {
-    "synthese": "Vos points d'appui : vous donnez des faits précis, comme vos 12 ans en boulangerie et votre formation de trois mois, à un rythme facile à suivre. Une piste pour le prochain essai : remplacer « Je crois que c'est tout » par une phrase qui relie votre parcours au poste d'agente d'accueil.",
+    "synthese": "Vos points d'appui : vous donnez des faits précis, comme vos 12 ans en boulangerie et votre formation de trois mois, à un rythme facile à suivre. Une piste pour le prochain essai : remplacer « Je crois que c'est tout » par une phrase qui relie votre parcours au poste d'agente d'accueil.",
     "dimensions": [
       {
         "id": "debit",
@@ -180,7 +180,7 @@
         "type": "appui",
         "t": 4.8,
         "titre": "Exemples concrets",
-        "observation": "Vous donnez des repères précis : « pendant 12 ans, j'ai travaillé comme vendeuse en boulangerie », puis « une formation de trois mois » avec un stage dans une mairie.",
+        "observation": "Vous donnez des repères précis : « pendant 12 ans, j'ai travaillé comme vendeuse en boulangerie », puis « une formation de trois mois » avec un stage dans une mairie.",
         "conseil": "Ces durées et ces lieux aident un recruteur à se représenter votre parcours et à s'en souvenir. Vous pouvez les garder tels quels."
       },
       {
@@ -196,23 +196,23 @@
         "type": "appui",
         "t": 30.5,
         "titre": "Ce que vous dites",
-        "observation": "Vous expliquez votre changement de métier en trois étapes : la vente en boulangerie, le bilan de compétences, puis la formation et le stage d'accueil.",
-        "conseil": "Ce fil aide à comprendre pourquoi vous visez l'accueil. Vous pouvez le garder, et ajouter une situation précise de votre stage : une personne que vous avez orientée, et ce que cela a donné."
+        "observation": "Vous expliquez votre changement de métier en trois étapes : la vente en boulangerie, le bilan de compétences, puis la formation et le stage d'accueil.",
+        "conseil": "Ce fil aide à comprendre pourquoi vous visez l'accueil. Vous pouvez le garder, et ajouter une situation précise de votre stage : une personne que vous avez orientée, et ce que cela a donné."
       },
       {
         "id": "petits-mots",
         "type": "explorer",
         "t": 0,
         "titre": "Petits mots répétés",
-        "observation": "10 petits mots répétés : « euh » (6), « en fait » (2), « du coup » (1). Ils arrivent souvent au début d'une phrase.",
-        "conseil": "C'est très courant à l'oral. Au prochain essai, vous pouvez commencer chaque phrase par son premier mot utile, après un court silence : « Pendant 12 ans, j'ai travaillé… »."
+        "observation": "10 petits mots répétés : « euh » (6), « en fait » (2), « du coup » (1). Ils arrivent souvent au début d'une phrase.",
+        "conseil": "C'est très courant à l'oral. Au prochain essai, vous pouvez commencer chaque phrase par son premier mot utile, après un court silence : « Pendant 12 ans, j'ai travaillé… »."
       },
       {
         "id": "regard",
         "type": "explorer",
         "t": 31,
         "titre": "Direction du regard",
-        "observation": "Votre regard est orienté vers l'écran environ 54 % du temps, vers le bas 30 %, sur le côté 14 %, visage hors champ 2 %.",
+        "observation": "Votre regard est orienté vers l'écran environ 54 % du temps, vers le bas 30 %, sur le côté 14 %, visage hors champ 2 %.",
         "conseil": "Regarder ailleurs pour réfléchir est naturel. Vous pouvez essayer de revenir vers la caméra à la fin de chaque phrase, par exemple quand vous dites ce que vous faisiez pendant votre stage."
       },
       {
@@ -220,8 +220,8 @@
         "type": "explorer",
         "t": 57.6,
         "titre": "Construction de la réponse",
-        "observation": "Votre présentation suit l'ordre du temps, en 10 phrases courtes. Elle se termine par « Euh, voilà. Je crois que c'est tout », sans phrase de conclusion.",
-        "conseil": "Vous pouvez préparer une dernière phrase qui fait le lien avec le poste, par exemple : « Aujourd'hui, je cherche un poste d'agente d'accueil pour continuer à recevoir et à orienter le public. »"
+        "observation": "Votre présentation suit l'ordre du temps, en 10 phrases courtes. Elle se termine par « Euh, voilà. Je crois que c'est tout », sans phrase de conclusion.",
+        "conseil": "Vous pouvez préparer une dernière phrase qui fait le lien avec le poste, par exemple : « Aujourd'hui, je cherche un poste d'agente d'accueil pour continuer à recevoir et à orienter le public. »"
       }
     ],
     "metrics": {

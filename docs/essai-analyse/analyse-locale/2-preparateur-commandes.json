@@ -21,7 +21,7 @@
     "loops": 0,
     "loopWords": 0
   },
-  "synthese": "Vos points d'appui : rythme de parole, petits mots répétés. Une piste pour votre prochain essai : exemples concrets. Les autres pistes sont à explorer si vous le souhaitez.",
+  "synthese": "Vos points d'appui : rythme de parole, petits mots répétés. Une piste pour votre prochain essai : exemples concrets. Les autres pistes sont à explorer si vous le souhaitez.",
   "dimensions": [
     {
       "id": "debit",
@@ -53,7 +53,7 @@
       "type": "explorer",
       "t": 15.4,
       "observation": "Vous parlez pendant 0:18.",
-      "conseil": "En entretien, une réponse dure souvent entre 1 et 2 minutes. Vous pouvez la développer avec une situation vécue, puis dire ce que vous en retenez pour ce poste."
+      "conseil": "En entretien, une réponse dure souvent entre 1 et 2 minutes. Vous pouvez la développer avec une situation vécue, puis dire ce que vous en retenez pour ce poste."
     },
     {
       "id": "structure",

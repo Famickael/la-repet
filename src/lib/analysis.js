@@ -19,6 +19,7 @@ import { feedbackCompliant, textCompliant } from "./compliance.js";
 import { clock } from "./format.js";
 import { llmEnabled, llmComplete, feedbackMessages, LLM_TIMEOUT_MS } from "./llm.js";
 import { cleanRepetitions } from "./repetitions.js";
+import { typoFr } from "./text.js";
 
 /* Petits mots comptés (ARC-22) : sans « bon » ni « quoi », trop souvent employés au sens plein (« un bon contact »). */
 const FILLERS = ["euh", "heu", "hum", "ben", "bah", "en fait", "du coup", "genre", "voilà", "tu vois", "vous voyez"];
@@ -125,8 +126,8 @@ export function localAnalysis({ segments, duration, gaze }) {
       id: "duree", titre: "Durée", type: "explorer", t: court ? m.closingAt ?? 0 : 120,
       observation: `Vous parlez pendant ${fmt(m.speakingTime)}.`,
       conseil: court
-        ? "En entretien, une réponse dure souvent entre 1 et 2 minutes. Vous pouvez la développer avec une situation vécue, puis dire ce que vous en retenez pour ce poste."
-        : "En entretien, une réponse dure souvent entre 1 et 2 minutes. Vous pouvez garder vos deux idées les plus utiles pour ce poste et laisser le recruteur vous relancer sur le reste.",
+        ? "En entretien, une réponse dure souvent entre 1 et 2 minutes. Vous pouvez la développer avec une situation vécue, puis dire ce que vous en retenez pour ce poste."
+        : "En entretien, une réponse dure souvent entre 1 et 2 minutes. Vous pouvez garder vos deux idées les plus utiles pour ce poste et laisser le recruteur vous relancer sur le reste.",
     });
   }
 
@@ -138,7 +139,7 @@ export function localAnalysis({ segments, duration, gaze }) {
       observation: `${m.pauses.length} pause${m.pauses.length > 1 ? "s" : ""} de plus de 2 secondes, la plus longue à ${fmt(longest.t)} (${Math.round(longest.d)} s).`,
       conseil: m.pauses.length <= 3
         ? "Quelques pauses donnent du rythme et laissent le temps de réfléchir. Vous pouvez les garder."
-        : "Avant de commencer, vous pouvez noter deux ou trois mots-clés pour cette question : ils aident à enchaîner les idées.",
+        : "Avant de commencer, vous pouvez noter deux ou trois mots-clés pour cette question : ils aident à enchaîner les idées.",
     });
   }
 
@@ -233,10 +234,10 @@ export function localAnalysis({ segments, duration, gaze }) {
   const appuis = dims.filter(d => d.type === "appui").map(low);
   const pistes = dims.filter(d => d.type === "explorer").sort((x, y) => PISTE_ORDER.indexOf(x.id) - PISTE_ORDER.indexOf(y.id));
   const suite = pistes.length
-    ? `Une piste pour votre prochain essai : ${low(pistes[0])}.${pistes.length > 1 ? " Les autres pistes sont à explorer si vous le souhaitez." : ""}`
+    ? `Une piste pour votre prochain essai : ${low(pistes[0])}.${pistes.length > 1 ? " Les autres pistes sont à explorer si vous le souhaitez." : ""}`
     : "Vous pouvez garder cette façon de faire pour votre prochain essai.";
   const synthese = appuis.length
-    ? `Vos points d'appui : ${appuis.join(", ")}. ${suite}`
+    ? `Vos points d'appui : ${appuis.join(", ")}. ${suite}`
     : `Les repères ci-dessous analysent votre entretien, sans le noter. ${suite}`;
 
   return { metrics: m, synthese, dimensions: dims };
@@ -254,9 +255,9 @@ export { textCompliant };
    refusé ne fait donc plus perdre toute l'analyse rédigée. « ecartes » compte les textes ainsi remplacés. */
 /* Borne un champ : coupé à la fin de la dernière phrase entière quand c'est possible, sinon avec des points de suspension. */
 const clip = (v, n = 300) => {
-  const t = String(v ?? "").replace(/\u2014/g, ",").replace(/\s+/g, " ").trim();
+  const t = typoFr(String(v ?? "").replace(/\u2014/g, ",").replace(/\s+/g, " ").trim());
   if (t.length <= n) return t;
-  const head = t.slice(0, n), end = Math.max(head.lastIndexOf(". "), head.lastIndexOf(" ! "), head.lastIndexOf(" ? "));
+  const head = t.slice(0, n), end = head.search(/[.!?…](?=[^.!?…]*$)/); // dernière fin de phrase
   return end > n / 2 ? head.slice(0, end + 1).trim() : head.slice(0, n - 1).trimEnd() + "…";
 };
 const ok = t => textCompliant(t, "strict");

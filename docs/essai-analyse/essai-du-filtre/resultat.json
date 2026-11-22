@@ -107,7 +107,7 @@
     }
   ],
   "analyseAffichee": {
-    "synthese": "Vos points d'appui : rythme de parole, petits mots répétés. Une piste pour votre prochain essai : exemples concrets. Les autres pistes sont à explorer si vous le souhaitez.",
+    "synthese": "Vos points d'appui : rythme de parole, petits mots répétés. Une piste pour votre prochain essai : exemples concrets. Les autres pistes sont à explorer si vous le souhaitez.",
     "dimensions": [
       {
         "id": "debit",
@@ -122,7 +122,7 @@
         "type": "appui",
         "t": 0,
         "titre": "Petits mots répétés",
-        "observation": "2 petits mots répétés : « ben » (1) et « voilà » (1).",
+        "observation": "2 petits mots répétés : « ben » (1) et « voilà » (1).",
         "conseil": "Leur présence reste discrète et vos phrases restent faciles à suivre."
       },
       {
@@ -131,7 +131,7 @@
         "t": 10,
         "titre": "Exemples concrets",
         "observation": "Aucune situation datée ou chiffrée n'a été repérée dans votre entretien.",
-        "conseil": "Vous pouvez raconter une situation vécue : où, quand, ce que vous avez fait, ce que cela a donné."
+        "conseil": "Vous pouvez raconter une situation vécue : où, quand, ce que vous avez fait, ce que cela a donné."
       },
       {
         "id": "duree",
@@ -139,7 +139,7 @@
         "type": "explorer",
         "t": 15.4,
         "observation": "Vous parlez pendant 0:18.",
-        "conseil": "En entretien, une réponse dure souvent entre 1 et 2 minutes. Vous pouvez la développer avec une situation vécue, puis dire ce que vous en retenez pour ce poste."
+        "conseil": "En entretien, une réponse dure souvent entre 1 et 2 minutes. Vous pouvez la développer avec une situation vécue, puis dire ce que vous en retenez pour ce poste."
       },
       {
         "id": "structure",

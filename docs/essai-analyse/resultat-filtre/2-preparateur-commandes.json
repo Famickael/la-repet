@@ -144,7 +144,7 @@
     }
   ],
   "analyseAffichee": {
-    "synthese": "Vos points d'appui : vous répondez tout de suite à la question, avec des phrases courtes et faciles à suivre. Une piste pour le prochain essai : développer votre entretien, qui dure 0:18, avec une situation vécue qui montre que vous êtes ponctuel.",
+    "synthese": "Vos points d'appui : vous répondez tout de suite à la question, avec des phrases courtes et faciles à suivre. Une piste pour le prochain essai : développer votre entretien, qui dure 0:18, avec une situation vécue qui montre que vous êtes ponctuel.",
     "dimensions": [
       {
         "id": "debit",
@@ -159,7 +159,7 @@
         "type": "appui",
         "t": 0,
         "titre": "Petits mots répétés",
-        "observation": "2 petits mots répétés : « ben » (1) au début et « voilà » (1) à la fin.",
+        "observation": "2 petits mots répétés : « ben » (1) au début et « voilà » (1) à la fin.",
         "conseil": "Ils restent discrets et vos phrases se suivent facilement. Vous pouvez continuer ainsi."
       },
       {
@@ -167,16 +167,16 @@
         "type": "explorer",
         "t": 0,
         "titre": "Ce que vous dites",
-        "observation": "Vos raisons parlent surtout de votre situation : chercher du travail, un secteur qui recrute, un entrepôt près de chez vous. Le métier lui-même est peu présent.",
-        "conseil": "Vous pouvez ajouter ce qui vous intéresse dans le travail de préparateur de commandes : préparer une commande sans oubli, tenir un rythme, travailler en équipe. Une phrase suffit pour commencer."
+        "observation": "Vos raisons parlent surtout de votre situation : chercher du travail, un secteur qui recrute, un entrepôt près de chez vous. Le métier lui-même est peu présent.",
+        "conseil": "Vous pouvez ajouter ce qui vous intéresse dans le travail de préparateur de commandes : préparer une commande sans oubli, tenir un rythme, travailler en équipe. Une phrase suffit pour commencer."
       },
       {
         "id": "exemples",
         "type": "explorer",
         "t": 10,
         "titre": "Exemples concrets",
-        "observation": "Vous vous présentez comme « quelqu'un de sérieux, de ponctuel », sans situation datée ou chiffrée pour l'illustrer.",
-        "conseil": "Vous pouvez raconter une situation vécue en trois temps : où et quand, ce que vous avez fait, ce que cela a donné. Par exemple, à adapter à votre parcours : « Pendant mon stage de deux mois, j'ai commencé chaque jour à 6 heures, sans retard. »"
+        "observation": "Vous vous présentez comme « quelqu'un de sérieux, de ponctuel », sans situation datée ou chiffrée pour l'illustrer.",
+        "conseil": "Vous pouvez raconter une situation vécue en trois temps : où et quand, ce que vous avez fait, ce que cela a donné. Par exemple, à adapter à votre parcours : « Pendant mon stage de deux mois, j'ai commencé chaque jour à 6 heures, sans retard. »"
       },
       {
         "id": "duree",
@@ -191,8 +191,8 @@
         "type": "explorer",
         "t": 15.4,
         "titre": "Construction de la réponse",
-        "observation": "Votre entretien se termine par « je veux vraiment travailler. Voilà », sans phrase de conclusion.",
-        "conseil": "Vous pouvez finir par une phrase qui relie vos raisons au poste, par exemple : « C'est pour ça que le poste de préparateur de commandes me correspond : un travail actif, avec des horaires que je peux tenir. »"
+        "observation": "Votre entretien se termine par « je veux vraiment travailler. Voilà », sans phrase de conclusion.",
+        "conseil": "Vous pouvez finir par une phrase qui relie vos raisons au poste, par exemple : « C'est pour ça que le poste de préparateur de commandes me correspond : un travail actif, avec des horaires que je peux tenir. »"
       }
     ],
     "metrics": {

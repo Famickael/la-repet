@@ -18,3 +18,11 @@ export function fillPoste(text, poste, fallback = "ce poste") {
   if (job) return text.replace(/(?<![\p{L}])de \{poste\}/gu, dePoste(job)).replace(/\{poste\}/g, job);
   return text.replace(/ de \{poste\}/g, "").replace(/\{poste\}/g, fallback);
 }
+
+/* Typographie française d'un texte reçu (analyse rédigée par un modèle de langage) : espace insécable fine avant
+   ; ? ! et à l'intérieur des guillemets, espace insécable avant : et %. Les textes du site l'appliquent déjà. */
+export const typoFr = t => String(t ?? "")
+  .replace(/(\S)[ \u00a0]([;?!])/g, "$1\u202f$2")
+  .replace(/(\S) ([:%])/g, "$1\u00a0$2")
+  .replace(/(\S)[ \u00a0]»/g, "$1\u202f»")
+  .replace(/«[ \u00a0]/g, "«\u202f");

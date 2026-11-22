@@ -3,7 +3,7 @@ import { T, RAD, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Notice, 
 import { Reveal, stagger } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
-/* « Méthode » (#/solutions/methode, menu Solutions) : comment l'outil sert l'accompagnement. La répétition,
+/* « Méthode » (#/solutions/methode, menu Solutions) : comment l'outil sert l'accompagnement. L'entraînement,
    l'auto-observation, le retour descriptif, le débriefing avec le coach et le transfert vers l'entretien réel ;
    pourquoi le retour décrit au lieu de noter ; le rôle du coach ; la place de l'outil dans la méthode en sept étapes
    de l'organisme (src/About.jsx, #methode). Ton sérieux, sans humour (l'humour reste sur À propos).
@@ -11,17 +11,17 @@ import { FinalBand } from "./home/FinalBand.jsx";
    leurs travaux disent, sans citation entre guillemets ; l'outil n'a pas été évalué par eux. */
 
 const LOOP = [
-  { ic: I.mic, who: "La personne", t: "Répéter",
-    what: "La personne répond à voix haute aux questions choisies avec son coach, autant de fois qu'elle le souhaite, entre deux rendez-vous.",
-    why: "Dire sa réponse n'est pas la même activité que la penser. Répéter rend les exemples disponibles le jour de l'entretien. Les travaux sur la pratique délibérée le précisent : on progresse quand chaque essai vise un point précis, puis reçoit un retour." },
+  { ic: I.mic, who: "La personne", t: "S'entraîner",
+    what: "La personne répond seule, à voix haute et sans avatar, aux questions choisies avec son coach. Elle recommence autant de fois qu'elle le souhaite, entre deux rendez-vous.",
+    why: "Dire sa réponse n'est pas la même activité que la penser. S'entraîner rend les exemples disponibles le jour de l'entretien. Les travaux sur la pratique délibérée le précisent : on progresse quand chaque essai vise un point précis, puis reçoit un retour." },
   { ic: I.video, who: "La personne", t: "Se revoir",
     what: "La personne revoit sa vidéo ou relit sa réponse mise par écrit, avant de décider si elle la garde.",
     why: "Se revoir fait passer de la position d'acteur à celle d'observateur de sa propre activité. La démarche s'inspire de l'autoconfrontation en clinique de l'activité : commenter ses propres traces aide à voir ce qu'on fait réellement." },
   { ic: I.sparkle, who: "L'assistant", t: "Lire un retour descriptif",
     what: "L'assistant place des repères factuels au bon moment de la réponse : rythme de parole, pauses, exemples, petits mots répétés. Les points d'appui viennent en premier.",
-    why: "Un repère porte sur la tâche et sur la démarche, jamais sur la personne. Il donne une prise sur l'essai suivant et laisse l'interprétation à la personne et à son coach." },
+    why: "Un repère porte sur la tâche et sur la démarche, jamais sur la personne. Il donne une prise sur l'essai suivant : la personne recommence, puis relit ses deux réponses pour voir ce qui a changé. L'interprétation reste à elle et à son coach." },
   { ic: I.users, who: "Le coach et la personne", t: "Débriefer avec le coach",
-    what: "La personne envoie les réponses qu'elle choisit. Le coach les relit, confirme ou nuance chaque repère, ajoute ses remarques, puis en parle avec elle en rendez-vous ou en atelier.",
+    what: "La personne envoie les réponses qu'elle choisit. Le coach les relit, confirme ou nuance chaque repère, ajoute ses remarques, puis en parle avec elle en rendez-vous ou en atelier. Ensemble, ils regardent ce qui a changé d'une réponse à l'autre, sans note.",
     why: "C'est la réflexion sur l'action décrite par Schön. Le coach relie la réponse au projet, au poste et au contexte, ce que l'outil ne connaît pas. La personne formule elle-même ses pistes." },
   { ic: I.target, who: "La personne, avec son coach", t: "Transférer vers l'entretien réel",
     what: "La personne adapte ses exemples au poste visé, s'entraîne sur les questions propres à cet entretien et peut refaire un entraînement complet, dans l'ordre d'un vrai entretien.",
@@ -49,7 +49,7 @@ const MAP = [
   ["Accueil et diagnostic partagé", "Sans l'outil", "coach", "Un temps d'échange entre la personne et son coach."],
   ["Explicitation de l'expérience", "Sans l'outil", "coach", "Des entretiens menés par le coach, sur des situations vécues."],
   ["Mise en mots des compétences", "En appui", "muted", "La réponse mise par écrit aide à retrouver ses propres formulations."],
-  ["Simulation et répétition", "Avec l'outil", "primary", "Échauffement, questions adaptées au poste, réponses à voix haute, retour descriptif."],
+  ["Simulation et entraînement", "Avec l'outil", "primary", "Échauffement, questions adaptées au poste, réponses à voix haute, retour descriptif."],
   ["Débriefing réflexif", "Avec l'outil", "primary", "Les réponses envoyées, les repères et les remarques du coach servent de support."],
   ["Transfert vers l'entretien réel", "Avec l'outil", "primary", "Questions propres au poste, entraînement complet dans l'ordre d'un vrai entretien."],
   ["Suivi après l'entretien", "Sans l'outil", "coach", "Un échange avec le coach. La personne peut reprendre l'entraînement si elle le souhaite."],
@@ -67,7 +67,7 @@ export default function Methode({ go }) {
   return (
     <main>
       <PageHero eyebrow="Solutions" title="Méthode : comment l'outil sert l'accompagnement"
-        lead="La Répét' prolonge le travail fait avec le coach. Répéter, se revoir, lire un retour qui décrit, en parler avec son coach, puis transférer vers l'entretien réel : chaque temps a sa fonction, et le coach garde la main.">
+        lead="La Répét' prolonge le travail fait avec le coach. S'entraîner seul et à voix haute, se revoir, lire un retour qui décrit, en parler avec son coach, puis transférer vers l'entretien réel : chaque temps a sa fonction, et le coach garde la main.">
         <p style={{ ...TY.body, color: T.body, margin: 0 }}>La méthode d'accompagnement de l'organisme, en sept étapes : <Link href="#/a-propos">À propos</Link>. Ce que fait l'assistant : <Link href="#/solutions/usage-de-l-ia">usage de l'IA</Link>.</p>
       </PageHero>
 
@@ -156,7 +156,10 @@ export default function Methode({ go }) {
             ))}
           </ol>
           <Reveal><Notice tone="info" icon={I.info} style={{ marginTop: GAP.grid, maxWidth: W.read }}>
-            Certaines personnes préfèrent répéter en rendez-vous plutôt que seules. La méthode reste la même : l'outil est une option, que la personne et son coach choisissent ensemble.
+            Certaines personnes préfèrent s'entraîner en rendez-vous plutôt que seules. La méthode reste la même : l'outil est une option, que la personne et son coach choisissent ensemble.
+          </Notice></Reveal>
+          <Reveal><Notice tone="info" icon={I.mic} style={{ marginTop: GAP.grid, maxWidth: W.read }}>
+            Une voix, pas d'avatar : la question est lue à voix haute, sans visage à l'écran. La personne se concentre sur l'exercice, s'observe, puis recommence. C'est un choix de conception assumé, pas un résultat prouvé : nos raisons et leurs limites sont sur la page <Link href="#/solutions/recherche">Recherche en accompagnement</Link>.
           </Notice></Reveal>
         </Section>
 

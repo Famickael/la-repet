@@ -50,7 +50,7 @@ export default function AiUsage({ go }) {
   return (
     <main>
       <PageHero eyebrow="Solutions" title="Usage de l'IA"
-        lead="Un assistant IA aide à s'entraîner. Il met la réponse par écrit et la décrit, sur l'appareil de la personne. Il ne note pas, ne devine aucune émotion et ne décide de rien.">
+        lead="Un assistant IA aide à s'entraîner, sans avatar. Il met la réponse par écrit, la décrit et propose des pistes, sur l'appareil de la personne. Il ne note pas, ne devine aucune émotion et ne décide de rien.">
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <Tag tone="ai" icon={I.sparkle}>Décrit, ne note pas</Tag>
           <Tag tone="primary" icon={I.lock}>Sur l'appareil</Tag>
@@ -65,6 +65,9 @@ export default function AiUsage({ go }) {
               <Card style={{ height: "100%", display: "grid", gap: 12, alignContent: "start" }}><IconTile icon={ic} c={T.violet} bg={T.violetBg} /><h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>{t}</h3><p style={{ ...TY.body, color: T.body, margin: 0 }}>{d}</p></Card>
             </Reveal>
           ))}</div>
+          <Reveal style={{ marginTop: GAP.block, maxWidth: W.read }}>
+            <Notice tone="ai" icon={I.mic}>Nous ne proposons pas d'avatar, seulement une voix : celle de l'appareil lit la question. La personne se concentre sur l'exercice et s'observe, sans visage qui semble réagir. Un visage animé pourrait laisser croire que l'outil lit les émotions, ce que nous refusons. Les raisons de ce choix et leurs limites : <Link href="#/solutions/recherche">une voix, pas d'avatar</Link>.</Notice>
+          </Reveal>
         </Section>
 
         <Section id="observe" eyebrow="Ce qu'il observe" title="Ce que l'assistant observe, et ce qu'il n'observe pas" sub="Des faits, situés à un moment précis de la réponse. Jamais une note.">

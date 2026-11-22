@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { T, FIX, Bare, GRAD_ACCROCHE, GLOW, PACE, RAD, SH, Halo, Tag, Btn, Icon, I, ON, TY, W, img } from "../ui.jsx";
+import { T, FIX, Bare, GRAD_ACCROCHE, GLOW, PACE, RAD, SH, Halo, Tag, Btn, Icon, I, ON, TY, W, img, PAD, GAP } from "../ui.jsx";
 import { clock } from "../lib/format.js";
 import { useReducedMotion } from "../motion.jsx";
 import { Pin, lineStyle, useTicker } from "./shared.jsx";
@@ -12,14 +12,14 @@ export function Hero({ openSpace }) {
   const [w, setW] = useTicker(SCENES.length, PACE.scene, reduced || hover || stopped);
   return (
     <section style={{ position: "relative", overflowX: "clip" }}>
-      <div className="rs-pad" style={{ position: "relative", maxWidth: W.page, margin: "0 auto", padding: "80px 24px" }}>
+      <div className="rs-pad rs-hero-pad" style={{ position: "relative", maxWidth: W.page, margin: "0 auto", padding: `${GAP.section}px ${PAD.x}px` }}>
         <div className="rs-hero">
-          <div className="up" style={{ display: "grid", gap: 24, justifyItems: "start" }}>
+          <div className="up" style={{ display: "grid", gap: GAP.grid, justifyItems: "start" }}>
             <div className="rs-hero-tags" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {/* Vert du rôle « coach et accompagnement » (ton coach, même vert que GRAD_COACH) et violet de l'assistant (docs/design-system.md, 1.1 et 5.4) */}
               <Tag tone="coach" icon={I.users}>Avec votre coach</Tag>
               <Tag tone="ai" icon={I.sparkle}>Assisté par IA</Tag>
-              <Tag tone="primary">Sans avatar</Tag>
+              <Tag tone="primary" icon={I.userOff}>Sans avatar</Tag>
             </div>
             <h1 className="ty-display" style={{ ...TY.display, color: T.primary, margin: 0 }}>
               <span className="rs-sr">Entraînez-vous pour votre entretien, {SCENES.map(x => x.ending.replace(".", "")).join(", ")}.</span>

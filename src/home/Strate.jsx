@@ -214,7 +214,7 @@ export function VisReport({ play }) {
                 <div style={{ ...TY.h4, color: T.navy }}>{o.t}</div>
                 <div style={{ ...TY.caption, color: T.muted }}>{o.txt}</div>
               </div>
-              <Tag tone={o.ap ? "appui" : "ai"}>{o.ap ? "Appui" : "À explorer"}</Tag>
+              <Tag tone={o.ap ? "appui" : "ai"}>{o.ap ? "Point d'appui" : "À explorer"}</Tag>
             </div>
           );
         })}

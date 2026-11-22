@@ -15,7 +15,7 @@ Le principe : le coach crée un parcours et transmet un code (ou un lien). La pe
 | **Côté bénéficiaire** | https://famickael.github.io/la-repet/#/s/REPETE | code d'essai **`REPETE`**, déjà rempli dans le lien |
 | **Côté coach** | https://famickael.github.io/la-repet/#/espace | connexion de démonstration intégrée à « Mon espace », identifiants fictifs pré-remplis (« Sophie M. », `sophie.m@exemple.fr`) |
 
-Pour voir la boucle complète, ouvre les deux liens **dans le même navigateur** (deux onglets) : enregistre une prise côté bénéficiaire et envoie-la, elle apparaît « À relire » côté coach ; annote-la et envoie le rapport, il apparaît dans l'espace bénéficiaire. Le code `REPETE` est aussi pré-rempli dans la page « Mon espace ».
+Pour voir la boucle complète, ouvre les deux liens **dans le même navigateur** (deux onglets) : enregistre une réponse côté bénéficiaire et envoie-la, elle apparaît « À relire » côté coach ; ajoute tes remarques et envoie le rapport, il apparaît dans l'espace bénéficiaire. Le code `REPETE` est aussi pré-rempli dans la page « Mon espace ».
 
 Le parcours d'essai (prénom « Camille », poste « agent d'accueil ») est créé quand le code `REPETE` est saisi ou ouvert par lien (rien n'est écrit sur l'appareil avant), et recréé s'il est supprimé (`TRIAL_CODE` dans `src/lib/store.js`). Il ne contient aucune réponse fictive. À retirer en production, avec la connexion coach de démonstration (`TRIAL_LOGIN` dans `src/lib/store.js`, `Espace` dans `src/App.jsx`) : aucune vérification n'est faite, les identifiants servent uniquement à projeter l'usage.
 
@@ -35,7 +35,7 @@ Parcours de prise en main :
 
 1. **Mon espace** puis « Accéder à l'espace coach » (ou lien `#/coach`) : se connecter, puis « Nouveau parcours ». Un code de 6 caractères et un lien `…/#/s/CODE` sont générés.
 2. Ouvrir le lien (ou **Mon espace** puis saisir le code) : consentement, espace personnel, échauffement facultatif, choix d'une question, enregistrement, analyse, rapport, envoi.
-3. Retour à l'espace coach (**Changer** dans l'en-tête) : la prise apparaît « À relire ». Relecture, notes horodatées, commentaires, envoi du rapport.
+3. Retour à l'espace coach (**Changer** dans l'en-tête) : la réponse apparaît « À relire ». Relecture, remarques placées dans la vidéo, commentaires, envoi du rapport.
 4. Côté bénéficiaire, le rapport est visible dans l'espace, avec le même code.
 
 **Important, mode local :** toutes les données sont stockées dans le navigateur (voir « Architecture »). Le coach et le bénéficiaire doivent donc utiliser le **même navigateur sur le même appareil** pour que la boucle fonctionne (par exemple deux onglets, synchronisés automatiquement). Un backend est nécessaire pour un usage réel à distance : voir « Passage en production ».
@@ -90,29 +90,29 @@ Les photos suivantes proviennent de Pexels et sont utilisées sous la [licence P
 | Fonction | Implémentation |
 |---|---|
 | Accès sans compte par code ou lien | `store.createParcours` génère un code aléatoire (alphabet sans caractères ambigus) ; route `#/s/CODE` dans `App.jsx` |
-| Consentement granulaire, tracé et retirable | écran `Consent` (`Beneficiary.jsx`) ; `withdrawConsent` supprime prises et vidéos |
-| Échauffement ni enregistré ni analysé | `Warmup` (`Beneficiary.jsx`) et `WarmupStage.jsx` : aperçu en direct sans `MediaRecorder`, une phrase à la fois tirée au hasard (`WARMUP_PHRASES`, relances `WARMUP_PROMPTS`), astuces, questionnaire de fin gardé sur l'appareil (`saveWarmupDebrief`, clé séparée) |
+| Consentement granulaire, tracé et retirable | écran `Consent` (`src/beneficiary/`) ; `withdrawConsent` supprime réponses et vidéos |
+| Échauffement ni enregistré ni analysé | `Warmup` (`src/beneficiary/`) et `WarmupStage.jsx` : aperçu en direct sans `MediaRecorder`, une phrase à la fois tirée au hasard (`WARMUP_PHRASES`, consignes `WARMUP_PROMPTS`), astuces, questionnaire de fin gardé sur l'appareil (`saveWarmupDebrief`, clé séparée) |
 | Fond flou ou couleur unie pendant l'échauffement, en local | `src/lib/background.js` (MediaPipe Image Segmenter, modèle selfie segmenter, rendu sur canvas) ; option désactivée si le modèle ne charge pas |
 | Choix du métier visé avec autocomplétion | `JobField` (combobox accessible) et `src/lib/jobs.js` (environ 150 métiers, recherche sans accents), saisie libre ; met à jour `poste` du parcours |
 | Assistant de préparation d'entretien en panneau latéral (bouton flottant, bulle d'invitation ; questions sur le site : renvoi vers la FAQ) | `src/Assistant.jsx` et `src/lib/assistant.js` : moteur local (53 sujets, relances « un exemple ? », « pourquoi ? », « et pour… ? ») ou modèle de langage via `VITE_LLM_ENDPOINT`, sortie filtrée par `assistantCompliant()` |
-| Entraînement complet : simulation d'entretien dans l'ordre réel (accueil, présentation, motivation, expériences, qualités et axes de progrès, mise en situation selon le métier, question au recruteur), puis récapitulatif sans score | `fullInterview`, `situationFor` (`src/lib/questions.js`), vue `recap` (`Beneficiary.jsx`) |
+| Entraînement complet : simulation d'entretien dans l'ordre réel (accueil, présentation, motivation, expériences, qualités et axes de progrès, mise en situation selon le métier, question au recruteur), puis récapitulatif sans score | `fullInterview`, `situationFor` (`src/lib/questions.js`), vue `recap` (`src/beneficiary/`) |
 | Recruteur oral sans visage (pas d'avatar) : question lue par la synthèse vocale française de l'appareil, sous-titre mot à mot, « Réécouter », « Couper le son » ; repli silencieux sans voix française | `src/RecruiterVoice.jsx` |
 | Sélection de plusieurs questions, contextualisées par le poste visé, et ajout de questions personnelles | `Pick` puis enchaînement question par question (`ctx.queue`), « Question suivante (2/N) », arrêt possible ; `src/lib/questions.js` |
 | Enregistrement caméra + micro, ou micro seul | `Recorder.jsx` : `getUserMedia` + `MediaRecorder` (webm, mp4 sur Safari), 3 min maximum, relecture avant validation |
 | Transcription horodatée **dans le navigateur** | `src/lib/whisper.worker.js` (transformers.js, Whisper base, WebGPU si disponible, sinon WASM), ou service serveur via `VITE_STT_ENDPOINT` |
 | Suivi du regard et de la présence dans le cadre, en local | `src/lib/gaze.js` (MediaPipe Face Landmarker, 2 images par seconde) |
-| Retour descriptif, sans note ni inférence émotionnelle | `src/lib/analysis.js` : débit, pauses, exemples concrets, mots d'appui, structure, vocabulaire, regard |
+| Retour descriptif, sans note ni inférence émotionnelle | `src/lib/analysis.js` : rythme de parole, pauses, exemples concrets, petits mots répétés, construction, vocabulaire, regard |
 | Reformulation facultative par un modèle de langage | `analyze()` via `VITE_LLM_ENDPOINT`, sortie rapprochée de l'analyse locale (`reconcile`) puis filtrée par `isCompliant()`, repli sur l'analyse locale |
 | Choix rapport écrit ou relecture vidéo | `Choose`, `ReportBody` (`Report.jsx`) |
 | Repères cliquables sur la barre de lecture (repère ↔ moment) | `Player` (`Report.jsx`) |
-| Partage volontaire prise par prise, avec un mot au coach | `Share` |
-| Relecture coach : notes horodatées, commentaires par observation, mot d'introduction, brouillon automatique | `Review` (`Counselor.jsx`) |
+| Envoi volontaire, réponse par réponse, avec un mot au coach | `Share` |
+| Relecture coach : remarques placées dans la vidéo, commentaires par repère, mot d'introduction, brouillon automatique | `Review` (`src/coach/`) |
 | Assistant de rédaction du rapport (côté coach, même panneau latéral) : astuces liées aux observations, à la question et au métier, remarques positives non évaluatives, reformulation dans le ton de la charte, idées de mot d'introduction et de débriefing en atelier ; insertion en un clic (introduction, remarque sur une observation, note au moment courant de la vidéo) | `src/CoachAssistant.jsx`, `src/lib/coachAssistant.js` : base locale (au moins 40 entrées par observation et par situation) ou modèle de langage via `VITE_LLM_ENDPOINT` (prompt système propre au coach), sortie filtrée par `coachCompliant()` |
 | « Mon compte » : vers « Mon espace » sans session ; panneau latéral du compte une fois connecté | `AccountMenu` (`App.jsx`) |
 | Rapport final IA + coach, renvoyable après modification | `take.report` |
 | Réentraînement illimité, y compris après le rapport | espace bénéficiaire |
-| Suppression d'une prise, d'un parcours, de toutes ses données | `deleteTake`, `deleteParcours`, `withdrawConsent` |
-| Indicateurs agrégés non stigmatisants | `List` (`Counselor.jsx`) : prises à relire, parcours, rapports, taux de réentraînement, délai moyen de relecture |
+| Suppression d'une réponse, d'un parcours, de toutes ses données | `deleteTake`, `deleteParcours`, `withdrawConsent` |
+| Indicateurs agrégés non stigmatisants | `List` (`src/coach/`) : réponses à relire, parcours, rapports, taux de réentraînement, délai moyen de relecture |
 | Impression ou export PDF du rapport | `window.print()` + feuille de style d'impression (`GStyle`) |
 | Information sur les données en trois niveaux (phrase, résumé, page), pages « Vos données », conditions, mentions légales, déclaration d'accessibilité | `src/content/legal.js` (textes), `src/content/organisme.js` (valeurs d'exemple explicites, à remplacer par l'organisme), `src/Legal.jsx` (pages et fenêtre de résumé) ; audit dans `docs/conformite.md` |
 
@@ -204,7 +204,7 @@ state = {
 }
 ```
 
-États d'une prise : sur l'appareil → envoyée (`shared`) → annotée (`draft`) → rapport envoyé (`report`) → supprimée.
+États d'une réponse : sur l'appareil → envoyée (`shared`) → relue, rapport en brouillon (`draft`) → rapport envoyé (`report`) → supprimée.
 
 ### Configuration (`.env.example`)
 
@@ -226,7 +226,7 @@ Ces règles traduisent le cadre réglementaire (AI Act, RGPD) et les partis pris
 1. **Aucune inférence d'émotion ni de trait de personnalité** (article 5(1)(f) du Règlement (UE) 2024/1689, applicable depuis le 2 février 2025). `gaze.js` ne lit que les coefficients `eyeLook*` (liste dans `src/lib/gazeKeys.js`, vérifiée par `tests/analysis.test.mjs`) et la position des repères du visage, jamais les coefficients d'expression. `src/lib/compliance.js` (module sans dépendance, frontières Unicode, accents) écarte toute sortie qui note, apprécie globalement ou qualifie l'état de la personne : `isCompliant` (retour, niveau strict), `coachCompliant` (coach, niveau strict) et `assistantCompliant` (assistant de préparation : il peut parler du trac quand la personne en parle, jamais la qualifier). La sortie d'un modèle de langage est en plus rapprochée de l'analyse locale (`reconcile`).
 2. **Décrire, jamais noter.** Pas de score, de note, de classement ni de jauge de performance.
 3. **Points d'appui avant points à explorer**, formulation positive, repères présentés comme des conventions de secteur.
-4. **La vidéo reste sur l'appareil** tant que la personne ne décide pas de l'envoyer, prise par prise. Seul du texte peut partir vers un modèle de langage.
+4. **La vidéo reste sur l'appareil** tant que la personne ne décide pas de l'envoyer, réponse par réponse. Seul du texte peut partir vers un modèle de langage.
 5. **Supervision humaine** : rien n'arrive au bénéficiaire de la part du coach sans envoi explicite ; le coach peut nuancer ou contredire l'assistant.
 6. **Choix du mode de restitution** (rapport écrit ou vidéo) et **échauffement sans analyse**.
 7. **Indicateurs agrégés uniquement**, aucune mesure de performance individuelle (ni bénéficiaire, ni coach).
@@ -251,12 +251,12 @@ Par ordre de priorité :
 3. **Expiration et révocation des codes**, limitation des tentatives de saisie.
 4. **Durées de conservation et purge automatique**, journalisation des accès.
 5. **Auto-hébergement des modèles** (Whisper, MediaPipe) et, si besoin, proxy serveur pour la transcription et la reformulation (modèles hébergés en France).
-6. **Validation des seuils** de `analysis.js` (débit, pauses, mots d'appui) et de `gaze.js` (seuils `down` et `side`) sur des prises réelles, puis **audit de biais** sur des profils représentatifs (âge, genre, accent, quartiers prioritaires, primo-arrivants).
+6. **Validation des seuils** de `analysis.js` (rythme de parole, pauses, petits mots répétés) et de `gaze.js` (seuils `down` et `side`) sur des réponses réelles, puis **audit de biais** sur des profils représentatifs (âge, genre, accent, quartiers prioritaires, primo-arrivants).
 7. **Accessibilité** : audit RGAA 4.1.2 complet, consignes en FALC, test au lecteur d'écran.
 8. **Analyse d'impact (AIPD), obligatoire**, note de qualification AI Act, remplacer les valeurs d'exemple de `src/content/organisme.js` et faire valider les textes de `src/content/legal.js` par le juridique et le DPO ; formation des coachs. Détail et priorités : `docs/conformite.md`. Avec `VITE_BACKEND_URL`, les textes passent en variante « production ».
 
 Limites connues :
-- la qualité de transcription de Whisper base en français est correcte mais imparfaite sur les prises courtes ou bruitées ; `whisper-small` est meilleur mais plus lourd ;
+- la qualité de transcription de Whisper base en français est correcte mais imparfaite sur les réponses courtes ou bruitées ; `whisper-small` est meilleur mais plus lourd ;
 - le suivi du regard dépend de la lumière et de la position de la caméra ; il est désactivé en mode « son seulement » ;
 - Safari enregistre en mp4 ; le décodage audio pour Whisper repose sur `decodeAudioData`.
 
@@ -295,6 +295,6 @@ Contexte utile pour reprendre ce dépôt :
 - **Ce qui a été vérifié.** Compilation (`npm run build`), test unitaire de l'analyse, test de bout en bout complet dans Chromium avec caméra simulée et transcription simulée.
 - **Ce qui n'a pas pu être vérifié.** Le téléchargement et l'exécution réels de Whisper et de MediaPipe (réseau de l'environnement de développement restreint) : à tester en premier dans un vrai navigateur, avec une vraie caméra et un vrai micro (`npm run dev`, puis un parcours complet).
 - **Affichage mobile.** Les styles en ligne ne gèrent pas les media queries : l'adaptation au téléphone passe par des classes `rp-*` définies dans `GStyle` (`ui.jsx`, sous 760 px), qui surchargent les styles en ligne.
-- **Où intervenir.** Logique métier dans `src/lib/`, écrans dans `Beneficiary.jsx` et `Counselor.jsx`, composants visuels dans `ui.jsx`. Les styles sont écrits en ligne avec les jetons de `src/tokens.js` (`T`, `TY`, `PAD`, `GAP`, `W`, `RAD`, `SH`, `MO`), réexportés par `ui.jsx` ; conserver ce système plutôt que d'introduire une autre bibliothèque, et passer `npm run test:design`.
+- **Où intervenir.** Logique métier dans `src/lib/`, écrans dans `src/beneficiary/` et `src/coach/`, composants visuels dans `ui.jsx`. Les styles sont écrits en ligne avec les jetons de `src/tokens.js` (`T`, `TY`, `PAD`, `GAP`, `W`, `RAD`, `SH`, `MO`), réexportés par `ui.jsx` ; conserver ce système plutôt que d'introduire une autre bibliothèque, et passer `npm run test:design`.
 - **Langue et ton.** Interface en français, vouvoiement côté bénéficiaire, ton positif et non évaluatif (« vous pouvez renforcer… » plutôt que « insuffisant »). Pas de tiret cadratin dans les textes d'interface.
 - **Prochaine étape suggérée.** Point 1 de « Passage en production » : un backend minimal (par exemple Supabase ou une API Node hébergée en France) branché derrière les fonctions de `store.js`, sans changer les écrans.

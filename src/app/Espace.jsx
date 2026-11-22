@@ -32,7 +32,7 @@ export function Espace() {
               <div><Tag tone="primary">Je m'entraîne</Tag></div>
               <Txt v="h2" as="h2" color={T.navy}>J'ai un code d'accès</Txt>
             </div>
-            <CodeForm id="espace-code" grow hint="Écrivez le code d'accès donné par votre coach ou votre conseiller." onOk={c => go(`#/s/${c}`)}
+            <CodeForm id="espace-code" grow hint="Écrivez le code d'accès que votre coach vous a donné." onOk={c => go(`#/s/${c}`)}
               footer={<Txt v="caption" color={T.muted}>Votre code suffit : pas de compte, pas de mot de passe. Gardez-le pour vous.</Txt>} />
           </Card></Reveal>
           <div className="rp-coach-toggle">

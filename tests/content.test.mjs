@@ -37,10 +37,10 @@ console.log("content.test : OK");
 const { PHRASES } = await import("../src/content/legal.js");
 for (const k of ["contactDemo", "contactInfo"]) assert.ok(!/recontact|enregistrée/i.test(PHRASES[k]), `${k} promet un envoi : ${PHRASES[k]}`);
 /* Formulaire de contact : aucun envoi, message exact demandé par le propriétaire. */
-assert.equal(PHRASES.contactDemo, "Aucune demande envoyée, version de démonstration");
+assert.equal(PHRASES.contactDemo, "Aucune demande envoyée : l'envoi en ligne n'est pas encore ouvert");
 assert.match(PHRASES.contactSent, /recontacte/);
 /* RED-07 : sans serveur, l'envoi est décrit comme local (version d'essai, même navigateur). */
-assert.match(PHRASES.sameDevice, /^Version d'essai/);
+assert.match(PHRASES.sameDevice, /^Sur ce site, /);
 assert.match(PHRASES.sameDevice, /même navigateur/);
 /* Panel bénéficiaires : textes de l'espace réécrits (vocabulaire simple, annulation explicite, employeur nommé). */
 const { SUMMARY } = await import("../src/content/legal.js");

@@ -45,7 +45,7 @@ export function Footer({ compact = false }) {
         <div className="rp-pad rp-fgrid" style={{ maxWidth: W.page, margin: "0 auto", padding: `${PAD.md}px ${PAD.x}px ${PAD.lg}px` }}>
           <div className="rp-fbrief" style={{ display: "grid", gap: 12, alignContent: "start", maxWidth: 360 }}>
             <RepetLogo s={14} tagline={false} />
-            <p style={{ ...TY.caption, color: T.body, margin: 0 }}>La Répét' est l'outil d'entraînement de notre organisme d'accompagnement. On répète son entretien à voix haute, l'assistant décrit sans noter, votre coach vous accompagne.</p>
+            <p style={{ ...TY.caption, color: T.body, margin: 0 }}>La Répét' est l'outil d'entraînement de notre organisme d'accompagnement. On s'entraîne à voix haute pour son entretien, l'assistant décrit sans noter, votre coach vous accompagne.</p>
           </div>
           {groups.map(([t, links]) => (
             <nav key={t} aria-label={t}>

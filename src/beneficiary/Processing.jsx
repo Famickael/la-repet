@@ -14,7 +14,7 @@ import { actions, openView, wrap } from "./shared.jsx";
 /* Trois étapes, un message chacune (BUG-25) ; la transcription et l'analyse déjà faites sont gardées :
    « Réessayer » reprend à l'étape qui a échoué. */
 export const PROC_ERR = {
-  transcribe: ["Votre réponse n'a pas pu être mise par écrit", "La première fois, l'outil d'écriture se télécharge : vérifiez votre connexion à Internet, puis réessayez."],
+  transcribe: ["Votre réponse n'a pas pu être mise par écrit", "La première fois, l'outil de mise par écrit se télécharge : vérifiez votre connexion à Internet, puis réessayez."],
   analyze: ["Le retour n'a pas pu être préparé", "Votre réponse est mise par écrit. Réessayez : la préparation du retour reprend où elle s'était arrêtée."],
   save: ["Votre réponse n'a pas pu être gardée sur cet appareil", "Il manque peut-être de la place. Libérez de la place ou supprimez d'anciennes réponses, puis réessayez."],
 };
@@ -37,7 +37,7 @@ export function Processing({ p, ctx, go }) {
             setStage("Votre appareil met votre réponse par écrit…");
             done.current.tr = await transcribe(rec.blob, pr => {
               if (!alive) return;
-              if (pr.stage === "model") setStage(`Téléchargement de l'outil d'écriture (${pr.value} %). C'est seulement la première fois.`);
+              if (pr.stage === "model") setStage(`Téléchargement de l'outil de mise par écrit (${pr.value} %). C'est seulement la première fois.`);
               else setStage("Votre appareil met votre réponse par écrit…");
             });
           }

@@ -21,7 +21,7 @@ Avoir le trac avant un entretien est très courant, y compris chez les personnes
 - **Préparez vos documents** : plusieurs exemplaires de votre CV, la convocation, une pièce d'identité si elle est demandée, de quoi noter.
 
 > [!conseil] Une répétition générale
-> La veille, faites un entraînement complet : présentation, deux ou trois questions, vos questions au recruteur. Avec La Répét', vous pouvez l'enregistrer puis vous revoir ou lire le retour, et recommencer autant que vous le souhaitez.
+> La veille, faites un entraînement complet : présentation, deux ou trois questions, vos questions au recruteur. Avec La Répét', vous pouvez l'enregistrer puis vous revoir ou lire le retour, et recommencer autant de fois que vous voulez.
 
 ## Préparer sa tenue
 

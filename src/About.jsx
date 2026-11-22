@@ -227,7 +227,7 @@ const STEPS = [
     out: "Un répertoire de réalisations et une présentation qui lui ressemble." },
   { t: "Simulation et entraînement", why: "S'essayer en situation proche de l'entretien, autant de fois que nécessaire.",
     coach: "Construit des mises en situation fidèles à l'entretien visé : type de questions, interlocuteurs, format sur place ou en visio. En rendez-vous ou en atelier.",
-    person: "Répond à voix haute, recommence, essaie une autre formulation. Entre deux séances, elle peut s'entraîner seule.",
+    person: "Répond à voix haute, recommence, essaie une autre formulation. Entre deux rendez-vous, elle peut s'entraîner seule.",
     out: "Des réponses travaillées, prêtes à être reprises en débriefing." },
   { t: "Débriefing réflexif", why: "Apprendre de sa propre façon de faire, plutôt que recevoir un verdict.",
     coach: "Part de ce que la personne a remarqué elle-même. Décrit ce qu'il a vu et entendu, questionne les choix, sans juger la personne.",

@@ -50,7 +50,7 @@ export function AccountActions({ acc, onAction, label = "Mon compte", id }) {
         <span aria-hidden style={{ width: 40, height: 40, borderRadius: "50%", background: T.primaryBg, color: T.primary, display: "grid", placeItems: "center", flexShrink: 0, ...TY.h3 }}>{acc.who.charAt(0).toUpperCase()}</span>
         <div style={{ display: "grid", gap: 2, minWidth: 0 }}>
           <span style={{ ...TY.h4, color: T.navy }}>{acc.who}</span>
-          <span style={{ ...TY.small, color: T.body }}>{acc.coach ? "Espace coach" : "Espace d'entraînement"}</span>
+          <span style={{ ...TY.small, color: T.body }}>{acc.coach ? "Espace coach" : "Mon espace"}</span>
         </div>
       </div>
       <nav id={id} aria-label={label} style={{ display: "grid", gap: 2 }}>

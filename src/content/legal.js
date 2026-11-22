@@ -48,25 +48,25 @@ export const PHRASES = {
   /* Écran de préparation (B4) : dit ce qui part vraiment. Avec le proxy IA, le texte transcrit (jamais la vidéo ni la
      voix) est envoyé à l'assistant IA pour rédiger le retour ; sans lui, tout reste sur l'appareil. */
   processing: REMOTE_LLM
-    ? "Votre réponse est mise par écrit sur votre appareil. Le texte, jamais la vidéo ni la voix, est ensuite envoyé à l'assistant IA pour rédiger votre retour. Cela prend en général moins d'une minute, un peu plus la première fois."
+    ? "Votre réponse est mise par écrit sur votre appareil. Le texte, jamais la vidéo ni la voix, est ensuite envoyé à un service d'IA pour rédiger votre retour. Cela prend en général moins d'une minute, un peu plus la première fois."
     : "Tout se passe sur votre appareil. Cela prend en général moins d'une minute, un peu plus la première fois.",
   processingLocal: "Tout se passe sur votre appareil.",
   /* Case « retour de l'assistant » de l'accord (panel bénéficiaires) et conseil d'appareil, avant tout téléchargement. */
-  consentAi: `L'assistant est un programme. Il décrit des faits : vitesse de parole, pauses, direction du regard. Pas de note, pas d'émotion devinée.${REMOTE_LLM ? " Pour rédiger le retour, le texte de votre réponse est envoyé à l'assistant IA, jamais votre vidéo ni votre voix." : ""} Sans cette case, vous pouvez quand même vous enregistrer et vous revoir.`,
+  consentAi: `L'assistant est un programme. Il décrit des faits : rythme de parole, pauses, direction du regard. Pas de note, pas d'émotion devinée.${REMOTE_LLM ? " Pour rédiger le retour, le texte de votre réponse est envoyé à un service d'IA, jamais votre vidéo ni votre voix." : ""} Sans cette case, vous pouvez quand même vous enregistrer et vous revoir.`,
   personalDevice: SELF_HOSTED_MODELS
-    ? "Conseil : utilisez de préférence votre téléphone ou votre ordinateur personnel. La première fois, l'assistant télécharge un outil : le Wi-Fi est préférable."
-    : "Conseil : utilisez de préférence votre téléphone ou votre ordinateur personnel. La première fois, l'assistant télécharge un outil d'environ 130 Mo : le Wi-Fi est préférable.",
+    ? "Conseil : utilisez de préférence votre téléphone ou votre ordinateur personnel. La première fois, votre appareil télécharge un outil : le Wi-Fi est préférable."
+    : "Conseil : utilisez de préférence votre téléphone ou votre ordinateur personnel. La première fois, votre appareil télécharge un outil d'environ 130 Mo : le Wi-Fi est préférable.",
   share: "Seul votre coach verra cette réponse.",
   sent: "Tant que votre coach n'a pas répondu, vous pouvez annuler l'envoi depuis votre espace.",
   /* Sans serveur, l'envoi reste dans ce navigateur (RED-07) : dit là où la personne envoie. */
-  sameDevice: BACKEND ? "" : "Version d'essai : votre coach lit votre réponse dans ce même navigateur. Revenez ici avec votre code pour lire son rapport.",
+  sameDevice: BACKEND ? "" : "Sur ce site, votre coach lit votre réponse dans ce même navigateur. Revenez ici avec votre code pour lire son rapport.",
   logout: "Se déconnecter n'efface pas les données de cet appareil.",
   coachLogin: "Vous ne voyez que les réponses que l'on vous envoie.",
   noTracking: "Pas de publicité, aucun suivi.",
   contactInfo: "Vos coordonnées servent seulement à répondre à votre demande. Elles sont destinées uniquement à notre équipe.",
   /* Formulaire « Nous contacter » (BUG-01) : rien n'est envoyé ; ce message s'affiche au clic, après validation.
      Jamais « l'équipe vous recontacte » tant qu'aucun envoi réel n'a eu lieu (contactSent). */
-  contactDemo: "Aucune demande envoyée, version de démonstration",
+  contactDemo: "Aucune demande envoyée : l'envoi en ligne n'est pas encore ouvert",
   contactSent: "Votre demande est envoyée. Notre équipe vous recontacte pour en parler.",
   refuse: "Vous pouvez refuser. Cela ne change rien à votre accompagnement : vous pouvez préparer votre entretien avec votre coach.",
   changeMind: "Vous pouvez changer d'avis à tout moment, dans « Mon compte ».",
@@ -84,13 +84,13 @@ export const SUMMARY = {
   ],
   assistant: [
     ["chat", "L'assistant est **un programme informatique** (une IA). Ce n'est pas une personne."],
-    ["mic", "Il observe **des faits** : la vitesse de votre voix, vos pauses, vos exemples, la direction de votre regard."],
+    ["mic", "Il observe **des faits** : votre rythme de parole, vos pauses, vos exemples, la direction de votre regard."],
     ["ban", "Il **ne met pas de note**. Il ne vous compare à personne."],
     ["shield", "Il **ne devine pas vos émotions**. Il ne dit jamais si vous avez l'air à l'aise ou non."],
     ["user", "Votre **coach** peut compléter le retour, ou dire qu'il n'est pas d'accord."],
   ],
   accord: [
-    ["lock", "Vos entraînements restent **sur cet appareil** tant que vous ne les envoyez pas."],
+    ["lock", "Vos réponses restent **sur cet appareil** tant que vous ne les envoyez pas."],
     ["send", "Vous choisissez **ce que vous envoyez** à votre coach."],
     ["trash", "Vous pouvez **tout supprimer** quand vous voulez."],
   ],
@@ -101,7 +101,7 @@ export const SUMMARY = {
   ],
   conversation: [
     ["chat", "Vous parlez à **un programme**, pas à une personne."],
-    ["lock", REMOTE_LLM ? "Vos questions sont envoyées au service de l'assistant, **sans image ni son**." : "Vos questions **ne sont pas gardées**."],
+    ["lock", REMOTE_LLM ? "Vos questions sont envoyées à un service d'IA, **sans image ni son**." : "Vos questions **ne sont pas gardées**."],
     ["user", "Pour une question sur votre situation, **votre coach** est la bonne personne."],
   ],
   droits: [
@@ -112,7 +112,7 @@ export const SUMMARY = {
     ["user", "**Demander de l'aide** : votre coach, ou " + orgName() + ". Réponse en un mois au plus."],
   ],
   appareil: [
-    ["lock", "Vos entraînements sont gardés **dans ce navigateur, sur cet appareil**."],
+    ["lock", "Vos réponses sont gardées **dans ce navigateur, sur cet appareil**."],
     ["ban", "**Pas de publicité. Pas de pistage. Pas de mesure d'audience.**"],
     ["trash", "Vous effacez tout avec « Retirer mon accord », dans « Mon compte »."],
   ],
@@ -155,17 +155,17 @@ export const FULL = {
       ...(REMOTE_LLM ? [`Pour mieux rédiger le retour, le texte de votre réponse est envoyé à un service d'IA${ORG.llmProvider ? ` (${ORG.llmProvider})` : ""}. Jamais votre image. Jamais votre voix.`] : []),
     ] },
     { h: "3. Vous gardez votre vidéo pour vous.", p: ["Si vous ne faites rien, votre vidéo reste sur cet appareil. Personne d'autre ne la voit. Vous pouvez la revoir ou la supprimer."] },
-    { h: "4. Vous décidez de l'envoyer à votre coach, ou non.", p: ["Vous envoyez une réponse avec le bouton « Envoyer à mon coach ». Seul votre coach peut alors la voir. Vous pouvez reprendre votre envoi tant que votre coach ne vous a pas répondu."] },
+    { h: "4. Vous décidez de l'envoyer à votre coach, ou non.", p: ["Vous envoyez une réponse avec le bouton « Envoyer à mon coach ». Seul votre coach peut alors la voir. Vous pouvez annuler l'envoi tant que votre coach ne vous a pas répondu."] },
     { h: "5. Vous pouvez tout arrêter.", p: [
       "Vous pouvez supprimer une réponse. Vous pouvez aussi tout supprimer d'un coup. Vous n'avez pas à expliquer pourquoi.",
       ORG.retention ? `Durées de conservation : ${ORG.retention}.` : "Vos réponses sont gardées le temps de votre accompagnement, et au plus jusqu'à ce que vous les supprimiez.",
     ] },
-    { h: "Sur un ordinateur partagé ?", p: ["Supprimez vos entraînements avant de partir. Sinon, la personne suivante pourrait les ouvrir. Se déconnecter n'efface pas les données de cet appareil."] },
+    { h: "Sur un ordinateur partagé ?", p: ["Supprimez vos réponses avant de partir. Sinon, la personne suivante pourrait les ouvrir. Se déconnecter n'efface pas les données de cet appareil."] },
     { h: "À retenir.", p: ["Rien ne quitte votre appareil sans votre accord."] },
   ],
   assistant: [
     { h: "L'assistant est un programme.", p: ["C'est une intelligence artificielle (IA). Aucune personne ne lit son retour avant vous.", "Votre coach, lui, est une vraie personne. Ses remarques sont toujours signalées par « Votre coach »."] },
-    { h: "Ce qu'il observe.", list: ["La vitesse à laquelle vous parlez.", "Vos pauses.", "Les exemples que vous donnez.", "Les petits mots qui reviennent souvent, comme « euh » ou « du coup ».", "L'ordre de vos idées.", "La direction de votre regard, si vous utilisez la caméra."] },
+    { h: "Ce qu'il observe.", list: ["Votre rythme de parole.", "Vos pauses.", "Les exemples que vous donnez.", "Les petits mots qui reviennent souvent, comme « euh » ou « du coup ».", "L'ordre de vos idées.", "La direction de votre regard, si vous utilisez la caméra."] },
     { h: "Ce qu'il ne fait pas.", list: ["Il ne met pas de note.", "Il ne fait pas de classement.", "Il ne devine pas vos émotions, ni votre caractère.", "Il ne regarde pas les expressions de votre visage.", "Il ne décide de rien. Son retour ne change rien à vos droits ni à votre accompagnement."] },
     { h: "Pourquoi pas les émotions ?", p: ["Nous avons choisi de ne pas le faire. Une machine ne sait pas ce que vous ressentez.", "La loi européenne l'interdit aussi sur le lieu de travail et dans les établissements d'enseignement (règlement européen sur l'IA, article 5)."] },
     { h: "Ses limites.", p: ["L'assistant peut se tromper. Il comprend moins bien quand il y a du bruit, ou certains accents.", "Ses repères sont des habitudes d'entretien en France. Ils ne conviennent pas à tout le monde.", "Si un repère ne vous correspond pas, parlez-en à votre coach. C'est son avis qui compte."] },
@@ -184,7 +184,7 @@ export const FULL = {
     { h: "Les supprimer.", p: ["Ouvrez une réponse, puis appuyez sur « Supprimer cette réponse ». Pour tout effacer : « Retirer mon accord », dans « Mon compte »."] },
     { h: "Les récupérer.", p: ["Dans votre espace, « Mes données » crée un fichier lisible avec votre parcours, vos réponses, leurs textes, les retours et les rapports de votre coach. Vos vidéos se téléchargent à part. Vous pouvez aussi imprimer un retour."] },
     { h: "Les corriger.", p: ["Vous pouvez changer votre métier dans votre espace. Demandez à votre coach de corriger votre prénom."] },
-    { h: "Changer d'avis.", p: ["Vous pouvez retirer votre accord à tout moment. Vos entraînements sont alors effacés. Votre accompagnement continue normalement."] },
+    { h: "Changer d'avis.", p: ["Vous pouvez retirer votre accord à tout moment. Vos réponses sont alors effacées. Votre accompagnement continue normalement."] },
     { h: "Besoin d'aide ?", p: [`Parlez-en à votre coach. Vous pouvez aussi écrire à ${orgName()}.`, dpoLine(), "Nous vous répondons en un mois au plus."] },
     { h: "Pas d'accord avec la réponse ?", p: ["Vous pouvez écrire à la CNIL, l'autorité qui protège les données en France : cnil.fr/fr/plaintes. C'est gratuit."] },
   ],
@@ -197,14 +197,14 @@ export const FULL = {
       ["Vos réponses au petit questionnaire d'échauffement", "Pour vous les montrer la fois suivante", "Jusqu'à ce que vous supprimiez tout"],
       ["Vos réglages d'accessibilité et de son", "Pour garder l'affichage que vous avez choisi", "Jusqu'à « Réinitialiser » ou l'effacement du navigateur"],
       ["Le choix de ne plus voir la bulle de l'assistant", "Pour ne pas vous la proposer deux fois", "Jusqu'à la fermeture de l'onglet"],
-      ["L'outil d'analyse", "Pour préparer votre retour sans envoyer votre vidéo", "Gardé par le navigateur"],
+      ["Les outils téléchargés la première fois", "Pour préparer votre retour sans envoyer votre vidéo", "Gardés par le navigateur"],
     ] } },
     { p: ["Nous n'avons pas besoin de votre accord pour cela, car ces informations sont nécessaires au service que vous demandez. Nous vous le disons quand même. Il n'y a ni publicité, ni pistage, ni mesure d'audience."] },
-    { h: "Le téléchargement de l'outil d'analyse.", p: [PHRASES.download, toolsFrom] },
+    { h: "Le téléchargement des outils.", p: [PHRASES.download, toolsFrom] },
     ...(SELF_HOSTED_MODELS ? [] : [{ table: { head: ["Service", "Adresse", "Fichiers"], rows: THIRD_PARTIES } }]),
     { h: "Les polices de caractères.", p: ["Elles sont fournies par ce site lui-même. Aucun appel n'est fait à un service de polices extérieur."] },
-    { h: "Sur un ordinateur partagé.", p: ["Supprimez vos entraînements avant de partir. Se déconnecter n'efface pas les données de cet appareil."] },
-    { h: "À savoir.", p: ["Votre navigateur peut effacer vos entraînements tout seul si vous ne venez pas pendant plusieurs semaines. Ils sont aussi effacés si vous videz les données de navigation."] },
+    { h: "Sur un ordinateur partagé.", p: ["Supprimez vos réponses avant de partir. Se déconnecter n'efface pas les données de cet appareil."] },
+    { h: "À savoir.", p: ["Votre navigateur peut effacer vos réponses tout seul si vous ne venez pas pendant plusieurs semaines. Elles sont aussi effacées si vous videz les données de navigation."] },
   ],
   notice: [
     { p: [`Version du ${LEGAL_DATE}.`] },
@@ -214,8 +214,8 @@ export const FULL = {
     { h: "Quelles données ?", list: ["Votre prénom et l'initiale de votre nom, donnés par votre coach.", "Le métier que vous visez.", "Vos enregistrements (vidéo ou voix), si vous vous enregistrez.", "Le texte de vos réponses et le retour de l'assistant.", "La direction de votre regard pendant la réponse, si vous utilisez la caméra et le retour de l'assistant.", "Le message que vous écrivez à votre coach, et son rapport.", "La date de votre accord."],
       p: ["Nous ne demandons pas votre adresse, votre courriel ni aucun numéro. Évitez de parler de votre santé dans vos réponses."] },
     { h: "Qui voit vos données ?", list: ["Vous.", "Votre coach, seulement pour les réponses que vous lui envoyez.", ...(ORG.host ? [`Notre hébergeur, qui n'a pas le droit de s'en servir : ${ORG.host}.`] : []), "Personne d'autre. Jamais un employeur. Jamais de publicité."] },
-    { h: "Où sont vos données ?", p: [`Vos entraînements sont gardés sur votre appareil tant que vous ne les envoyez pas. Le site est hébergé par ${hostLine()}. Comme tout hébergeur, il voit l'adresse internet (IP) de votre appareil.`, "Les outils d'analyse sont téléchargés une fois : voir « Sur cet appareil »."] },
-    { h: "Combien de temps ?", p: [ORG.retention || "Vos entraînements sont gardés le temps de votre accompagnement, et au plus jusqu'à ce que vous les supprimiez."] },
+    { h: "Où sont vos données ?", p: [`Vos réponses sont gardées sur votre appareil tant que vous ne les envoyez pas. Le site est hébergé par ${hostLine()}. Comme tout hébergeur, il voit l'adresse internet (IP) de votre appareil.`, "Les outils sont téléchargés une fois : voir « Sur cet appareil »."] },
+    { h: "Combien de temps ?", p: [ORG.retention || "Vos réponses sont gardées le temps de votre accompagnement, et au plus jusqu'à ce que vous les supprimiez."] },
     { h: "Une machine décide-t-elle pour vous ?", p: ["Non. L'assistant prépare un retour. Il ne décide de rien. Voir « L'assistant et l'IA »."] },
     { h: "Vos droits.", p: ["Voir, supprimer, récupérer, corriger, retirer votre accord. Voir « Vos droits ».", "Réclamation : CNIL, 3 place de Fontenoy, 75007 Paris, cnil.fr."] },
     { h: "Si vous nous contactez pour un projet d'accompagnement.", p: [

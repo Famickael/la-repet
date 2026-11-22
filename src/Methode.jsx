@@ -12,7 +12,7 @@ import { FinalBand } from "./home/FinalBand.jsx";
 
 const LOOP = [
   { ic: I.mic, who: "La personne", t: "S'entraîner",
-    what: "La personne répond seule, à voix haute et sans avatar, aux questions choisies avec son coach. Elle recommence autant de fois qu'elle le souhaite, entre deux rendez-vous.",
+    what: "La personne répond seule, à voix haute et sans avatar, aux questions choisies avec son coach. Elle recommence autant de fois qu'elle veut, entre deux rendez-vous.",
     why: "Dire sa réponse n'est pas la même activité que la penser. S'entraîner rend les exemples disponibles le jour de l'entretien. Les travaux sur la pratique délibérée le précisent : on progresse quand chaque essai vise un point précis, puis reçoit un retour." },
   { ic: I.video, who: "La personne", t: "Se revoir",
     what: "La personne revoit sa vidéo ou relit sa réponse mise par écrit, avant de décider si elle la garde.",

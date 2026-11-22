@@ -443,6 +443,22 @@ Bouton « Mon compte » dans l'en-tête, sur toutes les pages. Déconnecté : il
 
 Même panneau que 5.9 bis (`DockPanel`, bouton flottant `Fab`, bordure `GRAD_AI_BORDER`), dans la relecture coach. Titre « Assistant de rédaction du rapport ». Cinq choix (puces `role="radio"`) : Astuces, Remarques positives, Reformuler, Introduction, Débriefing ; puces `tone="ai"` pour l'observation concernée. Chaque proposition (fond `violetBg`, `RAD.sm`) porte ses insertions en boutons `secondary` taille `sm` : « Dans l'introduction », « Sur l'observation », « Note à 0:12 » (moment courant de la vidéo). Confirmation dans un `Notice tone="success"` (`role="status"`) qui rappelle de relire avant d'envoyer. Grand écran (1180 px et plus) : le contenu se décale de 432 px pour rester visible à côté du panneau.
 
+### 5.9 quinquies Vignette d'interlocuteur (`Interlocutor`, `src/beneficiary/Interlocutor.jsx`)
+
+Option de l'espace de la personne accompagnée (demande du propriétaire, 22 novembre 2026) : comme en visioconférence quand l'autre personne a coupé sa caméra, une petite fenêtre neutre donne le sentiment de parler à quelqu'un, sans avatar animé ni visage. Affichée pendant l'entraînement (écran « À vous de répondre ») et l'échauffement.
+
+| Point | Règle |
+|---|---|
+| Option | Désactivée par défaut. Interrupteur « Afficher une vignette d'interlocuteur » (`VignetteSwitch`, rangée `Bare role="switch"` de 48 px, même interrupteur visible que les options d'accessibilité, `rp-a11y-row`) sous l'aperçu caméra de l'entraînement et de l'échauffement ; même réglage dans « Mon compte » et le menu mobile (« Afficher » ou « Masquer la vignette d'interlocuteur »). Mémorisé dans `localStorage`, clé `larepet.vignette` (`"1"` ou `"0"`), sous `try/catch` (`src/lib/vignette.js`, événement `rp-vignette` pour les écrans ouverts) |
+| Contenu | Silhouette générique pleine (tête et épaules, sans trait de visage) dans un disque `T.line`, silhouette `T.faint` ; libellé « Votre interlocuteur » (`TY.label`, `T.navy`) ; « Caméra coupée » avec icône de caméra barrée (`TY.caption`, `T.body`). Jamais de photo, de visage, d'initiales d'une vraie personne ni d'expression |
+| Teinte | Neutre : fond `T.lineLt`, bordure `T.line`. Ni le violet de l'assistant, ni le vert du coach, ni la sarcelle de l'action principale |
+| Indicateur « parle » | Quatre barres (`.rp-vig-voice`, `T.lineStrong` au repos, `T.navy` actives, animation `rpVoice` déjà comptée parmi les boucles de la section 7) et liseré `ringOf(T.lineStrong)` autour du disque, **uniquement pendant la lecture de la question** par la voix de synthèse (`onSpeaking` de `RecruiterVoice`). Démarrer l'enregistrement coupe la voix : pendant que la personne parle, la vignette est immobile. Rien ne réagit à sa voix ni à son image (aucune inférence d'émotion, AI Act, art. 5(1)(f)) ; échauffement : barres toujours au repos. Mouvement réduit : barres fixes, sans animation |
+| Grand écran (1240 px et plus) | Fenêtre fixe en bas à droite (`.rp-vig-float`) : 208 px, à 16 px du bord et 88 px du bas (au-dessus du bouton de l'assistant), fond `surface`, bordure `line`, `RAD.md`, `SH.lg`, zone de 120 px `lineLt` avec disque de 72, puis rangée nom et bouton. Elle tient dans la marge de la colonne `W.read` : elle ne recouvre ni le sous-titre de la question ni les commandes. Rendue dans `document.body` (portail). Masquée sous l'assistant ouvert, le menu mobile, « Mon compte » et une fenêtre (`html.rp-lock`) |
+| Sous 1240 px | Bandeau dans le flux, entre la question et l'aperçu caméra (disque de 40, nom, barres, bouton), fond `lineLt`, bordure `line`, `RAD.md` : il ne se superpose à rien, à 390 comme à 320 px |
+| Masquer | Bouton icône « Masquer la vignette » (`IconBtn`, 44 × 44, ton `muted`) : désactive l'option, que l'interrupteur rétablit |
+| Accessibilité | Visuel décoratif (`aria-hidden`) ; seuls l'interrupteur et le bouton « Masquer la vignette » sont atteignables. Classe `noprint` |
+| Données | Rien n'est enregistré : la vignette est un élément de la page, l'enregistrement ne capture que la caméra et le micro |
+
 ### 5.10 Autres éléments normalisés
 
 | Élément | Règle |
@@ -795,5 +811,6 @@ Dégradés : `GRAD` et `GRAD_AI` recomposés selon 1.3, `GRAD_NIGHT` ajouté, `G
 | 2026-11-21 | Accueil : pastilles « Avec votre coach » (ton `appui`, sarcelle de `GRAD_COACH`, et non le vert de validation), « Assistant IA » (ton `ai`), « Sans note » ; bandeau de réassurance (trois puces) sous le héros ; « Ce que La Répét' ne fait pas » sur quatre cartes (`rs-g4`) | Demande du propriétaire, panel bénéficiaires |
 
 | 2026-11-21 | Écran de chargement (v3.5) : sortie en trois temps (écart des bulles 0,6 s, pause 0,3 s, fondu 0,6 s) ; la sortie attend une page immobile (polices, images visibles, animations d'entrée terminées) ; barre de défilement réservée dès `index.html`. Cause du sursaut : quand le JavaScript arrivait tard, l'animation d'entrée du héros et des lignes de la scène se jouait pendant le fondu. Vérifié image par image à 1280 et 390 px, clair et sombre, réseau ralenti | Demande du propriétaire : sursaut à la fin du chargement, voir la séparation du logo |
+| 2026-11-22 | Vignette d'interlocuteur (5.9 quinquies) : option désactivée par défaut, silhouette neutre sans visage, barres « parle » liées à la seule voix de synthèse, fenêtre fixe dans la marge sur grand écran, bandeau dans le flux en dessous de 1240 px | Demande du propriétaire ; aucune réaction à la personne (AI Act), ne masque aucune commande |
 
 Ajouter une ligne à chaque évolution d'une règle ou d'une échelle.

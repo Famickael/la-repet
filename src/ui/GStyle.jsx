@@ -109,6 +109,15 @@ export const GStyle = () => (
     .rp-voice.on i{opacity:1;animation:rpVoice 1s ease-in-out infinite}
     .rp-voice.on i:nth-child(2){animation-delay:.15s}.rp-voice.on i:nth-child(3){animation-delay:.3s}.rp-voice.on i:nth-child(4){animation-delay:.45s}
     @keyframes rpVoice{0%,100%{height:6px}50%{height:16px}}
+    /* Vignette d'interlocuteur (référentiel 5.9 quinquies, src/beneficiary/Interlocutor.jsx) : teinte neutre, fixe en bas à droite sur grand écran */
+    .rp-vig-float{position:fixed;right:16px;bottom:88px;z-index:${Z.nav};width:208px}
+    html.rp-asst-open .rp-vig-float,html.rp-menu-open .rp-vig-float,html.rp-account-open .rp-vig-float,html.rp-lock .rp-vig-float{display:none!important}
+    .rp-vig-voice{display:inline-flex;align-items:center;gap:2px;height:16px;flex-shrink:0}
+    .rp-vig-voice i{display:block;width:3px;height:6px;border-radius:2px;background:${T.lineStrong}}
+    .rp-vig-voice.on i{background:${T.navy};animation:rpVoice 1s ease-in-out infinite}
+    .rp-vig-voice.on i:nth-child(2){animation-delay:.15s}.rp-vig-voice.on i:nth-child(3){animation-delay:.3s}.rp-vig-voice.on i:nth-child(4){animation-delay:.45s}
+    @media (prefers-reduced-motion: reduce){.rp-vig-voice.on i{animation:none}.rp-vig-voice.on i:nth-child(2),.rp-vig-voice.on i:nth-child(3){height:12px}}
+    html[data-motion=reduce] .rp-vig-voice.on i{animation:none}html[data-motion=reduce] .rp-vig-voice.on i:nth-child(2),html[data-motion=reduce] .rp-vig-voice.on i:nth-child(3){height:12px}
     .rp-trustlink:hover{color:${T.primary}!important;text-decoration:underline!important}
     /* Pied de page : présentation et trois groupes de liens sur une rangée (3/2/2/2), engagements répartis sur la largeur */
     .rp-fgrid{display:grid;grid-template-columns:minmax(0,3fr) repeat(3,minmax(0,2fr));gap:24px 40px}

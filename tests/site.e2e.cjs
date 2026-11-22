@@ -237,15 +237,6 @@ async function run(b, vw, vh, opts = {}) {
      les trois pages. Apparition au défilement sur À propos, Recherche et Méthode : tous les blocs, éléments de liste
      compris (Reveal as="li"), avec des délais décalés ; en mouvement réduit, tout est visible sans attendre. */
   for (const id of ["Pourquoi le retour décrit au lieu de noter", "Le rôle irremplaçable du coach"]) check(await p.getByRole("heading", { name: id }).count() === 1, `[${tag}] Méthode : section « ${id} » absente`);
-  /* Recherche : section « Une voix, pas d'avatar » (choix assumé, huit raisons avec leur limite), sans affirmer
-     qu'une voix seule intimide moins ; la FAQ a une question sur l'avatar. */
-  await visit("#/solutions/recherche");
-  const voiceTxt = (await p.locator("#sans-avatar").innerText()).replace(/[  ]/g, " ");
-  check(/Une voix, pas d'avatar : un choix assumé/.test(voiceTxt) && await p.locator("#sans-avatar ol > li").count() === 8 && (voiceTxt.match(/Limite/g) || []).length === 8, `[${tag}] Recherche : section « Une voix, pas d'avatar » avec huit raisons et leurs limites attendue`);
-  const rechTxt = (await p.locator("main").innerText()).replace(/[  ]/g, " ");
-  check(!/Une voix seule intimide moins\./.test(rechTxt) && /Aucune étude ne compare/.test(rechTxt) && !/plus efficace/.test(rechTxt), `[${tag}] Recherche : pas d'affirmation non sourcée sur l'avatar`);
-  await visit("#/ressources/faq");
-  check(await p.getByRole("button", { name: /Pourquoi n'y a-t-il pas d'avatar/ }).count() === 1, `[${tag}] FAQ : question « Pourquoi n'y a-t-il pas d'avatar ? » attendue`);
   const refs = { "#/a-propos": ["Clot", "Vermersch", "Rogers", "Le Bossé", "Bandura", "Schön", "Hattie"], "#/solutions/recherche": ["Ericsson", "Dowrick", "Kluger", "Hattie", "Bandura", "Kanfer", "Liu", "Schön", "Baldwin"], "#/solutions/methode": ["Bandura", "Clot", "Hattie", "Schön"] };
   for (const [h, names] of Object.entries(refs)) {
     await visit(h);
@@ -272,6 +263,15 @@ async function run(b, vw, vh, opts = {}) {
   check(await q.getAttribute("aria-expanded") === "false", `[${tag}] FAQ : Entrée ne referme pas le dépliant`);
   await p.keyboard.press(" ");
   check(await q.getAttribute("aria-expanded") === "true", `[${tag}] FAQ : Espace n'ouvre pas le dépliant`);
+  /* Recherche : section « Une voix, pas d'avatar » (choix assumé, huit raisons avec leur limite), sans affirmer
+     qu'une voix seule intimide moins ; la FAQ a une question sur l'avatar. */
+  await visit("#/solutions/recherche");
+  const voiceTxt = (await p.locator("#sans-avatar").innerText()).replace(/[  ]/g, " ");
+  check(/Une voix, pas d'avatar : un choix assumé/.test(voiceTxt) && await p.locator("#sans-avatar ol > li").count() === 8 && (voiceTxt.match(/Limite/g) || []).length === 8, `[${tag}] Recherche : section « Une voix, pas d'avatar » avec huit raisons et leurs limites attendue`);
+  const rechTxt = (await p.locator("main").innerText()).replace(/[  ]/g, " ");
+  check(!/Une voix seule intimide moins\./.test(rechTxt) && /Aucune étude ne compare/.test(rechTxt) && !/plus efficace/.test(rechTxt), `[${tag}] Recherche : pas d'affirmation non sourcée sur l'avatar`);
+  await visit("#/ressources/faq");
+  check(await p.getByRole("button", { name: /Pourquoi n'y a-t-il pas d'avatar/ }).count() === 1, `[${tag}] FAQ : question « Pourquoi n'y a-t-il pas d'avatar ? » attendue`);
   await shot("08-faq", false);
 
   // Ressources : hub, recherche, filtre, catégorie, articles

@@ -1,5 +1,5 @@
 import React from "react";
-import { T, RAD, SH, Btn, Card, I, TY, W, GAP, img, Section, PageHero, IconTile, Notice, Tag, Link } from "./ui.jsx";
+import { T, RAD, SH, Btn, Card, I, TY, W, GAP, img, Section, PageHero, IconTile, Notice, Tag, Link, PAD } from "./ui.jsx";
 import { Reveal, scrollToTarget, stagger } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
@@ -31,7 +31,7 @@ export default function About({ go }) {
         </nav>
       </PageHero>
 
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         <Section first id="approche" eyebrow="Notre approche" title="Accompagner, c'est travailler avec la personne, pas à sa place"
           sub="Sauver une ville, nos héros savent faire. Dire en deux minutes ce qu'ils ont appris en le faisant, c'est un autre travail. C'est le nôtre.">
           <div className="rs-g3">
@@ -90,9 +90,9 @@ export default function About({ go }) {
               </Reveal>
             ))}
             <Reveal delay={140} style={{ height: "100%" }}>
-              <div style={{ height: "100%", display: "grid", gap: 12, alignContent: "start", background: T.primaryBg, borderRadius: RAD.lg, padding: 24 }}>
+              <div className="rp-pad-md" style={{ height: "100%", display: "grid", gap: 12, alignContent: "start", background: T.primaryBg, borderRadius: RAD.lg, padding: PAD.md }}>
                 <h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>Modalités</h3>
-                <ul style={{ ...TY.body, color: T.navy, margin: 0, paddingLeft: 20, display: "grid", gap: 8 }}>
+                <ul style={{ ...TY.body, color: T.navy, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8 }}>
                   {MODES.map((m, j) => <Reveal as="li" key={m} delay={stagger(j, 4)}>{m}</Reveal>)}
                 </ul>
               </div>
@@ -115,7 +115,7 @@ export default function About({ go }) {
           </div>
           <div style={{ marginTop: GAP.block, display: "grid", gap: 12, maxWidth: W.read }}>
             <Reveal><h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>Pour aller plus loin</h3></Reveal>
-            <ul className="rp-sources" style={{ ...TY.small, color: T.body, margin: 0, paddingLeft: 20, display: "grid", gap: 8 }}>
+            <ul className="rp-sources" style={{ ...TY.small, color: T.body, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8 }}>
               {BIBLIO.map((b, i) => <Reveal as="li" key={b} delay={stagger(i, 4)}>{b}</Reveal>)}
             </ul>
             <Reveal><p style={{ ...TY.small, color: T.body, margin: 0 }}>Ce que la recherche dit de l'entraînement, du retour et de la pratique réflexive : <Link href="#/solutions/recherche">recherche en accompagnement</Link>.</p></Reveal>
@@ -182,7 +182,7 @@ export default function About({ go }) {
             </Reveal>
             <Reveal delay={70} style={{ display: "grid", gap: 12, justifyItems: "start" }}>
               <Btn kind="secondary" size="lg" onClick={() => go("#/solutions/methode")} iconRight={I.arrow}>Lire la méthode outillée</Btn>
-              <Link href="#/solutions/fonctionnalites">Voir les fonctionnalités</Link>
+              <Link solo href="#/solutions/fonctionnalites">Voir les fonctionnalités</Link>
             </Reveal>
           </div>
         </Section>

@@ -1,5 +1,5 @@
 import React from "react";
-import { T, TY, Icon, I, IconTile, Tag } from "./ui.jsx";
+import { T, TY, Icon, I, IconTile, Tag, PAD } from "./ui.jsx";
 import { Reveal } from "./motion.jsx";
 
 /* Cartes de navigation des pages d'entrée (Solutions, Cas d'usage) : chaque carte est un lien vers une sous-page.
@@ -9,7 +9,7 @@ export function LinkCards({ items, cols = 3 }) {
     <div className={cols === 2 ? "rs-g2" : "rs-g3"}>
       {items.map((x, i) => (
         <Reveal key={x.href} delay={(i % 3) * 70} style={{ height: "100%" }}>
-          <a href={x.href} className="rs-card-btn" style={{ height: "100%", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12, padding: 24 }}>
+          <a href={x.href} className="rs-card-btn rp-pad-md" style={{ height: "100%", textDecoration: "none", display: "flex", flexDirection: "column", gap: 12, padding: PAD.md }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
               <IconTile icon={x.icon} c={x.tone === "ai" ? T.violet : x.tone === "coach" ? T.coach : undefined} bg={x.tone === "ai" ? T.violetBg : x.tone === "coach" ? T.coachBg : undefined} />
               {x.tag && <Tag tone={x.tone || "primary"}>{x.tag}</Tag>}

@@ -1,5 +1,5 @@
 import React from "react";
-import { T, RAD, Btn, Card, Tag, I, TY, W, GAP, Section, PageHero, IconTile, Notice, Link } from "./ui.jsx";
+import { T, RAD, Btn, Card, Tag, I, TY, W, GAP, Section, PageHero, IconTile, Notice, Link, PAD } from "./ui.jsx";
 import { Reveal, stagger } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
@@ -58,7 +58,7 @@ export default function AiUsage({ go }) {
         </div>
       </PageHero>
 
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         <Section first eyebrow="Ce qu'il fait" title="Trois tâches, et seulement trois">
           <div className="rs-g3">{DOES.map(([ic, t, d], i) => (
             <Reveal key={t} delay={i * 80} style={{ height: "100%" }}>
@@ -83,9 +83,9 @@ export default function AiUsage({ go }) {
               ))}
             </div>
             <Reveal>
-              <div style={{ background: T.violetBg, borderRadius: RAD.lg, padding: 32, display: "grid", gap: 16 }}>
+              <div className="rp-pad-md" style={{ background: T.violetBg, borderRadius: RAD.lg, padding: PAD.md, display: "grid", gap: 16 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}><IconTile icon={I.ban} c={T.violet} bg={T.surface} /><h3 style={{ ...TY.h2, color: T.navy, margin: 0 }}>Ce que l'assistant n'observe pas</h3></div>
-                <ul style={{ margin: 0, paddingLeft: 20, display: "grid", gap: 8, ...TY.body, color: T.navy }}>
+                <ul style={{ margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8, ...TY.body, color: T.navy }}>
                   <li>Les émotions, l'humeur ou le stress supposé.</li>
                   <li>La personnalité, la motivation ou la sincérité.</li>
                   <li>L'apparence, la tenue, l'âge, l'origine.</li>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { T, TY, RAD, GAP, Btn, Icon, I } from "./ui.jsx";
+import { T, TY, RAD, GAP, Btn, Icon, I, PAD } from "./ui.jsx";
 import { prefersReduced } from "./lib/a11y.js";
 import { pickFrenchVoice, speechSettings } from "./lib/voice.js";
 
@@ -83,7 +83,7 @@ export default function RecruiterVoice({ label = "Question du recruteur", text, 
   const toggleMute = () => { const m = !muted; setMuted(m); writeMuted(m); if (m) stop(); };
 
   return (
-    <div style={{ background: T.primaryBg, borderRadius: RAD.md, padding: "16px 20px", display: "grid", gap: 12 }}>
+    <div style={{ background: T.primaryBg, borderRadius: RAD.md, padding: PAD.callout, display: "grid", gap: 12 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
         <span aria-hidden className={`rp-voice ${speaking ? "on" : ""}`}><i /><i /><i /><i /></span>
         <span style={{ ...TY.overline, color: T.primary, flex: 1 }}>{label}{speaking ? " · lecture en cours" : ""}</span>

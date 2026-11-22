@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { T, Bare, GRAD_NIGHT, GRAD, RAD, SH, RepetMark, Tag, Icon, I, ON, TY, W, Eyebrow, IconTile, HEADER_H, HEADER_H_M } from "../ui.jsx";
+import { T, Bare, GRAD_NIGHT, GRAD, RAD, SH, RepetMark, Tag, Icon, I, ON, TY, W, Eyebrow, IconTile, HEADER_H, HEADER_H_M, PAD, GAP } from "../ui.jsx";
 import { useReducedMotion, useCount } from "../motion.jsx";
 import { Pin } from "./shared.jsx";
 
@@ -67,9 +67,9 @@ export function Strate() {
 
   if (stacked) {
     return (
-      <section id="comment-ca-marche" className="rs-pad rs-section" style={{ maxWidth: W.page, margin: "0 auto", padding: "80px 24px 0" }}>
+      <section id="comment-ca-marche" className="rs-pad rs-section" style={{ maxWidth: W.page, margin: "0 auto", padding: `${GAP.section}px ${PAD.x}px 0` }}>
         {head}
-        <ol style={{ listStyle: "none", margin: "32px 0 0", padding: 0, display: "grid", gap: 48 }}>
+        <ol style={{ listStyle: "none", margin: `${GAP.block}px 0 0`, padding: 0, display: "grid", gap: GAP.head }}>
           {STEPS.map((s, i) => (
             <li key={s.k} className="rs-g2" style={{ alignItems: "center" }}>
               <div style={{ display: "grid", gap: 8 }}>
@@ -88,7 +88,7 @@ export function Strate() {
   return (
     <section ref={sec} id="comment-ca-marche" className="rs-strate" aria-label="Quatre étapes, de votre première réponse à l'échange avec votre coach" style={{ height: `calc(100vh + ${N * 85}vh)` }}>
       <div className="rs-panel">
-        <div className="rs-pad" style={{ maxWidth: W.page, width: "100%", margin: "0 auto", padding: "0 24px", display: "flex", flexDirection: "column", gap: 32, height: "100%", justifyContent: "center", minHeight: 0 }}>
+        <div className="rs-pad" style={{ maxWidth: W.page, width: "100%", margin: "0 auto", padding: PAD.wrap, display: "flex", flexDirection: "column", gap: GAP.block, height: "100%", justifyContent: "center", minHeight: 0 }}>
           {head}
           <div className="rs-pgrid">
             <div>
@@ -138,7 +138,7 @@ export const VisFrame = ({ children }) => (
   <div aria-hidden style={{ position: "absolute", inset: 0, background: T.surface, borderRadius: RAD.xl, boxShadow: SH.glow, border: `1px solid ${T.line}`, overflow: "hidden" }}>{children}</div>
 );
 
-export const visBox = { height: "100%", padding: 24, display: "flex", flexDirection: "column", justifyContent: "center", gap: 12 };
+export const visBox = { height: "100%", padding: PAD.md, display: "flex", flexDirection: "column", justifyContent: "center", gap: 12 };
 
 export function VisCamera() {
   return (
@@ -176,13 +176,13 @@ export function VisReport({ play }) {
   const wpm = useCount(148, play, 2200, reduced), pauses = useCount(6, play, 2200, reduced);
   return (
     <div key={play ? "p" : "s"} className={`rs-tl ${play ? "play" : ""}`} style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <div style={{ background: GRAD, padding: "16px 20px", display: "flex", alignItems: "center", gap: 12 }}>
+      <div style={{ background: GRAD, padding: PAD.callout, display: "flex", alignItems: "center", gap: 12 }}>
         <RepetMark s={28} white />
         <div style={{ ...TY.h3, color: ON.text }}>Votre retour · question 1</div>
       </div>
-      <div style={{ padding: "16px 24px 8px" }}>
+      <div style={{ padding: `${PAD.sm}px ${PAD.md}px 8px` }}>
         <div style={{ ...TY.overline, color: T.muted }}>Déroulé de votre réponse</div>
-        <div style={{ position: "relative", marginTop: 24 }}>
+        <div style={{ position: "relative", marginTop: GAP.grid }}>
           <div style={{ position: "relative", height: 10, borderRadius: 4, background: T.lineLt, overflow: "hidden" }}>
             {SEGS.map(([a, b]) => <span key={a} style={{ position: "absolute", top: 0, bottom: 0, left: `${a}%`, width: `${b - a}%`, background: T.primary, borderRadius: 3 }} />)}
             <span className="rs-tl-mask" style={{ position: "absolute", inset: 0, background: T.surface }} />
@@ -196,7 +196,7 @@ export function VisReport({ play }) {
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", ...TY.time, color: T.muted, marginTop: 8 }}><span>0:00</span><span>1:32</span></div>
       </div>
-      <div className="rs-tl-facts" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", margin: "4px 24px 0", borderTop: `1px solid ${T.lineLt}`, borderBottom: `1px solid ${T.lineLt}` }}>
+      <div className="rs-tl-facts" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", margin: `4px ${PAD.md}px 0`, borderTop: `1px solid ${T.lineLt}`, borderBottom: `1px solid ${T.lineLt}` }}>
         {[[wpm, "mots/min", "Rythme"], [pauses, "", "Pauses"], ["1:32", "", "Durée"]].map(([n, u, l], i) => (
           <div key={l} style={{ padding: "12px 0", textAlign: "center", borderLeft: i ? `1px solid ${T.lineLt}` : "none" }}>
             <div style={{ ...TY.num, color: T.navy, fontVariantNumeric: "tabular-nums" }}>{n}{u && <span style={{ ...TY.caption, color: T.muted, marginLeft: 4 }}>{u}</span>}</div>
@@ -204,7 +204,7 @@ export function VisReport({ play }) {
           </div>
         ))}
       </div>
-      <div style={{ padding: "4px 24px 16px" }}>
+      <div style={{ padding: `4px ${PAD.md}px ${PAD.sm}px` }}>
         {OBS.map((o, i) => {
           const c = o.ap ? T.accent : T.violet;
           return (

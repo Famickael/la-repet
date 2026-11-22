@@ -1,5 +1,5 @@
 import React from "react";
-import { T, Btn, I, TY, W, Section, PageHero, IconTile } from "./ui.jsx";
+import { T, Btn, I, TY, W, Section, PageHero, IconTile, PAD } from "./ui.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { LinkCards, LinkChips } from "./LinkCards.jsx";
 import { Reveal, stagger } from "./motion.jsx";
@@ -26,7 +26,7 @@ export default function Solutions({ go }) {
         <LinkChips items={SOLUTIONS} label="Pages de Solutions" />
       </PageHero>
 
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         <Section first eyebrow="Quatre sujets" title="Comprendre la solution, sujet par sujet">
           <LinkCards cols={2} items={SOLUTIONS} />
         </Section>

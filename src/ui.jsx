@@ -1,7 +1,7 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
-  T, ON, GLOW, GRAD, GRAD_MAIN, GRAD_COACH, GRAD_AI, GRAD_SOFT, GRAD_PAGE, FD, FB, FM, TY, PAD, PAD_MOBILE, GAP, W, RAD, SH, MO, Z,
+  GAP_MOBILE, T, ON, GLOW, GRAD, GRAD_MAIN, GRAD_COACH, GRAD_AI, GRAD_SOFT, GRAD_PAGE, FD, FB, FM, TY, PAD, PAD_MOBILE, GAP, W, RAD, SH, MO, Z,
   TONE, HEADER_H, HEADER_H_M, TY_MOBILE, GRAD_AI_BORDER, FONT_STACKS, MASK, GRAD_LOGO, FADE_FOOT, GRAD_CTA, GRAD_CTA_HOVER,
 } from "./tokens.js";
 import { Reveal, stagger } from "./motion.jsx";
@@ -180,9 +180,10 @@ const Fab = React.forwardRef(function Fab({ icon, label, className, ...rest }, r
   return <button ref={ref} type="button" aria-label={label} title={label} className={["rp-ai-fab", className].filter(Boolean).join(" ")} {...rest}><Icon d={icon} s={24} /></button>;
 });
 
-/* Lien (référentiel 5.2) : souligné, primary, taille héritée. href → <a>, sinon bouton. */
-function Link({ href, onClick, onDark, children, style, className, ...rest }) {
-  const st = { ...TY.link, color: onDark ? ON.text : T.primary, ...style };
+/* Lien (référentiel 5.2) : souligné, primary, taille héritée. href → <a>, sinon bouton. solo : lien seul sur sa ligne
+   (hors d'une phrase), zone tactile de 44 px de haut (référentiel 8). */
+function Link({ href, onClick, onDark, solo, children, style, className, ...rest }) {
+  const st = { ...TY.link, color: onDark ? ON.text : T.primary, ...(solo ? { display: "inline-flex", alignItems: "center", minHeight: 44 } : {}), ...style };
   const cls = ["rp-link", className].filter(Boolean).join(" ");
   if (href) return <a href={href} onClick={onClick} className={cls} style={st} {...rest}>{children}</a>;
   return <Bare onClick={onClick} className={cls} style={st} {...rest}>{children}</Bare>;
@@ -313,7 +314,7 @@ function TimeChip({ t, tone = "primary", onClick, label }) {
 /* Champ (référentiel 5.3) : libellé, aide reliée, message d'erreur annoncé. */
 function Field({ id, label, hint, error, children, srLabel }) {
   return (
-    <div style={{ display: "grid", gap: 8 }}>
+    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 8 }}>
       <div style={{ display: "grid", gap: 4 }}>
         <label htmlFor={id} className={srLabel ? "rp-sr" : undefined} style={{ ...TY.label, color: T.navy }}>{label}</label>
         {hint && <span id={`${id}-h`} style={{ ...TY.caption, color: T.muted }}>{hint}</span>}
@@ -460,7 +461,7 @@ function Modal({ open = true, close, title, sub, icon, head = "none", width = "f
     <div className="rp-modal" onClick={e => { if (e.target === e.currentTarget) close(); }}
       style={{ position: "fixed", inset: 0, zIndex: Z.modal, background: T.overlay, backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
       <div ref={panel} role="dialog" aria-modal="true" aria-labelledby={title ? tid : undefined} aria-label={title ? undefined : label} className="up"
-        style={{ background: T.surface, borderRadius: RAD.lg, boxShadow: SH.lg, width: "100%", maxWidth: W[width] || W.form, maxHeight: "86vh", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        style={{ background: T.surface, borderRadius: RAD.lg, boxShadow: SH.lg, width: "100%", maxWidth: W[width] || W.form, display: "flex", flexDirection: "column", overflow: "hidden" }}>
         <div className={dark ? "rp-pad-lg rs-on-dark" : "rp-pad-lg"} style={{ position: "relative", overflow: "hidden", padding: title ? PAD.lg : `${PAD.sm}px ${PAD.sm}px 0`, background: head === "grad" ? GRAD : head === "soft" ? GRAD_SOFT : T.surface, flexShrink: 0, borderBottom: title && head === "none" ? `1px solid ${T.line}` : "none" }}>
           {dark && <Halo style={{ width: 200, height: 200, background: ON.glow, bottom: -112, right: -20 }} />}
           <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: title ? "space-between" : "flex-end", gap: 12 }}>
@@ -577,7 +578,7 @@ function BrandLoader({ label, full = false, size = 72 }) {
 /* Section éditoriale : surtitre avec filet de marque, titre TY.xl, chapeau, contenu. Sur une page secondaire (après
    PageHero), une section sur deux est posée sur une bande teintée pleine largeur (.rs-sec, GStyle, charte v4). */
 const Section = ({ id, eyebrow, title, sub, children, first }) => (
-  <section id={id} className="rs-section rs-sec" style={{ paddingTop: first ? GAP.block + 16 : GAP.section, scrollMarginTop: GAP.section }}>
+  <section id={id} className={first ? "rs-section rs-sec rs-first" : "rs-section rs-sec"} style={{ paddingTop: first ? GAP.head : GAP.section, scrollMarginTop: GAP.section }}>
     <Reveal>
       <div style={{ display: "grid", gap: 12, maxWidth: W.read }}>
         {eyebrow && <Eyebrow mark>{eyebrow}</Eyebrow>}
@@ -595,11 +596,11 @@ function PageHero({ eyebrow, title, lead, children, aside }) {
   return (
     <section className="rs-phero" style={{ position: "relative", overflow: "hidden", background: GRAD_PAGE }}>
       {!aside && <div aria-hidden className="rs-phero-mark rp-deco"><RepetMark s={280} /></div>}
-      <div className="rs-pad" style={{ position: "relative", maxWidth: W.page, margin: "0 auto", padding: "64px 24px" }}>
+      <div className="rs-pad" style={{ position: "relative", maxWidth: W.page, margin: "0 auto", padding: `${GAP.band}px ${PAD.x}px` }}>
         <div className={aside ? "rs-split" : undefined} style={aside ? { alignItems: "start" } : undefined}>
           <div className="up" style={{ display: "grid", gap: 16, maxWidth: W.read }}>
             {eyebrow && <Eyebrow mark>{eyebrow}</Eyebrow>}
-            <h1 className="ty-xl" style={{ ...TY.pageTitle, color: T.navy, margin: 0 }}>{title}</h1>
+            <h1 className="ty-pageTitle" style={{ ...TY.pageTitle, color: T.navy, margin: 0 }}>{title}</h1>
             {lead && <p className="ty-lead" style={{ ...TY.lead, color: T.body, margin: 0 }}>{lead}</p>}
             {children}
           </div>

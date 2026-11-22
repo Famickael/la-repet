@@ -10,6 +10,10 @@ import { prefersReduced } from "./lib/a11y.js";
    2. courte pause, bulles écartées (0,3 s) ;
    3. le calque passe en fondu (0,6 s).
    Mouvement réduit : fondu simple de 0,4 s, sans déplacement.
+   Les deux classes (.rpl-split, .rpl-out) sont posées dans la même image : la pause puis le fondu sont des retards de
+   transition (index.html), tenus par le compositeur. Avant, une minuterie JavaScript entre l'écart et le fondu
+   dépendait du fil principal, encore occupé par le démarrage de la page : sous WebKit (moteur de Safari), jusqu'à
+   168 ms de fil principal bloqué pendant la sortie (iPhone émulé) et une pause de 884 à 957 ms au lieu de 900.
 
    Cause du sursaut constaté à la fin du chargement : la page commençait son animation d'entrée au montage de
    React (héros qui monte de 12 px, encarts de la scène qui glissent, lignes qui apparaissent une à une, photo du
@@ -17,7 +21,9 @@ import { prefersReduced } from "./lib/a11y.js";
    cette chorégraphie se jouait pendant le fondu, donc la page bougeait sous le calque qui s'effaçait. Le calque
    attend désormais une page immobile (pageSettled) : polices prêtes, images visibles décodées, aucune animation
    ni transition d'entrée en cours dans #root (les boucles infinies, comme le fond qui dérive, ne comptent pas).
-   Il attend aussi qu'aucun écran d'attente de page (Suspense) ne soit affiché, pour éviter un double rendu. */
+   Il attend aussi qu'aucun écran d'attente de page (Suspense) ne soit affiché, pour éviter un double rendu,
+   puis un fil principal calme (trois images de suite à moins de 50 ms, attente bornée à 1 s) : la sortie ne
+   démarre pas au milieu d'une tâche longue. */
 const MIN_MS = 2500;          // animation complète : bulles qui se rejoignent (1,3 s), puis trois points
 const MIN_MS_REDUCED = 600;   // « réduire les animations » : écran statique, plus bref
 const SPLIT_MS = 600;         // 1. écart des bulles (index.html, .rpl-split)
@@ -25,6 +31,7 @@ const PAUSE_MS = 300;         // 2. pause, bulles écartées
 const OUT_MS = 600;           // 3. fondu du calque (index.html, .rpl-out)
 const OUT_MS_REDUCED = 400;   // sortie en mouvement réduit : fondu simple
 const BAR_MS = 250;           // fin de la barre de chargement
+const CALM_MAX_MS = 1000;     // attente d'un fil principal calme, au plus, une fois la page immobile
 const MAX_WAIT_MS = 8000;     // au-delà, on retire quand même (retrait CSS de secours à 10 s) ; reste sous PACE.scene
 let done = false;
 
@@ -72,24 +79,34 @@ export function dismissLoader() {
   const reduced = prefersReduced();
   const start = performance.now();
   const wait = Math.max(0, (reduced ? MIN_MS_REDUCED : MIN_MS) - start);
-  const fade = () => {
-    let gone = false;
-    const remove = () => { if (gone) return; gone = true; el.remove(); };
-    el.addEventListener("transitionend", e => { if (e.target === el && e.propertyName === "opacity") remove(); });
-    setTimeout(remove, (reduced ? OUT_MS_REDUCED : OUT_MS) + 400);
-    el.classList.add("rpl-out");
-  };
+  let gone = false;
+  const remove = () => { if (gone) return; gone = true; el.remove(); };
+  el.addEventListener("transitionend", e => { if (e.target === el && e.propertyName === "opacity") remove(); });
+  let left = false;
   const leave = () => {
-    if (reduced) { requestAnimationFrame(fade); return; }
+    if (left) return;
+    left = true;
+    if (reduced) { requestAnimationFrame(() => el.classList.add("rpl-out")); setTimeout(remove, OUT_MS_REDUCED + 400); return; }
     completeBar(el);
     requestAnimationFrame(() => {
-      el.classList.add("rpl-split");
-      setTimeout(fade, SPLIT_MS + PAUSE_MS);
+      el.classList.add("rpl-split", "rpl-out");   // écart, pause et fondu dans le même temps du compositeur (index.html)
+      setTimeout(remove, SPLIT_MS + PAUSE_MS + OUT_MS + 400);
     });
+  };
+  /* Fil principal calme : trois intervalles d'image de suite sous 50 ms (aucune tâche longue en cours), attente
+     bornée à CALM_MAX_MS : un appareil lent ne garde pas l'écran de chargement plus longtemps. */
+  const calm = () => {
+    let prev = 0, ok = 0;
+    const f = t => {
+      ok = prev && t - prev < 50 ? ok + 1 : 0; prev = t;
+      if (ok >= 3) leave(); else if (!left) requestAnimationFrame(f);
+    };
+    requestAnimationFrame(f);
+    setTimeout(leave, CALM_MAX_MS);   // aussi pour un onglet en arrière-plan, qui ne reçoit pas d'image
   };
   const tick = () => {
     if ((pagePending() || !pageSettled()) && performance.now() - start < MAX_WAIT_MS) { setTimeout(tick, 100); return; }
-    leave();
+    calm();
   };
   setTimeout(tick, wait);
 }

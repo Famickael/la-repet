@@ -21,6 +21,6 @@ export function ToTop({ lift }) {
     const h = document.querySelector("main h1");
     if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
   };
-  return <IconBtn icon={I.arrowUp} label="Revenir en haut" variant="outline" className={`rp-totop noprint${show ? " is-in" : ""}`} onClick={up}
-    tabIndex={show ? 0 : -1} aria-hidden={show ? undefined : "true"} style={{ bottom: lift ? 88 : 16 }} />;
+  return <IconBtn icon={I.arrowUp} label="Revenir en haut" variant="outline" className={`rp-totop noprint${lift ? " rp-lift" : ""}${show ? " is-in" : ""}`} onClick={up}
+    tabIndex={show ? 0 : -1} aria-hidden={show ? undefined : "true"} />;
 }

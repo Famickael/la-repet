@@ -8,7 +8,7 @@ export const PHRASE = [["Un"], ["entretien,"], ["ça"], ["se"], ["prépare"], ["
 
 export const PHRASE_SHORT = 8; // « Un entretien, ça se prépare à voix haute. »
 
-export const PHRASE_SUB = "Répétez, écoutez-vous, recommencez. Votre coach vous aide quand vous le décidez.";
+export const PHRASE_SUB = "Entraînez-vous, lisez votre retour, recommencez. Vous voyez ce qui change, et votre coach vous soutient.";
 
 /* Sur téléphone (760 px et moins), la phrase est plus courte (première phrase seulement) et la section défile moins
    (110vh au lieu de 180vh) : le concret arrive plus vite (rapport du panel bénéficiaires, section 5). */

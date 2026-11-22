@@ -5,10 +5,10 @@ import { Pin } from "./shared.jsx";
 
 /* ─── Strate épinglée : le panneau reste fixe, seul son contenu change au fil du défilement ─── */
 export const STEPS = [
-  { k: "S'entraîner", t: "Vous vous entraînez quand vous voulez", d: "Choisissez une question liée au métier que vous visez. Répondez face à la caméra, ou en voix seule. Recommencez autant de fois que vous voulez.", V: VisCamera },
-  { k: "Recevoir un retour", t: "L'assistant décrit votre réponse", d: "Rythme de parole, pauses, exemples, regard : il vous dit ce qu'il a remarqué, et à quel moment. Il commence par ce qui fonctionne déjà.", V: VisReport },
+  { k: "S'entraîner", t: "Vous vous entraînez quand vous voulez", d: "Choisissez une question liée au métier que vous visez. Répondez à voix haute, face à la caméra ou en voix seule. Pas d'avatar en face de vous.", V: VisCamera },
+  { k: "Recevoir un retour", t: "L'assistant décrit votre réponse", d: "Rythme de parole, pauses, exemples : il dit ce qu'il a remarqué, et à quel moment. Il commence par ce qui fonctionne déjà, puis propose des pistes. Vous recommencez quand vous voulez.", V: VisReport },
   { k: "Envoyer", t: "Vous décidez de ce que vous envoyez", d: "Votre vidéo reste sur votre appareil. Votre coach la voit seulement si vous la lui envoyez, réponse par réponse.", V: VisShare },
-  { k: "En parler", t: "Votre coach vous répond, vous en parlez ensemble", d: "Votre coach regarde votre réponse et ajoute ses remarques. Son rapport sert de point de départ à votre prochain rendez-vous ou atelier.", V: VisCoach },
+  { k: "En parler", t: "Votre coach vous répond, vous en parlez ensemble", d: "Votre coach regarde votre réponse et ajoute ses remarques. Ensemble, vous voyez ce qui a changé d'une réponse à l'autre, sans note, et vous choisissez la suite.", V: VisCoach },
 ];
 
 export function Strate() {

@@ -48,24 +48,25 @@ async function run(b, vw, vh, opts = {}) {
   check(await p.getByRole("heading", { name: "Avant de commencer" }).count() === 1 && await p.getByText("Bonjour Camille").count() > 0, `[${tag}] #/s/REPETE sur un navigateur neuf : écran d'accord de Camille absent`);
   check(await p.getByText(/Ce code ne fonctionne pas|n'existe pas/).count() === 0, `[${tag}] #/s/REPETE sur un navigateur neuf : message d'erreur de code affiché`);
   await shot("00b-repete-accord", false);
-  /* Bug de parcours : connecté côté personne accompagnée, « Lancer ma première répétition » mène à son espace,
+  /* Bug de parcours : connecté côté personne accompagnée, « Je lance mon premier entraînement » mène à son espace,
      jamais à la page de connexion. */
   await visit("#/");
-  await p.getByRole("button", { name: "Lancer ma première répétition" }).click(); await p.waitForTimeout(900);
-  check(p.url().endsWith("#/s/REPETE") || p.url().includes("#/s/REPETE/"), `[${tag}] session de la personne accompagnée : « Lancer ma première répétition » ne mène pas à son espace (${p.url()})`);
+  await p.getByRole("button", { name: "Je lance mon premier entraînement" }).click(); await p.waitForTimeout(900);
+  check(p.url().endsWith("#/s/REPETE") || p.url().includes("#/s/REPETE/"), `[${tag}] session de la personne accompagnée : « Je lance mon premier entraînement » ne mène pas à son espace (${p.url()})`);
   await p.evaluate(() => { localStorage.clear(); });
   await p.goto(BASE + "?fin=1#/"); await p.evaluate(() => { localStorage.clear(); }); await p.goto(BASE + "#/"); await p.waitForTimeout(300); // fin de la session gardée en mémoire
 
   // Accueil
   await visit("#/", "accueil");
   check(await p.locator("#rp-loader").count() === 0, `[${tag}] écran de chargement encore présent`);
-  check(await p.getByRole("heading", { level: 1 }).first().textContent().then(t => t.includes("Répétez votre entretien")), `[${tag}] titre du héros absent`);
-  await p.getByRole("button", { name: "Lancer ma première répétition" }).waitFor();
+  check(await p.getByRole("heading", { level: 1 }).first().textContent().then(t => t.includes("Entraînez-vous pour votre entretien")), `[${tag}] titre du héros absent`);
+  await p.getByRole("button", { name: "Je lance mon premier entraînement" }).waitFor();
   /* Accueil (demandes du propriétaire) : héros sans « Voir comment ça marche » ni ligne sur le compte, pastille
-     « Sans jugement », bandeau en quatre engagements, phrase juste sous le bandeau, pas de mini FAQ. */
+     « Sans avatar », bandeau en quatre engagements, phrase juste sous le bandeau, pas de mini FAQ. */
   const homeTxt = (await p.locator("main").innerText()).replace(/[\u00A0\u202F]/g, " ");
   check(await p.getByRole("button", { name: "Voir comment ça marche" }).count() === 0 && !homeTxt.includes("Pas de compte à créer"), `[${tag}] accueil : bouton « Voir comment ça marche » ou ligne « Pas de compte à créer » encore présents`);
-  check(homeTxt.includes("Sans jugement") && !/\bSans note\b/.test(homeTxt), `[${tag}] accueil : la pastille doit dire « Sans jugement »`);
+  check(["Avec votre coach", "Assisté par IA", "Sans avatar"].every(t => homeTxt.includes(t)) && !/\bSans note\b|Assistant IA\n|Lancer ma première répétition/.test(homeTxt), `[${tag}] accueil : pastilles « Avec votre coach », « Assisté par IA », « Sans avatar » attendues`);
+  check(/entraînez-vous autant de fois que vous voulez/.test(homeTxt) && /propose des pistes/.test(homeTxt) && /ce qui a changé/.test(homeTxt) && !/\banalyse votre réponse\b/i.test(homeTxt), `[${tag}] accueil : sous-titre du héros (entraînement sans avatar, pistes, ce qui a changé, sans note) attendu`);
   const reassure = await p.locator(".rs-reassure li").allInnerTexts();
   check(["Sans frais pour vous", "Démarrage rapide", "Sécurisé", "Confidentiel"].every((t, i) => (reassure[i] || "").startsWith(t)), `[${tag}] accueil : bandeau des quatre engagements attendu (${JSON.stringify(reassure)})`);
   check(await p.locator("main").evaluate(m => { const r = m.querySelector(".rs-reassure"), ph = m.querySelector(".rs-phrase, .rs-phrase-r"), st = m.querySelector("#comment-ca-marche"); return !!(r && ph && st && (r.compareDocumentPosition(ph) & 4) && (ph.compareDocumentPosition(st) & 4)); }), `[${tag}] accueil : la phrase doit suivre le bandeau et précéder la strate`);
@@ -236,6 +237,15 @@ async function run(b, vw, vh, opts = {}) {
      les trois pages. Apparition au défilement sur À propos, Recherche et Méthode : tous les blocs, éléments de liste
      compris (Reveal as="li"), avec des délais décalés ; en mouvement réduit, tout est visible sans attendre. */
   for (const id of ["Pourquoi le retour décrit au lieu de noter", "Le rôle irremplaçable du coach"]) check(await p.getByRole("heading", { name: id }).count() === 1, `[${tag}] Méthode : section « ${id} » absente`);
+  /* Recherche : section « Une voix, pas d'avatar » (choix assumé, huit raisons avec leur limite), sans affirmer
+     qu'une voix seule intimide moins ; la FAQ a une question sur l'avatar. */
+  await visit("#/solutions/recherche");
+  const voiceTxt = (await p.locator("#sans-avatar").innerText()).replace(/[  ]/g, " ");
+  check(/Une voix, pas d'avatar : un choix assumé/.test(voiceTxt) && await p.locator("#sans-avatar ol > li").count() === 8 && (voiceTxt.match(/Limite/g) || []).length === 8, `[${tag}] Recherche : section « Une voix, pas d'avatar » avec huit raisons et leurs limites attendue`);
+  const rechTxt = (await p.locator("main").innerText()).replace(/[  ]/g, " ");
+  check(!/Une voix seule intimide moins\./.test(rechTxt) && /Aucune étude ne compare/.test(rechTxt) && !/plus efficace/.test(rechTxt), `[${tag}] Recherche : pas d'affirmation non sourcée sur l'avatar`);
+  await visit("#/ressources/faq");
+  check(await p.getByRole("button", { name: /Pourquoi n'y a-t-il pas d'avatar/ }).count() === 1, `[${tag}] FAQ : question « Pourquoi n'y a-t-il pas d'avatar ? » attendue`);
   const refs = { "#/a-propos": ["Clot", "Vermersch", "Rogers", "Le Bossé", "Bandura", "Schön", "Hattie"], "#/solutions/recherche": ["Ericsson", "Dowrick", "Kluger", "Hattie", "Bandura", "Kanfer", "Liu", "Schön", "Baldwin"], "#/solutions/methode": ["Bandura", "Clot", "Hattie", "Schön"] };
   for (const [h, names] of Object.entries(refs)) {
     await visit(h);
@@ -520,9 +530,9 @@ async function run(b, vw, vh, opts = {}) {
   await shot("24-espace-coach");
   /* Bug de parcours : connecté côté coach, les boutons d'accès mènent à l'espace coach, jamais à la connexion. */
   await visit("#/");
-  await p.getByRole("button", { name: "Lancer ma première répétition" }).click(); await p.waitForTimeout(900);
-  check(p.url().endsWith("#/coach"), `[${tag}] session coach : « Lancer ma première répétition » ne mène pas à l'espace coach (${p.url()})`);
-  for (const [h, btn] of [["#/", "Me connecter à l'espace coach"], ["#/cas-d-usage/coachs", "Me connecter à l'espace coach"], ["#/cas-d-usage/beneficiaires", "Lancer ma première répétition"]]) {
+  await p.getByRole("button", { name: "Je lance mon premier entraînement" }).click(); await p.waitForTimeout(900);
+  check(p.url().endsWith("#/coach"), `[${tag}] session coach : « Je lance mon premier entraînement » ne mène pas à l'espace coach (${p.url()})`);
+  for (const [h, btn] of [["#/", "Me connecter à l'espace coach"], ["#/cas-d-usage/coachs", "Me connecter à l'espace coach"], ["#/cas-d-usage/beneficiaires", "Je lance mon premier entraînement"]]) {
     await visit(h);
     /* Accueil : portes d'entrée entièrement cliquables (liens) ; ailleurs, boutons. */
     await p.locator("button, a.rs-door").filter({ hasText: btn }).first().click(); await p.waitForTimeout(900);

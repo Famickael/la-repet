@@ -29,7 +29,7 @@ Dans les semaines qui suivent :
 
 - la personne s'entraîne chez elle, à son rythme, et se sert du retour descriptif pour comparer ses essais ;
 - quand un entretien est annoncé, elle envoie une réponse récente avec une question précise ;
-- la coach relit en différé, annote deux moments et renvoie un rapport court, que la personne lit avant son entretien.
+- la coach relit en différé, ajoute deux remarques et envoie un rapport court, que la personne lit avant son entretien.
 
 > [!citation] Propos illustratif d'une personne accompagnée
 > Je pouvais recommencer autant que je voulais, sans déranger personne. Et quand j'ai envoyé ma réponse, j'avais une question précise pour ma coach.

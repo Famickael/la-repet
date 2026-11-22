@@ -11,7 +11,7 @@ featured: false
 order: 20
 ---
 
-En entretien, vous pouvez être invité à expliquer pourquoi vous changez de métier et ce qui vous a conduit vers ce poste. Préparez quelques repères sur votre décision et un exemple de ce que votre expérience apporte. Vous pourrez aussi parler de ce que vous êtes en train d’apprendre et des conditions qui vous aideront à prendre le poste en main.
+En entretien, on peut vous demander d’expliquer pourquoi vous changez de métier et ce qui vous a conduit vers ce poste. Préparez quelques repères sur votre décision et un exemple de ce que votre expérience apporte. Vous pourrez aussi parler de ce que vous êtes en train d’apprendre et des conditions qui vous aideront à prendre le poste en main.
 
 ## Commencer par le travail que vous cherchez
 

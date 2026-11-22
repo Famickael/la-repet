@@ -21,7 +21,7 @@ La Répét' appartient à notre organisme d'accompagnement. Nous ne la vendons p
 ## Ce que font nos coachs
 
 - **Ils accompagnent** chaque personne, en rendez-vous individuels ou en ateliers collectifs.
-- **Ils ouvrent un parcours** dans La Répét' et transmettent un code d'accès. La personne s'entraîne seule, à son rythme, autant de fois qu'elle le souhaite.
+- **Ils ouvrent un parcours** dans La Répét' et transmettent un code d'accès. La personne s'entraîne seule, à son rythme, autant de fois qu'elle veut.
 - **Ils relisent** seulement les réponses que la personne choisit de leur envoyer, ajoutent leurs remarques et préparent le débriefing.
 
 ## Ce que vit la personne accompagnée
@@ -47,4 +47,4 @@ La Répét' appartient à notre organisme d'accompagnement. Nous ne la vendons p
 4. Le démarrage avec nos coachs, puis des points d'étape.
 5. Un bilan d'ensemble en fin d'accompagnement.
 
-Pour en parler, décrivez votre projet sur la page [Nous contacter](#/demo). Le détail par public est sur la page [Solutions, commanditaires](#/solutions/commanditaires).
+Pour en parler, décrivez votre projet sur la page [Nous contacter](#/demo). Le détail par public est sur la page [Cas d'usage, commanditaires](#/cas-d-usage/commanditaires).

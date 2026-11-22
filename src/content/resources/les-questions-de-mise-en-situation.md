@@ -41,7 +41,7 @@ Si le poste implique une règle de sécurité que vous ne connaissez pas, préci
 
 ## Répondre quand le recruteur ajoute un imprévu
 
-L’interlocuteur peut modifier la situation après votre première réponse. Il peut préciser que le collègue est absent, que le délai est plus court ou que le client revient avec une autre demande. Écoutez ce qui change, puis ajustez la partie de votre démarche qui dépend de cette nouvelle information. Vous pouvez reprendre le point de départ en une phrase pour être sûr d’avoir compris.
+L’interlocuteur peut modifier la situation après votre première réponse. Il peut préciser que le collègue est absent, que le délai est plus court ou que le client revient avec une autre demande. Écoutez ce qui change, puis ajustez la partie de votre démarche qui dépend de cette nouvelle information. Vous pouvez reprendre le point de départ en une phrase pour vérifier que vous avez compris.
 
 > [!conseil] Expliquer votre choix
 > Si l’on vous demande « Pourquoi commencer par là ? », donnez la raison liée à la situation. Par exemple, « Je vérifie d’abord le numéro de commande pour pouvoir retrouver le bon dossier avant de promettre un délai. »

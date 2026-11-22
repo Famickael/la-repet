@@ -9,6 +9,9 @@ import {
 /* ─── STYLES GLOBAUX ─── */
 
 const F = k => TY[k].font; // police d'un niveau, pour les règles CSS ci-dessous
+/* Fond de l'accueil : opacité d'une masse = alpha du jeton GLOW ; plafond du thème clair (contraste du texte posé dessus). */
+const glowAlpha = c => +String(c).match(/([\d.]+)\)\s*$/)[1];
+const GLOW_LIGHT_MAX = 0.2;
 /* Polices auto-hébergées (public/fonts, sous-ensemble latin, licence OFL) : aucun appel à un service tiers. */
 /* Polices : public/fonts/fonts.css, liée et préchargée par index.html (PERF-03). */
 export const GStyle = () => (
@@ -254,14 +257,26 @@ export const GStyle = () => (
     .rs-hl{background:${T.accentBg};border-radius:4px;padding:0 4px}
     .rs-line{opacity:0}
     .on .rs-line{animation:rsUp .45s ${MO.soft} both}
-    /* Fond de l'accueil */
-    .rs-glow{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;-webkit-mask:${FADE_FOOT};mask:${FADE_FOOT}}
-    /* Deux masses (violet en haut, bleu en bas), aux décalages opposés, déplacées par transform (src/home/Background.jsx) ; la dérive est portée par le conteneur */
-    .rs-glow>span{position:absolute;inset:0;animation:rsDrift 26s ${MO.soft} infinite alternate}
-    .rs-glow i,.rs-glow b{position:absolute;border-radius:50%;will-change:transform}
-    .rs-glow i{left:77.3%;top:10.3%;width:67.2vmax;height:67.2vmax;margin:-33.6vmax 0 0 -33.6vmax;background:radial-gradient(closest-side,${GLOW.violet},${GLOW.violet} 30%,transparent)}
-    .rs-glow b{left:22.7%;top:89.7%;width:78.4vmax;height:78.4vmax;margin:-39.2vmax 0 0 -39.2vmax;background:radial-gradient(closest-side,${GLOW.blue},${GLOW.blue} 30%,transparent)}
-    @keyframes rsDrift{0%{transform:translate3d(0,0,0)}33%{transform:translate3d(-5%,3%,0)}66%{transform:translate3d(4%,-3%,0)}100%{transform:translate3d(-2%,5%,0)}}
+    /* Fond de l'accueil (src/home/Background.jsx). Rendu composité, pensé pour Safari : deux images pré-rendues (dégradés
+       radiaux de 256 px aux couleurs GLOW) agrandies par CSS ; seuls transform et opacity changent, aucun dégradé, masque
+       ni flou recalculé. i et b portent les décalages opposés (JavaScript) ; le conteneur porte la dérive lente (rsDrift,
+       CSS, sur souris comme sur tactile) : une lente rotation autour du centre de l'écran, qui fait glisser les deux
+       masses en sens contraires avec une seule couche animée (deux couches animées séparément coûtaient trois fois plus
+       cher sous WebKit, mesuré). Intensité maximale : GLOW en sombre ; plafonnée à ${GLOW_LIGHT_MAX} en clair pour que le
+       texte posé sur le fond reste AA au cœur des masses (T.primary en 11 px gras : 4,6:1 ; T.body : 5,3:1). La présence
+       vient de la taille du cœur plein et de l'amplitude, pas d'une teinte plus dense. */
+    .rs-glow{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+    .rs-glow>span{position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;animation:rsDrift 18s ${MO.soft} infinite alternate}
+    .rs-glow i,.rs-glow b{position:absolute;display:block;will-change:transform}
+    .rs-glow i{left:77.3%;top:10.3%;width:67.2vmax;height:67.2vmax;margin:-33.6vmax 0 0 -33.6vmax}
+    .rs-glow b{left:22.7%;top:89.7%;width:78.4vmax;height:78.4vmax;margin:-39.2vmax 0 0 -39.2vmax}
+    .rs-glow img{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none;user-select:none}
+    .rs-glow i img{opacity:${Math.min(GLOW_LIGHT_MAX, glowAlpha(GLOW.violet))}}.rs-glow b img{opacity:${Math.min(GLOW_LIGHT_MAX, glowAlpha(GLOW.blue))}}
+    html[data-theme=dark] .rs-glow i img{opacity:${glowAlpha(GLOW.violet)}}html[data-theme=dark] .rs-glow b img{opacity:${glowAlpha(GLOW.blue)}}
+    @media (prefers-color-scheme: dark){html:not([data-theme=light]):not([data-theme=dark]) .rs-glow i img{opacity:${glowAlpha(GLOW.violet)}}html:not([data-theme=light]):not([data-theme=dark]) .rs-glow b img{opacity:${glowAlpha(GLOW.blue)}}}
+    html[data-motion=reduce] .rs-glow>span{animation:none!important}
+    @media (prefers-reduced-motion: reduce){.rs-glow>span{animation:none!important}}
+    @keyframes rsDrift{0%{transform:rotate(0) translate3d(0,0,0)}35%{transform:rotate(12deg) translate3d(-4%,3%,0)}70%{transform:rotate(-6deg) translate3d(4%,-3%,0)}100%{transform:rotate(-12deg) translate3d(-3%,4%,0)}}
     .rs-in{opacity:0;transform:translateY(12px);transition:opacity ${MO.reveal} ${MO.soft},transform ${MO.reveal} ${MO.soft}}
     .on .rs-in{opacity:1;transform:none}
     .rs-knob{left:4px;transition:left .25s ease .6s}

@@ -314,7 +314,7 @@ function TimeChip({ t, tone = "primary", onClick, label }) {
 /* Champ (référentiel 5.3) : libellé, aide reliée, message d'erreur annoncé. */
 function Field({ id, label, hint, error, children, srLabel }) {
   return (
-    <div style={{ display: "grid", gap: 8 }}>
+    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 8 }}>
       <div style={{ display: "grid", gap: 4 }}>
         <label htmlFor={id} className={srLabel ? "rp-sr" : undefined} style={{ ...TY.label, color: T.navy }}>{label}</label>
         {hint && <span id={`${id}-h`} style={{ ...TY.caption, color: T.muted }}>{hint}</span>}

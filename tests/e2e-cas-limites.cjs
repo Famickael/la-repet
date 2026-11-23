@@ -169,7 +169,7 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     await p.getByText("Votre entretien", { exact: true }).first().waitFor({ timeout: 15000 });
     const txt = await p.locator("main").innerText();
     for (const bad of [/votre retour est prêt/i, /vous lisez ce que l'assistant/i, /retour préparé automatiquement/i, /vidéo/i, /En résumé/]) check(!bad.test(txt), `BUG-05/06 : texte inattendu sans assistant en voix seule : ${bad}`);
-    check(/Réponse gardée/.test(txt), "BUG-05 : rail à trois étapes attendu");
+    check(/Entretien gardé/.test(txt), "BUG-05 : rail à trois étapes attendu");
     check(await p.locator("main").getByRole("button", { name: /vidéo/i }).count() === 0, "BUG-06 : bouton nommé « vidéo » en voix seule");
     check(await p.getByLabel("Enregistrement de l'entretien").count() === 1, "BUG-06 : lecteur audio non nommé « Enregistrement »");
     await shot(p, "03-sans-assistant-voix");

@@ -200,7 +200,9 @@ await test("normalisation de la conversation", async () => {
 });
 
 await test("délais alignés : le proxy coupe avant le navigateur, pour chaque tâche", async () => {
-  for (const task of ["chat", "coach", "feedback"]) {
+  assert.equal(detectTask({ task: "compare", messages: [] }), "compare", "tâche « compare » (comparaison de deux entretiens) acceptée");
+  assert.equal(upstreamTimeout({}, "compare"), upstreamTimeout({}, "chat"), "« compare » suit les réglages de « chat »");
+  for (const task of ["chat", "coach", "feedback", "compare"]) {
     const t = upstreamTimeout({}, task);
     assert.ok(t < LLM_TIMEOUT_MS[task], `${task} : proxy ${t} ms, navigateur ${LLM_TIMEOUT_MS[task]} ms`);
     assert.ok(LLM_TIMEOUT_MS[task] - t <= 5000, `${task} : écart raisonnable`);

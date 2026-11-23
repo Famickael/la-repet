@@ -4,10 +4,12 @@ import { PHRASES, PAGES } from "../content/legal.js";
 import { hasMedia, isAudio } from "../lib/takes.js";
 import { dateFr, dur, openView, stack, wrap, downloadData, downloadAllMedia } from "./shared.jsx";
 import { JobField } from "./JobField.jsx";
+import { useComparePick, PickBox, PickBar } from "../Compare.jsx";
 
 /* ─── Espace personnel ─── */
 export function Home({ p, takes, go, counselor }) {
   const reports = takes.filter(t => t.report);
+  const pick = useComparePick(takes); // « Comparer deux entretiens » : choix de deux entretiens dans la liste
   return (
     <div style={{ ...wrap(W.read), ...stack(GAP.block) }}>
       <Card pad="none" level={2}>
@@ -41,6 +43,12 @@ export function Home({ p, takes, go, counselor }) {
       <section style={stack(16)}>
         <Txt v="h2" as="h2" color={T.navy}>Mes réponses</Txt>
         {takes.length === 0 && <Empty icon={I.play} text="Vous n'avez pas encore de réponse enregistrée. Commencez quand vous voulez." />}
+        {pick.can && (
+          <div className="rp-actions" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+            <Txt v="small" color={T.body} style={{ flex: 1, minWidth: 200 }}>Comparez deux entretiens pour mesurer votre progression : des faits côte à côte, sans note.</Txt>
+            {!pick.on && <Btn kind="secondary" size="sm" icon={I.layers} onClick={pick.start}>Comparer deux entretiens</Btn>}
+          </div>
+        )}
         {takes.length > 0 && (
           <div style={stack(GAP.stack)}>
             {takes.map(t => {
@@ -53,12 +61,14 @@ export function Home({ p, takes, go, counselor }) {
                     <div style={{ ...TY.caption, color: T.muted }}>{dateFr(t.createdAt)} · {dur(t.duration)}</div>
                   </div>
                   <Tag tone={st[1]}>{st[0]}</Tag>
+                  <PickBox pick={pick} take={t} label={`Choisir l'entretien du ${dateFr(t.createdAt)} : ${t.question}`} />
                   <Btn kind="secondary" size="sm" onClick={() => { const [v, mode] = openView(t); go(v, { takeId: t.id, mode, queue: null, from: null }); }}>Ouvrir</Btn>
                 </Card>
               );
             })}
           </div>
         )}
+        <PickBar pick={pick} onCompare={(a, b) => go("compare", { compare: [a, b], cmpFrom: null, takeId: null, queue: null })} />
       </section>
 
       <MyData p={p} takes={takes} />

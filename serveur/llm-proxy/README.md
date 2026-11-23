@@ -36,12 +36,13 @@ Le site (`src/lib/assistant.js`, `src/lib/analysis.js`, `src/lib/coachAssistant.
 
 - `model` et `max_tokens` envoyés par le navigateur sont **ignorés** : le modèle et le plafond de jetons sont choisis côté serveur, par tâche.
 - `temperature`, `top_p`, `top_k` sont **ignorés** et jamais transmis.
-- Un champ facultatif `task` (`"chat"`, `"feedback"` ou `"coach"`) force la tâche. Sans lui, la tâche est déduite :
+- Un champ facultatif `task` (`"chat"`, `"feedback"`, `"coach"` ou `"compare"`) force la tâche. Sans lui, la tâche est déduite :
 
 | Tâche | Reconnue à | Appelée par | Modèle par défaut | Jetons en sortie |
 |---|---|---|---|---|
 | `feedback` | `response_format` JSON | `analyze()` (`analysis.js`), une fois par réponse enregistrée | `claude-sonnet-5-5` (`LLM_MODEL_FEEDBACK`) | 4096, sortie structurée (schéma `synthese` + `dimensions`) |
 | `coach` | prompt système qui commence par « Tu aides un coach » | `coachSuggest()` (`coachAssistant.js`) | `claude-sonnet-5-5` (`LLM_MODEL_COACH`) | 2048 |
+| `compare` | champ `task` seulement | `rewriteChanges()` (`compare.js`) : reformulation de la synthèse « Ce qui a changé » entre deux entretiens, à partir des seules phrases calculées sur l'appareil | celui de `chat` (`LLM_MODEL_CHAT`) | 1024 |
 | `chat` | tout le reste | `askAssistant()` (`assistant.js`) | `claude-haiku-5-5` (`LLM_MODEL_CHAT`) | 1024 |
 
 Si le texte du prompt change dans `src/`, la détection peut se tromper : seul le modèle utilisé change, la réponse reste au bon format. Pour une détection sûre, ajouter `task` dans les trois appels du site (voir `docs/etat-fonctionnel.md`, « Corrections à faire »).

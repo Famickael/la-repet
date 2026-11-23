@@ -226,7 +226,7 @@ function Card({ children, style, pad = "md", level = 1, hover, onClick, topbar, 
   const hv = { onMouseEnter: () => setH(true), onMouseLeave: () => setH(false) };
   if (onClick) return <button type="button" onClick={onClick} aria-label={label} className={cls} style={st} {...hv}>{children}</button>;
   const As = as || "div";
-  return <As className={cls || undefined} style={st} {...(hover ? hv : {})}>{children}</As>;
+  return <As className={cls || undefined} aria-label={as && label ? label : undefined} style={st} {...(hover ? hv : {})}>{children}</As>;
 }
 
 /* Message (référentiel 5.8). tone : info, success, warning, error, ai. */

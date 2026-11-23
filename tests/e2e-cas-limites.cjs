@@ -373,6 +373,116 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     await ctx.close();
   });
 
+  /* Comparer mes entraînements : depuis l'analyse, depuis la liste des entretiens, sur téléphone (390 et 320 px),
+     et côté coach (seulement des entretiens envoyés). Aucun score, aucun pourcentage, aucun mot de jugement. */
+  const sg = rows => rows.map(([start, end, text]) => ({ start, end, text }));
+  const AVANT = sg([[0, 6, "Bonjour, euh, je m'appelle Lou et, euh, je cherche un poste d'électricien."], [9, 16, "En fait, j'ai fait des chantiers, et du coup je connais le métier."], [20, 26, "Euh, je suis disponible rapidement."]]);
+  const APRES = sg([[0, 7, "Bonjour, je m'appelle Lou et je cherche un poste d'électricien."], [7.5, 18, "J'ai travaillé trois ans sur des chantiers de rénovation, par exemple une école à Lille."], [18.5, 27, "Euh, je suis disponible rapidement et, euh, je me déplace facilement."], [27.5, 36, "C'est pour ça que ce poste me correspond."]]);
+  const day = n => new Date(Date.now() - n * 864e5).toISOString();
+  const cmpTakes = (extra = {}) => ({
+    avant1: take("avant1", "CASAAA", { segments: AVANT, transcript: AVANT.map(x => x.text).join(" "), duration: 28, createdAt: day(9), ...extra }),
+    apres2: take("apres2", "CASAAA", { segments: APRES, transcript: APRES.map(x => x.text).join(" "), duration: 37, createdAt: day(2), ...extra }),
+    prive3: take("prive3", "CASAAA", { question: "Pourquoi ce poste d'électricien vous intéresse-t-il ?", segments: sg([[0, 8, "Confidentiel, je garde cet entretien pour moi, il parle de mon ancien employeur."]]), transcript: "Confidentiel, je garde cet entretien pour moi.", duration: 12, createdAt: day(1) }),
+  });
+  const BAD = /\d\s*%|pour cent|\bscore|\bnote\s*[:=]|\d\s*(?:\/|sur)\s*(?:5|10|20|100)\b|mieux|meilleur|moins bien|progrès|amélior|bravo/i;
+  const checkCompare = async (p, tag, who = "Vous avez") => {
+    await p.getByRole("heading", { name: "Ce qui a changé" }).waitFor({ timeout: 8000 });
+    const txt = await p.locator("main").innerText();
+    check(!BAD.test(txt), `${tag} : score, pourcentage ou mot de jugement affiché (${(txt.match(BAD) || [""])[0]})`);
+    const changes = (await p.getByTestId("cmp-changes").innerText()).replace(/[  ]/g, " ");
+    check(changes.includes(`${who} ajouté un exemple concret`) && /2 petits mots répétés, au lieu de 5/.test(changes) && /plus long : 37 s, au lieu de 28 s/.test(changes), `${tag} : synthèse « Ce qui a changé » inattendue (${changes.slice(0, 200)})`);
+    check(await p.getByRole("table", { name: "Les indicateurs, côte à côte" }).getByRole("row").count() >= 9, `${tag} : tableau des indicateurs incomplet`);
+    check(await p.getByRole("rowheader", { name: "Rythme de parole" }).count() === 1 && await p.getByRole("columnheader").count() === 3, `${tag} : en-têtes du tableau absents`);
+    check(await p.locator("main").locator("svg path[d*=' L '], canvas, [role=progressbar], [role=meter], progress, meter").count() === 0, `${tag} : jauge ou graphique affiché`);
+    check(await p.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${tag} : défilement horizontal`);
+    check(await p.getByRole("heading", { name: "Ce qui a changé" }).evaluate(el => el.getBoundingClientRect().top < window.innerHeight), `${tag} : « Ce qui a changé » hors de la première vue`);
+  };
+
+  await scenario("comparaison depuis l'analyse et depuis la liste des entretiens", async () => {
+    const { ctx, p } = await fresh(seed({ takes: cmpTakes() }));
+    await p.goto(BASE + "#/s/CASAAA/retour/apres2");
+    await p.getByRole("button", { name: "Comparer avec l'entretien précédent" }).click();
+    await p.getByRole("heading", { name: "Comparer mes entraînements", level: 1 }).waitFor({ timeout: 8000 });
+    check(/#\/s\/CASAAA\/comparaison\/avant1\/apres2$/.test(p.url()), `comparaison : adresse inattendue (${p.url()})`);
+    check(/Comparer mes entraînements/.test(await p.title()), "comparaison : titre de page");
+    await checkCompare(p, "comparaison depuis l'analyse");
+    check(await p.getByRole("heading", { name: /^Entretien du / }).count() === 2, "comparaison : deux entretiens attendus, avant et après");
+    await shot(p, "20-comparaison-depuis-analyse");
+    await p.reload(); await checkCompare(p, "comparaison après rechargement");
+    /* Depuis l'entretien le plus ancien : le suivant est proposé. */
+    await p.goto(BASE + "#/s/CASAAA/retour/avant1");
+    await p.getByRole("button", { name: "Comparer avec l'entretien suivant" }).waitFor({ timeout: 8000 });
+    /* Même type de question (thème « Motivation ») : rien à comparer avec une autre question. */
+    await p.goto(BASE + "#/s/CASAAA/retour/prive3");
+    await p.getByRole("button", { name: "Envoyer à mon coach" }).waitFor({ timeout: 8000 });
+    check(await p.getByRole("button", { name: /Comparer avec/ }).count() === 0, "comparaison : proposée entre deux questions de types différents");
+    /* Depuis la liste : choix de deux entretiens, le troisième devient indisponible. */
+    await p.goto(BASE + "#/s/CASAAA");
+    await p.getByRole("button", { name: "Comparer deux entretiens" }).click();
+    const boxes = p.getByRole("checkbox", { name: /Choisir l'entretien/ });
+    check(await boxes.count() === 3, "liste : une case par entretien attendue");
+    check(await p.getByRole("button", { name: "Comparer ces entretiens" }).isDisabled(), "liste : comparaison possible sans deux entretiens choisis");
+    await boxes.nth(2).click(); await boxes.nth(1).click();
+    check(await boxes.nth(0).isDisabled(), "liste : un troisième entretien reste sélectionnable");
+    await shot(p, "21-comparaison-choix");
+    await p.getByRole("button", { name: "Comparer ces entretiens" }).click();
+    await checkCompare(p, "comparaison depuis la liste");
+    await p.getByRole("button", { name: "Ouvrir cet entretien" }).first().click();
+    await p.getByRole("button", { name: /Comparer avec l'entretien suivant/ }).waitFor({ timeout: 8000 });
+    /* Adresse d'une comparaison qui n'existe pas (entretien supprimé) : retour à l'espace, pas d'écran vide. */
+    await p.goto(BASE + "#/s/CASAAA/comparaison/avant1/inconnu");
+    await p.getByRole("heading", { name: /Bonjour Lou/ }).waitFor({ timeout: 8000 });
+    await ctx.close();
+  });
+
+  await scenario("comparaison sur téléphone (390 et 320 px)", async () => {
+    for (const [w, h] of [[390, 844], [320, 640]]) {
+      const ctx = await b.newContext({ viewport: { width: w, height: h }, isMobile: true, hasTouch: true });
+      await ctx.addInitScript(([k, v]) => { try { if (!localStorage.getItem("e2e.seeded")) { localStorage.setItem(k, v); localStorage.setItem("e2e.seeded", "1"); } } catch { /* about:blank */ } }, [KEY, JSON.stringify(seed({ takes: cmpTakes() }))]);
+      const p = await ctx.newPage();
+      p.on("pageerror", e => errors.push(`${p.url()} : ${e.message}`));
+      await p.goto(BASE + "#/s/CASAAA/comparaison/apres2/avant1"); // ordre inversé dans l'adresse : toujours avant puis après
+      await checkCompare(p, `comparaison à ${w} px`);
+      const hs = await p.getByRole("heading", { name: /^Entretien du / }).evaluateAll(els => els.map(e => e.getBoundingClientRect().top));
+      check(hs.length === 2 && hs[1] > hs[0] + 100, `comparaison à ${w} px : les deux entretiens ne sont pas empilés`);
+      const cells = await p.locator("[data-row=duree] [role=cell]").evaluateAll(els => els.map(e => { const r = e.getBoundingClientRect(); return [Math.round(r.left), Math.round(r.top), e.innerText.replace(/\s+/g, " ")]; }));
+      check(cells.length === 2 && cells[0][1] === cells[1][1] && cells[0][0] < cells[1][0] && /Avant 28 s/.test(cells[0][2]) && /Après 37 s/.test(cells[1][2]), `comparaison à ${w} px : valeurs avant et après mal placées (${JSON.stringify(cells)})`);
+      await p.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 300) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 80)); } });
+      await shot(p, `22-comparaison-${w}`);
+      await ctx.close();
+    }
+  });
+
+  await scenario("comparaison côté coach : seulement des entretiens envoyés", async () => {
+    const sent = { shared: true, sharedAt: now() };
+    const { ctx, p } = await fresh(seed({ takes: cmpTakes(sent) }));
+    await p.goto(BASE + "#/coach/parcours/CASAAA");
+    await p.getByRole("heading", { name: "Entretiens reçus" }).waitFor({ timeout: 15000 });
+    await p.getByRole("button", { name: "Comparer deux entretiens" }).click();
+    const boxes = p.getByRole("checkbox", { name: /Choisir l'entretien/ });
+    check(await boxes.count() === 2, "coach : seuls les deux entretiens envoyés peuvent être choisis");
+    await boxes.nth(0).click(); await boxes.nth(1).click();
+    await p.getByRole("button", { name: "Comparer ces entretiens" }).click();
+    await p.getByRole("heading", { name: "Comparer deux entretiens de Lou", level: 1 }).waitFor({ timeout: 8000 });
+    await checkCompare(p, "comparaison côté coach", "La personne a");
+    check(!/Confidentiel/.test(await p.locator("main").innerText()), "coach : texte d'un entretien non envoyé affiché");
+    await shot(p, "23-comparaison-coach");
+    /* Adresse forcée vers l'entretien que la personne n'a pas envoyé : rien n'est affiché. */
+    await p.goto(BASE + "#/coach/comparaison/CASAAA/avant1/prive3");
+    await p.getByText("La personne a annulé l'envoi de cet entretien").waitFor({ timeout: 8000 });
+    const txt = await p.locator("main").innerText();
+    check(!/Confidentiel|Ce qui a changé|Pourquoi ce poste/.test(txt), "coach : comparaison affichée avec un entretien non envoyé");
+    /* La personne reprend un envoi pendant que le coach compare : la comparaison disparaît. */
+    await p.goto(BASE + "#/coach/comparaison/CASAAA/avant1/apres2");
+    await p.getByRole("heading", { name: "Ce qui a changé" }).waitFor({ timeout: 8000 });
+    const q = await ctx.newPage();
+    await q.goto(BASE + "#/s/CASAAA/retour/apres2");
+    await q.getByRole("button", { name: "Annuler l'envoi" }).click();
+    await p.getByText("La personne a annulé l'envoi de cet entretien").waitFor({ timeout: 5000 });
+    check(await p.getByRole("heading", { name: "Ce qui a changé" }).count() === 0, "coach : comparaison encore affichée après la reprise de l'envoi");
+    await ctx.close();
+  });
+
   await b.close();
   if (errors.length) fails.push("erreurs JavaScript : " + errors.join(" | "));
   if (fails.length) { console.error("ECHEC\n- " + fails.join("\n- ")); process.exit(1); }

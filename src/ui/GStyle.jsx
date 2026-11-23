@@ -378,6 +378,12 @@ export const GStyle = () => (
     .rs-chips{display:flex;gap:8px;flex-wrap:wrap}
     .rp-split{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:${GAP.grid}px;align-items:start}
     .rp-stack{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:${GAP.grid}px}
+    /* Comparaison de deux entretiens (référentiel 5.10) : tableau ARIA en grille, indicateur, avant, après. Aucune couleur de jugement. */
+    .rp-cmp{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr) minmax(0,5fr)}
+    .rp-cmp>[role=row]{display:contents}
+    .rp-cmp>[role=row]>*{min-width:0;overflow-wrap:anywhere;border-top:1px solid ${T.lineLt}}
+    .rp-cmp>[role=row]:first-child>*{border-top:0}
+    .rp-cmp-k{display:none}
     /* « Mon espace » : lien qui déplie la carte coach, sur mobile seulement (la carte reste visible sur grand écran) */
     .rp-coach-toggle{display:none}
     @media (max-width:760px){ .rp-coach-toggle{display:block;margin-top:-8px} .rp-coach-card:not(.is-open){display:none} .rp-espace{padding-top:16px!important} }
@@ -448,6 +454,14 @@ export const GStyle = () => (
       .rp-actions>*{width:100%}
       .rp-actions>.rp-back{width:auto;align-self:flex-start}
       .rp-stack,.rp-split{grid-template-columns:minmax(0,1fr)!important}
+      /* Téléphone : l'indicateur sur une ligne, ses deux valeurs dessous, côte à côte, chacune sous son mot « Avant » ou « Après » */
+      .rp-cmp{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+      .rp-cmp>[role=row]>[role=rowheader]{grid-column:1/-1;padding-bottom:0!important}
+      .rp-cmp>[role=row]>[role=cell]{border-top:0;padding-top:4px!important}
+      .rp-cmp>[role=row]:first-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+      .rp-cmp>[role=row]:first-child{display:block}
+      .rp-cmp>[role=row]:nth-child(2)>[role=rowheader]{border-top:0}
+      .rp-cmp-k{display:block}
       .rp-pad,.rs-pad{padding-left:16px!important;padding-right:16px!important}
       .rp-wide-m{width:100%}
       .rp-wide-m>button{width:100%}

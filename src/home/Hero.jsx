@@ -33,7 +33,7 @@ export function Hero({ openSpace }) {
               </span>
             </h1>
             <p className="ty-lead" style={{ ...TY.lead, color: T.body, maxWidth: 520, margin: 0 }}>
-              À voix haute, sans avatar, entraînez-vous autant de fois que vous voulez ! Un assistant IA <strong style={{ color: T.navy }}>décrit votre réponse, sans la noter</strong>, et vous propose des pistes : rythme, pauses, exemples concrets. Vous recommencez, vous voyez ce qui a changé, et votre coach vous soutient à chaque étape.
+              À voix haute, sans avatar, entraînez-vous autant de fois que vous voulez ! Un assistant IA <strong style={{ color: T.navy }}>décrit votre réponse, sans la noter</strong>, et vous propose des pistes : rythme, pauses, exemples concrets. Comparez vos différents entraînements pour mesurer votre progression, avec le soutien de votre coach à chaque étape.
             </p>
             <div className="rp-wide-m rs-hero-cta" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {/* Connecté : l'espace de la personne (ou l'espace coach), jamais la page de connexion (src/app/router.js, spaceHash) */}

@@ -6,6 +6,8 @@ import { unshareTake, deleteTake, takesOf } from "../lib/store.js";
 import { PHRASES } from "../content/legal.js";
 import { hasMedia, isAudio, noFeedback } from "../lib/takes.js";
 import { actions, dateFr, downloadTake, dur, openView, stack, wrap } from "./shared.jsx";
+import { counterpartOf, sameQuestion } from "../lib/compare.js";
+import { dateDay } from "../lib/format.js";
 
 /* ─── Rapport + actions ─── */
 export function TakeReport({ p, take, mode, go, series, nextQuestion, stopSeries, back }) {
@@ -22,6 +24,11 @@ export function TakeReport({ p, take, mode, go, series, nextQuestion, stopSeries
      suivant) s'ouvre d'ici, pour relire les deux analyses l'une après l'autre. Aucune comparaison chiffrée, aucune courbe. */
   const same = takesOf(p.code).filter(t => t.question === take.question && t.id !== take.id);
   const other = same.find(t => t.createdAt < take.createdAt) || same[same.length - 1] || null;
+  /* « Comparer mes entraînements » : l'entretien précédent sur la même question, sinon sur le même type de question
+     (sinon le suivant), se compare d'ici. Des faits côte à côte, aucune note ni courbe. Sans analyse de l'assistant,
+     il n'y a rien à comparer : le lien de relecture ci-dessous reste. */
+  const twin = counterpartOf(take, takesOf(p.code));
+  const earlier = twin && twin.createdAt < take.createdAt;
   const head = (t, d) => <div style={stack(4)}><div style={{ ...TY.h3, color: T.navy }}>{t}</div><div style={{ ...TY.small, color: T.body }}>{d}</div></div>;
   return (
     <div style={{ ...wrap(mode === "video" ? W.wide : W.read), ...stack(16) }}>
@@ -47,7 +54,16 @@ export function TakeReport({ p, take, mode, go, series, nextQuestion, stopSeries
           </div>
         </Card>
       )}
-      {other && !series?.hasNext && (
+      {twin && !series?.hasNext && (
+        <Card style={{ ...actions, gap: 16 }} className="noprint">
+          {head(sameQuestion(twin, take) ? (earlier ? "Vous avez déjà répondu à cette question" : "Vous avez répondu de nouveau à cette question") : (earlier ? "Vous avez déjà travaillé ce type de question" : "Vous avez retravaillé ce type de question"),
+            `Comparez cet entretien avec celui du ${dateDay(twin.createdAt)} : des faits côte à côte et ce qui a changé, sans note.`)}
+          <Btn kind="secondary" size="sm" icon={I.layers} onClick={() => go("compare", { compare: [twin.id, take.id], cmpFrom: take.id, queue: null })}>
+            {earlier ? "Comparer avec l'entretien précédent" : "Comparer avec l'entretien suivant"}
+          </Btn>
+        </Card>
+      )}
+      {other && !twin && !series?.hasNext && (
         <Card style={{ ...actions, gap: 16 }} className="noprint">
           {head(other.createdAt < take.createdAt ? "Vous avez déjà répondu à cette question" : "Vous avez répondu de nouveau à cette question",
             `Relisez votre entretien du ${dateFr(other.createdAt)} pour voir ce qui a changé : un exemple ajouté, un autre rythme, une conclusion.`)}

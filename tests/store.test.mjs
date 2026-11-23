@@ -123,4 +123,15 @@ assert.ok(!JSON.stringify(ex).includes(id3), "seules les réponses de ce parcour
 assert.ok(await S.loadMediaBlob(id4), "l'enregistrement se télécharge à part");
 assert.equal(S.exportData("INCONNU"), null);
 
+/* Parcours d'essai (code REPETE) : deux entretiens sur la même question, ajoutés une seule fois. */
+const trial = S.findParcours("repete");
+assert.equal(trial.prenom, "Camille");
+const tt = S.takesOf("REPETE");
+assert.equal(tt.length, 2, "deux entretiens d'essai");
+assert.equal(tt[0].question, tt[1].question, "même question");
+assert.ok(tt.every(t => /^[a-z0-9-]+$/.test(t.id) && !t.shared && t.analysis.dimensions.length > 0), "identifiants compatibles avec l'adresse, rien d'envoyé au coach");
+assert.match(new Date(tt[1].createdAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long" }), /^12 mars$/, "« Entretien du 12 mars »");
+await S.deleteTake(tt[0].id); S.findParcours("REPETE");
+assert.equal(S.takesOf("REPETE").length, 1, "un entretien d'essai supprimé ne revient pas");
+
 console.log("store.test : OK");

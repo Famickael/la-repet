@@ -5,6 +5,7 @@
    par des appels à une API (voir README, section "Passage en production"). */
 
 import { useSyncExternalStore } from "react";
+import { trialTakes } from "./trial.js";
 
 const KEY = "larepet.v1";
 const EMPTY = { counselor: null, parcours: {}, takes: {}, lastSpace: null }; // lastSpace : { role: "benef", code } | { role: "coach" }
@@ -52,11 +53,17 @@ export const TRIAL_COACH = "Sophie M.";
 /* Connexion coach de démonstration : identifiants fictifs pré-remplis (domaine réservé aux exemples), aucune vérification. */
 export const TRIAL_LOGIN = { email: "sophie.m@exemple.fr", password: "repet-2026", name: TRIAL_COACH };
 function ensureTrial() {
-  if (state.parcours[TRIAL_CODE]) return;
+  const cur = state.parcours[TRIAL_CODE];
+  if (cur?.samples) return;
   const old = state;
-  state = { ...state, parcours: { ...state.parcours, [TRIAL_CODE]: {
+  /* Deux entretiens sur la même question (src/lib/trial.js), pour ouvrir tout de suite l'analyse et la comparaison.
+     Ajoutés une seule fois (samples) : supprimés par la personne ou par un retrait de l'accord, ils ne reviennent pas.
+     Un parcours d'essai déjà ouvert sur l'appareil les reçoit s'il n'a encore aucun entretien. */
+  const add = !cur || !Object.values(state.takes).some(t => t.code === TRIAL_CODE);
+  const samples = add ? Object.fromEntries(trialTakes(TRIAL_CODE).map(t => [t.id, t])) : {};
+  state = { ...state, takes: { ...state.takes, ...samples }, parcours: { ...state.parcours, [TRIAL_CODE]: cur ? { ...cur, samples: true } : {
     code: TRIAL_CODE, prenom: "Camille", poste: "agent d'accueil", warmup: true, counselor: "",
-    trial: true, createdAt: new Date().toISOString(), openedAt: null, consent: null,
+    trial: true, samples: true, createdAt: new Date().toISOString(), openedAt: null, consent: null,
   } } };
   state = merge(old, state, read());
   persist(state);

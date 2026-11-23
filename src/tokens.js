@@ -29,7 +29,7 @@ export const LIGHT = {
   successBg: "#E9F8F0", warningBg: "#FFF6E8", errorBg: "#FFECEF", coachBg: "#E7F4EE",
   // Voiles et fonds particuliers
   overlay: "rgba(27,58,102,.45)", videoBg: "#000000",
-  glass: "rgba(248,250,252,.9)",
+  glass: "rgba(248,250,252,.96)",          // en-tête : presque opaque, sans flou (docs/design-system.md, 1.1)
   studio: "#DCE6F2",                      // fond uni de remplacement de l'aperçu caméra (échauffement)
 };
 
@@ -50,7 +50,7 @@ export const DARK = {
   primaryBg: "#1D2A3F", accentBg: "#13302F", violetBg: "#252347",
   successBg: "#142E20", warningBg: "#30260F", errorBg: "#3A1B23", coachBg: "#123026",
   overlay: "rgba(0,0,0,.6)", videoBg: "#000000",
-  glass: "rgba(14,20,30,.9)",
+  glass: "rgba(14,20,30,.96)",
   studio: "#DCE6F2",
 };
 /* Contraste renforcé : textes secondaires et bordures plus marqués (s'ajoute au thème clair ou sombre). */

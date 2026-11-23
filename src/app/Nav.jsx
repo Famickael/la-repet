@@ -39,6 +39,9 @@ const NAV_CSS = `
 .rs-macct .rp-menuitem{min-height:48px}
 `;
 
+/* Fond de l'en-tête : T.glass, presque opaque (96 %), avec un filet T.line, sans flou d'arrière-plan. Le flou
+   (backdrop-filter) était recalculé à chaque image au-dessus du fond animé de l'accueil et pendant le défilement :
+   images perdues sous Chromium (Edge, Chrome) avec un processeur modeste (tests/perf-check.cjs, 23 novembre 2026). */
 export function Nav({ route, s }) {
   /* Session : coach connecté, ou dernier espace bénéficiaire ouvert, tant qu'on ne s'est pas déconnecté.
      Elle ne dépend pas de la route : sur toutes les pages, l'en-tête garde « Mon compte ». */
@@ -105,7 +108,7 @@ export function Nav({ route, s }) {
 
   return (<>
     <style>{NAV_CSS}</style>
-    <header className="noprint rp-header" style={{ position: "sticky", top: 0, zIndex: Z.nav, background: menu ? T.bg : T.glass, backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", borderBottom: `1px solid ${T.line}` }}>
+    <header className="noprint rp-header" style={{ position: "sticky", top: 0, zIndex: Z.nav, background: menu ? T.bg : T.glass, borderBottom: `1px solid ${T.line}` }}>
       <div className="rp-nav" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap, height: HEADER_H, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 20, minWidth: 0 }}>
           <a href="#/" onClick={e => { e.preventDefault(); go("#/"); }} aria-label="La Répét', accueil" className="rp-head-logo" style={{ display: "flex", alignItems: "center", minHeight: 44, flexShrink: 0 }}>

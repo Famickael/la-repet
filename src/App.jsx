@@ -33,18 +33,33 @@ import { ToTop } from "./app/ToTop.jsx";
      #/conditions, #/mentions-legales, #/accessibilite                pages légales */
 
 /* Pages chargées à la demande (PERF-02) : l'accueil ne télécharge ni les espaces, ni les articles, ni MediaPipe. */
-const Solutions = lazy(() => import("./Solutions.jsx"));
-const AiUsage = lazy(() => import("./AiUsage.jsx"));
-const Fonctionnalites = lazy(() => import("./Fonctionnalites.jsx"));
-const Methode = lazy(() => import("./Methode.jsx"));
-const UseCases = lazy(() => import("./UseCases.jsx"));
-const Faq = lazy(() => import("./Faq.jsx"));
-const About = lazy(() => import("./About.jsx"));
-const Resources = lazy(() => import("./Resources.jsx"));
-const Demo = lazy(() => import("./Demo.jsx"));
-const Research = lazy(() => import("./Research.jsx"));
-const Beneficiary = lazy(() => import("./beneficiary/index.jsx"));
-const Counselor = lazy(() => import("./coach/index.jsx"));
+const LOAD = {
+  solutions: () => import("./Solutions.jsx"), aiUsage: () => import("./AiUsage.jsx"), fonctionnalites: () => import("./Fonctionnalites.jsx"),
+  methode: () => import("./Methode.jsx"), useCases: () => import("./UseCases.jsx"), faq: () => import("./Faq.jsx"), about: () => import("./About.jsx"),
+  resources: () => import("./Resources.jsx"), demo: () => import("./Demo.jsx"), research: () => import("./Research.jsx"),
+  beneficiary: () => import("./beneficiary/index.jsx"), counselor: () => import("./coach/index.jsx"),
+};
+const Solutions = lazy(LOAD.solutions);
+const AiUsage = lazy(LOAD.aiUsage);
+const Fonctionnalites = lazy(LOAD.fonctionnalites);
+const Methode = lazy(LOAD.methode);
+const UseCases = lazy(LOAD.useCases);
+const Faq = lazy(LOAD.faq);
+const About = lazy(LOAD.about);
+const Resources = lazy(LOAD.resources);
+const Demo = lazy(LOAD.demo);
+const Research = lazy(LOAD.research);
+const Beneficiary = lazy(LOAD.beneficiary);
+const Counselor = lazy(LOAD.counselor);
+
+/* Code de la page visée, chargé avant le changement de page : la transition ne capture jamais l'indicateur d'attente
+   (Suspense) à la place de la page, qui apparaîtrait ensuite d'un coup, hors transition. */
+const SOLUTION_LOAD = { "usage-de-l-ia": "aiUsage", recherche: "research", fonctionnalites: "fonctionnalites", methode: "methode" };
+function chunkFor(r) {
+  const k = { about: "about", usecases: "useCases", faq: "faq", resources: "resources", demo: "demo", benef: r.code && "beneficiary" }[r.role]
+    || (r.role === "solutions" && (r.page ? SOLUTION_LOAD[r.page] : "solutions")) || (r.role === "coach" && getState().counselor && "counselor");
+  return k ? LOAD[k]().catch(() => {}) : null;
+}
 
 export default function App() {
   const s = useStore();
@@ -54,24 +69,30 @@ export default function App() {
   const routeRef = useRef(route); routeRef.current = route;
   const [enter, setEnter] = useState(0); // repli sans View Transitions : fondu d'entrée par remontage
   const [leaving, setLeaving] = useState(false);
+  const pending = useRef(0); // dernier changement de page demandé (une page plus récente annule l'attente d'une plus ancienne)
   useEffect(() => {
     dismissLoader();
     /* Changement de page : la page sortante s'efface, la page entrante apparaît (View Transitions si disponible,
        sinon fondu par état). Le retour en haut se fait pendant le fondu. Même section, autre ancre : défilement
        interne (useSectionScroll), pas de fondu. Mouvement réduit : changement direct. */
     const on = () => {
-      const next = routeFromHash(), cur = routeRef.current;
+      const next = routeFromHash(), cur = routeRef.current, id = ++pending.current;
       const inPage = next.role === cur.role && ["usecases", "faq"].includes(next.role) && next.page === cur.page && next.section !== cur.section;
       /* Autre écran du même espace (BUG-07) : l'espace reste monté et suit l'ancre, sans fondu de page. */
       if ((next.role === "benef" && cur.role === "benef" && next.code && next.code === cur.code) || (next.role === "coach" && cur.role === "coach")) { setRoute(next); return; }
       if (inPage) { setRoute(next); if (!next.section) window.scrollTo({ top: 0, behavior: reducedMotion() ? "auto" : "smooth" }); return; }
       const apply = () => { flushSync(() => setRoute(next)); window.scrollTo({ top: 0 }); };
       if (reducedMotion()) return apply();
-      if (document.startViewTransition) {
-        try { const vt = document.startViewTransition(apply); [vt.ready, vt.finished, vt.updateCallbackDone].forEach(pr => pr?.catch(() => {})); return; } catch { /* repli */ }
-      }
-      setLeaving(true);
-      setTimeout(() => { apply(); setLeaving(false); setEnter(k => k + 1); }, 280);
+      const start = () => {
+        if (document.startViewTransition) {
+          try { const vt = document.startViewTransition(apply); [vt.ready, vt.finished, vt.updateCallbackDone].forEach(pr => pr?.catch(() => {})); return; } catch { /* repli */ }
+        }
+        setLeaving(true);
+        setTimeout(() => { apply(); setLeaving(false); setEnter(k => k + 1); }, 280);
+      };
+      const wait = chunkFor(next);
+      if (!wait) return start();
+      wait.then(() => { if (id === pending.current) start(); });
     };
     window.addEventListener("hashchange", on);
     return () => window.removeEventListener("hashchange", on);

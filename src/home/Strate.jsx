@@ -124,7 +124,7 @@ export function Strate() {
             <div className="rs-visbox" style={{ position: "relative", height: 440 }} aria-hidden>
               {/* Pile de cartes : chaque étape est sa propre carte, qui glisse et se superpose à la précédente */}
               {STEPS.map(({ V, k }, i) => (
-                <div key={k} className={`rs-vcard ${active === i ? "on" : i < active ? "past" : "next"}`} style={{ zIndex: i + 1 }}><V play={active === i} /></div>
+                <div key={k} className={`rs-vcard ${active === i ? "on" : i < active ? "past" : "next"}`} style={{ zIndex: i + 1 }}><div className="rs-vcard-in"><V play={active === i} /></div></div>
               ))}
             </div>
           </div>

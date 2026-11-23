@@ -64,18 +64,22 @@ export const GStyle = () => (
     .rp-has-fab{padding-bottom:96px!important}
     /* Grand écran : le contenu se décale pour rester visible à côté du panneau ouvert (insertion en un clic) */
     @media (min-width:1180px){html.rp-asst-open .rp-view{padding-right:432px}}
-    /* Changement de page (référentiel 7) : seul le contenu change, l'en-tête reste en place */
+    /* Changement de page (référentiel 7) : seul le contenu change, l'en-tête et la languette d'accessibilité restent en
+       place. Le fondu porte sur la capture de la racine, de la taille de la fenêtre : nommer .rp-view faisait capturer
+       la page entière, pied de page compris (plusieurs milliers de pixels de haut), et coûtait jusqu'à 40 ms par image
+       sous Chromium avec un processeur modeste (tests/perf-check.cjs, 23 novembre 2026). Rendu inchangé. */
     .rp-header{view-transition-name:rp-header}
-    .rp-view{view-transition-name:rp-page}
-    ::view-transition-old(root),::view-transition-new(root){animation:none}
-    ::view-transition-old(rp-page){animation:rpPageOut ${MO.pageOut} ${MO.soft} both}
-    ::view-transition-new(rp-page){animation:rpPageIn ${MO.pageIn} ${MO.soft} ${MO.pageOut} both}
+    .rp-a11y-tab{view-transition-name:rp-a11y}
+    ::view-transition-old(rp-a11y){display:none}
+    ::view-transition-new(rp-a11y){animation:none}
+    ::view-transition-old(root){animation:rpPageOut ${MO.pageOut} ${MO.soft} both}
+    ::view-transition-new(root){animation:rpPageIn ${MO.pageIn} ${MO.soft} ${MO.pageOut} both}
     @keyframes rpPageOut{to{opacity:0}}
     @keyframes rpPageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
     .rp-leave{opacity:0;transition:opacity ${MO.pageOut} ${MO.soft}}
     .rp-enter{animation:rpPageIn ${MO.pageIn} ${MO.soft} both}
-    @media (prefers-reduced-motion: reduce){::view-transition-old(rp-page),::view-transition-new(rp-page){animation:none}}
-    html[data-motion=reduce]::view-transition-old(rp-page),html[data-motion=reduce]::view-transition-new(rp-page){animation:none}
+    @media (prefers-reduced-motion: reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}
+    html[data-motion=reduce]::view-transition-old(root),html[data-motion=reduce]::view-transition-new(root){animation:none}
     /* Navigation à deux niveaux */
     .rp-navitem{position:relative;display:flex;align-items:center}
     .rp-subbtn{width:28px;height:44px;display:inline-grid;place-items:center;color:${T.body}}
@@ -249,9 +253,18 @@ export const GStyle = () => (
     .rs-vis{position:absolute;inset:0;opacity:0;transform:translateY(12px);transition:opacity ${MO.slow} ${MO.soft},transform ${MO.slow} ${MO.soft};pointer-events:none}
     .rs-vis.on{opacity:1;transform:none}
     .rs-tabs-m{display:none}
-    .rs-vcard{position:absolute;inset:0;background:${T.surface};border-radius:${RAD.xl}px;border:1px solid ${T.line};box-shadow:${SH.glow};overflow:hidden;transform-origin:50% 0;transition:transform ${MO.slow} ${MO.soft},opacity ${MO.slow} ${MO.soft},box-shadow ${MO.slow} ${MO.soft}}
+    /* Carte de la strate : l'ombre passe de SH.glow à SH.sm par un fondu entre deux couches (::before, ::after), sur le
+       compositeur ; une transition de box-shadow repeignait la carte et sa grande ombre à chaque image pendant 900 ms.
+       Le fond, la bordure et le découpage arrondi sont portés par .rs-vcard-in. */
+    .rs-vcard{position:absolute;inset:0;border-radius:${RAD.xl}px;transform-origin:50% 0;transition:transform ${MO.slow} ${MO.soft},opacity ${MO.slow} ${MO.soft}}
+    .rs-vcard::before,.rs-vcard::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;transition:opacity ${MO.slow} ${MO.soft}}
+    .rs-vcard::before{box-shadow:${SH.glow}}
+    .rs-vcard::after{box-shadow:${SH.sm};opacity:0}
+    .rs-vcard-in{position:relative;height:100%;background:${T.surface};border-radius:inherit;border:1px solid ${T.line};overflow:hidden}
     .rs-vcard.on{transform:none;opacity:1}
-    .rs-vcard.past{transform:translateY(-20px) scale(.92);opacity:.6;box-shadow:${SH.sm}}
+    .rs-vcard.past{transform:translateY(-20px) scale(.92);opacity:.6}
+    .rs-vcard.past::before{opacity:0}
+    .rs-vcard.past::after{opacity:1}
     .rs-vcard.next{transform:translateY(110%) rotate(2deg);opacity:0;pointer-events:none}
     /* Lignes d'encart du héros : du bas vers le haut, en fondu, à chaque arrivée de la scène */
     .rs-hl{background:${T.accentBg};border-radius:4px;padding:0 4px}
@@ -306,8 +319,15 @@ export const GStyle = () => (
     .rs-w{transition:color ${MO.reveal} ${MO.soft}}
     /* Cartes de fonctionnalités animées */
     .rs-fcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:${GAP.grid}px}
-    .rs-fcard{background:${T.surface};border:1px solid ${T.line};border-radius:${RAD.lg}px;padding:16px 16px 24px;box-shadow:${SH.xs};display:grid;gap:12px;align-content:start;transition:box-shadow ${MO.base} ${MO.ease},transform ${MO.base} ${MO.ease}}
-    .rs-fcard:hover{box-shadow:${SH.glow};transform:translateY(-2px)}
+    .rs-fcard{background:${T.surface};border:1px solid ${T.line};border-radius:${RAD.lg}px;padding:16px 16px 24px;display:grid;gap:12px;align-content:start;position:relative;transition:transform ${MO.base} ${MO.ease}}
+    /* Survol : l'ombre passe de SH.xs à la lueur SH.glow par un fondu entre deux couches (opacité, compositeur), au lieu
+       d'une transition de box-shadow qui repeint la carte et sa grande ombre colorée à chaque image. */
+    .rs-fcard::before,.rs-fcard::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;transition:opacity ${MO.base} ${MO.ease}}
+    .rs-fcard::before{box-shadow:${SH.xs}}
+    .rs-fcard::after{box-shadow:${SH.glow};opacity:0}
+    .rs-fcard:hover{transform:translateY(-2px)}
+    .rs-fcard:hover::before{opacity:0}
+    .rs-fcard:hover::after{opacity:1}
     .rs-fvis{position:relative;height:168px;border-radius:${RAD.md}px;background:${T.bg};overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:16px}
     .rs-cyc>*{grid-area:1/1}
     .rs-cyc>*:not(:first-child){opacity:0}
@@ -366,8 +386,9 @@ export const GStyle = () => (
     .rs-art-side{position:-webkit-sticky;position:sticky;top:${HEADER_H + 32}px}
     /* Grilles */
     .rs-g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:${GAP.grid}px}
-    .rs-door{transition:transform ${MO.base} ${MO.ease},box-shadow ${MO.base} ${MO.ease}}
-    .rs-door:hover{transform:translateY(-3px);box-shadow:${SH.lg}}
+    /* Porte d'entrée : son ombre SH.sm (style en ligne) ne change pas au survol ; seule la carte se soulève (transform). */
+    .rs-door{transition:transform ${MO.base} ${MO.ease}}
+    .rs-door:hover{transform:translateY(-3px)}
     .rs-door:hover .rs-door-arrow{transform:translateX(3px)}
     .rs-door-arrow{transition:transform ${MO.base} ${MO.ease}}
     .rs-door:focus-visible{outline:3px solid ${T.navy};outline-offset:3px}
@@ -409,8 +430,13 @@ export const GStyle = () => (
     .rp-a11y-tab:focus-visible .rp-a11y-label{transform:none;outline:2px solid ${T.primary};outline-offset:2px}
     @media (hover:hover){.rp-a11y-tab:hover .rp-a11y-label{transform:none}.rp-a11y-tab:hover :is(.rp-a11y-knob,.rp-a11y-label){background:${T.primaryDk}}}
     .rp-a11y.is-open .rp-a11y-tab{opacity:0;pointer-events:none}
-    .rp-a11y-panel{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:${Z.modal};width:min(640px,calc(100vw - 16px));filter:drop-shadow(${SH.lg});visibility:hidden;transition:visibility 0s linear .45s}
+    .rp-a11y-panel{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:${Z.modal};width:min(640px,calc(100vw - 16px));visibility:hidden;transition:visibility 0s linear .45s}
     .rp-a11y.is-open .rp-a11y-panel{visibility:visible;transition:none}
+    /* Ombre du panneau : SH.lg sur une couche à part, qui apparaît en fondu (opacité, compositeur) à la fin du déploiement
+       et s'efface dès la fermeture. Un filtre drop-shadow sur le panneau était recalculé à chaque image du déploiement
+       (clip-path) : images perdues sous Chromium (tests/perf-check.cjs, 23 novembre 2026). */
+    .rp-a11y-panel::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:0 ${RAD.lg}px ${RAD.lg}px 0;box-shadow:${SH.lg};opacity:0;pointer-events:none;transition:opacity ${MO.fast} ${MO.ease}}
+    .rp-a11y.is-open .rp-a11y-panel::before{opacity:1;transition:opacity ${MO.base} ${MO.ease} .3s}
     .rp-a11y-shape{display:flex;flex-direction:column;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);background:${T.surface};border:1px solid ${T.line};border-left:none;border-radius:0 ${RAD.lg}px ${RAD.lg}px 0;overflow:hidden;clip-path:inset(calc(50% - var(--a11y-h) / 2) calc(100% - var(--a11y-w)) calc(50% - var(--a11y-h) / 2) 0 round 0 26px 26px 0);transition:clip-path .45s ${MO.soft}}
     .rp-a11y.is-open .rp-a11y-shape{clip-path:inset(0 0 0 0 round 0 ${RAD.lg}px ${RAD.lg}px 0)}
     .rp-a11y-shape>*{opacity:0;transition:opacity ${MO.base} ${MO.ease}}

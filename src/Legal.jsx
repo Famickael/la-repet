@@ -102,7 +102,7 @@ function Hub() {
       ))}
     </div>
     <Reveal><Notice tone="info" icon={I.trash}>
-      Pour supprimer une réponse, ouvrez-la dans votre espace. Pour tout supprimer, ouvrez « Mon compte » dans votre espace, puis « Retirer mon accord ».
+      Pour supprimer un entretien, ouvrez-le dans votre espace. Pour tout supprimer, ouvrez « Mon compte » dans votre espace, puis « Retirer mon accord ».
     </Notice></Reveal>
     <Reveal delay={70}><Notice tone="info" icon={I.shield}>{PHRASES.noTracking}</Notice></Reveal>
   </>);

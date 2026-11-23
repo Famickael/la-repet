@@ -73,8 +73,8 @@ Si une proposition reste générale, demandez ce qu'elle signifie concrètement.
 
 Demandez à votre coach un accès à l'entraînement « Mobilité ou évolution professionnelle », puis ouvrez [Mon espace](#/espace). Vous pourrez préparer une réponse sur vos réalisations et une autre sur la formation ou l'accompagnement dont vous avez besoin. Le type d'entraînement est préparé avec votre coach.
 
-Vous pouvez répondre en voix seule ou avec la caméra. Le retour de l'assistant IA décrit votre réponse, sans la noter. Utilisez-le pour repérer un passage que vous voudriez rendre plus concret. Votre coach peut ensuite vous aider à formuler une demande ou une question. L'outil ne choisit pas une formation à votre place et ne vérifie pas votre calendrier juridique personnel.
+Vous pouvez répondre en voix seule ou avec la caméra. L'assistant IA analyse votre entretien, sans le noter. Utilisez son retour pour repérer un passage que vous voudriez rendre plus concret. Votre coach peut ensuite vous aider à formuler une demande ou une question. L'outil ne choisit pas une formation à votre place et ne vérifie pas votre calendrier juridique personnel.
 
-Votre employeur ne voit ni vos vidéos ni les retours de l'assistant. Vous choisissez les réponses que vous envoyez à votre coach. Cette confidentialité de l'entraînement est distincte du rendez-vous professionnel réel avec votre employeur.
+Votre employeur ne voit ni vos vidéos ni les retours de l'assistant. Vous choisissez les entretiens que vous envoyez à votre coach. Cette confidentialité de l'entraînement est distincte du rendez-vous professionnel réel avec votre employeur.
 
 Source officielle consultée le 21 novembre 2026 : [Service Public, entretien de parcours professionnel](https://www.service-public.gouv.fr/particuliers/vosdroits/F32040), fiche vérifiée le 1er octobre 2026, avec les références au Code du travail, notamment l'article L6315-1.

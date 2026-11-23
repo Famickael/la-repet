@@ -6,9 +6,9 @@ import { Pin } from "./shared.jsx";
 /* ─── Strate épinglée : le panneau reste fixe, seul son contenu change au fil du défilement ─── */
 export const STEPS = [
   { k: "S'entraîner", t: "Vous vous entraînez quand vous voulez", d: "Choisissez une question liée au métier que vous visez. Répondez à voix haute, face à la caméra ou en voix seule. Pas d'avatar en face de vous.", V: VisCamera },
-  { k: "Recevoir un retour", t: "L'assistant décrit votre réponse", d: "Rythme de parole, pauses, exemples : il dit ce qu'il a remarqué, et à quel moment. Il commence par ce qui fonctionne déjà, puis propose des pistes. Vous recommencez quand vous voulez.", V: VisReport },
-  { k: "Envoyer", t: "Vous décidez de ce que vous envoyez", d: "Votre vidéo reste sur votre appareil. Votre coach la voit seulement si vous la lui envoyez, réponse par réponse.", V: VisShare },
-  { k: "En parler", t: "Votre coach vous répond, vous en parlez ensemble", d: "Votre coach regarde votre réponse et ajoute ses remarques. Ensemble, vous voyez ce qui a changé d'une réponse à l'autre, sans note, et vous choisissez la suite.", V: VisCoach },
+  { k: "Recevoir un retour", t: "L'assistant analyse votre entretien", d: "Rythme de parole, pauses, exemples : il dit ce qu'il a remarqué, et à quel moment. Il commence par ce qui fonctionne déjà, puis propose des pistes. Vous recommencez quand vous voulez.", V: VisReport },
+  { k: "Envoyer", t: "Vous décidez de ce que vous envoyez", d: "Votre vidéo reste sur votre appareil. Votre coach la voit seulement si vous la lui envoyez, entretien par entretien.", V: VisShare },
+  { k: "En parler", t: "Votre coach vous répond, vous en parlez ensemble", d: "Votre coach regarde votre entretien et ajoute ses remarques. Ensemble, vous voyez ce qui a changé d'un entretien à l'autre, sans note, et vous choisissez la suite.", V: VisCoach },
 ];
 
 export function Strate() {
@@ -61,7 +61,7 @@ export function Strate() {
   const head = (
     <div style={{ display: "grid", gap: 12, maxWidth: W.read }}>
       <Eyebrow>Comment ça marche</Eyebrow>
-      <h2 className="ty-xl" style={{ ...TY.xl, color: T.navy, margin: 0 }}>Quatre étapes, de votre première réponse à l'échange avec votre coach</h2>
+      <h2 className="ty-xl" style={{ ...TY.xl, color: T.navy, margin: 0 }}>Quatre étapes, de votre premier entretien à l'échange avec votre coach</h2>
     </div>
   );
 
@@ -86,7 +86,7 @@ export function Strate() {
   }
 
   return (
-    <section ref={sec} id="comment-ca-marche" className="rs-strate" aria-label="Quatre étapes, de votre première réponse à l'échange avec votre coach" style={{ height: `calc(100vh + ${N * 85}vh)` }}>
+    <section ref={sec} id="comment-ca-marche" className="rs-strate" aria-label="Quatre étapes, de votre premier entretien à l'échange avec votre coach" style={{ height: `calc(100vh + ${N * 85}vh)` }}>
       <div className="rs-panel">
         <div className="rs-pad" style={{ maxWidth: W.page, width: "100%", margin: "0 auto", padding: PAD.wrap, display: "flex", flexDirection: "column", gap: GAP.block, height: "100%", justifyContent: "center", minHeight: 0 }}>
           {head}
@@ -181,7 +181,7 @@ export function VisReport({ play }) {
         <div style={{ ...TY.h3, color: ON.text }}>Votre retour · question 1</div>
       </div>
       <div style={{ padding: `${PAD.sm}px ${PAD.md}px 8px` }}>
-        <div style={{ ...TY.overline, color: T.muted }}>Déroulé de votre réponse</div>
+        <div style={{ ...TY.overline, color: T.muted }}>Déroulé de votre entretien</div>
         <div style={{ position: "relative", marginTop: GAP.grid }}>
           <div style={{ position: "relative", height: 10, borderRadius: 4, background: T.lineLt, overflow: "hidden" }}>
             {SEGS.map(([a, b]) => <span key={a} style={{ position: "absolute", top: 0, bottom: 0, left: `${a}%`, width: `${b - a}%`, background: T.primary, borderRadius: 3 }} />)}
@@ -236,7 +236,7 @@ export function VisShare() {
         </div>
         <div style={{ position: "relative", height: 24, marginTop: 16 }}>
           <span className="rs-swap rs-off" style={{ position: "absolute", left: 0, top: 0 }}><Tag tone="muted" icon={I.lock}>Sur cet appareil</Tag></span>
-          <span className="rs-swap rs-onl" style={{ position: "absolute", left: 0, top: 0 }}><Tag tone="success" icon={I.send}>Envoyée à votre coach</Tag></span>
+          <span className="rs-swap rs-onl" style={{ position: "absolute", left: 0, top: 0 }}><Tag tone="success" icon={I.send}>Envoyé à votre coach</Tag></span>
         </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 16, paddingTop: 16, borderTop: `1px solid ${T.lineLt}` }}>
           <span style={{ ...TY.bodyStrong, color: T.navy }}>Envoyer à mon coach</span>
@@ -246,7 +246,7 @@ export function VisShare() {
         </div>
       </div>
       <div className="rs-in" style={{ ...TY.caption, color: T.muted, display: "flex", gap: 8, alignItems: "center", transitionDelay: ".9s" }}>
-        <Icon d={I.shield} s={16} c={T.primary} /> Vous pouvez supprimer une réponse, ou tout votre espace, à tout moment.
+        <Icon d={I.shield} s={16} c={T.primary} /> Vous pouvez supprimer un entretien, ou tout votre espace, à tout moment.
       </div>
     </div>
   );

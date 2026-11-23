@@ -72,7 +72,7 @@ const VOICE = [
     limit: "MACH portait sur des étudiants. Les essais VR-JIT associent un personnage virtuel et plusieurs retours : ils ne permettent pas de séparer l'effet de l'un et des autres. Aucune de ces études ne montre que le visage fait progresser, ni qu'il gêne." },
   { t: "Vous revoir, avec du recul", authors: "Fukkink et coll. ; Hoque et coll.",
     says: <>Une méta-analyse associe le retour vidéo à de meilleures compétences d'échange chez des professionnels, surtout quand on observe des points définis à l'avance <Ref n={10} />. Dans MACH, beaucoup de participants n'aimaient pas se regarder, mais ont jugé l'exercice utile <Ref n={4} />. Sans avatar à l'écran, ce que vous revoyez, c'est vous et votre réponse.</>,
-    limit: "Le lien avec l'absence d'avatar est un raisonnement, pas un résultat mesuré. Se revoir ne convient pas à tout le monde : vous pouvez aussi répondre en voix seule et lire votre réponse mise par écrit." },
+    limit: "Le lien avec l'absence d'avatar est un raisonnement, pas un résultat mesuré. Se revoir ne convient pas à tout le monde : vous pouvez aussi répondre en voix seule et lire votre entretien mis par écrit." },
   { t: "Pas de visage presque humain", authors: "Mori ; Mathur et Reichling ; Kätsyri et coll.",
     says: <>Un visage de synthèse presque humain, mais pas tout à fait, peut créer un trouble : c'est l'hypothèse de la « vallée de l'étrange », formulée par Mori <Ref n={11} />. Une étude sur des visages de robots l'observe dans des jugements de sympathie et de confiance <Ref n={12} />. Nous avons préféré une voix simple, que vous pouvez couper à tout moment.</>,
     limit: <>Une revue juge ces preuves inégales : l'effet n'apparaît que dans certaines conditions <Ref n={13} />. Ces travaux portent sur des robots et des images, pas sur l'entraînement aux entretiens. Une étude va même dans l'autre sens : face à un agent expressif, des candidats ont parlé plus longtemps et se sont dits moins stressés <Ref n={14} />.</> },
@@ -169,7 +169,7 @@ export default function Research({ go, openSpace }) {
           sub="Nous ne proposons pas d'avatar, seulement une voix qui lit la question. Vous vous concentrez sur l'exercice, vous vous observez, vous recommencez. Aucune étude ne compare un avatar et une voix seule dans un outil comme le nôtre : c'est un choix de conception, pas un résultat prouvé. Voici nos huit raisons, chacune avec sa limite.">
           <Themes items={VOICE} />
           <Reveal><p style={{ ...TY.body, color: T.body, margin: 0, marginTop: GAP.grid, maxWidth: W.read }}>
-            Si vous préférez sentir une présence, vous pouvez afficher une vignette d'interlocuteur dans votre espace : une petite fenêtre neutre, caméra coupée, comme en visio. Elle ne montre ni photo ni avatar. La relation humaine, elle, se construit avec votre coach : il relit ce que vous choisissez d'envoyer, et vous regardez ensemble ce qui a changé d'une réponse à l'autre. Son rôle est décrit sur la page <Link href="#/solutions/methode">Méthode</Link>.
+            Si vous préférez sentir une présence, vous pouvez afficher une vignette d'interlocuteur dans votre espace : une petite fenêtre neutre, caméra coupée, comme en visio. Elle ne montre ni photo ni avatar. La relation humaine, elle, se construit avec votre coach : il relit ce que vous choisissez d'envoyer, et vous regardez ensemble ce qui a changé d'un entretien à l'autre. Son rôle est décrit sur la page <Link href="#/solutions/methode">Méthode</Link>.
           </p></Reveal>
         </Section>
 
@@ -177,7 +177,7 @@ export default function Research({ go, openSpace }) {
           sub="Au-delà des outils, des décennies de travaux en psychologie et en sciences de l'éducation éclairent la façon dont on apprend un savoir-faire comme l'entretien. Pour chaque thème : ce qu'ils établissent, et leur limite.">
           <Themes items={THEMES} />
           <Reveal><p style={{ ...TY.body, color: T.body, margin: 0, marginTop: GAP.grid, maxWidth: W.read }}>
-            Les auteurs qui fondent nos pratiques d'accompagnement sont présentés sur la page <Link href="#/a-propos">À propos</Link>. La façon dont l'outil s'appuie sur ces travaux, du retour descriptif au rôle du coach, est détaillée sur la page <Link href="#/solutions/methode">Méthode</Link>.
+            Les auteurs qui fondent nos pratiques d'accompagnement sont présentés sur la page <Link href="#/a-propos">À propos</Link>. La façon dont l'outil s'appuie sur ces travaux, de l'analyse sans note au rôle du coach, est détaillée sur la page <Link href="#/solutions/methode">Méthode</Link>.
           </p></Reveal>
         </Section>
 
@@ -195,7 +195,7 @@ export default function Research({ go, openSpace }) {
               <h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>Nos principes</h3>
               <ul style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8 }}>
                 <Reveal as="li">Pas d'inférence émotionnelle : le règlement européen sur l'IA l'interdit sur le lieu de travail et dans les établissements d'enseignement, et nous l'excluons partout.</Reveal>
-                <Reveal as="li" delay={70}>L'assistant décrit, il ne note pas. Un humain, votre coach, garde la main.</Reveal>
+                <Reveal as="li" delay={70}>L'assistant analyse et décrit ce qu'il observe, sans noter. Un humain, votre coach, garde la main.</Reveal>
                 <Reveal as="li" delay={140}>La vidéo reste sur votre appareil tant que vous ne l'envoyez pas.</Reveal>
               </ul>
             </Card></Reveal>
@@ -204,7 +204,7 @@ export default function Research({ go, openSpace }) {
 
         <Section eyebrow="Pour les commanditaires" title="Rendre compte sans surveiller">
           <Reveal><p style={{ ...TY.bodyLg, color: T.body, margin: 0, maxWidth: W.read }}>
-            L'espace coach donne des chiffres d'ensemble, jamais une mesure individuelle : réponses à relire, rapports envoyés, part des personnes qui se réentraînent, délai moyen de relecture. Avec les retours des coachs et des personnes accompagnées, ils nous permettent d'ajuster l'accompagnement et d'en rendre compte à nos commanditaires, sans surveiller personne.
+            L'espace coach donne des chiffres d'ensemble, jamais une mesure individuelle : entretiens à relire, rapports envoyés, part des personnes qui se réentraînent, délai moyen de relecture. Avec les retours des coachs et des personnes accompagnées, ils nous permettent d'ajuster l'accompagnement et d'en rendre compte à nos commanditaires, sans surveiller personne.
           </p></Reveal>
         </Section>
 

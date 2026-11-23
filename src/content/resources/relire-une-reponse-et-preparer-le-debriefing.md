@@ -11,7 +11,7 @@ author: Équipe La Répét'
 order: 8
 ---
 
-Ce guide s'adresse aux coachs qui utilisent La Répét' avec les personnes qu'ils accompagnent. L'idée directrice : l'assistant décrit, **vous** contextualisez et décidez de ce qui est envoyé.
+Ce guide s'adresse aux coachs qui utilisent La Répét' avec les personnes qu'ils accompagnent. L'idée directrice : l'assistant analyse, **vous** contextualisez et décidez de ce qui est envoyé.
 
 ## Créer un parcours
 
@@ -21,7 +21,7 @@ Dans l'espace coach, « Créer un parcours » demande le prénom et l'initia
 
 Les entretiens envoyés apparaissent « À relire ». La relecture se fait en trois gestes :
 
-1. **Regarder la vidéo** ou lire le texte de la réponse, avec les repères de l'assistant sur la barre de lecture.
+1. **Regarder la vidéo** ou lire le texte de l'entretien, avec les repères de l'assistant sur la barre de lecture.
 2. **Ajouter des remarques dans la vidéo** : mettez la vidéo en pause au bon moment et écrivez votre remarque. Elle sera placée à cet instant précis.
 3. **Commenter les repères de l'assistant** : confirmer, nuancer ou contredire. Votre commentaire s'affiche à côté du repère dans le rapport.
 

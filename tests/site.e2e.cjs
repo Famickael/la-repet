@@ -244,10 +244,10 @@ async function run(b, vw, vh, opts = {}) {
   await p.getByRole("button", { name: "Lire la méthode outillée" }).click(); await p.waitForTimeout(600);
   check(p.url().endsWith("#/solutions/methode"), `[${tag}] À propos : le bouton « Lire la méthode outillée » ne mène pas à #/solutions/methode (${p.url()})`);
   check(await p.locator("main ol > li").count() >= 12, `[${tag}] Méthode : les cinq temps et les sept étapes doivent être listés`);
-  /* Méthode et Recherche : contenu attendu (retour qui décrit, rôle du coach, références) ; références justes sur
+  /* Méthode et Recherche : contenu attendu (assistant qui analyse sans noter, rôle du coach, références) ; références justes sur
      les trois pages. Apparition au défilement sur À propos, Recherche et Méthode : tous les blocs, éléments de liste
      compris (Reveal as="li"), avec des délais décalés ; en mouvement réduit, tout est visible sans attendre. */
-  for (const id of ["Pourquoi le retour décrit au lieu de noter", "Le rôle irremplaçable du coach"]) check(await p.getByRole("heading", { name: id }).count() === 1, `[${tag}] Méthode : section « ${id} » absente`);
+  for (const id of ["Pourquoi l'assistant analyse sans noter", "Le rôle irremplaçable du coach"]) check(await p.getByRole("heading", { name: id }).count() === 1, `[${tag}] Méthode : section « ${id} » absente`);
   const refs = { "#/a-propos": ["Clot", "Vermersch", "Rogers", "Le Bossé", "Bandura", "Schön", "Hattie"], "#/solutions/recherche": ["Ericsson", "Dowrick", "Kluger", "Hattie", "Bandura", "Kanfer", "Liu", "Schön", "Baldwin"], "#/solutions/methode": ["Bandura", "Clot", "Hattie", "Schön"] };
   for (const [h, names] of Object.entries(refs)) {
     await visit(h);
@@ -325,7 +325,7 @@ async function run(b, vw, vh, opts = {}) {
   // Nous contacter (formulaire destiné aux commanditaires : acteurs publics, entreprises)
   await visit("#/demo"); await shot("13-demo");
   const status = p.getByTestId("demo-status");
-  const DEMO_MSG = "Aucune demande envoyée : l'envoi en ligne n'est pas encore ouvert";
+  const DEMO_MSG = "Aucune demande envoyée, version de démonstration";
   check(await p.getByRole("checkbox").count() === 0, `[${tag}] formulaire : aucune case de recontact ne doit être obligatoire`);
   check(await p.getByRole("radio", { name: "Acteur public" }).count() === 1 && await p.getByRole("radio", { name: "Entreprise" }).count() === 1, `[${tag}] formulaire : type de structure absent`);
   check((await p.locator("main").innerText()).indexOf(DEMO_MSG) < 0, `[${tag}] formulaire : le message de démonstration ne doit pas s'afficher avant l'envoi`);

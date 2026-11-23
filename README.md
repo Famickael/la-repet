@@ -2,7 +2,7 @@
 
 Prototype fonctionnel de l'outil d'entraînement aux entretiens d'un organisme d'accompagnement, assisté par une IA puis par un coach. La Répét' n'est pas vendue comme un logiciel : l'organisme vend son accompagnement, outillé par La Répét', à des commanditaires publics (demandeurs d'emploi, retour à l'emploi, insertion) ou privés (collaborateurs en mobilité, entretien annuel ou professionnel, reconversion). Voir `docs/redaction.md`, 1.2 bis.
 
-Le principe : le coach crée un parcours et transmet un code (ou un lien). La personne accompagnée s'entraîne seule, chez elle, à voix haute et **sans avatar**, autant de fois qu'elle le souhaite. Elle reçoit un retour qui **décrit sans noter** et propose des pistes, recommence et voit ce qui a changé d'une réponse à l'autre (jamais de note, de jauge ni de courbe), choisit de se revoir en vidéo ou de lire un rapport écrit, puis décide d'envoyer sa prise au coach. Le coach annote des moments précis de la vidéo, commente les observations de l'assistant et renvoie un rapport, qui sert de base au débriefing en atelier.
+Le principe : le coach crée un parcours et transmet un code (ou un lien). La personne accompagnée s'entraîne seule, chez elle, à voix haute et **sans avatar**, autant de fois qu'elle le souhaite. Un assistant IA **analyse son entretien sans le noter** et propose des pistes ; elle recommence et voit ce qui a changé d'un entretien à l'autre (jamais de note, de jauge ni de courbe), choisit de se revoir en vidéo ou de lire un rapport écrit, puis décide d'envoyer sa prise au coach. Le coach annote des moments précis de la vidéo, commente les observations de l'assistant et renvoie un rapport, qui sert de base au débriefing en atelier.
 
 > L'emplacement du logo de l'organisme qui déploie l'outil (marque blanche) affiche pour l'instant « Famickael » dans un cadre en pointillés : `OrgLogo` dans `src/ui.jsx`. Renseigner `ORG_LOGO_URL` pour afficher une image à la place.
 
@@ -15,7 +15,7 @@ Le principe : le coach crée un parcours et transmet un code (ou un lien). La pe
 | **Côté bénéficiaire** | https://famickael.github.io/la-repet/#/s/REPETE | code d'essai **`REPETE`**, déjà rempli dans le lien |
 | **Côté coach** | https://famickael.github.io/la-repet/#/espace | connexion de démonstration intégrée à « Mon espace », identifiants fictifs pré-remplis (« Sophie M. », `sophie.m@exemple.fr`) |
 
-Pour voir la boucle complète, ouvre les deux liens **dans le même navigateur** (deux onglets) : enregistre une réponse côté bénéficiaire et envoie-la, elle apparaît « À relire » côté coach ; ajoute tes remarques et envoie le rapport, il apparaît dans l'espace bénéficiaire. Le code `REPETE` est aussi pré-rempli dans la page « Mon espace ».
+Pour voir la boucle complète, ouvre les deux liens **dans le même navigateur** (deux onglets) : enregistre un entretien côté bénéficiaire et envoie-le, il apparaît « À relire » côté coach ; ajoute tes remarques et envoie le rapport, il apparaît dans l'espace bénéficiaire. Le code `REPETE` est aussi pré-rempli dans la page « Mon espace ».
 
 Le parcours d'essai (prénom « Camille », poste « agent d'accueil ») est créé quand le code `REPETE` est saisi ou ouvert par lien (rien n'est écrit sur l'appareil avant), et recréé s'il est supprimé (`TRIAL_CODE` dans `src/lib/store.js`). Il ne contient aucune réponse fictive. À retirer en production, avec la connexion coach de démonstration (`TRIAL_LOGIN` dans `src/lib/store.js`, `Espace` dans `src/App.jsx`) : aucune vérification n'est faite, les identifiants servent uniquement à projeter l'usage.
 
@@ -35,7 +35,7 @@ Parcours de prise en main :
 
 1. **Mon espace** puis « Accéder à l'espace coach » (ou lien `#/coach`) : se connecter, puis « Nouveau parcours ». Un code de 6 caractères et un lien `…/#/s/CODE` sont générés.
 2. Ouvrir le lien (ou **Mon espace** puis saisir le code) : consentement, espace personnel, échauffement facultatif, choix d'une question, enregistrement, analyse, rapport, envoi.
-3. Retour à l'espace coach (**Changer** dans l'en-tête) : la réponse apparaît « À relire ». Relecture, remarques placées dans la vidéo, commentaires, envoi du rapport.
+3. Retour à l'espace coach (**Changer** dans l'en-tête) : l'entretien apparaît « À relire ». Relecture, remarques placées dans la vidéo, commentaires, envoi du rapport.
 4. Côté bénéficiaire, le rapport est visible dans l'espace, avec le même code.
 
 **Important, mode local :** toutes les données sont stockées dans le navigateur (voir « Architecture »). Le coach et le bénéficiaire doivent donc utiliser le **même navigateur sur le même appareil** pour que la boucle fonctionne (par exemple deux onglets, synchronisés automatiquement). Un backend est nécessaire pour un usage réel à distance : voir « Passage en production ».
@@ -105,14 +105,14 @@ Les photos suivantes proviennent de Pexels et sont utilisées sous la [licence P
 | Reformulation facultative par un modèle de langage | `analyze()` via `VITE_LLM_ENDPOINT`, sortie rapprochée de l'analyse locale (`reconcile`) puis filtrée par `isCompliant()`, repli sur l'analyse locale |
 | Choix rapport écrit ou relecture vidéo | `Choose`, `ReportBody` (`Report.jsx`) |
 | Repères cliquables sur la barre de lecture (repère ↔ moment) | `Player` (`Report.jsx`) |
-| Envoi volontaire, réponse par réponse, avec un mot au coach | `Share` |
+| Envoi volontaire, entretien par entretien, avec un mot au coach | `Share` |
 | Relecture coach : remarques placées dans la vidéo, commentaires par repère, mot d'introduction, brouillon automatique | `Review` (`src/coach/`) |
 | Assistant de rédaction du rapport (côté coach, même panneau latéral) : astuces liées aux observations, à la question et au métier, remarques positives non évaluatives, reformulation dans le ton de la charte, idées de mot d'introduction et de débriefing en atelier ; insertion en un clic (introduction, remarque sur une observation, note au moment courant de la vidéo) | `src/CoachAssistant.jsx`, `src/lib/coachAssistant.js` : base locale (au moins 40 entrées par observation et par situation) ou modèle de langage via `VITE_LLM_ENDPOINT` (prompt système propre au coach), sortie filtrée par `coachCompliant()` |
 | « Mon compte » : vers « Mon espace » sans session ; panneau latéral du compte une fois connecté | `AccountMenu` (`App.jsx`) |
 | Rapport final IA + coach, renvoyable après modification | `take.report` |
 | Réentraînement illimité, y compris après le rapport | espace bénéficiaire |
 | Suppression d'une réponse, d'un parcours, de toutes ses données | `deleteTake`, `deleteParcours`, `withdrawConsent` |
-| Indicateurs agrégés non stigmatisants | `List` (`src/coach/`) : réponses à relire, parcours, rapports, taux de réentraînement, délai moyen de relecture |
+| Indicateurs agrégés non stigmatisants | `List` (`src/coach/`) : entretiens à relire, parcours, rapports, taux de réentraînement, délai moyen de relecture |
 | Impression ou export PDF du rapport | `window.print()` + feuille de style d'impression (`GStyle`) |
 | Information sur les données en trois niveaux (phrase, résumé, page), pages « Vos données », conditions, mentions légales, déclaration d'accessibilité | `src/content/legal.js` (textes), `src/content/organisme.js` (valeurs d'exemple explicites, à remplacer par l'organisme), `src/Legal.jsx` (pages et fenêtre de résumé) ; audit dans `docs/conformite.md` |
 
@@ -224,9 +224,9 @@ Toutes les variables sont facultatives. Sans elles, l'application fonctionne ent
 Ces règles traduisent le cadre réglementaire (AI Act, RGPD) et les partis pris pédagogiques du projet. Toute évolution doit les préserver.
 
 1. **Aucune inférence d'émotion ni de trait de personnalité** (article 5(1)(f) du Règlement (UE) 2024/1689, applicable depuis le 2 février 2025). `gaze.js` ne lit que les coefficients `eyeLook*` (liste dans `src/lib/gazeKeys.js`, vérifiée par `tests/analysis.test.mjs`) et la position des repères du visage, jamais les coefficients d'expression. `src/lib/compliance.js` (module sans dépendance, frontières Unicode, accents) écarte toute sortie qui note, apprécie globalement ou qualifie l'état de la personne : `isCompliant` (retour, niveau strict), `coachCompliant` (coach, niveau strict) et `assistantCompliant` (assistant de préparation : il peut parler du trac quand la personne en parle, jamais la qualifier). La sortie d'un modèle de langage est en plus rapprochée de l'analyse locale (`reconcile`).
-2. **Décrire, jamais noter.** Pas de score, de note, de classement ni de jauge de performance.
+2. **Analyser, jamais noter.** L'assistant analyse et décrit ce qu'il observe. Pas de score, de note, de classement ni de jauge de performance.
 3. **Points d'appui avant points à explorer**, formulation positive, repères présentés comme des conventions de secteur.
-4. **La vidéo reste sur l'appareil** tant que la personne ne décide pas de l'envoyer, réponse par réponse. Seul du texte peut partir vers un modèle de langage.
+4. **La vidéo reste sur l'appareil** tant que la personne ne décide pas de l'envoyer, entretien par entretien. Seul du texte peut partir vers un modèle de langage.
 5. **Supervision humaine** : rien n'arrive au bénéficiaire de la part du coach sans envoi explicite ; le coach peut nuancer ou contredire l'assistant.
 6. **Choix du mode de restitution** (rapport écrit ou vidéo) et **échauffement sans analyse**.
 7. **Indicateurs agrégés uniquement**, aucune mesure de performance individuelle (ni bénéficiaire, ni coach).

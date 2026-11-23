@@ -165,13 +165,13 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
   await scenario("sans assistant, voix seule", async () => {
     const { ctx, p } = await fresh(seed({ ai: false }));
     await p.goto(BASE + "#/s/CASAAA");
-    await recordVoice(p, "Garder cette réponse");
-    await p.getByText("Votre réponse", { exact: true }).first().waitFor({ timeout: 15000 });
+    await recordVoice(p, "Garder cet entretien");
+    await p.getByText("Votre entretien", { exact: true }).first().waitFor({ timeout: 15000 });
     const txt = await p.locator("main").innerText();
     for (const bad of [/votre retour est prêt/i, /vous lisez ce que l'assistant/i, /retour préparé automatiquement/i, /vidéo/i, /En résumé/]) check(!bad.test(txt), `BUG-05/06 : texte inattendu sans assistant en voix seule : ${bad}`);
-    check(/Réponse gardée/.test(txt), "BUG-05 : rail à trois étapes attendu");
+    check(/Entretien gardé/.test(txt), "BUG-05 : rail à trois étapes attendu");
     check(await p.locator("main").getByRole("button", { name: /vidéo/i }).count() === 0, "BUG-06 : bouton nommé « vidéo » en voix seule");
-    check(await p.getByLabel("Enregistrement de la réponse").count() === 1, "BUG-06 : lecteur audio non nommé « Enregistrement »");
+    check(await p.getByLabel("Enregistrement de l'entretien").count() === 1, "BUG-06 : lecteur audio non nommé « Enregistrement »");
     await shot(p, "03-sans-assistant-voix");
     await ctx.close();
   });
@@ -220,15 +220,15 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     await p.getByRole("button", { name: "Retour" }).click();
     await p.getByRole("button", { name: "Ouvrir", exact: true }).first().click();
     await p.getByText("Lire mon retour").first().click().catch(() => {});
-    await p.getByText("Afficher le texte de la réponse").click();
+    await p.getByText("Afficher le texte de l'entretien").click();
     await p.getByText("Ce texte est écrit par un programme").waitFor({ timeout: 3000 });
     await p.getByRole("button", { name: "Autres actions" }).click();
-    await p.getByRole("button", { name: "Supprimer cette réponse" }).click();
-    const dlg = p.getByRole("dialog", { name: "Supprimer cette réponse ?" });
+    await p.getByRole("button", { name: "Supprimer cet entretien" }).click();
+    const dlg = p.getByRole("dialog", { name: "Supprimer cet entretien ?" });
     await dlg.waitFor({ timeout: 3000 });
     await shot(p, "06-suppression-confirmee");
     await dlg.getByRole("button", { name: "Supprimer" }).click();
-    await p.getByText("Vous n'avez pas encore de réponse enregistrée").waitFor({ timeout: 5000 });
+    await p.getByText("Vous n'avez pas encore d'entretien enregistré").waitFor({ timeout: 5000 });
     await ctx.close();
   });
 
@@ -348,10 +348,10 @@ const take = (id, code, extra = {}) => ({ id, code, question: "Pouvez-vous vous 
     await p.getByRole("heading", { name: "À vous de répondre" }).scrollIntoViewIfNeeded();
     await p.screenshot({ path: `${SC}/vignette-enregistrement.png` });
     await stop.click();
-    await p.getByRole("button", { name: "Garder cette réponse" }).waitFor({ timeout: 10000 });
+    await p.getByRole("button", { name: "Garder cet entretien" }).waitFor({ timeout: 10000 });
     /* Fin de l'enregistrement : le bouton de l'assistant revient, sans être recouvert. */
     if (await fab.count() && await fab.isVisible()) check(!(await overlap(fab)), "vignette : chevauche le bouton de l'assistant après l'enregistrement");
-    for (const n of ["Garder cette réponse", "Recommencer"]) check(!(await overlap(p.getByRole("button", { name: n }))), `vignette : chevauche « ${n} » (${vw} px)`);
+    for (const n of ["Garder cet entretien", "Recommencer"]) check(!(await overlap(p.getByRole("button", { name: n }))), `vignette : chevauche « ${n} » (${vw} px)`);
     /* Mémorisation : après rechargement, l'option reste active à la question suivante. */
     p.on("dialog", d => d.accept());
     await p.evaluate(() => { history.replaceState(null, "", "#/s/CASAAA"); location.reload(); });

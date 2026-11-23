@@ -74,7 +74,7 @@ export function WithdrawDialog({ code, close }) {
         <Btn kind="dangerSolid" icon={I.trash} onClick={async () => { await withdrawConsent(code); close(); }}>Tout supprimer</Btn>
       </div>}>
       <div style={{ display: "grid", gap: 12 }}>
-        <Txt v="bodyLg" color={T.body}>Si vous retirez votre accord, vos réponses et les rapports de votre coach sont effacés de cet appareil. C'est définitif.</Txt>
+        <Txt v="bodyLg" color={T.body}>Si vous retirez votre accord, vos entretiens et les rapports de votre coach sont effacés de cet appareil. C'est définitif.</Txt>
         <Txt v="body" color={T.body}>Vous pourrez recommencer quand vous voulez. Votre accompagnement continue normalement.</Txt>
       </div>
     </Modal>

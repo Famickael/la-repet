@@ -132,7 +132,7 @@ export default function App() {
       {/* Stockage plein ou indisponible (ARC-01) : jamais de perte silencieuse */}
       {getStorageError() && (
         <div className="noprint" style={{ maxWidth: W.page, margin: "16px auto 0", padding: PAD.wrap, width: "100%" }}>
-          <Notice tone="error">Cet appareil ne peut plus enregistrer. Libérez de la place ou téléchargez vos réponses, puis réessayez.</Notice>
+          <Notice tone="error">Cet appareil ne peut plus enregistrer. Libérez de la place ou téléchargez vos entretiens, puis réessayez.</Notice>
         </div>
       )}
       {/* Contenu et pied de page changent ensemble (un seul groupe de transition) : le pied ne passe jamais sur l'ancienne page */}

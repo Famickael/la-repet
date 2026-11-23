@@ -70,4 +70,4 @@ Chaque entretien est différent, mais certaines questions reviennent très souve
 Préparez-en toujours deux ou trois. Voir [Les questions à poser au recruteur](#/ressources/questions-a-poser-et-questions-interdites).
 
 > [!a-retenir] S'entraîner avec La Répét'
-> Toutes ces questions peuvent être travaillées dans votre espace, et vous pouvez ajouter les vôtres. Le retour de l'assistant décrit votre réponse ; votre coach vous aide à l'ajuster au poste visé.
+> Toutes ces questions peuvent être travaillées dans votre espace, et vous pouvez ajouter les vôtres. L'assistant analyse votre entretien, sans le noter ; votre coach vous aide à l'ajuster au poste visé.

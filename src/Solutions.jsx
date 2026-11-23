@@ -9,20 +9,20 @@ import { Reveal, stagger } from "./motion.jsx";
 
 export const SOLUTIONS = [
   { href: "#/solutions/usage-de-l-ia", icon: I.sparkle, tone: "ai", tag: "Assistant IA", title: "Usage de l'IA", short: "Usage de l'IA",
-    text: "Ce que fait l'assistant, ce qu'il ne fait pas. La mise par écrit et la description de la réponse sur l'appareil. Les garde-fous et l'AI Act." },
+    text: "Ce que fait l'assistant, ce qu'il ne fait pas. La mise par écrit et l'analyse de l'entretien sur l'appareil. Les garde-fous et l'AI Act." },
   { href: "#/solutions/recherche", icon: I.book, title: "Recherche en accompagnement", short: "Recherche",
     text: "Ce que disent les études sur l'entraînement aux entretiens, ce qu'elles ne disent pas, et les choix de conception qui en découlent." },
   { href: "#/solutions/fonctionnalites", icon: I.layers, title: "Fonctionnalités", short: "Fonctionnalités",
-    text: "L'outil pas à pas : échauffement, questions adaptées, caméra ou voix seule, retour qui décrit, envoi au coach, relecture et rapport." },
+    text: "L'outil pas à pas : échauffement, questions adaptées, caméra ou voix seule, analyse sans note, envoi au coach, relecture et rapport." },
   { href: "#/solutions/methode", icon: I.compass, tone: "coach", title: "Méthode", short: "Méthode",
-    text: "Comment l'outil sert l'accompagnement : entraînement en solo, auto-observation, retour qui décrit, débriefing avec le coach et transfert vers l'entretien réel." },
+    text: "Comment l'outil sert l'accompagnement : entraînement en solo, auto-observation, analyse sans note, débriefing avec le coach et transfert vers l'entretien réel." },
 ];
 
 export default function Solutions({ go }) {
   return (
     <main>
       <PageHero eyebrow="Solutions" title="Ce qui nourrit La Répét'"
-        lead="Un assistant IA qui décrit sans noter. Des choix appuyés sur la recherche en accompagnement. Des fonctions pensées avec nos coachs, au service d'une méthode d'accompagnement. Une page pour chaque sujet.">
+        lead="Un assistant IA qui analyse sans noter. Des choix appuyés sur la recherche en accompagnement. Des fonctions pensées avec nos coachs, au service d'une méthode d'accompagnement. Une page pour chaque sujet.">
         <LinkChips items={SOLUTIONS} label="Pages de Solutions" />
       </PageHero>
 

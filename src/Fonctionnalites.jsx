@@ -1,5 +1,5 @@
 import React from "react";
-import { T, Btn, Card, Icon, I, TY, Section, PageHero, IconTile, W } from "./ui.jsx";
+import { T, Btn, Card, Icon, I, TY, Section, PageHero, IconTile, W, PAD } from "./ui.jsx";
 import { Reveal, scrollToTarget } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
@@ -11,24 +11,24 @@ const GROUPS = [
   { id: "s-entrainer", title: "Pour s'entraîner", items: [
     [I.mic, "Échauffement sans enregistrement", "Des phrases à dire à voix haute, avec une consigne, pour se lancer. Rien n'est enregistré."],
     [I.target, "Questions adaptées au métier ou au poste", "Une banque de questions d'embauche ou de mobilité, selon le poste visé, et la possibilité d'ajouter les siennes."],
-    [I.video, "Caméra ou voix seule", "3 minutes au plus par réponse, revue avant de la garder, autant d'essais que souhaité."],
+    [I.video, "Caméra ou voix seule", "3 minutes au plus par réponse, revue avant de garder l'entretien, autant d'essais que souhaité."],
     [I.volume, "Une question lue à voix haute", "Le recruteur, une voix sans visage, lit chaque question. Le son se coupe à tout moment."],
     [I.list, "Entraînement complet", "Un entretien du début à la fin : 7 questions, dans l'ordre d'un vrai entretien."],
     [I.chat, "Assistant de préparation d'entretien", "Des réponses aux questions courantes sur l'entretien, sans remplacer le coach."],
   ] },
   { id: "retour", title: "Pour lire son retour", items: [
-    [I.sparkle, "Un retour qui décrit", "Rythme de parole, pauses, exemples, petits mots répétés, regard. Ce qui fonctionne déjà est présenté en premier."],
+    [I.sparkle, "Un assistant qui analyse, sans noter", "Rythme de parole, pauses, exemples, petits mots répétés, regard. Ce qui fonctionne déjà est présenté en premier."],
     [I.layers, "À lire ou à regarder", "Lire le retour, ou se revoir avec les repères placés au bon moment de la vidéo."],
-    [I.note, "Le texte de la réponse", "La réponse mise par écrit, ligne par ligne, avec le moment de chaque phrase."],
+    [I.note, "Le texte de l'entretien", "L'entretien mis par écrit, ligne par ligne, avec le moment de chaque phrase."],
   ] },
   { id: "garder-la-main", title: "Pour garder la main", items: [
     [I.lock, "Accès par code, sans compte", "Un code d'accès de 6 caractères remis par le coach. Ni adresse électronique, ni mot de passe."],
-    [I.send, "Envoi volontaire", "Chaque réponse reste sur l'appareil tant que la personne ne l'envoie pas à son coach."],
-    [I.trash, "Tout supprimer à tout moment", "Une réponse, ou tout, en retirant son accord. Les réponses sont alors effacées de l'appareil."],
+    [I.send, "Envoi volontaire", "Chaque entretien reste sur l'appareil tant que la personne ne l'envoie pas à son coach."],
+    [I.trash, "Tout supprimer à tout moment", "Un entretien, ou tout, en retirant son accord. Les entretiens sont alors effacés de l'appareil."],
   ] },
   { id: "coach", title: "Pour le coach", items: [
     [I.plus, "Un parcours vite créé", "Prénom et initiale, métier visé : le code et le lien sont prêts à transmettre."],
-    [I.list, "Réponses à relire", "Une liste claire des réponses reçues, avec le message de la personne."],
+    [I.list, "Entretiens à relire", "Une liste claire des entretiens reçus, avec le message de la personne."],
     [I.note, "Remarques placées dans la vidéo", "Mettez en pause, écrivez : la remarque se place à ce moment de la vidéo."],
     [I.chat, "Nuancer l'assistant", "Confirmer, nuancer ou contredire chaque repère. La lecture du coach prime."],
     [I.sparkle, "Assistant de rédaction du rapport", "Des propositions de formulation, que le coach relit, modifie ou écarte."],
@@ -51,7 +51,7 @@ export default function Fonctionnalites({ go }) {
         </nav>
       </PageHero>
 
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         <Section first eyebrow="Le déroulé" title="Sept étapes, chacune décidée par une personne" sub="Rien ne passe d'une étape à la suivante sans que quelqu'un le décide.">
           <Reveal><Flow /></Reveal>
         </Section>
@@ -84,8 +84,8 @@ function Flow() {
   const steps = [
     { n: 1, who: "Coach", t: "crée un parcours", d: "et transmet un code" },
     { n: 2, who: "Personne accompagnée", t: "ouvre son espace", d: "et donne son accord" },
-    { n: 3, who: "Personne accompagnée", t: "s'entraîne seule", d: "l'assistant décrit sa réponse" },
-    { n: 4, who: "Personne accompagnée", t: "envoie une réponse", d: "quand elle le décide" },
+    { n: 3, who: "Personne accompagnée", t: "s'entraîne seule", d: "l'assistant analyse son entretien" },
+    { n: 4, who: "Personne accompagnée", t: "envoie un entretien", d: "quand elle le décide" },
     { n: 5, who: "Coach", t: "relit", d: "ajoute ses remarques" },
     { n: 6, who: "Ensemble", t: "débriefent", d: "en atelier ou en rendez-vous" },
     { n: 7, who: "Personne accompagnée", t: "recommence", d: "même après le rapport" },

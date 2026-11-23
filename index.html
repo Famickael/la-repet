@@ -10,21 +10,21 @@
     <!-- SITE FERMÉ À L'INDEXATION. Pour l'ouvrir (liste de contrôle complète : docs/seo.md, section 2) : retirer
          cette balise, remplacer public/robots.txt par sa version d'ouverture, déclarer le site dans Search Console. -->
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="description" content="Entretien d'embauche ou de mobilité : entraînez-vous à voix haute, sans avatar. Un retour décrit votre réponse sans la noter, et votre coach vous soutient." />
+    <meta name="description" content="Entretien d'embauche ou de mobilité : entraînez-vous à voix haute, sans avatar. Un assistant analyse votre entretien, sans note, et votre coach vous soutient." />
     <link rel="canonical" href="https://famickael.github.io/la-repet/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="La Répét'" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:title" content="S'entraîner aux entretiens avec un coach" />
-    <meta property="og:description" content="Entraînez-vous à voix haute, sans avatar. Un retour décrit votre réponse sans la noter, et votre coach vous soutient." />
+    <meta property="og:description" content="Entraînez-vous à voix haute, sans avatar. Un assistant analyse votre entretien, sans note, et votre coach vous soutient." />
     <meta property="og:url" content="https://famickael.github.io/la-repet/" />
     <meta property="og:image" content="https://famickael.github.io/la-repet/og-image.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Logo La Répét' sur un dégradé bleu et violet, avec la phrase : Entraînez-vous pour votre entretien, avec votre coach. À voix haute, sans avatar. Un retour qui décrit, sans noter." />
+    <meta property="og:image:alt" content="Logo La Répét' sur un dégradé bleu et violet, avec la phrase : Entraînez-vous pour votre entretien, avec votre coach. À voix haute, sans avatar. Un assistant IA qui analyse, sans noter." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image:alt" content="Logo La Répét' sur un dégradé bleu et violet, avec la phrase : Entraînez-vous pour votre entretien, avec votre coach. À voix haute, sans avatar. Un retour qui décrit, sans noter." />
+    <meta name="twitter:image:alt" content="Logo La Répét' sur un dégradé bleu et violet, avec la phrase : Entraînez-vous pour votre entretien, avec votre coach. À voix haute, sans avatar. Un assistant IA qui analyse, sans noter." />
     <meta name="theme-color" content="#F8FAFC" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0E141E" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
@@ -43,7 +43,7 @@
             "name": "La Répét'",
             "url": "https://famickael.github.io/la-repet/",
             "inLanguage": "fr-FR",
-            "description": "Entraînement aux entretiens d'embauche et de mobilité, avec un retour qui décrit sans noter et un coach qui garde la main.",
+            "description": "Entraînement aux entretiens d'embauche et de mobilité, avec un assistant qui analyse sans noter et un coach qui garde la main.",
             "publisher": { "@id": "https://famickael.github.io/la-repet/#organisme" }
           },
           {
@@ -78,11 +78,14 @@
       /* Écran de chargement : visible avant le JavaScript, retiré par src/Loader.jsx (référentiel, section 7).
          Calque de 100vw : le logo reste immobile quand la barre de défilement apparaît sous lui.
          Sortie en trois temps : écart des deux bulles (.rpl-split, 0,6 s, courbe douce), pause de 0,3 s, puis fondu
-         du calque (.rpl-out, 0,6 s). La barre de défilement est réservée dès le premier affichage, comme dans GStyle. */
+         du calque (0,6 s). Les deux classes sont posées ensemble (src/Loader.jsx) : la pause est un retard de transition,
+         tenu par le compositeur, et non une minuterie JavaScript que le démarrage de React peut retarder (mesuré sous
+         WebKit : jusqu'à 168 ms de fil principal bloqué pendant la sortie). La barre de défilement est réservée dès le
+         premier affichage, comme dans GStyle. */
       html,body{background:#F8FAFC;margin:0}
       html{overflow-y:scroll;scrollbar-gutter:stable}
       #rp-loader{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;z-index:1000;display:grid;place-items:center;background:#F8FAFC;opacity:1;transition:opacity .6s cubic-bezier(.45,0,.55,1);will-change:opacity;animation:rpl-gone .3s ease 10s forwards}
-      #rp-loader.rpl-out{opacity:0;pointer-events:none}
+      #rp-loader.rpl-out{opacity:0;pointer-events:none;transition-delay:.9s}
       .rpl-box{display:grid;justify-items:center;gap:24px}
       /* Logo : chaque bulle et chaque point est une boîte HTML (et non un groupe SVG), pour que toutes les animations
          (assemblage, points, écart des bulles) passent par transform et opacity sur le compositeur, dans tous les
@@ -118,12 +121,12 @@
       html.rp-boot-dark .rpl-s1{stop-color:#5AAEE0}html.rp-boot-dark .rpl-s2{stop-color:#B4A9F5}
       html.rp-boot-dark .rpl-bar{background:#2B3649}html.rp-boot-dark .rpl-bar i{background:#B4A9F5}
       /* Mouvement réduit : écran statique, sans barre, sortie en fondu simple de 0,4 s (prioritaire sur la règle globale de GStyle) */
-      html[data-motion=reduce] #rp-loader{transition:opacity .4s ease!important;transition-duration:.4s!important;animation-duration:.3s!important;animation-delay:10s!important}
+      html[data-motion=reduce] #rp-loader{transition:opacity .4s ease!important;transition-duration:.4s!important;transition-delay:0s!important;animation-duration:.3s!important;animation-delay:10s!important}
       html[data-motion=reduce] .rpl-l,html[data-motion=reduce] .rpl-r,html[data-motion=reduce] .rpl-d{animation:none}
       html[data-motion=reduce] .rpl-lx,html[data-motion=reduce] .rpl-rx,html[data-motion=reduce] .rpl-dots{transition:none;transform:none;opacity:1}
       html[data-motion=reduce] .rpl-bar{visibility:hidden}
       @media (prefers-reduced-motion: reduce){
-        #rp-loader{transition:opacity .4s ease!important;transition-duration:.4s!important;animation-duration:.3s!important;animation-delay:10s!important}
+        #rp-loader{transition:opacity .4s ease!important;transition-duration:.4s!important;transition-delay:0s!important;animation-duration:.3s!important;animation-delay:10s!important}
         .rpl-l,.rpl-r,.rpl-d{animation:none}
         .rpl-lx,.rpl-rx,.rpl-dots{transition:none;transform:none!important;opacity:1!important}
         .rpl-bar{visibility:hidden}

@@ -41,7 +41,7 @@ Vous pouvez organiser votre réponse autour de ce que votre poste vous a appris,
 
 Choisissez une situation de travail que vous pouvez raconter précisément. Que fallait-il faire ? Qu'avez-vous fait vous-même ? Qu'est-ce que cette expérience vous a appris ? Reliez ensuite ce geste à une activité du nouveau poste, sans prétendre que les deux métiers sont identiques.
 
-Par exemple, organiser des remplacements peut vous avoir amené à recueillir des disponibilités, mettre un planning à jour et prévenir les personnes concernées. Cela donne de la matière pour parler de coordination. Cela ne prouve pas, à lui seul, que vous connaissez un logiciel de planification ou les règles du service visé.
+Par exemple, organiser des remplacements vous a peut-être permis de recueillir des disponibilités, mettre un planning à jour et prévenir les personnes concernées. Cela donne de la matière pour parler de coordination. Cela ne prouve pas, à lui seul, que vous connaissez un logiciel de planification ou les règles du service visé.
 
 Gardez cette différence dans votre préparation. Vous pouvez noter deux colonnes sur votre feuille : ce que vous avez déjà pratiqué et ce qu'il vous faudrait apprendre. Pendant l'échange, cette distinction vous aide à répondre clairement sans ajouter une expérience que vous n'avez pas.
 
@@ -55,7 +55,7 @@ Pour préparer un échange avec votre manager, distinguez votre intérêt pour u
 
 Une question comme « Et votre manager, qu'en pense-t-il ? » appelle une réponse fidèle à la situation. Si vous n'en avez pas encore parlé, dites-le. Vous pouvez préciser que vous cherchez à comprendre la procédure avant d'engager la suite. N'annoncez pas un accord qui n'a pas été donné.
 
-Préparez aussi ce que vous pourrez transmettre si la mobilité se concrétise : dossiers suivis, informations utiles ou points à expliquer à la personne qui vous succéderait. Ce sont des pistes à discuter, pas une date de départ à décider seul.
+Préparez aussi ce que vous pourrez transmettre si la mobilité se concrétise : dossiers suivis, informations utiles ou points à expliquer à la personne qui vous succéderait. Ce sont des pistes à discuter, pas une date de départ à décider de votre côté.
 
 ## Garder une trace des questions et de la suite
 
@@ -70,6 +70,6 @@ Après l'échange, notez les informations reçues et les questions nouvelles. Si
 
 Demandez à votre coach un accès à l'entraînement « Mobilité ou évolution professionnelle », puis ouvrez [Mon espace](#/espace). Vous pourrez préparer une réponse sur votre projet et une autre sur les compétences de votre poste actuel. Le choix de ce type d'entraînement est préparé avec votre coach.
 
-Commencez par dire votre réponse avec vos mots. Vous pouvez utiliser la caméra ou la voix seule, lire le retour de l'assistant IA et reprendre un passage si vous le souhaitez. Le retour décrit votre réponse, sans la noter. Il ne décide pas si la mobilité vous convient.
+Commencez par dire votre réponse avec vos mots. Vous pouvez utiliser la caméra ou la voix seule, lire le retour de l'assistant IA et reprendre un passage si vous le souhaitez. L'assistant analyse votre entretien, sans le noter. Il ne décide pas si la mobilité vous convient.
 
-Votre employeur ne voit ni vos vidéos ni les retours de l'assistant. Vous choisissez les réponses que vous envoyez à votre coach. Pour préparer le rendez-vous réel, vous pouvez ensuite discuter avec lui d'une question qui vous reste difficile à formuler.
+Votre employeur ne voit ni vos vidéos ni les retours de l'assistant. Vous choisissez les entretiens que vous envoyez à votre coach. Pour préparer le rendez-vous réel, vous pouvez ensuite discuter avec lui d'une question qui vous reste difficile à formuler.

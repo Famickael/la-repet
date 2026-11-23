@@ -14,13 +14,13 @@ import { actions, openView, wrap } from "./shared.jsx";
 /* Trois étapes, un message chacune (BUG-25) ; la transcription et l'analyse déjà faites sont gardées :
    « Réessayer » reprend à l'étape qui a échoué. */
 export const PROC_ERR = {
-  transcribe: ["Votre réponse n'a pas pu être mise par écrit", "La première fois, l'outil d'écriture se télécharge : vérifiez votre connexion à Internet, puis réessayez."],
-  analyze: ["Le retour n'a pas pu être préparé", "Votre réponse est mise par écrit. Réessayez : la préparation du retour reprend où elle s'était arrêtée."],
-  save: ["Votre réponse n'a pas pu être gardée sur cet appareil", "Il manque peut-être de la place. Libérez de la place ou supprimez d'anciennes réponses, puis réessayez."],
+  transcribe: ["Votre entretien n'a pas pu être mis par écrit", "La première fois, l'outil de mise par écrit se télécharge : vérifiez votre connexion à Internet, puis réessayez."],
+  analyze: ["Le retour n'a pas pu être préparé", "Votre entretien est mis par écrit. Réessayez : la préparation du retour reprend où elle s'était arrêtée."],
+  save: ["Votre entretien n'a pas pu être gardé sur cet appareil", "Il manque peut-être de la place. Libérez de la place ou supprimez d'anciens entretiens, puis réessayez."],
 };
 
 export function Processing({ p, ctx, go }) {
-  const [stage, setStage] = useState(p.consent.ai ? "Préparation de votre retour…" : "Enregistrement de votre réponse sur cet appareil…");
+  const [stage, setStage] = useState(p.consent.ai ? "Préparation de votre retour…" : "Enregistrement de votre entretien sur cet appareil…");
   const [err, setErr] = useState(null); // { step, detail }
   const [attempt, setAttempt] = useState(0);
   const done = useRef({}); // { tr, analysis } déjà obtenus
@@ -34,11 +34,11 @@ export function Processing({ p, ctx, go }) {
         setErr(null);
         if (p.consent.ai) {
           if (!done.current.tr) {
-            setStage("Votre appareil met votre réponse par écrit…");
+            setStage("Votre appareil met votre entretien par écrit…");
             done.current.tr = await transcribe(rec.blob, pr => {
               if (!alive) return;
-              if (pr.stage === "model") setStage(`Téléchargement de l'outil d'écriture (${pr.value} %). C'est seulement la première fois.`);
-              else setStage("Votre appareil met votre réponse par écrit…");
+              if (pr.stage === "model") setStage(`Téléchargement de l'outil de mise par écrit (${pr.value} %). C'est seulement la première fois.`);
+              else setStage("Votre appareil met votre entretien par écrit…");
             });
           }
           step = "analyze";
@@ -47,7 +47,7 @@ export function Processing({ p, ctx, go }) {
             done.current.analysis = await analyze({ segments: done.current.tr.segments, duration: rec.duration, gaze: rec.gaze, poste: p.poste, question: ctx.question });
           }
         } else {
-          done.current.analysis = { synthese: "Vous avez choisi de ne pas recevoir le retour de l'assistant. Vous pouvez revoir votre réponse et l'envoyer à votre coach.", dimensions: [], source: "none" };
+          done.current.analysis = { synthese: "Vous avez choisi de ne pas recevoir le retour de l'assistant. Vous pouvez revoir votre entretien et l'envoyer à votre coach.", dimensions: [], source: "none" };
         }
         if (!alive) return;
         step = "save";
@@ -69,7 +69,7 @@ export function Processing({ p, ctx, go }) {
   return (
     <Card pad="lg" level={2} topbar="ai" style={{ ...wrap(W.form), textAlign: "center", display: "grid", justifyItems: "center", gap: 12 }}>
       {!err ? (<>
-        <h1 className="rp-sr">{p.consent.ai ? "Préparation de votre retour" : "Enregistrement de votre réponse"}</h1>
+        <h1 className="rp-sr">{p.consent.ai ? "Préparation de votre retour" : "Enregistrement de votre entretien"}</h1>
         <BrandLoader label={stage} size={88} />
         <Txt v="body" color={T.body}>{p.consent.ai ? PHRASES.processing : PHRASES.processingLocal}</Txt>
         {p.consent.ai && <Txt v="caption" color={T.muted}>{PHRASES.download}</Txt>}
@@ -81,7 +81,7 @@ export function Processing({ p, ctx, go }) {
           <p style={{ ...TY.mono, color: T.muted, margin: 0 }}>{err.detail}</p>
         </details>
         <div className="rp-actions" style={{ display: "flex", gap: GAP.actions, justifyContent: "center", flexWrap: "wrap", marginTop: 8 }}>
-          <Btn kind="secondary" onClick={() => go("record")}>Recommencer ma réponse</Btn>
+          <Btn kind="secondary" onClick={() => go("record")}>Recommencer l'entretien</Btn>
           <Btn kind={p.consent.ai ? "ai" : "objective"} onClick={() => setAttempt(a => a + 1)}>Réessayer</Btn>
         </div>
       </>)}

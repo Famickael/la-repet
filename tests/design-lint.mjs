@@ -17,6 +17,19 @@ const BTN_KINDS = ["objective", "ai", "primary", "secondary", "ghost", "danger",
 const BTN_SIZES = ["sm", "md", "lg"];
 const TAG_TONES = ["primary", "appui", "coach", "ai", "success", "warning", "error", "muted"];
 const CARD_PADS = ["none", "sm", "md", "lg"];
+/* S5 : au-delà de cette valeur, un espacement écrit en dur est refusé (0 à 20 : réglages internes d'un composant). */
+const S5_MAX = 20;
+/* Dérogations motivées aux règles S5 et S6 : [règle, fichier, extrait (expression régulière), raison]. Une dérogation
+   sans effet fait échouer le contrôle (W3), pour que la liste reste à jour. */
+const EXEMPT = [
+  // exemple : ["S5", "src/home/Strate.jsx", /gap: 56/, "maquette d'écran dessinée à l'échelle de la photo"],
+];
+const exemptUsed = new Set();
+const exempt = (rule, file, ext) => {
+  const i = EXEMPT.findIndex(([r, f, re]) => r === rule && f === file && re.test(ext));
+  if (i < 0) return false;
+  exemptUsed.add(i); return true;
+};
 
 /* ─── Fichiers ─── */
 const walk = d => readdirSync(d).flatMap(f => {
@@ -133,6 +146,21 @@ function checkFile(file) {
         if (!SPACE.includes(x)) { report(m.index, "S1", m[0] + v, `échelle ${SPACE.join(", ")}`); break; }
       }
     });
+    // S5 espacement de mise en page écrit en dur : au-delà de 20 px, padding, margin et gap viennent d'un jeton
+    // (PAD.*, GAP.*, W.* ou sp()), pour que le rythme vertical et les gouttières restent les mêmes d'une page à l'autre.
+    each(/\b(padding|margin)([A-Z][A-Za-z]*)?\s*:|\b(gap|rowGap|columnGap)\s*:/g, m => {
+      const v = valueAt(text, m.index + m[0].length);
+      const clean = v.replace(/calc\([^)]*\)/g, "").replace(/\b(PAD|GAP|GAP_MOBILE|PAD_MOBILE|W)\.\w+/g, "").replace(/\bsp\([^)]*\)/g, "");
+      for (const n of clean.matchAll(/(?<![\w.$#])(-?\d*\.?\d+)(px)?(?![\w.%])/g)) {
+        if (Math.abs(parseFloat(n[1])) > S5_MAX && !exempt("S5", file, m[0] + v)) { report(m.index, "S5", m[0] + v, "PAD.*, GAP.* (au-delà de " + S5_MAX + " px)"); break; }
+      }
+    });
+    // S6 marge intérieure de carte sans sa valeur mobile : PAD.md ou PAD.lg posé à la main sur une surface sans la classe
+    // rp-pad-md ou rp-pad-lg (24 → 20 et 32 → 24 sous 760 px, comme Card). Préférer <Card pad>.
+    each(/<([A-Za-z.]+)\b((?:=>|[^>])*?)\bstyle=\{\{((?:=>|[^>])*?)\}\}/g, m => {
+      const pad = m[3].match(/(?<![\w-])padding:\s*PAD\.(md|lg)\b/);
+      if (pad && !new RegExp(`rp-pad-${pad[1]}`).test(m[2] + m[3]) && !exempt("S6", file, m[0])) report(m.index, "S6", m[0].slice(0, 60), `className="rp-pad-${pad[1]}" ou <Card pad="${pad[1]}">`);
+    });
     // S2 sp(n) hors échelle
     each(/\bsp\(([\d.]+)\)/g, m => { if (!SPACE.includes(4 * parseFloat(m[1]))) report(m.index, "S2", m[0], "sp(n) avec 4n dans l'échelle"); });
     // S3 pad de Card
@@ -187,6 +215,8 @@ function checkFile(file) {
       }
     });
     each(/\bfont-size\s*:\s*(\d+(?:\.\d+)?)px/g, m => { if (!SIZES.includes(+m[1])) report(m.index, "X1", m[0], `taille dans ${SIZES.join(", ")}`); });
+    // X3 (feuilles de styles des fichiers de jetons) : niveau typographique écrit à la main au lieu de TY (F("…") dans GStyle)
+    if (file !== "src/tokens.js") each(/\bfont\s*:\s*[1-9]00\s+(calc\()?\d/g, m => report(m.index, "X3", m[0], "${F(\"niveau\")} ou ...TY.niveau (ajouter le niveau à TY s'il manque)"));
     each(/\b(fontWeight|font-weight)\s*:\s*["']?(\d+)/g, m => { if (![...new Set(Object.values(WEIGHTS).flat())].includes(+m[2])) report(m.index, "X1", m[0], "graisse autorisée"); });
     // X2 couleur littérale dans ui.jsx
     if (file === "src/ui.jsx" || file.startsWith("src/ui/")) {
@@ -265,6 +295,7 @@ for (const [name, pal] of Object.entries(THEMES)) {
     if (ratio < min) violations.push(`src/tokens.js  A1  thème ${name} : ${fgK} (${fg}) sur ${bgK} (${bg}) : ${ratio.toFixed(2)}:1  → au moins ${min}:1`);
   }
 }
+EXEMPT.forEach(([r, f, , why], i) => { if (!exemptUsed.has(i)) violations.push(`${f}  W3  dérogation ${r} sans effet (${why})  → la retirer de EXEMPT`); });
 if (waiverCount > MAX_WAIVERS) violations.push(`(global)  W2  ${waiverCount} dérogations  → ${MAX_WAIVERS} au plus`);
 violations.forEach(v => console.log(v));
 const files = srcFiles.length + docFiles.length;

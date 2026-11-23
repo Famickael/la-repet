@@ -9,7 +9,8 @@ export const openView = t => (!hasMedia(t) ? ["report", "simple"] : noFeedback(t
 
 export const wrap = w => ({ maxWidth: w, margin: "0 auto", width: "100%" });
 
-export const stack = (gap = GAP.stack) => ({ display: "grid", gap });
+/* Pile verticale : colonne minmax(0, 1fr), un enfant trop large ne peut pas élargir la page (défilement horizontal à 320 px). */
+export const stack = (gap = GAP.stack) => ({ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap });
 
 export const dateFr = dateTime; // formats uniques (src/lib/format.js)
 
@@ -22,7 +23,7 @@ export const PAGE = { padding: PAD.page };
 export function EmotionNote({ setModal }) {
   return (
     <Notice tone="ai" icon={I.shield}>
-      <strong>L'assistant ne cherche pas à deviner vos émotions.</strong> Il décrit seulement ce qui se voit et ce qui s'entend.{" "}
+      <strong>L'assistant ne cherche pas à deviner vos émotions.</strong> Il analyse seulement ce qui se voit et ce qui s'entend.{" "}
       <Link onClick={() => setModal("assistant")}>En savoir plus sur ce choix</Link>
     </Notice>
   );

@@ -58,7 +58,7 @@ Toutes les adresses absolues pointent vers `https://famickael.github.io/la-repet
 ### 1.4 Image d'aperçu
 
 - 1200 x 630 (rapport 1,91:1), PNG d'environ 90 Ko. Références : LinkedIn demande au moins 1200 x 627 et 1,91:1 [S10] ; WhatsApp demande une adresse absolue, moins de 600 Ko, au moins 300 px de large, un rapport de 4:1 au plus [S7] (des retours d'expérience parlent de 300 Ko : la cible retenue est bien en dessous) ; X recadre parfois la grande carte en 2:1 et Teams peut rogner les côtés [S12] : le texte reste loin des bords.
-- Contenu : logo blanc, dégradé de marque `GRAD` (bleu vers violet, `docs/design-system.md`, 1.3), phrase « Entraînez-vous pour votre entretien, avec votre coach. » en Outfit 800 de 66 px, puis « À voix haute, sans avatar. Un retour qui décrit, sans noter. » en Inter 600 de 32 px. Pas de photo, pas de petit texte. Vérifiée lisible réduite à 400 px de large.
+- Contenu : logo blanc, dégradé de marque `GRAD` (bleu vers violet, `docs/design-system.md`, 1.3), phrase « Entraînez-vous pour votre entretien, avec votre coach. » en Outfit 800 de 66 px, puis « À voix haute, sans avatar. Un assistant IA qui analyse, sans noter. » en Inter 600 de 32 px. Pas de photo, pas de petit texte. Vérifiée lisible réduite à 400 px de large.
 - Le dégradé est calculé pixel par pixel dans `scripts/og-image.html` : le dégradé CSS de Chromium est tramé, ce bruit faisait dépasser 400 Ko.
 - **Régénérer** : `CHROMIUM_PATH=/opt/pw-browsers/chromium node scripts/og-image.mjs` (refait aussi les icônes depuis `public/favicon.svg`). **Après un changement d'image, changer son adresse** (nouveau nom ou `?v=2` dans `index.html`) : Facebook garde l'image en cache par adresse [S6], et LinkedIn ou Teams font de même.
 
@@ -69,13 +69,13 @@ Format « Page · La Répét' », le mot utile en premier (un onglet tronqué ga
 | Route | Titre actuel | Titre proposé |
 |---|---|---|
 | `#/` | S'entraîner à ses entretiens · La Répét' | S'entraîner aux entretiens avec un coach · La Répét' |
-| `#/a-propos` | À propos | Qui sommes-nous · La Répét' |
+| `#/a-propos` | À propos | À propos · La Répét' |
 | `#/a-propos/faq` | À propos | Questions fréquentes · La Répét' |
 | `#/a-propos/ia-et-recherche` | L'IA et la recherche | IA et recherche : nos choix · La Répét' |
 | `#/solutions` | Solutions | Nos accompagnements · La Répét' |
 | `#/solutions/demandeurs-emploi` | Solutions | Demandeurs d'emploi · La Répét' |
 | `#/solutions/collaborateurs` | Solutions | Salariés en mobilité · La Répét' |
-| `#/solutions/coachs` | Solutions | Coachs et conseillers · La Répét' |
+| `#/solutions/coachs` | Solutions | Coachs · La Répét' |
 | `#/solutions/commanditaires` | Solutions | Commanditaires · La Répét' |
 | `#/ressources` | Ressources | Conseils pour l'entretien · La Répét' |
 | `#/ressources/c/...` | Ressources | « Catégorie » · Ressources · La Répét' (`seoCategory`) |
@@ -100,7 +100,7 @@ Format « Page · La Répét' », le mot utile en premier (un onglet tronqué ga
 | `#/solutions/recherche` (à venir) | | Ce que dit la recherche · La Répét' |
 | `#/solutions/fonctionnalites` (à venir) | | Fonctionnalités · La Répét' |
 | `#/cas-d-usage/beneficiaires` (à venir) | | Personnes accompagnées · La Répét' |
-| `#/cas-d-usage/coachs` (à venir) | | Coachs et conseillers · La Répét' |
+| `#/cas-d-usage/coachs` (à venir) | | Coachs · La Répét' |
 | `#/cas-d-usage/commanditaires` (à venir) | | Commanditaires publics et privés · La Répét' |
 | `#/ressources/faq` (à venir) | | Questions fréquentes · La Répét' |
 

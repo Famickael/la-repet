@@ -73,7 +73,7 @@ export default function AssistantDock({ poste, context = "general" }) {
 /* Panneau latéral commun aux deux assistants (préparation côté bénéficiaire, rédaction du rapport côté coach) :
    non modal, bordure en dégradé, Échap ferme, focus envoyé dans le panneau à l'ouverture et rendu au bouton
    flottant à la fermeture ; sur mobile, feuille en bas de l'écran et espace équivalent réservé sous la page. */
-export function DockPanel({ id, title, mention = "Assistant automatique · ce n'est pas une personne", open, onClose, focusId, returnFocus, children }) {
+export function DockPanel({ id, title, mention = "Assistant IA · ce n'est pas une personne", open, onClose, focusId, returnFocus, children }) {
   const refocus = useRef(false);
   useEffect(() => {
     document.documentElement.classList.toggle("rp-asst-open", open);

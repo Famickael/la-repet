@@ -40,12 +40,12 @@ Votre CV est déjà sur la table. Le relire mot pour mot n'apporte rien. Ce qui 
 
 - **Raconter toute sa vie** dans l'ordre chronologique. Choisissez.
 - **S'excuser de son parcours** (« je n'ai pas beaucoup d'expérience, mais… »). Commencez plutôt par ce que vous avez fait.
-- **Apprendre par cœur un texte entier**. Retenez la trame et les exemples, pas chaque mot : vous serez plus naturel et vous ne perdrez pas le fil si on vous interrompt.
+- **Apprendre par cœur un texte entier**. Retenez la trame et les exemples, pas chaque mot : votre réponse sera plus naturelle et vous ne perdrez pas le fil si on vous interrompt.
 - **Parler de sa vie privée**. Elle n'a pas à entrer dans l'entretien, sauf si vous choisissez d'en dire quelque chose d'utile pour le poste.
 
 ## S'entraîner avec La Répét'
 
-La question « Pouvez-vous vous présenter en deux minutes ? » fait partie des questions proposées dans votre espace. Enregistrez-vous une première fois sans préparation, puis une seconde fois avec la trame ci-dessus. Le retour de l'assistant indique notamment la durée, le débit et la présence d'exemples concrets : des repères pour comparer vos deux essais, pas une note.
+La question « Pouvez-vous vous présenter en deux minutes ? » fait partie des questions proposées dans votre espace. Enregistrez-vous une première fois sans préparation, puis une seconde fois avec la trame ci-dessus. Le retour de l'assistant indique notamment le rythme de parole et la présence d'exemples concrets : des repères pour comparer vos deux essais, pas une note.
 
 > [!a-retenir] À retenir
 > - Deux minutes, un fil, trois temps : aujourd'hui, hier, demain.

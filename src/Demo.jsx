@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { T, RAD, GAP, Btn, Icon, I, TY, W, PageHero, IconTile, Field, Input, Textarea, Select, Link, Toggle, Card, Tag, RadioGroup } from "./ui.jsx";
+import { T, RAD, GAP, Btn, Icon, I, TY, W, PageHero, IconTile, Field, Input, Textarea, Select, Link, Toggle, Card, Tag, RadioGroup, PAD } from "./ui.jsx";
 import { PHRASES } from "./content/legal.js";
 import { Reveal, stagger } from "./motion.jsx";
 
@@ -49,7 +49,7 @@ export default function Demo({ go }) {
     <main>
       <PageHero eyebrow="Nous contacter" title="Parler de votre projet d'accompagnement"
         lead="Acteur public de l'emploi ou entreprise : décrivez-nous votre besoin. Nous construisons avec vous un accompagnement mené par nos coachs et outillé par La Répét'." />
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "48px 24px 0" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: `${GAP.head}px ${PAD.x}px 0` }}>
         <div className="rp-stack" style={{ alignItems: "stretch", maxWidth: W.wide }}>
           <Reveal style={{ display: "grid" }}><Card pad="lg" level={2} topbar>
           <form noValidate onSubmit={submit} aria-labelledby="demo-title" style={{ display: "grid", gap: GAP.field }}>
@@ -96,7 +96,7 @@ export default function Demo({ go }) {
           </form>
           </Card></Reveal>
 
-          <Reveal delay={70} style={{ display: "grid" }}><Card pad="lg" topbar as="aside" style={{ display: "grid", gap: 24, alignContent: "start" }}>
+          <Reveal delay={70} style={{ display: "grid" }}><Card pad="lg" topbar as="aside" style={{ display: "grid", gap: GAP.grid, alignContent: "start" }}>
             <div style={{ display: "grid", gap: 12 }}>
               <div><Tag tone="primary">Commanditaires</Tag></div>
               <h2 style={{ ...TY.h2, color: T.navy, margin: 0 }}>Comment nous travaillons ensemble</h2>

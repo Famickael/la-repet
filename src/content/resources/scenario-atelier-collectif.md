@@ -16,7 +16,7 @@ duration: Quatre séances hebdomadaires
 setup: Atelier collectif et entraînements autonomes entre les séances
 ---
 
-Ce scénario d'usage décrit une façon possible d'utiliser La Répét'. L'organisme et les situations sont fictifs ; ils servent à illustrer le dispositif, pas à en mesurer les effets.
+Ce scénario d'usage décrit une façon possible d'utiliser La Répét'. L'organisme et les situations sont fictifs ; ils servent à illustrer un usage, pas à en mesurer les effets.
 
 ## Le défi
 
@@ -30,9 +30,9 @@ Entre deux séances, chaque participant est invité à :
 
 - faire un échauffement, puis répondre à deux questions liées au métier visé ;
 - lire le retour de l'assistant, et recommencer s'il le souhaite ;
-- envoyer au coach une réponse de son choix, avec un mot.
+- envoyer au coach un entretien de son choix, avec un mot.
 
-Les coachs relisent les réponses reçues, ajoutent deux ou trois notes horodatées, et choisissent avec l'accord des personnes quelques moments à revoir ensemble.
+Les coachs relisent les entretiens reçus, ajoutent deux ou trois remarques dans la vidéo, et choisissent avec l'accord des personnes quelques moments à revoir ensemble.
 
 > [!citation] Propos illustratif d'une coach
 > J'arrive en séance avec des moments précis à discuter, choisis par les personnes elles-mêmes. On parle de ce qui a été dit, pas de la personne.

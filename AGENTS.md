@@ -15,6 +15,7 @@ Ce dépôt est travaillé par plusieurs assistants IA. Ce fichier est leur point
 - Textes en français, vouvoiement côté bénéficiaire, ton positif et non évaluatif, **pas de tiret cadratin**.
 - La vidéo reste sur l'appareil tant que la personne ne décide pas de l'envoyer.
 - Aucun secret (clé d'API, mot de passe) dans le dépôt.
+- Décisions de vocabulaire et de présentation du propriétaire (version fonctionnelle sans mention d'essai, « entretien », « analyse ») : voir `CLAUDE.md`, elles s'appliquent à tous les agents.
 
 ## 3. Répartition des rôles
 
@@ -55,6 +56,8 @@ npm run test:e2e
 E2E_VIEWPORT=390x844 npm run test:e2e
 npm run test:cas      # cas limites (deux onglets, retrait de l'accord, voix seule, navigation par l'adresse…)
 ```
+
+Hors suite, moteur de Safari : `PLAYWRIGHT_BROWSERS_PATH=$HOME/pw-webkit node tests/webkit-check.cjs [adresse]` mesure sous WebKit la continuité de l'écran de chargement et la fluidité du fond de l'accueil, puis donne un verdict (installation de WebKit en tête du fichier).
 
 Chromium : `playwright` est figé en 1.65.1 (Chromium 1255). Dans les sessions distantes où le Chromium fourni est
 plus ancien, ne pas lancer `playwright install` : passer son chemin, `CHROMIUM_PATH=/opt/pw-browsers/chromium`.

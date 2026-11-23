@@ -1,0 +1,20 @@
+{
+  "cas": "1-reconversion-accueil",
+  "avertissement": "Personne fictive. Texte écrit pour l'essai, au format des segments horodatés produits par Whisper. Aucune personne réelle n'a été enregistrée.",
+  "personne": "Nadia B. (fictive), demandeuse d'emploi en reconversion vers l'accueil",
+  "poste": "agente d'accueil",
+  "question": "Parlez-moi de vous.",
+  "mode": "vidéo",
+  "duration": 64,
+  "gaze": { "samples": 128, "downRatio": 0.3, "sideRatio": 0.14, "absentRatio": 0.02, "longestAwayAt": 31 },
+  "segments": [
+    { "start": 0.0, "end": 4.2, "text": " Bonjour. Alors, euh, je m'appelle Nadia, j'ai 46 ans." },
+    { "start": 4.8, "end": 11.5, "text": " Euh, pendant 12 ans, j'ai travaillé comme vendeuse en boulangerie, dans mon quartier." },
+    { "start": 14.0, "end": 21.0, "text": " Donc, euh, je servais les clients, je tenais la caisse, et en fait je connaissais presque tout le monde." },
+    { "start": 21.6, "end": 27.9, "text": " La boulangerie a fermé l'année dernière, et du coup j'ai fait un bilan de compétences." },
+    { "start": 30.5, "end": 38.2, "text": " Euh, et là je me suis rendu compte que ce que j'aimais, en fait, c'était accueillir les gens, les renseigner." },
+    { "start": 38.8, "end": 47.0, "text": " Donc j'ai suivi une formation de trois mois, euh, d'agent d'accueil, avec un stage dans une mairie." },
+    { "start": 47.5, "end": 55.0, "text": " Pendant le stage, je répondais au téléphone et j'orientais les personnes vers le bon service." },
+    { "start": 57.6, "end": 62.0, "text": " Euh, voilà. Je crois que c'est tout." }
+  ]
+}

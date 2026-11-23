@@ -142,12 +142,12 @@ require("fs").mkdirSync(SC, { recursive: true });
   await p.locator("textarea").fill("Je parle peut-être trop vite ?"); await click("Envoyer à mon coach"); await shot("08-envoye");
   await click("Mon compte"); await p.getByRole("navigation", { name: "Mon compte" }).getByRole("button", { name: "Se déconnecter" }).waitFor(); await shot("08b-mon-compte");
   await p.getByRole("navigation", { name: "Mon compte" }).getByRole("button", { name: "Se déconnecter" }).click(); await click("Mon compte"); await coachForm(); await click("Se connecter"); await p.waitForTimeout(300); await shot("09-liste-conseiller");
-  await click("Relire"); await click("Relire et annoter"); await p.waitForTimeout(800);
+  await click("Relire"); await p.getByRole("heading", { name: "Entretiens reçus" }).waitFor({ timeout: 15000 }); await click("Relire"); await p.waitForTimeout(800);
   await p.getByPlaceholder("Votre remarque", { exact: true }).fill("Belle entrée en matière."); await click("Ajouter");
   await p.locator("textarea").fill("Alex, ta présentation est claire. On en parle jeudi.");
   await p.getByPlaceholder("Votre remarque sur ce repère (facultatif)").first().fill("D'accord, garde ce rythme.");
   await shot("10-relecture-conseiller");
-  // Assistant de rédaction du rapport : ouvrir, insérer une proposition dans le mot d'introduction et en note horodatée
+  // Assistant de rédaction du rapport : ouvrir, insérer une proposition dans le mot d'introduction et en remarque placée dans la vidéo
   await p.getByRole("button", { name: "Ouvrir l'assistant de rédaction du rapport" }).click();
   const coachAsst = p.getByRole("dialog", { name: "Assistant de rédaction du rapport" });
   await coachAsst.waitFor();
@@ -162,7 +162,7 @@ require("fs").mkdirSync(SC, { recursive: true });
   await coachAsst.getByLabel("Votre remarque à reformuler").fill("Tu parles trop vite ! Il faut que tu ralentisses.");
   await coachAsst.getByRole("button", { name: "Reformuler", exact: true }).click();
   await coachAsst.getByText("Vous parlez à un rythme rapide. Vous pouvez ralentir.").waitFor();
-  await coachAsst.locator(".rp-coach-sugg").first().getByRole("button", { name: /En note à/ }).click();
+  await coachAsst.locator(".rp-coach-sugg").first().getByRole("button", { name: /En remarque à/ }).click();
   await shot("10b-assistant-coach");
   await p.keyboard.press("Escape");
   if (await coachAsst.isVisible()) throw new Error("Échap ne ferme pas l'assistant de rédaction");

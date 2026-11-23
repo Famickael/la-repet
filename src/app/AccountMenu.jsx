@@ -50,7 +50,7 @@ export function AccountActions({ acc, onAction, label = "Mon compte", id }) {
         <span aria-hidden style={{ width: 40, height: 40, borderRadius: "50%", background: T.primaryBg, color: T.primary, display: "grid", placeItems: "center", flexShrink: 0, ...TY.h3 }}>{acc.who.charAt(0).toUpperCase()}</span>
         <div style={{ display: "grid", gap: 2, minWidth: 0 }}>
           <span style={{ ...TY.h4, color: T.navy }}>{acc.who}</span>
-          <span style={{ ...TY.small, color: T.body }}>{acc.coach ? "Espace coach" : "Espace d'entraînement"}</span>
+          <span style={{ ...TY.small, color: T.body }}>{acc.coach ? "Espace coach" : "Mon espace"}</span>
         </div>
       </div>
       <nav id={id} aria-label={label} style={{ display: "grid", gap: 2 }}>
@@ -74,7 +74,7 @@ export function WithdrawDialog({ code, close }) {
         <Btn kind="dangerSolid" icon={I.trash} onClick={async () => { await withdrawConsent(code); close(); }}>Tout supprimer</Btn>
       </div>}>
       <div style={{ display: "grid", gap: 12 }}>
-        <Txt v="bodyLg" color={T.body}>Si vous retirez votre accord, vos réponses et les rapports de votre coach sont effacés de cet appareil. C'est définitif.</Txt>
+        <Txt v="bodyLg" color={T.body}>Si vous retirez votre accord, vos entretiens et les rapports de votre coach sont effacés de cet appareil. C'est définitif.</Txt>
         <Txt v="body" color={T.body}>Vous pourrez recommencer quand vous voulez. Votre accompagnement continue normalement.</Txt>
       </div>
     </Modal>

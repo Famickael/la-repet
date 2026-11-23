@@ -1,0 +1,228 @@
+{
+  "cas": "3-mobilite-interne",
+  "avertissement": "Personne fictive. Texte écrit pour l'essai, au format des segments horodatés produits par Whisper. Aucune personne réelle n'a été enregistrée.",
+  "filtre": {
+    "textesVerifies": 19,
+    "textesRefuses": [],
+    "textesRemplacesParLeTexteLocal": 0,
+    "analyseFinaleConforme": true,
+    "horsLimiteDeLongueur": []
+  },
+  "verdicts": [
+    {
+      "champ": "synthese",
+      "accepte": true,
+      "caracteres": 317,
+      "limiteDemandee": 400,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.titre",
+      "accepte": true,
+      "caracteres": 16,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.observation",
+      "accepte": true,
+      "caracteres": 62,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "debit.conseil",
+      "accepte": true,
+      "caracteres": 77,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.titre",
+      "accepte": true,
+      "caracteres": 17,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.observation",
+      "accepte": true,
+      "caracteres": 173,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "exemples.conseil",
+      "accepte": true,
+      "caracteres": 134,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "pauses.titre",
+      "accepte": true,
+      "caracteres": 6,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "pauses.observation",
+      "accepte": true,
+      "caracteres": 81,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "pauses.conseil",
+      "accepte": true,
+      "caracteres": 80,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "regard.titre",
+      "accepte": true,
+      "caracteres": 19,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "regard.observation",
+      "accepte": true,
+      "caracteres": 95,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "regard.conseil",
+      "accepte": true,
+      "caracteres": 195,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "structure.titre",
+      "accepte": true,
+      "caracteres": 26,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "structure.observation",
+      "accepte": true,
+      "caracteres": 191,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "structure.conseil",
+      "accepte": true,
+      "caracteres": 109,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.titre",
+      "accepte": true,
+      "caracteres": 17,
+      "limiteDemandee": 80,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.observation",
+      "accepte": true,
+      "caracteres": 141,
+      "limiteDemandee": 220,
+      "dansLaLimite": true
+    },
+    {
+      "champ": "contenu.conseil",
+      "accepte": true,
+      "caracteres": 207,
+      "limiteDemandee": 260,
+      "dansLaLimite": true
+    }
+  ],
+  "analyseAffichee": {
+    "synthese": "Vos points d'appui : vous annoncez trois raisons, vous les illustrez par des faits précis (6 ans au service clients, 4 personnes accompagnées, 3 semaines de remplacement) et vous concluez en les reprenant. Une piste pour le prochain essai : dire en une phrase ce que vous feriez en premier comme responsable d'équipe.",
+    "dimensions": [
+      {
+        "id": "debit",
+        "type": "appui",
+        "t": 0,
+        "titre": "Rythme de parole",
+        "observation": "Vous parlez à environ 145 mots par minute, sur 1:17 de parole.",
+        "conseil": "Ce rythme laisse le temps de suivre vos trois raisons. Vous pouvez le garder."
+      },
+      {
+        "id": "exemples",
+        "type": "appui",
+        "t": 7.5,
+        "titre": "Exemples concrets",
+        "observation": "Vous citez des faits précis : « depuis 6 ans » au service clients, « 4 personnes » accompagnées pendant leurs 3 premiers mois, une fiche des 10 demandes les plus fréquentes.",
+        "conseil": "Ces chiffres permettent au recruteur de se représenter ce que vous avez déjà fait, et de vous relancer dessus. Vous pouvez les garder."
+      },
+      {
+        "id": "pauses",
+        "type": "appui",
+        "t": 35.5,
+        "titre": "Pauses",
+        "observation": "2 pauses de plus de 2 secondes, la plus longue à 0:36 (2 s), entre deux exemples.",
+        "conseil": "Elles séparent vos idées et laissent le temps de suivre. Vous pouvez les garder."
+      },
+      {
+        "id": "regard",
+        "type": "appui",
+        "t": 41,
+        "titre": "Direction du regard",
+        "observation": "Votre regard est orienté vers l'écran environ 82 % du temps, vers le bas 10 %, sur le côté 8 %.",
+        "conseil": "La personne qui vous écoute voit que vous vous adressez à elle. En visioconférence, vous pouvez regarder la caméra plutôt que l'écran aux moments importants, par exemple pendant votre conclusion."
+      },
+      {
+        "id": "structure",
+        "type": "appui",
+        "t": 75.6,
+        "titre": "Construction de la réponse",
+        "observation": "Vous annoncez « trois raisons », vous les reprenez avec « D'abord », « Ensuite », « Enfin », puis vous concluez par « C'est pour ça que je souhaite ce poste ». 11 phrases, 17 mots en moyenne.",
+        "conseil": "Ce plan annoncé puis suivi aide le recruteur à retenir vos raisons et à vous relancer. Vous pouvez le garder."
+      },
+      {
+        "id": "contenu",
+        "type": "explorer",
+        "t": 58.2,
+        "titre": "Ce que vous dites",
+        "observation": "Vous dites ce qu'il vous reste à apprendre et la formation que vous avez demandée. Vous parlez moins de ce que vous feriez une fois en poste.",
+        "conseil": "Vous pouvez ajouter, avant la conclusion, une phrase tournée vers la suite, par exemple : « Dans les premières semaines, je commencerais par rencontrer chaque membre de l'équipe pour connaître ses besoins. »"
+      }
+    ],
+    "metrics": {
+      "wordCount": 185,
+      "duration": 86,
+      "speakingTime": 77,
+      "wpm": 145,
+      "fillers": {},
+      "fillerTotal": 0,
+      "firstFillerAt": null,
+      "pauses": [
+        {
+          "t": 35.5,
+          "d": 2.3
+        },
+        {
+          "t": 56,
+          "d": 2.2
+        }
+      ],
+      "sentences": 11,
+      "avgSentence": 17,
+      "repeated": [],
+      "concreteAt": 7.5,
+      "concreteText": "D'abord, je travaille au service clients depuis 6 ans. Je connais les outils, les procédures et la plupart des situations que rencontrent les conseillers",
+      "hasClosing": true,
+      "closingAt": 75.6,
+      "loops": 0,
+      "loopWords": 0
+    },
+    "source": "llm"
+  }
+}

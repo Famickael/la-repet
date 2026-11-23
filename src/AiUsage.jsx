@@ -1,5 +1,5 @@
 import React from "react";
-import { T, RAD, Btn, Card, Tag, I, TY, W, GAP, Section, PageHero, IconTile, Notice, Link } from "./ui.jsx";
+import { T, RAD, Btn, Card, Tag, I, TY, W, GAP, Section, PageHero, IconTile, Notice, Link, PAD } from "./ui.jsx";
 import { Reveal, stagger } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
@@ -10,8 +10,8 @@ import { FinalBand } from "./home/FinalBand.jsx";
    (VITE_LLM_ENDPOINT, texte seulement, voir src/content/legal.js). */
 
 const DOES = [
-  [I.mic, "Mettre la réponse par écrit", "La voix devient un texte, sur l'appareil. Ce texte sert à repérer les exemples, les pauses et les petits mots répétés."],
-  [I.sparkle, "Décrire la réponse", "L'assistant place des repères au bon moment de la réponse : rythme de parole, pauses, exemples, construction, regard. Il commence par ce qui fonctionne déjà."],
+  [I.mic, "Mettre l'entretien par écrit", "La voix devient un texte, sur l'appareil. Ce texte sert à repérer les exemples, les pauses et les petits mots répétés."],
+  [I.sparkle, "Analyser l'entretien", "L'assistant analyse l'entretien, sans le noter, et place des repères au bon moment de la réponse : rythme de parole, pauses, exemples, construction, regard. Il commence par ce qui fonctionne déjà."],
   [I.chat, "Répondre aux questions sur l'entretien", "L'assistant de préparation d'entretien répond aux questions courantes. Il rappelle qu'il est un programme et renvoie vers le coach."],
 ];
 
@@ -28,15 +28,15 @@ const STEPS = [
   ["1", "Enregistrement", "La caméra et le micro enregistrent dans le navigateur. La vidéo est gardée sur l'appareil."],
   ["2", "Mise par écrit", "Un outil téléchargé une fois (environ 130 Mo) met la voix par écrit, sur l'appareil. La voix n'est pas envoyée."],
   ["3", "Repères", "Les repères sont calculés sur l'appareil, à partir du texte, du son et de la position de la tête."],
-  ["4", "Envoi, si vous le décidez", "Rien ne part chez le coach sans un envoi volontaire, réponse par réponse."],
+  ["4", "Envoi, si vous le décidez", "Rien ne part chez le coach sans un envoi volontaire, entretien par entretien."],
 ];
 
 const GUARDS = [
-  [I.ban, "Un filtre sur chaque retour", "Avant d'afficher un retour, un filtre écarte tout texte qui contient une note ou un mot sur les émotions. Le retour décrit alors la réponse sans reformulation."],
+  [I.ban, "Un filtre sur chaque retour", "Avant l'affichage, un filtre relit chaque phrase. Il écarte tout texte qui contient une note, une appréciation globale ou un mot sur les émotions, et le remplace par le repère calculé sur l'appareil."],
   [I.check, "Ce qui fonctionne d'abord", "Les points d'appui sont toujours présentés en premier. Les pistes à explorer viennent ensuite, sans être des erreurs."],
   [I.users, "Le coach a le dernier mot", "Le coach peut confirmer, nuancer ou contredire chaque repère. Son commentaire apparaît à côté, dans le rapport."],
   [I.info, "Transparence", "Chaque écran dit quand un texte vient de l'assistant. L'assistant rappelle qu'il n'est pas une personne."],
-  [I.mic, "Voix seule possible", "Sans caméra, l'assistant ne décrit pas le regard. Le reste du retour ne change pas."],
+  [I.mic, "Voix seule possible", "Sans caméra, l'assistant n'analyse pas le regard. Le reste du retour ne change pas."],
   [I.compass, "Des usages, pas des règles", "Un repère renvoie aux habitudes d'entretien en France. Elles changent selon le poste et l'entreprise."],
 ];
 
@@ -50,15 +50,15 @@ export default function AiUsage({ go }) {
   return (
     <main>
       <PageHero eyebrow="Solutions" title="Usage de l'IA"
-        lead="Un assistant IA aide à s'entraîner, sans avatar. Il met la réponse par écrit, la décrit et propose des pistes, sur l'appareil de la personne. Il ne note pas, ne devine aucune émotion et ne décide de rien.">
+        lead="Un assistant IA aide à s'entraîner, sans avatar. Il met l'entretien par écrit, l'analyse et propose des pistes, sur l'appareil de la personne. Il ne note pas, ne devine aucune émotion et ne décide de rien.">
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          <Tag tone="ai" icon={I.sparkle}>Décrit, ne note pas</Tag>
+          <Tag tone="ai" icon={I.sparkle}>Analyse, ne note pas</Tag>
           <Tag tone="primary" icon={I.lock}>Sur l'appareil</Tag>
           <Tag tone="primary" icon={I.users}>Le coach garde la main</Tag>
         </div>
       </PageHero>
 
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         <Section first eyebrow="Ce qu'il fait" title="Trois tâches, et seulement trois">
           <div className="rs-g3">{DOES.map(([ic, t, d], i) => (
             <Reveal key={t} delay={i * 80} style={{ height: "100%" }}>
@@ -83,9 +83,9 @@ export default function AiUsage({ go }) {
               ))}
             </div>
             <Reveal>
-              <div style={{ background: T.violetBg, borderRadius: RAD.lg, padding: 32, display: "grid", gap: 16 }}>
+              <div className="rp-pad-md" style={{ background: T.violetBg, borderRadius: RAD.lg, padding: PAD.md, display: "grid", gap: 16 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}><IconTile icon={I.ban} c={T.violet} bg={T.surface} /><h3 style={{ ...TY.h2, color: T.navy, margin: 0 }}>Ce que l'assistant n'observe pas</h3></div>
-                <ul style={{ margin: 0, paddingLeft: 20, display: "grid", gap: 8, ...TY.body, color: T.navy }}>
+                <ul style={{ margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8, ...TY.body, color: T.navy }}>
                   <li>Les émotions, l'humeur ou le stress supposé.</li>
                   <li>La personnalité, la motivation ou la sincérité.</li>
                   <li>L'apparence, la tenue, l'âge, l'origine.</li>
@@ -97,7 +97,7 @@ export default function AiUsage({ go }) {
           </div>
         </Section>
 
-        <Section id="appareil" eyebrow="Sur l'appareil" title="La mise par écrit et la description se font sur l'appareil" sub="La vidéo et la voix restent sur l'appareil de la personne tant qu'elle ne les envoie pas.">
+        <Section id="appareil" eyebrow="Sur l'appareil" title="La mise par écrit et l'analyse se font sur l'appareil" sub="La vidéo et la voix restent sur l'appareil de la personne tant qu'elle ne les envoie pas.">
           <ol className="rs-g2" style={{ listStyle: "none", margin: 0, padding: 0 }}>
             {STEPS.map(([n, t, d], i) => (
               <Reveal as="li" key={n} delay={stagger(i, 2)} style={{ borderTop: `2px solid ${T.primary}`, paddingTop: 16, display: "flex", gap: 16 }}>
@@ -110,7 +110,7 @@ export default function AiUsage({ go }) {
             ))}
           </ol>
           <Reveal style={{ marginTop: GAP.block, maxWidth: W.read }}>
-            <Notice tone="ai" icon={I.info}>Notre organisme peut activer une option : un service d'IA reformule alors le retour à partir du texte de la réponse. Il ne reçoit jamais l'image ni la voix, et les mêmes garde-fous s'appliquent. Dans ce cas, « Vos données » le précise.</Notice>
+            <Notice tone="ai" icon={I.info}>Notre organisme peut activer une option : un service d'IA rédige alors l'analyse à partir du texte de l'entretien et des repères calculés sur l'appareil. Il peut ajouter un repère sur ce qui est dit par rapport à la question. Il ne reçoit jamais l'image ni la voix, et les mêmes garde-fous s'appliquent. Dans ce cas, « Vos données » le précise.</Notice>
           </Reveal>
         </Section>
 

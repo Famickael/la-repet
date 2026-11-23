@@ -4,7 +4,7 @@ Relecture faite le 20 novembre 2026 sur l'arbre de travail (fichiers de `src/` e
 
 Sommaire :
 
-1. Charte éditoriale courte
+1. Charte éditoriale courte (1.2 quater : décisions de la passe de cohérence du 22 novembre 2026)
 2. Tableau des réécritures, écran par écran
 3. Répétitions repérées et arbitrages
 4. Points à trancher par le propriétaire (textes de démonstration, affirmations à vérifier)
@@ -17,7 +17,7 @@ Sommaire :
 
 **Promesse.** Se préparer à l'entretien en confiance : seul, à voix haute, sans avatar et sans jugement, avec des retours pour recommencer et son coach qui soutient la progression.
 
-**Preuve en une phrase.** L'assistant décrit la réponse sans la noter et propose des pistes, la personne recommence et choisit ce qu'elle envoie, le coach a le dernier mot.
+**Preuve en une phrase.** L'assistant analyse l'entretien sans le noter et propose des pistes, la personne recommence et choisit ce qu'elle envoie, le coach a le dernier mot.
 
 **Ton.** Celui d'un coach bienveillant et précis : il parle simplement, il dit ce qui se passe, il ne juge pas et ne promet rien qu'il ne tient pas. On s'adresse à la personne qui s'entraîne avec « vous », au présent, avec des mots de tous les jours. On s'adresse aux coachs et aux organismes avec la même simplicité, sans jargon commercial.
 
@@ -35,15 +35,15 @@ Un mot par chose, partout. Quand un mot du lexique apparaît pour la première f
 
 | Terme retenu | À éviter | Définition et usage |
 |---|---|---|
-| **entretien** | (pour désigner un enregistrement) | Le vrai rendez-vous avec un recruteur. Jamais un enregistrement fait dans l'outil. « Entretien du 12 mars » pour une réponse enregistrée est une erreur. |
+| **entretien** | réponse, prise, enregistrement (pour ce que l'on enregistre, garde, envoie, relit ou supprime) | Deux sens. Le vrai rendez-vous avec un recruteur ; et, depuis la décision du propriétaire du 22 novembre 2026, ce que la personne enregistre dans l'outil, garde, envoie à son coach, relit ou supprime, côté personne accompagnée comme côté coach : « Mes entretiens », « Garder cet entretien », « Envoyer cet entretien à mon coach », « Supprimer cet entretien », « Annuler l'envoi de cet entretien », « Entretiens à relire ». Les accords suivent le masculin (« Envoyé le », « Gardé sur cet appareil », « supprimé »). |
 | **entraînement**, **s'entraîner** | répétition, répéter, répétez (pour l'activité), session, séance | L'activité : choisir une ou plusieurs questions et y répondre, seul et à voix haute. Depuis le 22 novembre 2026, « répéter » n'est plus employé pour l'activité, même dans les titres : seul le nom de marque « La Répét' » le porte. « Répéter » reste au sens propre : « répéter une question », « petits mots répétés », « une répétition générale ». |
 | **sans avatar** | sans recruteur virtuel, sans robot, sans personnage | Il n'y a pas d'interlocuteur animé à l'écran. La question est lue à voix haute, sans visage. Ne jamais écrire que l'avatar est « moins efficace » : aucune étude citée ne le dit (voir 1.2 ter). |
 | **piste**, **conseil** | amélioration, correction, défaut, verdict | Ce que l'assistant propose après un repère « à explorer », toujours avec « vous pouvez ». « Conseil » est le mot de l'interface du retour ; « piste » celui des pages publiques. |
-| **ce qui a changé** | progrès mesuré, score, niveau, courbe, jauge, « vous vous êtes amélioré » | La façon de parler de la progression : la personne relit deux réponses et regarde ce qui a changé, puis en parle avec son coach. On décrit un changement (un exemple ajouté, un autre rythme), on ne le mesure pas et on ne le qualifie pas. |
-| **réponse** | prise, enregistrement, entraînement (pour un élément de liste), vidéo (quand il peut s'agir de voix seule) | Ce que la personne enregistre pour une question. C'est l'objet que l'on garde, que l'on envoie, que l'on supprime. |
+| **ce qui a changé** | progrès mesuré, score, niveau, courbe, jauge, « vous vous êtes amélioré » | La façon de parler de la progression : la personne relit deux entretiens et regarde ce qui a changé, puis en parle avec son coach. On décrit un changement (un exemple ajouté, un autre rythme), on ne le mesure pas et on ne le qualifie pas. |
+| **réponse** | (pour ce que l'on enregistre, garde, envoie ou supprime : écrire « entretien ») | Seulement au sens propre : ce que la personne dit pour répondre à une question. « Préparez votre réponse », « la réponse à cette question », « pendant votre réponse », « 3 minutes au plus par réponse », « la structure de la réponse ». Jamais dans un libellé d'action (`npm run test:content` le vérifie). |
 | **échauffement** | mise en voix, se mettre en voix | Quelques minutes pour dire des phrases à voix haute avant l'entraînement. Rien n'est enregistré. |
 | **consigne** (d'échauffement) | relance | La petite instruction qui propose une autre façon de dire la phrase. |
-| **retour** | rapport écrit (pour l'assistant), débrief, analyse, feedback | Ce que l'assistant produit sur une réponse. Toujours « le retour de l'assistant ». |
+| **retour** | rapport écrit (pour l'assistant), débrief, feedback | Ce que l'assistant produit sur un entretien. Toujours « le retour de l'assistant ». Le verbe est « analyser » (« l'assistant analyse votre entretien, sans le noter ») ; le nom du résultat reste « retour ». |
 | **rapport** | retour (pour le coach) | Ce que le coach renvoie : son message, ses remarques, ses commentaires sur les repères. Toujours « le rapport de votre coach ». |
 | **repère** | observation (nom), marqueur, dimension, indicateur | Une chose que l'assistant a remarquée, placée à un moment de la réponse. Première occurrence : « un repère, c'est ce que l'assistant a remarqué ». Le verbe « observer » reste autorisé. |
 | **point d'appui** | point fort, réussite, « Appui » seul sans contexte | Un repère sur ce qui fonctionne déjà. Toujours présenté en premier. |
@@ -61,7 +61,7 @@ Un mot par chose, partout. Quand un mot du lexique apparaît pour la première f
 | **notre organisme** | l'éditeur, la plateforme, la solution | L'organisme d'accompagnement à qui appartient La Répét'. Il vend son accompagnement, pas un logiciel. |
 | **collaborateurs en mobilité** | salariés (dans un titre), ressources | Le public des entreprises : mobilité interne ou externe, entretien annuel ou professionnel côté salarié, reconversion. |
 | **coach** | conseiller, accompagnant, « coach IA » | Toujours un humain. L'outil n'est jamais un « coach ». |
-| **assistant** | IA, coach IA, robot, algorithme | Le programme qui décrit la réponse et répond aux questions. « Assistant IA » une fois par page pour la transparence, « l'assistant » ensuite. |
+| **assistant** | IA, coach IA, robot, algorithme | Le programme qui analyse l'entretien, sans le noter, et répond aux questions. « Assistant IA » une fois par page pour la transparence, « l'assistant » ensuite. |
 | **envoyer** | partager, transmettre, soumettre | L'action volontaire de la personne vers son coach. Un seul destinataire, donc « envoyer ». |
 | **accord** | consentement (hors textes légaux) | Ce que la personne donne avant de commencer et peut retirer. « Consentement » reste dans les textes légaux et côté coach ou DPO. |
 | **voix seule** | son seulement, son seul, micro seul, audio | Répondre sans caméra. |
@@ -83,7 +83,7 @@ Un mot par chose, partout. Quand un mot du lexique apparaît pour la première f
 - **Moteur d'IA** : jamais nommé dans le site ni dans les textes (ni nom de fournisseur, ni nom de modèle). On écrit « assistant IA » une fois par page, puis « l'assistant ». Contrôlé par `npm run test:content`.
 - **Carte du site (21 novembre 2026)** : « À propos » décrit l'organisme (aujourd'hui un organisme imaginaire, « Capes & Carrières », qui accompagne des super-héros : texte d'exemple signalé par un encart, à remplacer ; l'humour reste sur cette seule page). « Solutions » : ce qui nourrit la solution (« Usage de l'IA », « Recherche en accompagnement », « Fonctionnalités »). « Cas d'usage » : une page par public (« Personnes accompagnées » avec « Demandeurs d'emploi » et « Collaborateurs en mobilité », « Coachs », « Commanditaires » avec les onglets « Acteurs publics », « Entreprises », « Cadre et données »). « Ressources » : une seule page (recherche, « À la une », toutes les ressources filtrables par thème) ; « Questions fréquentes » sur sa propre page.
 - **« Demander de l'aide »** : quand une session est ouverte, « Nous contacter » devient « Demander de l'aide » et mène aux questions fréquentes, sur la section de la personne connectée (personnes accompagnées ou coachs). Choix retenu plutôt que l'assistant de l'espace : l'assistant répond aux questions sur l'entretien, pas sur le site, et il n'existe pas sur toutes les pages.
-- **Accueil (panel bénéficiaires, textes remplacés le 22 novembre 2026, voir 1.2 ter)** : pastilles « Avec votre coach », « Assistant IA », « Sans note » ; sous-titre : « Vous répondez à des questions d'entretien, à voix haute, autant de fois que vous voulez. Un assistant IA décrit votre réponse, sans la noter : rythme, pauses, exemples concrets. Votre vidéo reste sur votre appareil : vous choisissez ce que voit votre coach. » ; sous le bouton : « Pas de compte à créer : il vous faut le code donné par votre coach. » ; bandeau de réassurance en trois puces. En attente du propriétaire : « Sans frais pour vous » et la question « Est-ce payant pour moi ? » ne sont pas publiées.
+- **Accueil (panel bénéficiaires, textes remplacés le 22 novembre 2026, voir 1.2 ter)** : pastilles « Avec votre coach », « Assistant IA », « Sans note » ; sous-titre : « Vous répondez à des questions d'entretien, à voix haute, autant de fois que vous voulez. Un assistant IA décrit votre réponse, sans la noter : rythme, pauses, exemples concrets. Votre vidéo reste sur votre appareil : vous choisissez ce que voit votre coach. » ; sous le bouton : « Pas de compte à créer : il vous faut le code donné par votre coach. » ; bandeau de réassurance en trois puces. « Sans frais pour vous » et la question « Est-ce payant pour moi ? » sont publiées (voir 1.2 quater), à confirmer par le propriétaire.
 - **Conservé** : code d'essai `REPETE` prérempli, identifiants coach préremplis, « Entretien du 12 mars », aucun texte qui révèle un test. Le bouton « Lancer ma première répétition » devient « Je lance mon premier entraînement » (1.2 ter).
 
 ### 1.2 ter Précision du positionnement : s'entraîner seul, sans avatar, et recommencer (22 novembre 2026)
@@ -93,9 +93,9 @@ Cette section ne remplace pas le positionnement de 1.2 bis : elle le précise. 
 **La précision, en cinq lignes.**
 
 1. **Pas besoin d'avatar pour s'entraîner.** La personne s'entraîne seule, à voix haute. La question est lue à voix haute, sans visage qui observe. C'est plus simple : un téléphone suffit, rien à apprivoiser.
-2. **Un retour, puis des pistes.** L'assistant décrit la réponse sans la noter (rythme de parole, pauses, exemples concrets), en commençant par les points d'appui. Il propose ensuite des pistes, toujours avec « vous pouvez ».
+2. **Un retour, puis des pistes.** L'assistant analyse l'entretien sans le noter (rythme de parole, pauses, exemples concrets), en commençant par les points d'appui. Il propose ensuite des pistes, toujours avec « vous pouvez ».
 3. **Recommencer.** La personne refait la même question autant de fois qu'elle veut, avec une piste en tête. C'est la boucle de la page Méthode : s'entraîner, se revoir, lire le retour, en parler, transférer.
-4. **Voir ce qui a changé.** Elle relit deux réponses et leurs retours, et regarde ce qui a changé : un exemple ajouté, des pauses à d'autres moments, un autre rythme. Jamais de note, de score, de jauge ni de courbe.
+4. **Voir ce qui a changé.** Elle relit deux entretiens et leurs retours, et regarde ce qui a changé : un exemple ajouté, des pauses à d'autres moments, un autre rythme. Jamais de note, de score, de jauge ni de courbe.
 5. **Le coach soutient la progression.** Il relit ce qu'elle choisit d'envoyer, confirme ou nuance les repères, et fait le point avec elle. La relation humaine est avec lui, pas avec un personnage à l'écran.
 
 **Ce que l'on peut affirmer, et ce que l'on n'affirme pas.**
@@ -105,7 +105,7 @@ Cette section ne remplace pas le positionnement de 1.2 bis : elle le précise. 
 - On n'écrit pas non plus : que l'avatar n'aide pas (un personnage bien animé aide à apprendre, selon Mayer) ; qu'une voix de synthèse vaut une voix humaine ; que la « vallée de l'étrange » vaut pour tous les avatars (on écrit « peut ») ; que la plupart des entretiens se font par téléphone ; que le règlement européen sur l'IA interdit les avatars. Aucun chiffre sur le poids d'un avatar, les entretiens vidéo différés ou les heures de pratique. On ne nomme et ne critique aucun autre outil.
 - Le choix se présente toujours comme **un choix de conception assumé, pas un résultat prouvé**. La section « Une voix, pas d'avatar : un choix assumé » de la page Recherche donne huit raisons, chacune avec sa limite et ses sources (rapport de recherche du 22 novembre 2026) : attention sur la réponse, voix pour poser la question, retour précis puis nouvel essai, se revoir, pas de visage presque humain, proximité avec la présélection au téléphone, outil léger, IA qui dit ce qu'elle est. Les pages Méthode et Usage de l'IA y renvoient par un encart court. La page Recherche reste sans chiffre.
 - L'appui positif vient des travaux sur l'apprentissage déjà cités (pratique délibérée, retour qui porte sur la tâche, réflexion sur l'action) : ils décrivent la boucle essai, retour, nouvel essai, sans la lier à un avatar.
-- On ne promet pas un écran de comparaison : il n'existe pas. La personne retrouve ses réponses et leurs retours dans « Mes réponses » et les relit. On écrit « relire deux réponses », « voir ce qui a changé », jamais « l'outil compare » ni « l'outil mesure vos progrès ».
+- On ne promet pas un écran de comparaison : il n'existe pas. La personne retrouve ses entretiens et leurs retours dans « Mes entretiens » et les relit. On écrit « relire deux entretiens », « voir ce qui a changé », jamais « l'outil compare » ni « l'outil mesure vos progrès ».
 - « Progression » et « progresser » sont permis pour parler du chemin de la personne avec son coach (« votre coach vous soutient »). Ils ne sont jamais suivis d'un chiffre, d'un niveau ou d'un adjectif qui évalue.
 
 **Vocabulaire.** « Entraînement » et « s'entraîner » partout ; « répéter » seulement au sens propre (voir le lexique, 1.2). Le nom de marque « La Répét' » ne change pas.
@@ -114,8 +114,8 @@ Cette section ne remplace pas le positionnement de 1.2 bis : elle le précise. 
 
 - Pastilles : « Avec votre coach », « Assisté par IA » (icône étincelle, violet de l'assistant), « Sans avatar ».
 - Titre : « Entraînez-vous pour votre entretien, » puis une fin qui change avec la scène : « à votre rythme. », « à voix haute. », « avec vos mots. », « en confiance. ».
-- Sous-titre : « À voix haute, sans avatar, entraînez-vous autant de fois que vous voulez ! Un assistant IA décrit votre réponse, sans la noter, et vous propose des pistes : rythme, pauses, exemples concrets. Vous recommencez, vous voyez ce qui a changé, et votre coach vous soutient à chaque étape. »
-  - « décrit » plutôt qu'« analyse » : « analyse » se lit comme une évaluation (panel bénéficiaires, point 5) ;
+- Sous-titre : « À voix haute, sans avatar, entraînez-vous autant de fois que vous voulez ! Un assistant IA analyse votre entretien, sans le noter, et vous propose des pistes : rythme, pauses, exemples concrets. Vous recommencez, vous voyez ce qui a changé, et votre coach vous soutient à chaque étape. »
+  - « analyse » (décision du propriétaire du 22 novembre 2026, qui remplace « décrit ») : toujours accompagné de « sans le noter », « sans note » ou « sans jugement », jamais d'un mot qui évalue, d'un score ou d'une lecture des émotions ;
   - « des pistes » plutôt que « des améliorations » : une amélioration suppose un défaut constaté, une piste se prend ou se laisse ;
   - le point d'exclamation est le seul de la page ;
   - « Votre vidéo reste sur votre appareil » quitte le sous-titre : l'engagement est dans le bandeau de réassurance, juste dessous (« Sécurisé »).
@@ -127,6 +127,53 @@ Cette section ne remplace pas le positionnement de 1.2 bis : elle le précise. 
 Les lignes des tableaux de la section 2 qui parlent d'« organismes », de déploiement, d'onglet DSI ou de « Demander une démo » datent d'avant cette décision : elles sont remplacées par les textes actuels du code.
 
 > **Décision du propriétaire (21 novembre 2026).** Côté coach, on dit « entretiens » pour les réponses reçues (« Entretiens à relire », « Entretiens reçus ») ; « Entretien du 12 mars » (accueil) est conservé ; « Lancer ma première répétition » l'a été jusqu'au 22 novembre 2026 (voir 1.2 ter). Le constat RED-01 de `docs/audit-complet.md` n'est donc pas appliqué.
+
+### 1.2 quater Passe de cohérence : décisions de lexique (22 novembre 2026)
+
+Relecture de tous les textes visibles (pages publiques, espaces, assistants, retours, pages « Vos données », titres d'onglets, articles, README). Ces décisions complètent le lexique de 1.2 ; elles ne changent ni le sens ni le positionnement.
+
+**Décisions du propriétaire du 22 novembre 2026 (elles priment sur tout ce qui suit et sur les tableaux de la partie 2, antérieurs).** (1) Ce que l'on enregistre, garde, envoie, relit, supprime ou dont on annule l'envoi s'appelle « entretien », partout : personne accompagnée, coach, pages publiques, questions fréquentes, « Vos données », pages légales, assistants, titres d'onglets, articles, libellés ARIA. « Réponse » reste au sens propre (la réponse à une question). (2) L'assistant « analyse » l'entretien, toujours « sans le noter », « sans note » ou « sans jugement » ; il n'est plus écrit qu'il le « décrit ». Méthode et Recherche gardent l'argument : « l'assistant analyse et décrit ce qu'il observe, sans noter ». (3) Aucun texte visible ne mentionne une version d'essai (voir plus bas).
+
+| Terme retenu | À éviter | Décision et usage |
+|---|---|---|
+| **mise par écrit**, **mettre par écrit**, **le texte de l'entretien** | transcription, transcrire, transcrit (côté personne accompagnée et pages publiques) | Ce que l'outil fait de la voix. « Transcription » reste dans les pages juridiques (« service de transcription »), la documentation technique et les messages techniques sous « Détail pour le support ». |
+| **outil de mise par écrit** | outil d'écriture, outil d'analyse, modèle de transcription | Ce que l'appareil télécharge la première fois. Première mention : « votre appareil télécharge un outil (environ 130 Mo) ». C'est toujours « votre appareil » qui télécharge, jamais « l'assistant ». Dans le tableau « Sur cet appareil » : « Les outils téléchargés la première fois ». |
+| **130 Mo** | 80 Mo, 85 Mo (dans une phrase adressée à la personne) | Le poids annoncé du premier téléchargement, partout : questions fréquentes, accord, écran de préparation, « Usage de l'IA », assistant. Le tableau des services tiers de « Vos données » détaille les fichiers (environ 80 Mo et 4 Mo) : c'est un détail, pas une autre promesse. |
+| **3 minutes au plus par réponse** | trois minutes maximum, jusqu'à 3 minutes, au maximum trois minutes | La durée maximale d'une réponse, avec les mêmes mots sur l'accueil, les pages publiques, le choix des questions, l'assistant, les questions fréquentes et les articles. |
+| **voix seule** (rappel) | micro seul, son seulement, audio | Y compris dans les réponses de l'assistant et les articles. Le bouton s'appelle « Voix seule ». Pour le matériel, on écrit « seulement un micro ». |
+| **repère** (rappel) | observation (nom) | Appliqué aux réponses de l'assistant, à l'assistant de rédaction du coach (« Repère de l'assistant », « Sur le repère ») et aux articles. « Observer », « auto-observation » et « l'observation de pairs » (Bandura) restent. |
+| **remarque** (rappel), **remarque placée dans la vidéo** | note, note horodatée, annoter | Y compris dans l'assistant de rédaction (« Remarque à 0:12 », « en remarque à 0:12 de la vidéo »). « Remarque horodatée » est toléré dans le titre du guide pour les coachs. « Vos notes » (celles que l'on prend pour soi) reste. |
+| **lire mon retour**, **me revoir en vidéo**, **me réécouter** | rapport écrit, relecture vidéo, mode vidéo | Les trois façons de découvrir le retour portent le nom de leur bouton, partout (accueil, assistant, articles). « Rapport » reste réservé au coach. |
+| **rythme de parole** (rappel) | débit, vitesse de parole, vitesse de la voix | Y compris dans l'accord, « Vos données », les propositions de l'assistant du coach et les articles. |
+| **garder** (un entretien), **recommencer** | valider, refaire (pour le bouton) | Les boutons s'appellent « Garder cet entretien », « Voir mon retour », « Recommencer ». |
+| **envoyer** (rappel), **annuler l'envoi** | partager, transmettre, reprendre son envoi, mettre à disposition | Pour l'entretien envoyé au coach et pour le rapport envoyé à la personne. Côté coach : « La personne a annulé l'envoi ». « Transmettre » reste pour le code que le coach transmet. |
+| **donner** (le code, côté personne) | remettre, transmettre (dans une phrase adressée à la personne) | « Le code d'accès que votre coach vous a donné. » Côté coach et pages pour professionnels : « transmettre le code ». |
+| **entretien** (ce qui est gardé, envoyé, supprimé) | réponses, entraînements (au pluriel, pour des éléments) | « Vos entretiens restent sur cet appareil », « Supprimez vos entretiens avant de partir ». « Entraînement » désigne l'activité. Décision du 22 novembre 2026, qui remplace « réponse ». |
+| **entretien** (partout, rappel) | réponse (pour un élément gardé, envoyé ou reçu) | Décision du propriétaire du 22 novembre 2026, qui étend celle du 21 novembre à tout le site : « Mes entretiens », « Entretiens à relire », « Envoyé le », « Cet entretien n'existe plus », « La personne a annulé l'envoi de cet entretien ». Les pages publiques, les questions fréquentes, « Vos données » et les articles disent aussi « entretien ». « Réponse » désigne ce que la personne dit. |
+| **relire** (bouton du coach) | Relire et annoter | Un seul libellé pour la même action, dans la liste et dans le parcours. |
+| **rendez-vous** | séance (pour le rendez-vous avec le coach, sur les pages publiques) | « Entre deux rendez-vous ». « Séance » reste dans les guides pour les coachs, pour une séance d'atelier. |
+| **coach** (rappel) | conseiller | Titres d'onglets, aide du champ du code, articles. Deux exceptions : la question « Mon conseiller m'a donné un code : est-ce le bon endroit ? », qui fait le lien pour les personnes qui disent « conseiller », et les noms de métiers (« conseillers en insertion professionnelle », équipe de la page À propos). |
+| **collaborateurs en mobilité**, **acteurs publics de l'emploi** (rappel) | salariés en mobilité, financeurs de l'emploi | Y compris dans les descriptions des pages. Côté personne accompagnée, le commanditaire se dit « votre employeur » ou « l'organisme qui finance votre accompagnement ». |
+| **mon espace / votre espace** (rappel) | espace d'entraînement, votre parcours (adressé à la personne) | Y compris dans le menu du compte, les descriptions des pages et les articles. |
+| **un service d'IA** | « envoyé à l'assistant IA », « au service de l'assistant » | Quand le relais est branché, on dit ce qui part et vers quoi avec les mêmes mots partout : « le texte de votre entretien est envoyé à un service d'IA, jamais votre vidéo ni votre voix » ; pour l'assistant de préparation : « vos derniers messages et le métier que vous visez ». « Assistant IA » reste le nom de ce que la personne voit à l'écran. |
+| **quand vous voulez**, **autant de fois que vous voulez** | lorsque vous êtes prêt, autant de fois que vous le souhaitez | Formes sans accord de genre. Dans les articles, on reformule aussi « si vous êtes invité », « pour être sûr », « vous serez plus naturel ». |
+| **Organisation** (fiche d'un scénario d'usage) | Dispositif | Quatrième ligne de la fiche : « Contexte », « Public », « Durée », « Organisation ». |
+
+**Ce que voit chacun, avec les mêmes mots.** Le coach voit seulement ce que la personne lui envoie, entretien par entretien. L'employeur et l'organisme qui finance ne voient ni les vidéos, ni les retours, ni les rapports : ils reçoivent un bilan d'ensemble, jamais une mesure individuelle. La vidéo reste sur l'appareil tant que la personne ne l'envoie pas.
+
+**Aucun texte ne révèle une version de test.** Décision du propriétaire du 22 novembre 2026 : le site se présente comme pleinement fonctionnel. « Version d'essai », « version de démonstration », « prototype », « en mode local », « dans la version actuelle », « sur ce site », « dans ce même navigateur » et le renvoi à « Passage en production » sont retirés des textes visibles et des articles. Les deux phrases sur le fonctionnement sans serveur sont retirées : l'écran d'envoi dit seulement « Seul votre coach verra cet entretien », les articles disent « Votre coach lit l'entretien que vous lui envoyez ». Seules exceptions : le code d'essai REPETE, les identifiants coach préremplis et le message du formulaire de contact « Aucune demande envoyée, version de démonstration ». « Votre vidéo reste sur votre appareil » est une promesse de confidentialité et reste. `npm run test:content` vérifie qu'aucun texte visible ne contient « version d'essai », « prototype » ni « même navigateur ».
+
+**« Sans frais pour vous ».** Le bandeau de l'accueil (« Sans frais pour vous · Compris dans votre accompagnement. ») et la question « Est-ce payant pour moi ? » sont publiés et disent la même chose. La mention « en attente du propriétaire » de 1.2 bis est donc dépassée : à confirmer par le propriétaire (voir ci-dessous).
+
+**Points à valider par le propriétaire.**
+
+1. « Entretien » ou « réponse » : tranché par le propriétaire le 22 novembre 2026, « entretien » partout (voir plus haut).
+2. « Sans frais pour vous » : confirmer que la promesse vaut pour tous les accompagnements.
+3. Les deux phrases sur le fonctionnement sans serveur : retirées le 22 novembre 2026 (décision du propriétaire).
+4. « L'entretien de parcours professionnel remplace l'entretien professionnel » et les échéances citées (guide « Préparer votre entretien de parcours professionnel ») : affirmation juridique à faire vérifier.
+5. La liste des métiers garde les formes entre parenthèses (« agent(e) d'accueil ») : elles ne sont pas des points médians, mais une liste épicène serait plus lisible.
+6. Apostrophes : les articles récents emploient l'apostrophe typographique, le reste du site l'apostrophe droite. À unifier en une fois.
+
 
 ### 1.3 Règles de style
 
@@ -436,6 +483,20 @@ Lecture du tableau : **P1** = à traiter d'abord (héros, navigation, boutons, t
 | lib/analysis.js, conseil pauses | Quelques pauses rythment le propos et laissent le temps de réfléchir. C'est une ressource. | Quelques pauses rythment la réponse et laissent le temps de réfléchir. Vous pouvez les garder. | « C'est une ressource » est du jargon. |
 | lib/analysis.js, conseil pauses | Les pauses sont nombreuses. Préparer deux ou trois mots-clés par question peut aider à enchaîner. | Préparer deux ou trois mots-clés par question peut aider à enchaîner. | « Nombreuses » évalue. Le repère donne déjà le nombre. |
 
+### 2.9 bis Analyse d'un entretien : textes alignés sur les promesses du site (22 novembre 2026)
+
+Le site promet : l'assistant IA analyse l'entretien, sans le noter ; il commence par les points d'appui, puis propose des pistes. Textes et consignes mis en accord, après l'essai de `docs/essai-analyse/`.
+
+| Élément | Avant | Maintenant | Raison |
+|---|---|---|---|
+| lib/analysis.js, synthèse | Vos points d'appui : (liste). Les autres repères sont des pistes, à explorer si vous le souhaitez. | Vos points d'appui : (liste). Une piste pour votre prochain essai : (une seule). Les autres pistes sont à explorer si vous le souhaitez. | Une priorité nommée, donc une action possible. |
+| lib/analysis.js, synthèse sans point d'appui | Les repères ci-dessous décrivent votre réponse. | Les repères ci-dessous analysent votre entretien, sans le noter. Une piste pour votre prochain essai : (une seule). | Lexique du 22 novembre. |
+| lib/analysis.js, conseils | Préparer deux ou trois mots-clés par question peut aider à enchaîner. ; Marquer un temps de silence à la place […] suffit souvent. | Avant de commencer, vous pouvez noter deux ou trois mots-clés […]. ; Au prochain essai, vous pouvez marquer un court silence à la place […]. | Chaque piste dit quoi faire, et quand. |
+| lib/analysis.js, nouveau repère | (absent) | Durée : Vous parlez pendant 0:18. En entretien, une réponse dure souvent entre 1 et 2 minutes. […] | Un entretien très court ne recevait que des points d'appui de forme. |
+| Report.jsx, groupes | cartes à la suite | Vos points d'appui (Ce qui fonctionne déjà. Vous pouvez le garder.) puis Vos pistes à explorer (Des propositions pour le prochain essai. Ce ne sont pas des erreurs.) | L'ordre promis se lit à l'écran. |
+| legal.js `feedbackLlm` | Texte rédigé avec l'aide d'une IA. | Texte rédigé avec l'aide d'une IA, à partir de ce qui a été mesuré dans l'entretien, puis vérifié par un filtre. Le coach peut le nuancer ou le contredire. | Mention placée sous le résumé, côté personne et côté coach. |
+| lib/llm.js, consigne envoyée au modèle | Reformule le retour […] | Prompt système `FEEDBACK_SYSTEM_PROMPT` : « entretien », « analyse », points d'appui puis une piste, pistes actionnables, longueurs, interdits | Le texte du modèle suit la même charte que le site. Non visible à l'écran. |
+
 ### 2.10 Envoi au coach (Beneficiary.jsx `Share`, `Sent`) et assistant (Assistant.jsx)
 
 | Fichier et élément | Texte actuel exact | Proposition | Raison |
@@ -669,3 +730,5 @@ Ces textes ne peuvent pas être réécrits sans une décision ou une vérificati
 - Les articles de `src/content/resources/*.md` n'ont été que survolés. Deux titres contiennent « prise » (« Relire une prise et préparer le débriefing », résumé de « Votre première répétition, pas à pas ») : à aligner sur le lexique lors de leur réécriture.
 - `src/lib/assistant.js` : survol seulement. Onze occurrences de « prise » et plusieurs points médians dans les réponses de l'assistant. Appliquer le lexique et la règle d'écriture inclusive à toute la base.
 - Apostrophes : le code utilise l'apostrophe droite. Le passage à l'apostrophe typographique peut se faire en une fois sur tout le site, à part de ce chantier.
+
+> 22 novembre 2026 : le message du formulaire de contact reste exactement « Aucune demande envoyée, version de démonstration », texte demandé par le propriétaire (seule exception à la règle « aucun texte visible ne révèle une version de test »).

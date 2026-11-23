@@ -23,19 +23,19 @@ export const SEO = {
   /* Routes actuelles (src/App.jsx, src/app/router.js) */
   "#/": {
     title: `S'entraîner aux entretiens avec un coach${SEP}${SITE_NAME}`,
-    description: "Entretien d'embauche ou de mobilité : entraînez-vous à voix haute, sans avatar. Un retour décrit votre réponse sans la noter, et votre coach vous soutient.",
+    description: "Entretien d'embauche ou de mobilité : entraînez-vous à voix haute, sans avatar. Un assistant analyse votre entretien, sans note, et votre coach vous soutient.",
   },
   "#/a-propos": {
-    title: t("Qui sommes-nous"),
+    title: t("À propos"),
     description: "L'organisme derrière La Répét' : approche, méthode d'accompagnement en sept étapes, équipe, références et travail avec les commanditaires publics et privés.",
   },
   "#/solutions": {
     title: t("Solutions"),
-    description: "Ce qui nourrit La Répét' : un assistant IA qui décrit sans noter, des choix fondés sur la recherche en accompagnement, des fonctions pensées avec les coachs.",
+    description: "Ce qui nourrit La Répét' : un assistant IA qui analyse sans noter, des choix fondés sur la recherche en accompagnement, des fonctions pensées avec les coachs.",
   },
   "#/ressources": {
     title: t("Conseils pour l'entretien"),
-    description: "Articles et fiches pratiques pour préparer un entretien : se présenter, parler de ses expériences, réussir une visio, questions à poser au recruteur.",
+    description: "Guides et conseils pratiques pour préparer un entretien : se présenter, parler de ses expériences, réussir une visio, questions à poser au recruteur.",
   },
   "#/demo": {
     title: t("Nous contacter"),
@@ -43,19 +43,19 @@ export const SEO = {
   },
   "#/espace": {
     title: t("Accéder à mon espace"),
-    description: "Entrez le code d'accès remis par votre coach pour retrouver votre entraînement, ou connectez-vous à l'espace coach pour suivre vos parcours en cours.",
+    description: "Entrez le code d'accès donné par votre coach pour retrouver votre espace, ou connectez-vous à l'espace coach pour suivre vos parcours en cours.",
   },
   "#/beneficiaire": {
     title: t("Saisir mon code d'accès"),
-    description: "Saisissez le code d'accès que votre coach vous a remis pour ouvrir votre espace d'entraînement. Vos vidéos restent sur cet appareil tant que vous le voulez.",
+    description: "Saisissez le code d'accès que votre coach vous a donné pour ouvrir votre espace. Vos vidéos restent sur cet appareil tant que vous ne les envoyez pas.",
   },
   "#/s": {
     title: t("Mon espace"),
-    description: "Votre espace d'entraînement personnel : questions choisies avec votre coach, réponses enregistrées sur cet appareil, retours qui décrivent sans noter.",
+    description: "Votre espace pour vous entraîner : échauffement, questions adaptées au métier visé, entretiens gardés sur cet appareil, analyse de l'assistant sans note.",
   },
   "#/coach": {
     title: t("Espace coach"),
-    description: "L'espace des coachs : parcours d'entraînement des personnes accompagnées, réponses reçues à relire et rapports de retour à rédiger puis à envoyer.",
+    description: "L'espace des coachs : parcours d'entraînement des personnes accompagnées, entretiens reçus à relire, repères de l'assistant à nuancer et rapports à envoyer.",
   },
   "#/vos-donnees": {
     title: t("Vos données, vos choix"),
@@ -63,11 +63,11 @@ export const SEO = {
   },
   "#/vos-donnees/video": {
     title: t("Que devient ma vidéo"),
-    description: "Votre vidéo est enregistrée et analysée sur votre appareil. Elle n'est envoyée à votre coach que si vous le décidez, et vous pouvez la supprimer à tout moment.",
+    description: "Votre vidéo est enregistrée sur votre appareil et y reste. Elle n'est envoyée à votre coach que si vous le décidez, et vous pouvez la supprimer à tout moment.",
   },
   "#/vos-donnees/assistant": {
     title: t("Ce que fait l'assistant"),
-    description: "Ce que fait l'assistant de La Répét', et ce qu'il ne fait pas : il décrit votre réponse, ne la note pas, ne devine aucune émotion et ne décide jamais pour vous.",
+    description: "Ce que fait l'assistant de La Répét', et ce qu'il ne fait pas : il analyse votre entretien, ne le note pas, ne devine aucune émotion et ne décide pas pour vous.",
   },
   "#/vos-donnees/droits": {
     title: t("Vos droits sur vos données"),
@@ -75,7 +75,7 @@ export const SEO = {
   },
   "#/vos-donnees/appareil": {
     title: t("Données gardées sur cet appareil"),
-    description: "La liste de ce que La Répét' garde dans le navigateur de cet appareil (vidéos, réponses, réglages), et la façon de tout effacer quand vous le souhaitez.",
+    description: "La liste de ce que La Répét' garde dans le navigateur de cet appareil (vidéos, entretiens, réglages), et la façon de tout effacer quand vous le souhaitez.",
   },
   "#/vos-donnees/notice": {
     title: t("Information complète sur vos données"),
@@ -87,7 +87,7 @@ export const SEO = {
   },
   "#/conditions": {
     title: t("Règles d'utilisation"),
-    description: "Les règles d'utilisation de La Répét' : à quoi sert l'outil, ce que chacun s'engage à faire, et les limites de l'assistant automatique d'entraînement.",
+    description: "Les règles d'utilisation de La Répét' : à quoi sert l'outil, ce que chacun s'engage à faire, ce que fait l'assistant IA, et quelles sont ses limites.",
   },
   "#/mentions-legales": {
     title: t("Mentions légales"),
@@ -99,13 +99,13 @@ export const SEO = {
   },
   notfound: {
     title: t("Page introuvable"),
-    description: "Cette adresse ne correspond à aucune page de La Répét'. Revenez à l'accueil, aux conseils pour l'entretien ou à votre espace d'entraînement pour continuer.",
+    description: "Cette adresse ne correspond à aucune page de La Répét'. Revenez à l'accueil, aux ressources pour préparer un entretien ou à votre espace pour continuer.",
   },
 
   /* Menus Solutions, Cas d'usage et Ressources (src/app/router.js) */
   "#/solutions/usage-de-l-ia": {
     title: t("Notre usage de l'IA"),
-    description: "Comment l'assistant aide à s'entraîner : il met la voix par écrit et décrit la réponse, sans note ni lecture des émotions. Le coach garde toujours la main.",
+    description: "Comment l'assistant aide à s'entraîner : il met la voix par écrit et analyse l'entretien, sans note ni lecture des émotions. Le coach garde toujours la main.",
   },
   "#/solutions/recherche": {
     title: t("Ce que dit la recherche"),
@@ -113,11 +113,11 @@ export const SEO = {
   },
   "#/solutions/fonctionnalites": {
     title: t("Fonctionnalités"),
-    description: "Questions d'entretien choisies avec le coach, enregistrement vidéo sur l'appareil, retour descriptif, relecture par le coach et rapport : l'outil pas à pas.",
+    description: "Questions d'entretien choisies avec le coach, enregistrement vidéo sur l'appareil, analyse sans note, relecture par le coach et rapport : l'outil pas à pas.",
   },
   "#/solutions/methode": {
     title: t("Méthode d'accompagnement"),
-    description: "Comment La Répét' sert l'accompagnement : s'entraîner, se revoir, lire un retour qui décrit sans noter, débriefer avec le coach et transférer vers l'entretien.",
+    description: "Comment La Répét' sert l'accompagnement : s'entraîner, se revoir, lire un retour qui analyse sans noter, débriefer avec le coach et transférer vers l'entretien.",
   },
   "#/cas-d-usage": {
     title: t("Cas d'usage"),
@@ -125,15 +125,15 @@ export const SEO = {
   },
   "#/cas-d-usage/beneficiaires": {
     title: t("Personnes accompagnées"),
-    description: "Demandeurs d'emploi, salariés en mobilité ou en évolution : comment une personne accompagnée prépare son entretien avec La Répét' et avec son coach.",
+    description: "Demandeurs d'emploi, collaborateurs en mobilité ou en évolution : comment une personne accompagnée prépare son entretien avec La Répét' et avec son coach.",
   },
   "#/cas-d-usage/coachs": {
-    title: t("Coachs et conseillers"),
-    description: "Comment un coach prépare un parcours, suit l'entraînement entre deux rendez-vous et rédige un retour à partir des réponses que la personne choisit d'envoyer.",
+    title: t("Coachs"),
+    description: "Comment un coach crée un parcours, relit les entretiens que la personne choisit de lui envoyer, nuance l'assistant, rédige son rapport et prépare le débriefing.",
   },
   "#/cas-d-usage/commanditaires": {
     title: t("Commanditaires publics et privés"),
-    description: "Financeurs de l'emploi et entreprises : comment l'organisme prépare aux entretiens les personnes que vous lui confiez, avec ses coachs et La Répét'.",
+    description: "Acteurs publics de l'emploi et entreprises : comment l'organisme prépare aux entretiens les personnes que vous lui confiez, avec ses coachs et La Répét'.",
   },
   "#/ressources/faq": {
     title: t("Questions fréquentes"),

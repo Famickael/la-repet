@@ -72,7 +72,7 @@ function CoachPanel({ prenom, question, poste, dims, intro, comments, getTime, o
 
       {(mode === "tips" || mode === "positive") && usable.length > 0 && (
         <div style={{ display: "grid", gap: 8 }}>
-          <div id="coach-asst-dim" style={{ ...TY.label, color: T.navy }}>Observation de la réponse</div>
+          <div id="coach-asst-dim" style={{ ...TY.label, color: T.navy }}>Repère de l'assistant</div>
           <RadioGroup aria-labelledby="coach-asst-dim" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {usable.map(d => <Chip key={d.id} role="radio" tone="ai" on={dimId === d.id} onClick={() => { setDimId(d.id); setPage(0); }}>{d.titre}</Chip>)}
           </RadioGroup>
@@ -108,9 +108,9 @@ function CoachPanel({ prenom, question, poste, dims, intro, comments, getTime, o
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }} role="group" aria-label="Insérer cette proposition">
                 <Btn kind="secondary" size="sm" icon={I.plus} onClick={() => insert("intro", it)}>Dans l'introduction</Btn>
                 {(it.dimId || dim) && mode !== "debrief" && mode !== "intro" && (
-                  <Btn kind="secondary" size="sm" icon={I.plus} onClick={() => insert("comment", it)} aria-label={`Sur l'observation : ${(usable.find(d => d.id === (it.dimId || dimId)) || {}).titre || ""}`}>Sur l'observation</Btn>
+                  <Btn kind="secondary" size="sm" icon={I.plus} onClick={() => insert("comment", it)} aria-label={`Sur le repère : ${(usable.find(d => d.id === (it.dimId || dimId)) || {}).titre || ""}`}>Sur le repère</Btn>
                 )}
-                <Btn kind="secondary" size="sm" icon={I.plus} onClick={() => insert("note", it)} aria-label={`En note à ${fmt(time)} de la vidéo`}>Note à {fmt(time)}</Btn>
+                <Btn kind="secondary" size="sm" icon={I.plus} onClick={() => insert("note", it)} aria-label={`En remarque à ${fmt(time)} de la vidéo`}>Remarque à {fmt(time)}</Btn>
               </div>
             </li>
           ))}

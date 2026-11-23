@@ -3,6 +3,7 @@ import { T, ON, TY, RAD, SH, PAD, GAP, MO, TONE, ringOf, Card, Tag, Bare, Notice
 import { loadVideoUrl } from "./lib/store.js";
 import { fmt } from "./lib/analysis.js";
 import { hasMedia, isAudio, noFeedback } from "./lib/takes.js";
+import { PHRASES } from "./content/legal.js";
 
 const toneOf = d => (d.type === "appui" ? T.accent : T.violet);
 
@@ -68,15 +69,15 @@ export function Player({ take, url, status = url ? "ready" : "missing", markers,
   const audio = isAudio(take);
   return (
     <Card pad="none">
-      <div style={{ background: T.videoBg, aspectRatio: audio ? "auto" : "16/9", display: "grid", placeItems: "center", padding: audio ? 24 : 0 }}>
+      <div style={{ background: T.videoBg, aspectRatio: audio ? "auto" : "16/9", display: "grid", placeItems: "center", padding: audio ? PAD.md : 0 }}>
         {url
           ? (audio
-            ? <audio ref={ref} src={url} controls aria-label="Enregistrement de la réponse" style={{ width: "90%" }} />
-            : <video ref={ref} src={url} controls playsInline aria-label="Vidéo de la réponse" style={{ width: "100%", height: "100%", objectFit: "contain" }} />)
-          : status === "loading" ? <div role="status" style={{ ...TY.small, color: ON.text, padding: 32 }}>Chargement de votre enregistrement…</div>
-          : <div style={{ ...TY.small, color: ON.text, padding: 32 }}>{audio ? "Enregistrement non disponible sur cet appareil." : "Vidéo non disponible sur cet appareil."}</div>}
+            ? <audio ref={ref} src={url} controls aria-label="Enregistrement de l'entretien" style={{ width: "90%" }} />
+            : <video ref={ref} src={url} controls playsInline aria-label="Vidéo de l'entretien" style={{ width: "100%", height: "100%", objectFit: "contain" }} />)
+          : status === "loading" ? <div role="status" className="rp-pad-lg" style={{ ...TY.small, color: ON.text, padding: PAD.lg }}>Chargement de votre enregistrement…</div>
+          : <div className="rp-pad-lg" style={{ ...TY.small, color: ON.text, padding: PAD.lg }}>{audio ? "Enregistrement non disponible sur cet appareil." : "Vidéo non disponible sur cet appareil."}</div>}
       </div>
-      <div style={{ padding: "16px 16px 16px", display: "grid", gap: 8 }}>
+      <div style={{ padding: PAD.sm, display: "grid", gap: 8 }}>
         <div style={{ position: "relative", height: 44 }}>
           {/* Barre au pointeur seulement (A11Y-09) : au clavier, les commandes natives et les repères suffisent */}
           <Bare tabIndex={-1} aria-hidden="true" onClick={e => { const r = e.currentTarget.getBoundingClientRect(); seek(((e.clientX - r.left) / r.width) * dur); }}
@@ -140,18 +141,47 @@ export function DimCard({ d, comment, active, onClick }) {
   return <div style={st}>{body}</div>;
 }
 
+/* Repères groupés comme le site le promet : les points d'appui d'abord, puis les pistes à explorer, chaque groupe
+   sous son titre. render(d) dessine un repère (carte seule, ou carte et champ de remarque côté coach). */
+export const DIM_GROUPS = [["appui", "Vos points d'appui", "Ce qui fonctionne déjà. Vous pouvez le garder."], ["explorer", "Vos pistes à explorer", "Des propositions pour le prochain essai. Ce ne sont pas des erreurs."]];
+export function DimGroups({ dims, render, as: H = "h2", titles = {} }) {
+  return DIM_GROUPS.map(([type, titre, aide]) => {
+    const list = dims.filter(d => d.type === type);
+    if (!list.length) return null;
+    return (
+      <section key={type} aria-label={titles[type] || titre} style={{ display: "grid", gap: GAP.stack }}>
+        <div style={{ display: "grid", gap: 4, marginTop: 8 }}>
+          <H style={{ ...TY.h4, color: T.navy, margin: 0 }}>{titles[type] || titre}</H>
+          {!titles[type] && <p style={{ ...TY.caption, color: T.muted, margin: 0 }}>{aide}</p>}
+        </div>
+        {list.map(render)}
+      </section>
+    );
+  });
+}
+
+/* Résumé de l'analyse, avec la mention du texte rédigé avec l'aide d'une IA quand c'est le cas (transparence). */
+export function Synthese({ analysis, style }) {
+  return (
+    <Notice tone="info" icon={I.sparkle} style={style}>
+      <strong>En résumé.</strong> {analysis.synthese}
+      {analysis.source === "llm" && <span style={{ display: "block", ...TY.caption, color: T.muted, marginTop: 8 }}>{PHRASES.feedbackLlm}</span>}
+    </Notice>
+  );
+}
+
 /* Texte de la réponse, pour la personne comme pour le coach (A11Y-03, référentiel 8 : transcription à côté de la vidéo).
    onSeek : chaque phrase devient un bouton qui place la lecture à ce moment. */
 export function Transcript({ take, onSeek }) {
   if (!take.transcript || !take.segments?.length) return null;
   return (
     <details>
-      <summary style={{ ...TY.label, color: T.primary, cursor: "pointer", minHeight: 44, display: "flex", alignItems: "center" }}>Afficher le texte de la réponse</summary>
+      <summary style={{ ...TY.label, color: T.primary, cursor: "pointer", minHeight: 44, display: "flex", alignItems: "center" }}>Afficher le texte de l'entretien</summary>
       <Card style={{ marginTop: 8, display: "grid", gap: 4 }}>
         <p style={{ ...TY.caption, color: T.muted, margin: "0 0 4px" }}>Ce texte est écrit par un programme, il peut contenir des erreurs.</p>
         {take.segments.map((sg, i) => {
           const row = <><span style={{ ...TY.time, color: T.muted, minWidth: 40, paddingTop: 4 }}>{fmt(sg.start)}</span><span style={{ ...TY.small, color: T.navy }}>{sg.text}</span></>;
-          const st = { display: "flex", gap: 12, padding: "4px 0", width: "100%", textAlign: "left" };
+          const st = { display: "flex", gap: 12, padding: "4px 0", width: "100%", textAlign: "left", ...(onSeek ? { minHeight: 44, alignItems: "center" } : {}) }; // rangée cliquable : cible de 44 px
           return onSeek ? <Bare key={i} onClick={() => onSeek(sg.start)} style={st}>{row}</Bare> : <div key={i} style={st}>{row}</div>;
         })}
       </Card>
@@ -172,7 +202,7 @@ export function ReportBody({ take, mode, counselorName }) {
   const intro = rep && (
     <Quote size="lg" icon={I.chat}>
       <div style={{ ...TY.label, color: T.primary, marginBottom: 4 }}>Le message de {counselorName || "votre coach"} · votre coach</div>
-      <div style={{ whiteSpace: "pre-wrap" }}>{rep.intro || "Votre coach a regardé votre réponse."}</div>
+      <div style={{ whiteSpace: "pre-wrap" }}>{rep.intro || "Votre coach a regardé votre entretien."}</div>
     </Quote>
   );
   const notes = rep?.notes?.length > 0 && (
@@ -180,7 +210,7 @@ export function ReportBody({ take, mode, counselorName }) {
       <h3 style={{ ...TY.h4, color: T.navy, margin: "0 0 8px" }}>Remarques de votre coach</h3>
       {rep.notes.slice().sort((a, b) => a.t - b.t).map(n => {
         const row = <><TimeChip t={n.t} tone="primary" /><span style={{ ...TY.body, color: T.navy }}>{n.text}</span></>;
-        const st = { display: "flex", gap: 12, alignItems: "flex-start", width: "100%", padding: "8px 0", borderTop: `1px solid ${T.lineLt}` };
+        const st = { display: "flex", gap: 12, alignItems: "flex-start", width: "100%", minHeight: 44, padding: "8px 0", borderTop: `1px solid ${T.lineLt}` };
         return mode === "video"
           ? <Bare key={n.id} onClick={() => seekTo(n.t, n.id)} style={st}>{row}</Bare>
           : <div key={n.id} style={st}>{row}</div>;
@@ -188,7 +218,7 @@ export function ReportBody({ take, mode, counselorName }) {
     </Card>
   );
   /* Sans retour de l'assistant (BUG-05) : ni synthèse ni repères, seulement la réponse et, s'il existe, le rapport du coach. */
-  const synth = noFeedback(take) ? null : <Notice tone="info" icon={I.sparkle} style={{ ...TY.bodyLg }}><strong>En résumé.</strong> {A.synthese}</Notice>;
+  const synth = noFeedback(take) ? null : <Synthese analysis={A} style={{ ...TY.bodyLg }} />;
   if (mode === "video" && !A.dimensions.length) {
     return (
       <div style={{ display: "grid", gap: GAP.stack }}>
@@ -204,7 +234,7 @@ export function ReportBody({ take, mode, counselorName }) {
     return (
       <div style={{ display: "grid", gap: GAP.stack }}>
         {intro}{synth}
-        {A.dimensions.map(d => <DimCard key={d.id} d={d} comment={rep?.comments?.[d.id]} />)}
+        <DimGroups dims={A.dimensions} render={d => <DimCard key={d.id} d={d} comment={rep?.comments?.[d.id]} />} />
         {notes}
         <Transcript take={take} />
       </div>
@@ -221,7 +251,7 @@ export function ReportBody({ take, mode, counselorName }) {
           <Transcript take={take} onSeek={t => seekTo(t)} />
         </div>
         <div style={{ display: "grid", gap: GAP.stack }}>
-          {A.dimensions.map(d => <DimCard key={d.id} d={d} comment={rep?.comments?.[d.id]} active={active === d.id} onClick={() => seekTo(d.t, d.id)} />)}
+          <DimGroups dims={A.dimensions} render={d => <DimCard key={d.id} d={d} comment={rep?.comments?.[d.id]} active={active === d.id} onClick={() => seekTo(d.t, d.id)} />} />
         </div>
       </div>
     </div>

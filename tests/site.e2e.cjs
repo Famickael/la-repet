@@ -37,6 +37,10 @@ async function run(b, vw, vh, opts = {}) {
     await p.goto(BASE, { waitUntil: "commit" });
     await p.waitForTimeout(400);
     check(await p.locator("#rp-loader").isVisible(), `[${tag}] écran de chargement non visible avant le JavaScript`);
+    /* Sortie en un seul temps du compositeur (WebKit) : la pause puis le fondu sont un retard de transition de 0,9 s,
+       pas une minuterie JavaScript (index.html, src/Loader.jsx). */
+    const delai = await p.evaluate(() => { const d = document.createElement("div"); d.id = "rp-loader"; d.className = "rpl-out"; d.style.display = "none"; const L = document.getElementById("rp-loader"); L.id = "rp-loader-x"; document.body.appendChild(d); const v = getComputedStyle(d).transitionDelay; d.remove(); L.id = "rp-loader"; return v; });
+    check(delai === "0.9s", `[${tag}] écran de chargement : le fondu doit suivre l'écart des bulles par un retard de transition de 0,9 s (lu ${delai})`);
     await p.screenshot({ path: `${SC}/${tag}-00-chargement.png` });
     await p.waitForSelector("#rp-loader", { state: "detached", timeout: 8000 }).catch(() => check(false, `[${tag}] écran de chargement non retiré`));
     await p.unroute(/\/assets\/index-.*\.js$/);
@@ -103,7 +107,11 @@ async function run(b, vw, vh, opts = {}) {
     await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300);
     const masses = () => p.evaluate(() => ["i", "b"].map(s => { const m = new DOMMatrix(getComputedStyle(document.querySelector(".rs-glow " + s)).transform); return [m.m41, m.m42]; }));
     const at = async (x, y) => { await p.mouse.move(x, y, { steps: 6 }); await p.waitForTimeout(1500); return masses(); };
-    check(await p.locator(".rs-glow *").count() === 3, `[${tag}] fond de l'accueil : aucun élément ne doit suivre le pointeur (deux masses dans leur conteneur de dérive)`);
+    check(await p.locator(".rs-glow *").count() === 5 && await p.locator(".rs-glow > span > i > img, .rs-glow > span > b > img").count() === 2, `[${tag}] fond de l'accueil : aucun élément ne doit suivre le pointeur (deux masses dans leur conteneur de dérive)`);
+    /* Rendu composité (Safari) : deux images pré-rendues, ni masque, ni filtre, ni mélange, ni dégradé CSS repeint. */
+    const comp = await p.evaluate(() => [...document.querySelectorAll(".rs-glow, .rs-glow *")].flatMap(e => { const cs = getComputedStyle(e); return [cs.webkitMaskImage, cs.maskImage, cs.filter, cs.backdropFilter, cs.mixBlendMode, cs.backgroundImage].filter(v => v && v !== "none" && v !== "normal"); }));
+    const imgs = await p.evaluate(() => [...document.querySelectorAll(".rs-glow img")].map(i => i.complete && i.naturalWidth > 0 && i.naturalWidth <= 512 && i.src.startsWith("data:image/png")));
+    check(!comp.length && imgs.length === 2 && imgs.every(Boolean), `[${tag}] fond de l'accueil : il doit être fait de deux images pré-rendues, sans masque, filtre ni dégradé CSS (${JSON.stringify(comp)} ${JSON.stringify(imgs)})`);
     const pos = { centre: await at(vw / 2, vh / 2), gauche: await at(20, vh / 2), droite: await at(vw - 20, vh / 2), haut: await at(vw / 2, 100), bas: await at(vw / 2, vh - 20) };
     const rel = k => pos[k].map((m, i) => [m[0] - pos.centre[i][0], m[1] - pos.centre[i][1]]);
     if (opts.reduced) check(Object.keys(pos).every(k => rel(k).flat().every(v => v === 0)), `[${tag}] fond de l'accueil : rien ne doit bouger en mouvement réduit (${JSON.stringify(pos)})`);
@@ -118,7 +126,10 @@ async function run(b, vw, vh, opts = {}) {
          de l'écran, chaque masse parcourt au moins 18 % de la largeur ; et à l'écran (contenu masqué, fond seul),
          l'image change en moyenne d'au moins 5 niveaux sur 255 (ancien réglage, imperceptible : 3,6). */
       check(Math.abs(d[0][0] - g[0][0]) >= vw * 0.18 && Math.abs(d[1][0] - g[1][0]) >= vw * 0.18, `[${tag}] fond de l'accueil : déplacement trop faible pour se voir (${JSON.stringify([g, d])})`);
-      const fondSeul = await p.addStyleTag({ content: "body *{visibility:hidden!important}.rs-glow,.rs-glow *{visibility:visible!important}" });
+      /* Réponse à la souris seule : la dérive lente (rotation du conteneur) est suspendue pendant la mesure, sinon le
+         résultat dépend de l'instant de la dérive où tombent les deux captures. */
+      check(await p.evaluate(() => getComputedStyle(document.querySelector(".rs-glow > span")).animationName) === "rsDrift", `[${tag}] fond de l'accueil : la dérive lente (rsDrift) doit tourner hors mouvement réduit`);
+      const fondSeul = await p.addStyleTag({ content: "body *{visibility:hidden!important}.rs-glow,.rs-glow *{visibility:visible!important}.rs-glow>span{animation:none!important}" });
       await p.mouse.move(20, vh / 2, { steps: 6 }); await p.waitForTimeout(1500); const imgG = await p.screenshot();
       await p.mouse.move(vw - 20, vh / 2, { steps: 6 }); await p.waitForTimeout(1500); const imgD = await p.screenshot();
       await fondSeul.evaluate(s => s.remove());
@@ -233,10 +244,10 @@ async function run(b, vw, vh, opts = {}) {
   await p.getByRole("button", { name: "Lire la méthode outillée" }).click(); await p.waitForTimeout(600);
   check(p.url().endsWith("#/solutions/methode"), `[${tag}] À propos : le bouton « Lire la méthode outillée » ne mène pas à #/solutions/methode (${p.url()})`);
   check(await p.locator("main ol > li").count() >= 12, `[${tag}] Méthode : les cinq temps et les sept étapes doivent être listés`);
-  /* Méthode et Recherche : contenu attendu (retour qui décrit, rôle du coach, références) ; références justes sur
+  /* Méthode et Recherche : contenu attendu (assistant qui analyse sans noter, rôle du coach, références) ; références justes sur
      les trois pages. Apparition au défilement sur À propos, Recherche et Méthode : tous les blocs, éléments de liste
      compris (Reveal as="li"), avec des délais décalés ; en mouvement réduit, tout est visible sans attendre. */
-  for (const id of ["Pourquoi le retour décrit au lieu de noter", "Le rôle irremplaçable du coach"]) check(await p.getByRole("heading", { name: id }).count() === 1, `[${tag}] Méthode : section « ${id} » absente`);
+  for (const id of ["Pourquoi l'assistant analyse sans noter", "Le rôle irremplaçable du coach"]) check(await p.getByRole("heading", { name: id }).count() === 1, `[${tag}] Méthode : section « ${id} » absente`);
   const refs = { "#/a-propos": ["Clot", "Vermersch", "Rogers", "Le Bossé", "Bandura", "Schön", "Hattie"], "#/solutions/recherche": ["Ericsson", "Dowrick", "Kluger", "Hattie", "Bandura", "Kanfer", "Liu", "Schön", "Baldwin"], "#/solutions/methode": ["Bandura", "Clot", "Hattie", "Schön"] };
   for (const [h, names] of Object.entries(refs)) {
     await visit(h);

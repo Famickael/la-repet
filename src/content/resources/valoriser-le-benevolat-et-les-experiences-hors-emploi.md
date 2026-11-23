@@ -21,7 +21,7 @@ Pour aider votre mémoire, partez de quelques questions.
 
 - Qui vous avait demandé de participer et dans quel but ?
 - Qu’avez-vous préparé avant de commencer ?
-- Avec qui vous êtes-vous coordonné ?
+- Avec qui avez-vous travaillé ?
 - Quel imprévu avez-vous dû traiter et qui pouvait vous aider ?
 - Qu’avez-vous laissé à la personne qui a pris le relais ?
 

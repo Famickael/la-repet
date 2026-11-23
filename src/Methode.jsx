@@ -1,5 +1,5 @@
 import React from "react";
-import { T, RAD, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Notice, Tag, Link } from "./ui.jsx";
+import { T, RAD, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Notice, Tag, Link, PAD } from "./ui.jsx";
 import { Reveal, stagger } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
@@ -12,16 +12,16 @@ import { FinalBand } from "./home/FinalBand.jsx";
 
 const LOOP = [
   { ic: I.mic, who: "La personne", t: "S'entraîner",
-    what: "La personne répond seule, à voix haute et sans avatar, aux questions choisies avec son coach. Elle recommence autant de fois qu'elle le souhaite, entre deux rendez-vous.",
+    what: "La personne répond seule, à voix haute et sans avatar, aux questions choisies avec son coach. Elle recommence autant de fois qu'elle veut, entre deux rendez-vous.",
     why: "Dire sa réponse n'est pas la même activité que la penser. S'entraîner rend les exemples disponibles le jour de l'entretien. Les travaux sur la pratique délibérée le précisent : on progresse quand chaque essai vise un point précis, puis reçoit un retour." },
   { ic: I.video, who: "La personne", t: "Se revoir",
-    what: "La personne revoit sa vidéo ou relit sa réponse mise par écrit, avant de décider si elle la garde.",
+    what: "La personne revoit sa vidéo ou relit son entretien mis par écrit, avant de décider si elle le garde.",
     why: "Se revoir fait passer de la position d'acteur à celle d'observateur de sa propre activité. La démarche s'inspire de l'autoconfrontation en clinique de l'activité : commenter ses propres traces aide à voir ce qu'on fait réellement." },
-  { ic: I.sparkle, who: "L'assistant", t: "Lire un retour descriptif",
-    what: "L'assistant place des repères factuels au bon moment de la réponse : rythme de parole, pauses, exemples, petits mots répétés. Les points d'appui viennent en premier.",
-    why: "Un repère porte sur la tâche et sur la démarche, jamais sur la personne. Il donne une prise sur l'essai suivant : la personne recommence, puis relit ses deux réponses pour voir ce qui a changé. L'interprétation reste à elle et à son coach." },
+  { ic: I.sparkle, who: "L'assistant", t: "Lire le retour de l'assistant",
+    what: "L'assistant analyse l'entretien, sans le noter. Il place des repères factuels au bon moment de la réponse : rythme de parole, pauses, exemples, petits mots répétés. Les points d'appui viennent en premier.",
+    why: "Un repère porte sur la tâche et sur la démarche, jamais sur la personne. Il donne une prise sur l'essai suivant : la personne recommence, puis relit ses deux entretiens pour voir ce qui a changé. L'interprétation reste à elle et à son coach." },
   { ic: I.users, who: "Le coach et la personne", t: "Débriefer avec le coach",
-    what: "La personne envoie les réponses qu'elle choisit. Le coach les relit, confirme ou nuance chaque repère, ajoute ses remarques, puis en parle avec elle en rendez-vous ou en atelier. Ensemble, ils regardent ce qui a changé d'une réponse à l'autre, sans note.",
+    what: "La personne envoie les entretiens qu'elle choisit. Le coach les relit, confirme ou nuance chaque repère, ajoute ses remarques, puis en parle avec elle en rendez-vous ou en atelier. Ensemble, ils regardent ce qui a changé d'un entretien à l'autre, sans note.",
     why: "C'est la réflexion sur l'action décrite par Schön. Le coach relie la réponse au projet, au poste et au contexte, ce que l'outil ne connaît pas. La personne formule elle-même ses pistes." },
   { ic: I.target, who: "La personne, avec son coach", t: "Transférer vers l'entretien réel",
     what: "La personne adapte ses exemples au poste visé, s'entraîne sur les questions propres à cet entretien et peut refaire un entraînement complet, dans l'ordre d'un vrai entretien.",
@@ -48,9 +48,9 @@ const COACH = [
 const MAP = [
   ["Accueil et diagnostic partagé", "Sans l'outil", "coach", "Un temps d'échange entre la personne et son coach."],
   ["Explicitation de l'expérience", "Sans l'outil", "coach", "Des entretiens menés par le coach, sur des situations vécues."],
-  ["Mise en mots des compétences", "En appui", "muted", "La réponse mise par écrit aide à retrouver ses propres formulations."],
-  ["Simulation et entraînement", "Avec l'outil", "primary", "Échauffement, questions adaptées au poste, réponses à voix haute, retour descriptif."],
-  ["Débriefing réflexif", "Avec l'outil", "primary", "Les réponses envoyées, les repères et les remarques du coach servent de support."],
+  ["Mise en mots des compétences", "En appui", "muted", "L'entretien mis par écrit aide à retrouver ses propres formulations."],
+  ["Simulation et entraînement", "Avec l'outil", "primary", "Échauffement, questions adaptées au poste, réponses à voix haute, analyse sans note."],
+  ["Débriefing réflexif", "Avec l'outil", "primary", "Les entretiens envoyés, les repères et les remarques du coach servent de support."],
   ["Transfert vers l'entretien réel", "Avec l'outil", "primary", "Questions propres au poste, entraînement complet dans l'ordre d'un vrai entretien."],
   ["Suivi après l'entretien", "Sans l'outil", "coach", "Un échange avec le coach. La personne peut reprendre l'entraînement si elle le souhaite."],
 ];
@@ -67,11 +67,11 @@ export default function Methode({ go }) {
   return (
     <main>
       <PageHero eyebrow="Solutions" title="Méthode : comment l'outil sert l'accompagnement"
-        lead="La Répét' prolonge le travail fait avec le coach. S'entraîner seul et à voix haute, se revoir, lire un retour qui décrit, en parler avec son coach, puis transférer vers l'entretien réel : chaque temps a sa fonction, et le coach garde la main.">
+        lead="La Répét' prolonge le travail fait avec le coach. S'entraîner seul et à voix haute, se revoir, lire le retour de l'assistant, qui analyse sans noter, en parler avec son coach, puis transférer vers l'entretien réel : chaque temps a sa fonction, et le coach garde la main.">
         <p style={{ ...TY.body, color: T.body, margin: 0 }}>La méthode d'accompagnement de l'organisme, en sept étapes : <Link href="#/a-propos">À propos</Link>. Ce que fait l'assistant : <Link href="#/solutions/usage-de-l-ia">usage de l'IA</Link>.</p>
       </PageHero>
 
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         <Section first eyebrow="L'articulation" title="Cinq temps qui s'enchaînent" sub="Pour chaque temps : ce qui se passe, et ce qu'il apporte à l'apprentissage.">
           <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: GAP.grid }}>
             {LOOP.map((s, i) => (
@@ -100,17 +100,17 @@ export default function Methode({ go }) {
           </ol>
         </Section>
 
-        <Section eyebrow="Le retour" title="Pourquoi le retour décrit au lieu de noter"
+        <Section eyebrow="Le retour" title="Pourquoi l'assistant analyse sans noter"
           sub="Une note rend un verdict global, sans dire quoi faire ensuite. Un repère situé dans la réponse donne une prise sur l'essai suivant.">
           <div className="rs-split" style={{ alignItems: "start" }}>
             <div style={{ display: "grid", gap: 16, ...TY.bodyLg, color: T.body }}>
               <Reveal><p style={{ margin: 0 }}>Dans leur synthèse sur le feedback, Hattie et Timperley proposent qu'un retour utile réponde à trois questions. Où vais-je ? Où en suis-je ? Quelle est la suite ? Dans l'accompagnement, l'objectif est convenu avec le coach, les repères disent où en est la réponse, les pistes à explorer et le débriefing ouvrent la suite.</p></Reveal>
               <Reveal delay={70}><p style={{ margin: 0 }}>Les mêmes auteurs distinguent quatre niveaux de retour. Ceux qui portent sur la tâche, la démarche et l'autorégulation aident à apprendre. Selon eux, ceux qui portent sur la personne elle-même aident peu. Une note globale ne dit rien de la tâche ni de la suite, et elle est souvent reçue comme un jugement sur soi.</p></Reveal>
               <Reveal delay={140}><p style={{ margin: 0 }}>Pour Bandura, le sentiment d'efficacité personnelle se nourrit d'abord de réussites vécues. C'est pourquoi le retour présente en premier les points d'appui : ce qui fonctionne déjà devient visible, et sert de base à l'essai suivant.</p></Reveal>
-              <Reveal delay={210}><p style={{ margin: 0 }}>Le retour ne cherche jamais à interpréter l'état intérieur de la personne. Il décrit ce qui se voit et s'entend, et rien d'autre.</p></Reveal>
+              <Reveal delay={210}><p style={{ margin: 0 }}>Le retour ne cherche jamais à interpréter l'état intérieur de la personne. L'assistant analyse et décrit ce qu'il observe, ce qui se voit et s'entend, et rien d'autre.</p></Reveal>
             </div>
             <Reveal delay={70}>
-              <div style={{ background: T.primaryBg, borderRadius: RAD.lg, padding: 24, display: "grid", gap: 16 }}>
+              <div className="rp-pad-md" style={{ background: T.primaryBg, borderRadius: RAD.lg, padding: PAD.md, display: "grid", gap: 16 }}>
                 <h3 style={{ ...TY.h3, color: T.navy, margin: 0 }}>Les quatre niveaux de retour</h3>
                 <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 12 }}>
                   {LEVELS.map(([t, d], i) => (
@@ -164,7 +164,7 @@ export default function Methode({ go }) {
         </Section>
 
         <Section eyebrow="Sources" title="Pour aller plus loin">
-          <ul className="rp-sources" style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: 24, display: "grid", gap: 8, maxWidth: W.read }}>
+          <ul className="rp-sources" style={{ ...TY.body, color: T.body, margin: 0, paddingLeft: PAD.list, display: "grid", gap: 8, maxWidth: W.read }}>
             {SOURCES.map((s, i) => <Reveal as="li" key={s} delay={stagger(i, 4)}>{s}</Reveal>)}
           </ul>
           <Reveal><p style={{ ...TY.body, color: T.body, margin: 0, marginTop: GAP.grid, maxWidth: W.read }}>Ce que ces travaux établissent, et leurs limites : <Link href="#/solutions/recherche">recherche en accompagnement</Link>.</p></Reveal>

@@ -23,27 +23,27 @@ Dans cette antenne rurale, les personnes accompagnées habitent parfois à une h
 
 ## La démarche
 
-Lors d'un rendez-vous, la coach crée un parcours et transmet le code. Ensemble, ils choisissent deux questions à travailler, dont une que la personne redoute. La coach explique comment se revoir en vidéo et comment envoyer une réponse.
+Lors d'un rendez-vous, la coach crée un parcours et transmet le code. Ensemble, ils choisissent deux questions à travailler, dont une que la personne redoute. La coach explique comment se revoir en vidéo et comment envoyer un entretien.
 
 Dans les semaines qui suivent :
 
 - la personne s'entraîne chez elle, à son rythme, et se sert du retour descriptif pour comparer ses essais ;
-- quand un entretien est annoncé, elle envoie une réponse récente avec une question précise ;
-- la coach relit en différé, annote deux moments et renvoie un rapport court, que la personne lit avant son entretien.
+- quand un entretien est annoncé, elle envoie un entretien récent avec une question précise ;
+- la coach relit en différé, ajoute deux remarques et envoie un rapport court, que la personne lit avant son entretien.
 
 > [!citation] Propos illustratif d'une personne accompagnée
-> Je pouvais recommencer autant que je voulais, sans déranger personne. Et quand j'ai envoyé ma réponse, j'avais une question précise pour ma coach.
+> Je pouvais recommencer autant que je voulais, sans déranger personne. Et quand j'ai envoyé mon entretien, j'avais une question précise pour ma coach.
 
 ## Ce qui a changé
 
 Dans ce scénario, plusieurs effets seraient attendus, à vérifier sur le terrain :
 
 - le temps entre deux rendez-vous deviendrait un temps de préparation active plutôt qu'une attente ;
-- les échanges en visio pourraient partir d'une réponse concrète, choisie par la personne ;
+- les échanges en visio pourraient partir d'un entretien concret, choisi par la personne ;
 - le commanditaire recevrait un bilan d'ensemble de l'accompagnement, sans suivi individuel des performances.
 
 > [!attention] Points de vigilance
-> L'accès à un appareil avec caméra et une connexion correcte ne va pas de soi : le mode voix seule et un poste en libre accès à l'antenne sont des alternatives à prévoir. La relecture à distance suppose que les réponses envoyées passent par le serveur de notre organisme.
+> L'accès à un appareil avec caméra et une connexion correcte ne va pas de soi : le mode voix seule et un poste en libre accès à l'antenne sont des alternatives à prévoir. La relecture à distance suppose que les entretiens envoyés passent par le serveur de notre organisme.
 
 ## Pour aller plus loin
 

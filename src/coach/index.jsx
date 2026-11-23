@@ -23,7 +23,7 @@ export default function Counselor({ sub = "" }) {
   const missing = (view.name === "parcours" && !s.parcours[view.code]) || (view.name === "review" && (!s.parcours[view.code] || !s.takes[view.takeId]));
   useEffect(() => {
     if (!missing) return;
-    if (view.name === "review" && s.parcours[view.code]) { setGone("Cette réponse n'existe plus."); setView({ name: "parcours", code: view.code }, true); }
+    if (view.name === "review" && s.parcours[view.code]) { setGone("Cet entretien n'existe plus."); setView({ name: "parcours", code: view.code }, true); }
     else { setGone("Ce parcours n'existe plus."); setView({ name: "list" }, true); }
   }, [missing]); // eslint-disable-line
   useEffect(() => { if (!missing && gone) { const t = setTimeout(() => setGone(""), 8000); return () => clearTimeout(t); } }, [view]); // eslint-disable-line

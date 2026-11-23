@@ -6,7 +6,8 @@ export const dateFr = dateTime; // même format que côté personne (src/lib/for
 
 export const linkFor = code => `${location.origin}${location.pathname}#/s/${code}`;
 
-export const stack = (gap = GAP.stack) => ({ display: "grid", gap });
+/* Pile verticale : colonne minmax(0, 1fr), un enfant trop large ne peut pas élargir la page (défilement horizontal à 320 px). */
+export const stack = (gap = GAP.stack) => ({ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap });
 
 export const actions = { display: "flex", justifyContent: "space-between", alignItems: "center", gap: GAP.actions, flexWrap: "wrap" };
 
@@ -36,7 +37,7 @@ export const nid = () => Math.random().toString(36).slice(2, 9);
 export function Withdrawn({ back }) {
   return (
     <div style={stack(GAP.stack)}>
-      <Notice tone="info" role="status">La personne a repris cette réponse. Vous ne la voyez plus, et aucun rapport ne lui est envoyé.</Notice>
+      <Notice tone="info" role="status">La personne a annulé l'envoi de cet entretien. Vous ne le voyez plus, et aucun rapport ne lui est envoyé.</Notice>
       <div><Back onClick={back}>Retour au parcours</Back></div>
     </div>
   );

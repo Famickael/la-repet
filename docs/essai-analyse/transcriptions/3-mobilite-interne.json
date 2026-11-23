@@ -1,0 +1,21 @@
+{
+  "cas": "3-mobilite-interne",
+  "avertissement": "Personne fictive. Texte écrit pour l'essai, au format des segments horodatés produits par Whisper. Aucune personne réelle n'a été enregistrée.",
+  "personne": "Claire R. (fictive), salariée en mobilité interne",
+  "poste": "responsable d'équipe au service clients",
+  "question": "Pourquoi souhaitez-vous ce poste ?",
+  "mode": "vidéo",
+  "duration": 86,
+  "gaze": { "samples": 172, "downRatio": 0.1, "sideRatio": 0.08, "absentRatio": 0, "longestAwayAt": 41 },
+  "segments": [
+    { "start": 0.0, "end": 7.0, "text": " Je souhaite ce poste pour trois raisons : mon expérience du service, ce que j'ai déjà fait avec l'équipe, et l'envie d'aller plus loin." },
+    { "start": 7.5, "end": 16.0, "text": " D'abord, je travaille au service clients depuis 6 ans. Je connais les outils, les procédures et la plupart des situations que rencontrent les conseillers." },
+    { "start": 16.5, "end": 26.0, "text": " Ensuite, depuis 2 ans, je forme les nouveaux arrivants. Par exemple, l'an dernier, j'ai accompagné 4 personnes pendant leurs 3 premiers mois." },
+    { "start": 26.4, "end": 35.5, "text": " J'ai préparé pour elles une fiche des 10 demandes les plus fréquentes, et aujourd'hui toute l'équipe s'en sert." },
+    { "start": 37.8, "end": 47.0, "text": " Quand ma responsable a été absente 3 semaines au printemps, j'ai aussi tenu le planning et animé le point du lundi matin." },
+    { "start": 47.5, "end": 56.0, "text": " J'ai vu que ce qui me plaisait, c'était d'organiser le travail et d'aider chacun à progresser." },
+    { "start": 58.2, "end": 67.5, "text": " Enfin, je sais qu'il me reste des choses à apprendre, par exemple conduire un entretien annuel ou gérer un désaccord dans l'équipe." },
+    { "start": 68.0, "end": 75.0, "text": " J'ai demandé à suivre la formation au management proposée en interne, et je suis prête à la commencer dès janvier." },
+    { "start": 75.6, "end": 84.0, "text": " C'est pour ça que je souhaite ce poste : je connais le service, j'ai déjà commencé à encadrer, et je veux continuer avec cette équipe." }
+  ]
+}

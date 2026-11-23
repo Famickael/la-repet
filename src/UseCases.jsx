@@ -1,5 +1,5 @@
 import React from "react";
-import { T, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Tabs, Notice, Link } from "./ui.jsx";
+import { T, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Tabs, Notice, Link, PAD } from "./ui.jsx";
 import { Reveal, stagger, useSectionScroll } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { LinkCards, LinkChips } from "./LinkCards.jsx";
@@ -16,7 +16,7 @@ export const USECASES = [
   { href: "#/cas-d-usage/beneficiaires", icon: I.user, title: "Personnes accompagnées", short: "Personnes accompagnées",
     text: "Demandeurs d'emploi et collaborateurs en mobilité : s'entraîner à voix haute, quand on veut, et décider de ce que voit son coach." },
   { href: "#/cas-d-usage/coachs", icon: I.users, tone: "coach", title: "Coachs", short: "Coachs",
-    text: "Créer un parcours, relire les réponses reçues, nuancer l'assistant et préparer le débriefing." },
+    text: "Créer un parcours, relire les entretiens reçus, nuancer l'assistant et préparer le débriefing." },
   { href: "#/cas-d-usage/commanditaires", icon: I.building, title: "Commanditaires", short: "Commanditaires",
     text: "Acteurs publics de l'emploi et entreprises : nous confier un accompagnement, recevoir un bilan d'ensemble." },
 ];
@@ -29,7 +29,7 @@ export default function UseCases({ go, openSpace, page, section }) {
   return <Hub go={go} />;
 }
 
-const wrap = { maxWidth: W.page, margin: "0 auto", padding: "0 24px" };
+const wrap = { maxWidth: W.page, margin: "0 auto", padding: PAD.wrap };
 
 function Hub({ go }) {
   return (
@@ -73,15 +73,15 @@ function FeatureGrid({ features }) {
 }
 
 const BENEF = [
-  [I.lock, "Accès par code, sans compte", "Un code de 6 caractères remis par votre coach. Ni adresse électronique, ni mot de passe."],
+  [I.lock, "Accès par code, sans compte", "Un code d'accès de 6 caractères donné par votre coach. Ni adresse électronique, ni mot de passe."],
   [I.mic, "Échauffement sans enregistrement", "Des phrases à dire à voix haute, avec une consigne, pour vous lancer. Rien n'est enregistré."],
   [I.target, "Questions adaptées au métier", "Des questions selon le poste que vous visez. Vous pouvez aussi ajouter les vôtres."],
-  [I.video, "Caméra ou voix seule", "3 minutes au plus par réponse. Vous vous revoyez avant de garder la réponse. Vous recommencez autant que vous voulez, et vous voyez ce qui a changé."],
-  [I.sparkle, "Un retour qui décrit", "Rythme de parole, pauses, exemples, petits mots répétés, regard. Ce qui fonctionne déjà est présenté en premier."],
+  [I.video, "Caméra ou voix seule", "3 minutes au plus par réponse. Vous vous revoyez avant de garder l'entretien. Vous recommencez autant que vous voulez, et vous voyez ce qui a changé."],
+  [I.sparkle, "Un assistant qui analyse, sans noter", "Rythme de parole, pauses, exemples, petits mots répétés, regard. Ce qui fonctionne déjà est présenté en premier."],
   [I.layers, "Un retour à lire ou à regarder", "Lisez le retour, ou revoyez-vous avec les repères placés au bon moment de la vidéo."],
   [I.chat, "Un assistant de préparation d'entretien", "Il répond à vos questions sur l'entretien, sans remplacer votre coach. Un entraînement complet suit l'ordre d'un vrai entretien."],
-  [I.send, "Envoi volontaire", "Chaque réponse reste sur votre appareil tant que vous ne l'envoyez pas."],
-  [I.trash, "Tout supprimer à tout moment", "Vous pouvez supprimer une réponse, ou retirer votre accord : tout est alors effacé."],
+  [I.send, "Envoi volontaire", "Chaque entretien reste sur votre appareil tant que vous ne l'envoyez pas."],
+  [I.trash, "Tout supprimer à tout moment", "Vous pouvez supprimer un entretien, ou retirer votre accord : tout est alors effacé."],
 ];
 
 const COLLAB = [
@@ -89,8 +89,8 @@ const COLLAB = [
   [I.chat, "Entretien professionnel ou annuel", "Entraînez-vous à parler de votre parcours, de vos compétences et de vos souhaits d'évolution."],
   [I.redo, "Reconversion", "Mettez des mots sur un nouveau projet. Expliquez ce que vous apportez d'un métier à l'autre."],
   [I.target, "Des questions adaptées", "Des questions propres aux entretiens de mobilité et d'évolution. Vous pouvez aussi ajouter les vôtres."],
-  [I.sparkle, "Le même retour qui décrit", "Rythme de parole, pauses, exemples, regard. Jamais de note, jamais d'émotion devinée."],
-  [I.lock, "Confidentiel vis-à-vis de l'employeur", "Votre employeur ne voit pas vos réponses. Seul votre coach voit ce que vous choisissez de lui envoyer."],
+  [I.sparkle, "La même analyse, sans note", "Rythme de parole, pauses, exemples, regard. Jamais de note, jamais d'émotion devinée."],
+  [I.lock, "Confidentiel vis-à-vis de l'employeur", "Votre employeur ne voit pas vos entretiens. Seul votre coach voit ce que vous choisissez de lui envoyer."],
 ];
 
 function Beneficiaires({ go, openSpace }) {
@@ -128,7 +128,7 @@ function Beneficiaires({ go, openSpace }) {
 
 const COACH = [
   [I.plus, "Un parcours vite créé", "Prénom et initiale, métier visé : le code et le lien sont prêts à transmettre."],
-  [I.list, "Réponses à relire", "Une liste claire des réponses reçues, avec le message de la personne."],
+  [I.list, "Entretiens à relire", "Une liste claire des entretiens reçus, avec le message de la personne."],
   [I.note, "Remarques placées dans la vidéo", "Mettez en pause, écrivez : votre remarque se place à ce moment de la vidéo."],
   [I.chat, "Nuancer l'assistant", "Confirmez, nuancez ou contredisez chaque repère. Votre lecture prime."],
   [I.send, "Rien ne part sans vous", "Votre brouillon s'enregistre tout seul. Vous envoyez le rapport quand il est prêt. Vous pouvez le corriger et le renvoyer."],
@@ -164,8 +164,8 @@ const ORG = [
     tab: "Acteurs publics", icon: I.compass, title: "Accompagner le retour à l'emploi et l'insertion",
     points: [
       ["Pour qui", "Services publics de l'emploi, collectivités, départements, structures d'insertion : vous accompagnez des demandeurs d'emploi et vous cherchez un appui pour la préparation aux entretiens."],
-      ["Ce que nous faisons", "Nos coachs mènent les rendez-vous et les ateliers. Entre deux séances, les personnes s'entraînent avec La Répét' et arrivent avec des moments concrets à discuter."],
-      ["Un suivi sans surveillance", "Nous rendons compte de l'accompagnement avec des éléments d'ensemble : réponses relues, rapports envoyés, délai de relecture. Jamais une mesure individuelle."],
+      ["Ce que nous faisons", "Nos coachs mènent les rendez-vous et les ateliers. Entre deux rendez-vous, les personnes s'entraînent avec La Répét' et arrivent avec des moments concrets à discuter."],
+      ["Un suivi sans surveillance", "Nous rendons compte de l'accompagnement avec des éléments d'ensemble : entretiens relus, rapports envoyés, délai de relecture. Jamais une mesure individuelle."],
       ["Un cadre clair", "Aucune note, aucune émotion devinée, une vidéo qui reste sur l'appareil tant que la personne ne l'envoie pas. Le cadre est détaillé dans l'onglet « Cadre et données »."],
     ],
   },
@@ -174,7 +174,7 @@ const ORG = [
     points: [
       ["Pour qui", "Les entreprises qui font accompagner leurs collaborateurs : mobilité interne ou externe, préparation d'un entretien de mobilité, entretien annuel ou professionnel, reconversion."],
       ["Ce que nous faisons", "Nos coachs accompagnent chaque collaborateur, en rendez-vous individuels ou en ateliers. La Répét' lui permet de s'entraîner seul, à son rythme, entre deux rendez-vous."],
-      ["La confidentialité", "Les réponses restent entre le collaborateur et son coach. L'entreprise ne voit ni les vidéos, ni les retours, ni les rapports."],
+      ["La confidentialité", "Les entretiens restent entre le collaborateur et son coach. L'entreprise ne voit ni les vidéos, ni les retours, ni les rapports."],
       ["Ce que vous recevez", "Un bilan d'ensemble de l'accompagnement, défini avec vous avant le démarrage, sans information sur une personne en particulier."],
     ],
   },
@@ -183,7 +183,7 @@ const ORG = [
     points: [
       ["Aucune inférence d'émotion", "L'article 5 du règlement (UE) 2024/1689 interdit la reconnaissance des émotions sur le lieu de travail et dans les établissements d'enseignement. L'outil ne lit jamais les expressions du visage."],
       ["Transparence et supervision humaine", "La personne sait qu'un assistant IA produit le retour. Le coach peut le contredire, et rien ne parvient à la personne sans envoi explicite."],
-      ["Minimisation et consentement", "Prénom et initiale, métier visé. Consentement donné option par option, daté et retirable. Le retrait supprime les réponses."],
+      ["Minimisation et consentement", "Prénom et initiale, métier visé. Consentement donné option par option, daté et retirable. Le retrait supprime les entretiens."],
       ["Avant tout démarrage", "Notre organisme, responsable du traitement, mène l'analyse d'impact (AIPD) et la qualification au regard de l'AI Act, et fixe les durées de conservation avec son délégué à la protection des données."],
     ],
   },

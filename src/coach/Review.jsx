@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useState } from "react";
 import { T, TY, GAP, Card, Btn, Back, IconBtn, I, Txt, Confirm, Input, Textarea, TimeChip } from "../ui.jsx";
 import { sendReport, saveDraft as storeDraft } from "../lib/store.js";
-import { Player, DimCard, markersOf, useVideoUrl, Transcript } from "../Report.jsx";
+import { Player, DimCard, DimGroups, Synthese, markersOf, useVideoUrl, Transcript } from "../Report.jsx";
 import { fmt } from "../lib/analysis.js";
 import CoachAssistantDock from "../CoachAssistant.jsx";
 import { isAudio, noFeedback } from "../lib/takes.js";
@@ -40,12 +40,12 @@ export function Review({ s, p, take, back }) {
     if (target === "comment" && dimId) {
       const next = { ...comments, [dimId]: (comments[dimId] || "").trim() ? `${comments[dimId].trim()} ${text}` : text };
       setComments(next); saveDraft({ comments: next });
-      return `en remarque sur « ${(A.dimensions.find(d => d.id === dimId) || {}).titre || "l'observation"} »`;
+      return `en remarque sur « ${(A.dimensions.find(d => d.id === dimId) || {}).titre || "le repère"} »`;
     }
     if (target === "note") {
       const t = playerRef.current ? playerRef.current.currentTime : 0;
       const next = [...notes, { id: nid(), t, text }];
-      setNotes(next); saveDraft({ notes: next }); return `en note à ${fmt(t)} de ${isAudio(take) ? "l'enregistrement" : "la vidéo"}`;
+      setNotes(next); saveDraft({ notes: next }); return `en remarque à ${fmt(t)} de ${isAudio(take) ? "l'enregistrement" : "la vidéo"}`;
     }
     return "";
   };
@@ -66,7 +66,7 @@ export function Review({ s, p, take, back }) {
     <div style={stack(GAP.grid)}>
       <div style={stack(4)}>
         <Txt v="h1" as="h1" color={T.navy}>{take.question}</Txt>
-        <Txt v="small" color={T.muted}>{p.prenom} · envoyée le {dateFr(take.sharedAt)}{take.report ? " · rapport déjà envoyé, vous pouvez le modifier et le renvoyer" : ""}</Txt>
+        <Txt v="small" color={T.muted}>{p.prenom} · envoyé le {dateFr(take.sharedAt)}{take.report ? " · rapport déjà envoyé, vous pouvez le modifier et le renvoyer" : ""}</Txt>
       </div>
       <div className="rp-split">
         <div style={stack(GAP.stack)}>
@@ -107,17 +107,19 @@ export function Review({ s, p, take, back }) {
           </Card>
           <div style={{ ...stack(4), marginTop: 8 }}>
             <h2 style={{ ...TY.h4, color: T.navy, margin: 0 }}>Repères de l'assistant</h2>
-            <Txt v="caption" color={T.muted}>Nuancez, contextualisez ou contredisez : votre lecture prime sur celle de l'assistant.</Txt>
+            <Txt v="caption" color={T.muted}>Confirmez, nuancez ou contredisez : votre lecture prime sur celle de l'assistant.</Txt>
           </div>
           {A.dimensions.length === 0 && <Card><Txt v="small" color={T.body}>{noFeedback(take) ? "La personne a choisi de ne pas recevoir le retour de l'assistant." : A.synthese || "L'assistant n'a pas de repère pour cet entretien."}</Txt></Card>}
-          {A.dimensions.map(d => (
+          {/* Le coach lit ce que la personne a lu : le résumé, puis les points d'appui et les pistes, dans le même ordre. */}
+          {A.dimensions.length > 0 && A.synthese && <Synthese analysis={A} />}
+          <DimGroups dims={A.dimensions} as="h3" titles={{ appui: "Points d'appui", explorer: "Pistes à explorer" }} render={d => (
             <div key={d.id} style={stack(8)}>
               <DimCard d={d} active={active === d.id} onClick={() => seek(d.t, d.id)} />
               <Input value={comments[d.id] || ""} onChange={e => setComments(c => ({ ...c, [d.id]: e.target.value }))} onBlur={() => saveDraft()} placeholder="Votre remarque sur ce repère (facultatif)" aria-label={`Votre remarque sur le repère : ${d.titre}`} />
             </div>
-          ))}
+          )} />
           <Btn kind="objective" full onClick={send} disabled={empty} icon={I.send} aria-describedby="review-send-h">{take.report ? "Renvoyer le rapport" : "Envoyer le rapport"}</Btn>
-          <Txt v="caption" color={T.muted} style={{ textAlign: "center" }} id="review-send-h">{empty ? "Écrivez au moins un mot pour la personne : une introduction, une remarque ou un commentaire. " : ""}Rien n'est transmis tant que vous n'avez pas envoyé le rapport. Vos saisies sont enregistrées en brouillon.</Txt>
+          <Txt v="caption" color={T.muted} style={{ textAlign: "center" }} id="review-send-h">{empty ? "Écrivez au moins un mot pour la personne : une introduction, une remarque ou un commentaire. " : ""}Rien n'est envoyé à la personne tant que vous n'avez pas envoyé le rapport. Vos saisies sont enregistrées en brouillon.</Txt>
         </div>
       </div>
       <div><Back onClick={back} /></div>

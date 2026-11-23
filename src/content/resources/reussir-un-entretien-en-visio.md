@@ -26,7 +26,7 @@ De plus en plus de premiers entretiens se déroulent en visio. Les règles de fo
 
 ## Le cadre
 
-- Choisissez un endroit **calme**, où vous ne serez pas dérangé. Prévenez les personnes avec qui vous vivez.
+- Choisissez un endroit **calme**, où personne ne vous dérangera. Prévenez les personnes avec qui vous vivez.
 - Un fond simple suffit : un mur, une étagère rangée. Le flou d'arrière-plan peut aider si votre pièce est encombrée.
 - Placez la **lumière face à vous**, jamais dans votre dos : une fenêtre ou une lampe derrière l'écran.
 - Mettez la caméra **à hauteur des yeux**, quitte à surélever l'ordinateur avec quelques livres.

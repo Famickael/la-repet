@@ -29,16 +29,16 @@ export const KB = [
   {
     id: "fonctionnement", q: "Comment fonctionne La Répét' ?",
     keys: ["fonctionne", "fonctionnement", "comment ca marche", "marche comment", "utiliser le site", "a quoi sert", "sert a quoi le site", "repet", "mode d emploi", "comment on fait"],
-    answer: "La Répét' vous permet de vous entraîner seul à l'entretien, à votre rythme. Vous choisissez une ou plusieurs questions, vous vous enregistrez, puis l'assistant vous fait un retour qui décrit des faits (rythme, pauses, exemples, structure). Vous décidez ensuite, réponse par réponse, de l'envoyer ou non à votre coach.",
-    more: "Le déroulé type : un échauffement facultatif pour vous mettre en voix, puis un entraînement sur les questions de votre choix. Après chaque réponse, vous choisissez de lire un rapport écrit ou de vous revoir en vidéo avec des repères. Vous pouvez recommencer autant de fois que vous le souhaitez.",
-    example: "Par exemple : vous sélectionnez « Pouvez-vous vous présenter ? » et « Pourquoi ce poste ? », vous répondez à la première, vous lisez le retour, puis vous passez à la seconde. À la fin, vous envoyez à votre coach seulement la réponse qui vous semble la plus utile à travailler ensemble.",
+    answer: "La Répét' vous permet de vous entraîner seul à l'entretien, à votre rythme. Vous choisissez une ou plusieurs questions, vous vous enregistrez, puis l'assistant analyse votre entretien, sans le noter, et vous fait un retour sur des faits (rythme, pauses, exemples, structure). Vous décidez ensuite, entretien par entretien, de l'envoyer ou non à votre coach.",
+    more: "Le déroulé type : un échauffement facultatif pour vous lancer, puis un entraînement sur les questions de votre choix. Après chaque réponse, vous choisissez de lire votre retour ou de vous revoir en vidéo avec les repères. Vous pouvez recommencer autant de fois que vous voulez.",
+    example: "Par exemple : vous sélectionnez « Pouvez-vous vous présenter ? » et « Pourquoi ce poste ? », vous répondez à la première, vous lisez le retour, puis vous passez à la seconde. À la fin, vous envoyez à votre coach seulement l'entretien qui vous semble le plus utile à travailler ensemble.",
     related: ["echauffement", "entrainement", "confidentialite"],
   },
   {
     id: "echauffement", q: "Quelle différence entre l'échauffement et l'entraînement ?",
     keys: ["echauffement", "echauffer", "difference", "mise en voix", "se mettre en voix", "s echauffer", "phrase a dire"],
-    answer: "L'échauffement sert à vous mettre en voix : vous dites une phrase à voix haute, plusieurs fois, sans pression. Il n'est ni enregistré ni analysé. L'entraînement, lui, est enregistré sur votre appareil et reçoit un retour de l'assistant.",
-    more: "Pendant l'échauffement, l'exercice se concentre sur une seule phrase à la fois. Vous pouvez la redire en suivant les relances (plus lentement, en regardant la caméra…) ou tirer une autre phrase au hasard. À la fin, un court questionnaire vous aide à choisir quoi travailler ensuite.",
+    answer: "L'échauffement sert à vous lancer : vous dites une phrase à voix haute, plusieurs fois, sans pression. Rien n'est enregistré. L'entraînement, lui, est enregistré sur votre appareil et reçoit un retour de l'assistant.",
+    more: "Pendant l'échauffement, l'exercice se concentre sur une seule phrase à la fois. Vous pouvez la redire en suivant les consignes (plus lentement, en regardant la caméra…) ou changer de phrase. À la fin, un court questionnaire vous aide à choisir quoi travailler ensuite.",
     example: "Par exemple, vous dites « Bonjour, je vous remercie de me recevoir » trois fois : une fois tranquillement, une fois plus lentement, une fois en regardant la caméra sur les derniers mots. Ensuite, vous passez à l'entraînement.",
     why: "L'échauffement permet de vous habituer à parler face à la caméra et d'entendre votre voix avant de répondre à une vraie question. Comme rien n'est gardé, vous pouvez essayer librement.",
     related: ["entrainement", "fond-video", "respiration"],
@@ -47,7 +47,7 @@ export const KB = [
     id: "entrainement", q: "Comment se passe un entraînement ?",
     keys: ["entrainement", "entrainer", "plusieurs questions", "choisir les questions", "choisir une question", "selectionner", "enchainer", "question suivante", "serie"],
     answer: "Vous sélectionnez une ou plusieurs questions dans la liste, ou vous ajoutez les vôtres, puis vous appuyez sur « Commencer ». Pour chaque question : vous vous enregistrez, l'assistant prépare un retour, puis vous passez à la question suivante. Vous pouvez vous arrêter à tout moment.",
-    more: "Avant d'enregistrer, vous pouvez activer la caméra ou choisir le son seulement. Vous pouvez réécouter votre réponse et la refaire autant de fois que vous voulez avant de la valider. Une réponse dure au maximum trois minutes.",
+    more: "Avant d'enregistrer, vous pouvez activer la caméra ou choisir la voix seule. Vous pouvez réécouter votre réponse et la recommencer autant de fois que vous voulez avant de la garder. Une réponse dure 3 minutes au plus.",
     example: "Par exemple, pour un entretien de {poste}, vous pouvez choisir la présentation, la motivation et une mise en situation : trois questions, trois retours, en une quinzaine de minutes.",
     related: ["questions-perso", "retour-assistant", "refaire"],
   },
@@ -62,15 +62,15 @@ export const KB = [
   {
     id: "retour-assistant", q: "Que contient le retour de l'assistant ?",
     keys: ["retour", "analyse", "feedback", "rapport de l assistant", "que regarde", "qu est ce qui est analyse", "observation", "point d appui", "a explorer"],
-    answer: "Le retour décrit des faits observables : votre rythme de parole, les pauses, les petits mots répétés, la présence d'exemples concrets, la structure de la réponse et, si la caméra est active, la direction du regard. Il commence par vos points d'appui, puis propose des pistes à explorer.",
-    more: "Chaque observation est accompagnée d'un conseil pratique, présenté comme une convention qui varie selon les secteurs. Le retour ne note pas et ne déduit rien sur ce que vous ressentez. Votre coach peut le compléter, le nuancer ou le contredire.",
+    answer: "L'assistant analyse des faits observables : votre rythme de parole, les pauses, les petits mots répétés, la présence d'exemples concrets, la structure de la réponse et, si la caméra est active, la direction du regard. Son retour commence par vos points d'appui, puis propose des pistes à explorer.",
+    more: "Chaque repère est accompagné d'un conseil pratique, présenté comme une convention qui varie selon les secteurs. Le retour ne note pas et ne déduit rien sur ce que vous ressentez. Votre coach peut le compléter, le nuancer ou le contredire.",
     example: "Par exemple : « Environ 140 mots par minute : ce rythme laisse à l'interlocuteur le temps de suivre » ou « Aucune situation datée n'a été repérée : vous pouvez ajouter un exemple vécu ».",
     related: ["pas-de-note", "rapport-ecrit-video", "debit"],
   },
   {
     id: "pas-de-note", q: "Pourquoi n'y a-t-il pas de note ?",
     keys: ["note", "noter", "score", "evaluation", "evalue", "juge", "jugement", "classement", "suis je bon", "est ce que c etait bien", "c etait bien", "bonne reponse"],
-    answer: "La Répét' décrit sans noter. Une note dit peu de choses sur ce que vous pouvez faire concrètement, alors qu'une observation précise vous donne une piste. Les repères sont des conventions, pas des règles : ce qui fonctionne dépend du poste et du recruteur.",
+    answer: "L'assistant analyse sans noter. Une note dit peu de choses sur ce que vous pouvez faire concrètement, alors qu'un repère précis vous donne une piste. Les repères sont des conventions, pas des règles : ce qui fonctionne dépend du poste et du recruteur.",
     more: "C'est un choix pédagogique et réglementaire : l'outil ne produit ni note chiffrée, ni classement, ni jauge. Votre coach, lui, peut vous dire ce qui lui semble prioritaire pour votre projet.",
     example: "Plutôt qu'une note chiffrée, vous lirez par exemple : « Vous citez un élément précis : deux ans en magasin. Les exemples chiffrés rendent une réponse facile à retenir. »",
     related: ["retour-assistant", "emotions", "coach-partage"],
@@ -78,7 +78,7 @@ export const KB = [
   {
     id: "emotions", q: "L'assistant voit-il si je suis tendu ?",
     keys: ["emotion", "stress", "stresse", "nerveux", "nerveuse", "tendu", "angoisse", "detecte", "lire mon visage", "visage", "expression", "air", "avais l air", "sentiment", "ressens", "je me sens", "sourire"],
-    answer: "Non. L'assistant ne cherche pas à deviner ce que vous ressentez et ne commente pas votre attitude : c'est interdit par le règlement européen sur l'IA, et ce ne serait pas fiable. Il décrit uniquement des faits, comme le rythme ou les pauses.",
+    answer: "Non. L'assistant ne cherche pas à deviner ce que vous ressentez et ne commente pas votre attitude : le règlement européen sur l'IA l'interdit au travail et dans l'enseignement, nous l'excluons partout, et ce ne serait pas fiable. Il analyse uniquement des faits, comme le rythme ou les pauses.",
     more: "Le suivi du visage sert seulement à savoir si votre regard est tourné vers l'écran, vers le bas ou sur le côté. Les expressions du visage ne sont jamais lues. Si vous souhaitez parler de votre ressenti, votre coach est là pour cela.",
     example: "Par exemple, l'assistant peut écrire « 3 pauses de plus de 2 secondes », mais jamais une phrase qui devine ce que vous ressentez.",
     related: ["respiration", "pas-de-note", "confidentialite"],
@@ -86,41 +86,41 @@ export const KB = [
   {
     id: "confidentialite", q: "Qui peut voir mes enregistrements ?",
     keys: ["confidentialite", "confidentiel", "donnees", "donnee", "qui voit", "qui peut voir", "prive", "vie privee", "rgpd", "securite", "partage", "stocke", "stockage", "ou sont"],
-    answer: "Personne d'autre que vous, tant que vous ne décidez pas d'envoyer. Vos enregistrements restent sur votre appareil. C'est vous qui choisissez, réponse par réponse, ce qui est envoyé à votre coach.",
-    more: "Seul le texte de votre réponse peut être utilisé pour préparer le retour ; la vidéo ne quitte pas l'appareil sans envoi explicite. Vous pouvez supprimer une réponse, ou retirer votre consentement et effacer toutes vos données depuis votre espace.",
-    example: "Par exemple, si vous enregistrez cinq réponses et n'en envoyez qu'une, votre coach ne verra que celle-là. Les quatre autres restent sur votre appareil.",
+    answer: "Personne d'autre que vous, tant que vous ne décidez pas d'envoyer. Vos enregistrements restent sur votre appareil. C'est vous qui choisissez, entretien par entretien, ce qui est envoyé à votre coach.",
+    more: "Seul le texte de votre entretien peut être utilisé pour préparer le retour ; la vidéo ne quitte pas l'appareil sans envoi explicite. Vous pouvez supprimer un entretien, ou retirer votre accord : tous vos entretiens sont alors effacés.",
+    example: "Par exemple, si vous enregistrez cinq entretiens et n'en envoyez qu'un, votre coach ne verra que celui-là. Les quatre autres restent sur votre appareil.",
     related: ["video-devenir", "supprimer", "coach-partage"],
   },
   {
     id: "video-devenir", q: "Que devient ma vidéo ?",
     keys: ["video", "que devient", "enregistrement", "film", "camera enregistre", "garde", "conserve", "conservation"],
-    answer: "Votre vidéo est enregistrée uniquement sur cet appareil. Elle n'est envoyée à votre coach que si vous appuyez sur « Envoyer à mon coach » pour cette réponse précise. Vous pouvez la supprimer à tout moment.",
+    answer: "Votre vidéo est enregistrée uniquement sur cet appareil. Elle n'est envoyée à votre coach que si vous appuyez sur « Envoyer à mon coach » pour cet entretien précis. Vous pouvez la supprimer à tout moment.",
     more: "Pendant l'échauffement, rien n'est enregistré : l'image de la caméra s'affiche seulement en direct. Pendant l'entraînement, la vidéo est gardée sur l'appareil pour que vous puissiez vous revoir.",
-    example: "Le bouton « Que devient ma vidéo ? », sous la caméra, résume le cycle de vie complet de vos enregistrements.",
+    example: "Le bouton « Que devient ma vidéo ? », sous la caméra, résume ce que deviennent vos enregistrements.",
     related: ["confidentialite", "supprimer", "voix-seule"],
   },
   {
-    id: "coach-partage", q: "Comment envoyer une réponse à mon coach ?",
+    id: "coach-partage", q: "Comment envoyer un entretien à mon coach ?",
     keys: ["envoyer", "coach", "partager", "conseiller", "conseillere", "transmettre", "accompagnateur", "referent"],
-    answer: "Après le retour de l'assistant, appuyez sur « Envoyer à mon coach ». Vous pouvez ajouter un petit mot, par exemple ce sur quoi vous aimeriez son avis. Seule cette réponse est envoyée.",
-    more: "Votre coach relit la réponse, peut ajouter des remarques à des moments précis de la vidéo et commenter les repères de l'assistant. Son rapport apparaît ensuite dans votre espace, avec le même code.",
+    answer: "Après le retour de l'assistant, appuyez sur « Envoyer à mon coach ». Vous pouvez ajouter un petit mot, par exemple ce sur quoi vous aimeriez son avis. Seul cet entretien est envoyé.",
+    more: "Votre coach relit l'entretien, peut ajouter des remarques à des moments précis de la vidéo et commenter les repères de l'assistant. Son rapport apparaît ensuite dans votre espace, avec le même code.",
     example: "Par exemple, un mot comme : « J'ai l'impression de parler vite au début, qu'en pensez-vous ? » aide votre coach à cibler sa relecture.",
     related: ["coach-rapport", "confidentialite", "hors-sujet"],
   },
   {
     id: "coach-rapport", q: "Quand vais-je recevoir le rapport de mon coach ?",
     keys: ["rapport du coach", "rapport de mon coach", "reponse du coach", "quand", "delai", "recevoir", "relecture", "relire"],
-    answer: "Le délai dépend de votre coach et de son organisation. Dès qu'il a relu votre réponse, son rapport apparaît dans votre espace : un message vous l'indique en haut de la page.",
+    answer: "Le délai dépend de votre coach et de son organisation. Dès qu'il a relu votre entretien, son rapport apparaît dans votre espace : un message vous l'indique en haut de la page.",
     more: "Le rapport reprend le retour de l'assistant, avec les remarques de votre coach à des moments précis. Il sert de base pour en parler ensemble en atelier ou en rendez-vous.",
-    example: "Dans la liste de vos entraînements, la mention « Rapport reçu » apparaît à côté de la réponse concernée.",
+    example: "Dans « Mes entretiens », la mention « Rapport reçu » apparaît à côté de l'entretien concerné.",
     related: ["coach-partage", "refaire"],
   },
   {
     id: "rapport-ecrit-video", q: "Puis-je lire le retour sans me revoir ?",
     keys: ["sans me revoir", "rapport ecrit", "revoir", "me voir", "pas envie de me voir", "lire le retour", "mode video", "reperes"],
-    answer: "Oui. Après chaque réponse, vous choisissez entre un rapport écrit, sans vous revoir, et une relecture vidéo avec les repères placés au bon moment. Les deux contiennent le même retour, et vous pouvez changer d'avis.",
-    more: "En mode vidéo, chaque observation est placée sur la barre de lecture : un clic sur un repère vous amène au moment concerné.",
-    example: "Beaucoup de personnes commencent par le rapport écrit, puis se revoient une fois plus habituées.",
+    answer: "Oui. Après chaque réponse, vous choisissez entre lire votre retour, sans vous revoir, et vous revoir en vidéo avec les repères placés au bon moment. Les deux contiennent le même retour, et vous pouvez changer d'avis.",
+    more: "En vidéo, chaque repère est placé sur la barre de lecture : un clic sur un repère vous amène au moment concerné.",
+    example: "Beaucoup de personnes commencent par lire leur retour, puis se revoient une fois plus habituées.",
     related: ["retour-assistant", "voix-seule"],
   },
   {
@@ -134,7 +134,7 @@ export const KB = [
   {
     id: "voix-seule", q: "Puis-je m'entraîner sans caméra ?",
     keys: ["sans camera", "voix seule", "son seul", "son seulement", "audio", "que la voix", "pas de video", "couper la camera"],
-    answer: "Oui. Choisissez « Son seulement » avant d'enregistrer, ou « Passer en voix seule » pendant l'échauffement. Le retour porte alors sur la voix et le contenu : rythme, pauses, exemples, structure.",
+    answer: "Oui. Choisissez « Voix seule » avant d'enregistrer, ou « Passer en voix seule » pendant l'échauffement. Le retour porte alors sur la voix et le contenu : rythme, pauses, exemples, structure.",
     more: "Sans caméra, le repère sur la direction du regard n'est simplement pas calculé. C'est aussi une bonne préparation pour un entretien téléphonique.",
     example: "Par exemple, vous pouvez commencer en voix seule pour travailler le contenu, puis activer la caméra une fois la réponse plus fluide.",
     related: ["telephone", "camera", "fond-video"],
@@ -150,15 +150,15 @@ export const KB = [
   {
     id: "supprimer", q: "Comment supprimer mes données ?",
     keys: ["supprimer", "effacer", "suppression", "retirer mon consentement", "retirer mon accord", "consentement", "enlever", "detruire"],
-    answer: "Ouvrez une réponse et appuyez sur « Supprimer » pour l'effacer. Pour tout effacer, ouvrez « Mon compte », puis « Retirer mon accord ». Aucune justification n'est demandée.",
-    more: "La suppression efface la vidéo et le retour de cet appareil. Si une réponse a déjà été envoyée à votre coach, vous pouvez lui demander de la supprimer de son côté.",
-    example: "Par exemple, vous pouvez garder uniquement vos meilleures réponses et supprimer les essais.",
+    answer: "Ouvrez un entretien et appuyez sur « Supprimer cet entretien » pour l'effacer. Pour tout effacer, ouvrez « Mon compte », puis « Retirer mon accord ». Aucune justification n'est demandée.",
+    more: "La suppression efface la vidéo et le retour de cet appareil. Si un entretien a déjà été envoyé à votre coach, vous pouvez lui demander de le supprimer de son côté.",
+    example: "Par exemple, vous pouvez garder uniquement les entretiens que vous voulez revoir et supprimer les autres.",
     related: ["confidentialite", "video-devenir"],
   },
   {
     id: "refaire", q: "Combien de fois puis-je recommencer ?",
     keys: ["recommencer", "refaire", "combien de fois", "illimite", "encore", "reessayer", "limite"],
-    answer: "Autant de fois que vous le souhaitez. Vous pouvez refaire une réponse avant de la valider, et relancer un entraînement à tout moment, y compris après avoir reçu le rapport de votre coach.",
+    answer: "Autant de fois que vous voulez. Vous pouvez recommencer une réponse avant de la garder, et relancer un entraînement à tout moment, y compris après avoir reçu le rapport de votre coach.",
     more: "S'entraîner plusieurs fois sur la même question est très efficace : à chaque essai, la réponse devient plus claire et plus naturelle.",
     example: "Par exemple : un premier essai pour trouver les idées, un deuxième pour ajouter un exemple concret, un troisième pour soigner la conclusion.",
     related: ["entrainement", "duree"],
@@ -166,7 +166,7 @@ export const KB = [
   {
     id: "duree", q: "Combien de temps dure une réponse ?",
     keys: ["duree", "combien de temps", "trop long", "trop court", "minutes", "temps maximum", "longueur"],
-    answer: "Chaque enregistrement dure au maximum trois minutes. En entretien, une réponse d'une à deux minutes est souvent un bon repère : assez pour donner un exemple, assez court pour laisser le recruteur rebondir.",
+    answer: "Chaque réponse dure 3 minutes au plus. En entretien, une réponse d'une à deux minutes est souvent un bon repère : assez pour donner un exemple, assez court pour laisser le recruteur rebondir.",
     more: "La présentation de soi peut aller jusqu'à deux ou trois minutes. Pour une question simple, quelques phrases suffisent. Le recruteur vous relancera s'il veut en savoir plus.",
     example: "Par exemple : une phrase pour répondre directement, un exemple vécu, une phrase de conclusion. Cela tient en une minute environ.",
     related: ["structure", "se-presenter"],
@@ -174,7 +174,7 @@ export const KB = [
   {
     id: "metier", q: "Comment changer le métier visé ?",
     keys: ["metier", "changer de metier", "changer le poste", "poste vise", "modifier le poste", "autre metier", "domaine"],
-    answer: "Dans votre espace, utilisez le champ « Métier visé » : commencez à taper, choisissez dans la liste ou écrivez librement votre métier. Les questions d'entraînement s'adaptent alors à ce métier.",
+    answer: "Dans votre espace, utilisez le champ « Métier ou poste visé » : commencez à taper, choisissez dans la liste ou écrivez librement votre métier. Les questions d'entraînement s'adaptent alors à ce métier.",
     more: "Vous pouvez le changer quand vous voulez, par exemple si vous préparez plusieurs candidatures. Votre coach voit le métier indiqué dans votre parcours.",
     example: "Par exemple, avec « agent d'accueil », la question devient « Pourquoi ce poste d'agent d'accueil vous intéresse-t-il ? ».",
     related: ["motivation", "entrainement"],
@@ -182,8 +182,8 @@ export const KB = [
   {
     id: "transcription", q: "Pourquoi le premier retour est-il long ?",
     keys: ["long", "lent", "chargement", "telechargement", "modele", "transcription", "attendre", "patienter", "bloque sur"],
-    answer: "Au premier entraînement, votre navigateur télécharge un modèle de transcription qui fonctionne sur votre appareil. Ce téléchargement n'a lieu qu'une fois ; les retours suivants sont plus rapides.",
-    more: "La transcription se fait localement, ce qui évite d'envoyer votre voix ailleurs. Une connexion stable aide pour ce premier téléchargement. Si cela échoue, le bouton « Réessayer » relance l'opération.",
+    answer: "Au premier entraînement, votre appareil télécharge un outil de mise par écrit (environ 130 Mo). Ce téléchargement n'a lieu qu'une fois ; les retours suivants sont plus rapides.",
+    more: "La mise par écrit se fait sur votre appareil : votre voix n'est pas envoyée. Une connexion stable aide pour ce premier téléchargement. Si cela échoue, le bouton « Réessayer » relance l'opération.",
     example: "Sur un téléphone, le premier retour peut prendre une à deux minutes ; ensuite, quelques secondes.",
     related: ["confidentialite", "camera"],
   },
@@ -199,7 +199,7 @@ export const KB = [
     id: "hors-sujet", q: "Pour quelles questions voir mon coach ?",
     keys: ["voir mon coach", "demander au coach", "rendez vous", "droits", "allocation", "indemnisation", "france travail", "pole emploi", "contrat", "aide financiere", "formation financee", "inscription", "dossier", "administratif"],
     answer: "Pour tout ce qui concerne votre situation personnelle (droits, démarches, contrat, formation, financement), votre coach est la bonne personne : il connaît votre parcours et les dispositifs. De mon côté, je réponds sur l'entraînement et la préparation d'entretien.",
-    more: "Vous pouvez noter vos questions et les apporter à votre prochain rendez-vous, ou les écrire dans le petit mot qui accompagne une réponse envoyée.",
+    more: "Vous pouvez noter vos questions et les apporter à votre prochain rendez-vous, ou les écrire dans le petit mot qui accompagne un entretien envoyé.",
     example: "Par exemple : « Ai-je droit à une formation ? » est une question pour votre coach ; « Comment parler de ma formation en entretien ? » est une question pour moi.",
     related: ["coach-partage", "assistant"],
   },
@@ -358,7 +358,7 @@ export const KB = [
     keys: ["telephone", "telephonique", "appel", "au telephone", "premier appel", "preselection"],
     answer: "Installez-vous au calme, avec votre CV, l'offre d'emploi et de quoi noter. Comme le recruteur ne vous voit pas, votre voix porte tout : parlez clairement et un peu plus lentement que d'habitude.",
     more: "Rester debout aide parfois à mieux poser la voix. Notez le nom de votre interlocuteur au début de l'appel. À la fin, demandez quelle est la prochaine étape.",
-    example: "Pour vous préparer, entraînez-vous en mode « Son seulement » : le retour portera sur votre voix et le contenu.",
+    example: "Pour vous préparer, entraînez-vous en « Voix seule » : le retour portera sur votre voix et le contenu.",
     related: ["voix-seule", "visio", "debit"],
   },
   {
@@ -521,7 +521,7 @@ export const CONTEXT_SUGGESTIONS = {
 
 /* Sujets sur le fonctionnement du site : réponse courte, puis renvoi vers les questions fréquentes. */
 export const SITE_TOPICS = new Set(["fonctionnement", "echauffement", "entrainement", "questions-perso", "retour-assistant", "confidentialite", "video-devenir", "coach-partage", "coach-rapport", "rapport-ecrit-video", "camera", "voix-seule", "fond-video", "supprimer", "refaire", "duree", "metier", "transcription"]);
-export const FAQ_HINT = "Pour les autres questions sur le site, consultez les questions fréquentes (page À propos).";
+export const FAQ_HINT = "Pour les autres questions sur le site, consultez la page « Questions fréquentes ».";
 
 function topicSuggestions(e, given) {
   const out = [];
@@ -638,7 +638,7 @@ Règles strictes :
 - Ne donne aucune note, aucun score, aucun classement.
 - Ne déduis et ne commentes jamais l'état émotionnel, l'attitude ou la personnalité de la personne (interdit par l'article 5(1)(f) du règlement européen sur l'IA). Si la personne évoque son ressenti, donne seulement des conseils pratiques (respiration, préparation), sans diagnostic.
 - Ne demande aucune donnée personnelle (nom, adresse, téléphone, situation).
-- Pour une question sur le fonctionnement du site, renvoie vers la page « Questions fréquentes » (À propos). Pour ce qui dépasse ce périmètre (droits, démarches, contrat, situation personnelle), renvoie poliment vers le coach.
+- Pour une question sur le fonctionnement du site, renvoie vers la page « Questions fréquentes ». Pour ce qui dépasse ce périmètre (droits, démarches, contrat, situation personnelle), renvoie poliment vers le coach.
 - Rappelle si on te le demande que tu es un programme, pas une personne.
 - Appuie-toi sur l'historique de la conversation pour répondre aux relances (« un exemple ? », « pourquoi ? », « et pour… ? »).`;
 

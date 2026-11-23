@@ -1,5 +1,5 @@
 import React from "react";
-import { T, GAP, W, TY, RepetLogo, Link, Icon, I } from "../ui.jsx";
+import { T, GAP, W, TY, RepetLogo, Link, Icon, I, PAD } from "../ui.jsx";
 
 /* ─── Pied de page (non collant) ─── */
 
@@ -25,7 +25,7 @@ export function Footer({ compact = false }) {
   );
   if (compact) return (
     <footer className="noprint rp-foot" style={{ position: "relative", zIndex: 1, borderTop: `1px solid ${T.line}`, background: T.surface, marginTop: GAP.section / 2 }}>
-      <div className="rp-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "12px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "4px 24px" }}>
+      <div className="rp-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: `12px ${PAD.x}px`, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: `4px ${GAP.grid}px` }}>
         {trustList}
         <nav aria-label="Informations" style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           {[["#/vos-donnees", "Vos données"], ["#/mentions-legales", "Mentions légales"], ["#/accessibilite", "Accessibilité : non conforme"]].map(([h, l]) => <Link key={h} href={h} style={lk}>{l}</Link>)}
@@ -37,12 +37,12 @@ export function Footer({ compact = false }) {
      à gauche des trois groupes de liens. Colonnes 3/2/2/2 ; tablette (1023 px et moins) : deux colonnes, la présentation
      à côté de « Vos données » ; petit mobile (560 px et moins) : présentation, puis groupes sur deux colonnes. */
   return (
-    <footer className="noprint rp-foot" style={{ position: "relative", zIndex: 1, borderTop: `1px solid ${T.line}`, background: T.surface, marginTop: GAP.section / 2 }}>
-      <div className="rp-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "12px 24px" }}>
+    <footer className="noprint rp-foot rp-foot-full" style={{ position: "relative", zIndex: 1, borderTop: `1px solid ${T.line}`, background: T.surface, marginTop: GAP.section }}>
+      <div className="rp-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: `12px ${PAD.x}px` }}>
         {trustList}
       </div>
       <div style={{ borderTop: `1px solid ${T.lineLt}` }}>
-        <div className="rp-pad rp-fgrid" style={{ maxWidth: W.page, margin: "0 auto", padding: "24px 24px 32px" }}>
+        <div className="rp-pad rp-fgrid" style={{ maxWidth: W.page, margin: "0 auto", padding: `${PAD.md}px ${PAD.x}px ${PAD.lg}px` }}>
           <div className="rp-fbrief" style={{ display: "grid", gap: 12, alignContent: "start", maxWidth: 360 }}>
             <RepetLogo s={14} tagline={false} />
             <p style={{ ...TY.caption, color: T.body, margin: 0 }}>La Répét' est l'outil d'entraînement de notre organisme d'accompagnement. On s'entraîne à voix haute pour son entretien, l'assistant analyse sans noter, votre coach vous accompagne.</p>

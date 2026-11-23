@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { T, GAP, GRAD_PAGE, RAD, SH, Btn, Tag, Icon, I, TY, W, img, Eyebrow, Section, PageHero, Chip, IconTile, Input, Link } from "./ui.jsx";
+import { T, GAP, GRAD_PAGE, RAD, SH, Btn, Tag, Icon, I, TY, W, img, Eyebrow, Section, PageHero, Chip, IconTile, Input, Link, PAD } from "./ui.jsx";
 import { Reveal, stagger, scrollToTarget } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { dateLong } from "./lib/format.js";
@@ -24,7 +24,7 @@ export default function Resources({ go, openSpace, slug, cat }) {
 const iconOf = k => I[k] || I.book;
 const catTitle = id => findCategory(id)?.title || id;
 const fmtDate = dateLong; // src/lib/format.js
-const wrap = { maxWidth: W.page, margin: "0 auto", padding: "0 24px" };
+const wrap = { maxWidth: W.page, margin: "0 auto", padding: PAD.wrap };
 
 /* ─── La page Ressources ─── */
 function Hub({ go, openSpace, cat }) {
@@ -42,7 +42,7 @@ function Hub({ go, openSpace, cat }) {
 
       <div className="rs-pad" style={wrap}>
         {featured.length > 0 && (
-          <section className="rs-section" aria-labelledby="rs-une" style={{ paddingTop: GAP.block }}>
+          <section className="rs-section rs-first" aria-labelledby="rs-une" style={{ paddingTop: GAP.head }}>
             <Reveal style={{ display: "grid", gap: 4, marginBottom: GAP.grid }}>
               <Eyebrow>À la une</Eyebrow>
               <h2 id="rs-une" style={{ ...TY.h2, color: T.navy, margin: 0 }}>Pour bien commencer</h2>
@@ -52,7 +52,7 @@ function Hub({ go, openSpace, cat }) {
         )}
 
         <Section id="toutes" eyebrow="Rechercher" title={q ? `Résultats pour « ${q} »` : "Toutes les ressources"}>
-          <div className="rs-chips rs-scroll" role="group" aria-label="Filtrer par thème" style={{ marginBottom: 24 }}>
+          <div className="rs-chips rs-scroll" role="group" aria-label="Filtrer par thème" style={{ marginBottom: GAP.grid }}>
             <Chip pressed={!fcat} onClick={() => setFcat("")}>Tous les thèmes</Chip>
             {CATEGORIES.map(c => <Chip key={c.id} pressed={fcat === c.id} onClick={() => setFcat(fcat === c.id ? "" : c.id)}>{c.title}</Chip>)}
           </div>
@@ -68,7 +68,7 @@ function Hub({ go, openSpace, cat }) {
 }
 
 const Empty = ({ text }) => (
-  <div style={{ background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, padding: 32, display: "grid", justifyItems: "center", gap: 12, textAlign: "center" }}>
+  <div className="rp-pad-lg" style={{ background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, padding: PAD.lg, display: "grid", justifyItems: "center", gap: 12, textAlign: "center" }}>
     <IconTile icon={I.search} s={48} />
     <p style={{ ...TY.body, color: T.body, margin: 0, maxWidth: 440 }}>{text}</p>
   </div>
@@ -83,7 +83,7 @@ function ArticleCard({ a }) {
       <div style={{ aspectRatio: "16 / 9", background: T.primaryBg }}>
         <img src={img(a.image)} alt="" width={1200} height={675} loading="lazy" decoding="async" style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }} />
       </div>
-      <div style={{ padding: 24, display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
+      <div className="rp-pad-md" style={{ padding: PAD.md, display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
           <Tag tone={a.type === "cas" ? "coach" : "primary"}>{TYPES[a.type]}</Tag>
           <span style={{ ...TY.caption, color: T.muted }}>{catTitle(a.category)}</span>
@@ -148,7 +148,7 @@ function Blocks({ blocks, top }) {
     if (b.t === "ol") return el("ol", { key: i }, b.items.map((x, j) => <li key={j}>{inline(x)}</li>));
     if (b.t === "quote" || (b.t === "callout" && b.kind === "citation")) {
       return (
-        <Reveal as="figure" key={i} className="rs-quote" style={{ margin: "32px 0" }}>
+        <Reveal as="figure" key={i} className="rs-quote" style={{ margin: `${GAP.block}px 0` }}>
           <Icon d={I.quote} s={24} c={T.primary} />
           <blockquote style={{ margin: "8px 0 0" }}><Blocks blocks={b.blocks} /></blockquote>
           {b.title && <figcaption style={{ ...TY.caption, color: T.muted, marginTop: 8 }}>{b.title}</figcaption>}
@@ -191,25 +191,25 @@ function Article({ a, go, openSpace }) {
     <main>
       <article>
         <header style={{ background: GRAD_PAGE }}>
-          <div className="rs-pad" style={{ ...wrap, padding: "48px 24px 0" }}>
+          <div className="rs-pad" style={{ ...wrap, padding: `${GAP.head}px ${PAD.x}px 0` }}>
             <div className="up" style={{ display: "grid", gap: 16, maxWidth: W.read }}>
               <div style={{ ...TY.small }}><Crumbs items={[["#/ressources", "Ressources"]]} /></div>
               <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}><Tag tone={cas ? "ai" : "primary"}>{TYPES[a.type]}</Tag><span style={{ ...TY.caption, color: T.muted }}>{catTitle(a.category)}</span></div>
-              <h1 className="ty-xl" style={{ ...TY.pageTitle, color: T.navy, margin: 0 }}>{a.title}</h1>
+              <h1 className="ty-pageTitle" style={{ ...TY.pageTitle, color: T.navy, margin: 0 }}>{a.title}</h1>
               <p className="ty-lead" style={{ ...TY.lead, color: T.body, margin: 0 }}>{a.summary}</p>
               {meta}
             </div>
-            <div style={{ marginTop: 32, borderRadius: RAD.lg, overflow: "hidden", aspectRatio: "1200 / 630", background: T.primaryBg, boxShadow: SH.sm }}>
+            <div style={{ marginTop: GAP.block, borderRadius: RAD.lg, overflow: "hidden", aspectRatio: "1200 / 630", background: T.primaryBg, boxShadow: SH.sm }}>
               <img src={img(a.image)} alt={a.imageAlt} width={1200} height={630} decoding="async" style={{ display: "block", width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
           </div>
         </header>
 
-        <div className="rs-pad" style={{ ...wrap, paddingTop: 48 }}>
+        <div className="rs-pad" style={{ ...wrap, paddingTop: GAP.head }}>
           <div className="rs-art">
             <aside className="rs-art-side" aria-label={cas ? "Faits clés" : "Sommaire"}>
               {cas ? (
-                <div style={{ background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, padding: 24, display: "grid", gap: 16 }}>
+                <div className="rp-pad-md" style={{ background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, padding: PAD.md, display: "grid", gap: 16 }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
                     <span style={{ ...TY.overline, color: T.muted }}>Faits clés</span>
                     <Tag tone="muted">Scénario type</Tag>
@@ -259,7 +259,7 @@ function Article({ a, go, openSpace }) {
 
 function NotFound({ go }) {
   return (
-    <main className="rs-pad" style={{ maxWidth: W.form, margin: "0 auto", padding: "80px 24px", textAlign: "center", display: "grid", gap: 16, justifyItems: "center" }}>
+    <main className="rs-pad" style={{ maxWidth: W.form, margin: "0 auto", padding: `${GAP.section}px ${PAD.x}px 0`, textAlign: "center", display: "grid", gap: 16, justifyItems: "center" }}>
       <IconTile icon={I.search} s={48} />
       <h1 className="ty-h1" style={{ ...TY.h1, color: T.navy, margin: 0 }}>Cette ressource est introuvable</h1>
       <p style={{ ...TY.bodyLg, color: T.body, margin: 0 }}>Elle a peut-être changé d'adresse. Retrouvez toutes les ressources ci-dessous.</p>
@@ -288,10 +288,9 @@ function SearchBox({ q, setQ, go }) {
   return (
     <form role="search" onSubmit={e => { e.preventDefault(); setOpen(false); scrollToTarget("toutes"); }} style={{ position: "relative", maxWidth: 520, marginTop: 8 }}>
       <label htmlFor="rs-q" className="rs-sr">Rechercher une ressource</label>
-      <span aria-hidden style={{ position: "absolute", left: 16, top: 14, color: T.muted, display: "flex" }}><Icon d={I.search} s={20} /></span>
       <Input id="rs-q" type="search" role="combobox" aria-autocomplete="list" aria-expanded={show} aria-controls="rs-q-list"
         aria-activedescendant={show && active >= 0 ? `rs-q-opt-${active}` : undefined} autoComplete="off"
-        placeholder="Rechercher : visio, salaire, trac…" value={q} style={{ paddingLeft: 48 }}
+        placeholder="Rechercher : visio, salaire, trac…" value={q} icon={I.search}
         onChange={e => { setQ(e.target.value); setOpen(true); setActive(-1); }} onKeyDown={onKey}
         onFocus={() => { clearTimeout(blurT.current); setOpen(true); }} onBlur={() => { blurT.current = setTimeout(() => setOpen(false), 160); }} />
       {show && (

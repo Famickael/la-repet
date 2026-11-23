@@ -1,6 +1,6 @@
 import CodeForm from "../CodeForm.jsx";
 import React, { useState } from "react";
-import { T, GAP, W, TY, PageHero, Tag, Btn, Link, Card, Field, Input, Txt, Notice, Icon, I } from "../ui.jsx";
+import { T, GAP, W, TY, PageHero, Tag, Btn, Link, Card, Field, Input, Txt, Notice, Icon, I, PAD } from "../ui.jsx";
 import { PHRASES } from "../content/legal.js";
 import { setLastSpace, setCounselor, TRIAL_LOGIN } from "../lib/store.js";
 import { go, openSpace } from "./router.js";
@@ -25,7 +25,7 @@ export function Espace() {
   return (
     <main>
       <h1 className="rp-sr">Mon espace</h1>
-      <div className="rs-pad rp-espace" style={{ maxWidth: W.wide, margin: "0 auto", padding: "32px 24px 0" }}>
+      <div className="rs-pad rp-espace" style={{ maxWidth: W.wide, margin: "0 auto", padding: `${GAP.block}px ${PAD.x}px 0` }}>
         <div className="rp-stack rp-equal" style={{ alignItems: "stretch" }}>
           <Reveal style={{ display: "grid" }}><Card pad="lg" level={2} topbar style={card}>
             <div style={{ display: "grid", gap: 12 }}>
@@ -79,7 +79,7 @@ export function NotFound() {
   return (
     <main>
       <PageHero eyebrow="Page introuvable" title="Cette page n'existe pas" lead="L'adresse est peut-être incomplète, ou la page a changé de place." />
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "32px 24px 0", display: "flex", gap: GAP.actions, flexWrap: "wrap" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: `${GAP.block}px ${PAD.x}px 0`, display: "flex", gap: GAP.actions, flexWrap: "wrap" }}>
         <Btn kind="primary" onClick={() => go("#/")}>Revenir à l'accueil</Btn>
         <Btn kind="secondary" onClick={openSpace}>Mon espace</Btn>
       </div>

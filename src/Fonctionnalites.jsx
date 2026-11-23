@@ -1,5 +1,5 @@
 import React from "react";
-import { T, Btn, Card, Icon, I, TY, Section, PageHero, IconTile, W } from "./ui.jsx";
+import { T, Btn, Card, Icon, I, TY, Section, PageHero, IconTile, W, PAD } from "./ui.jsx";
 import { Reveal, scrollToTarget } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 
@@ -51,7 +51,7 @@ export default function Fonctionnalites({ go }) {
         </nav>
       </PageHero>
 
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         <Section first eyebrow="Le déroulé" title="Sept étapes, chacune décidée par une personne" sub="Rien ne passe d'une étape à la suivante sans que quelqu'un le décide.">
           <Reveal><Flow /></Reveal>
         </Section>

@@ -1,5 +1,5 @@
 import React from "react";
-import { T, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Tabs, Notice, Link } from "./ui.jsx";
+import { T, Btn, Card, I, TY, W, GAP, Section, PageHero, IconTile, Tabs, Notice, Link, PAD } from "./ui.jsx";
 import { Reveal, stagger, useSectionScroll } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { LinkCards, LinkChips } from "./LinkCards.jsx";
@@ -29,7 +29,7 @@ export default function UseCases({ go, openSpace, page, section }) {
   return <Hub go={go} />;
 }
 
-const wrap = { maxWidth: W.page, margin: "0 auto", padding: "0 24px" };
+const wrap = { maxWidth: W.page, margin: "0 auto", padding: PAD.wrap };
 
 function Hub({ go }) {
   return (

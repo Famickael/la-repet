@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { T, W, Z, TY, MO, HEADER_H, RepetLogo, Btn, Bare, IconBtn, Link, Icon, I, ScrollProgress, lockScroll } from "../ui.jsx";
+import { T, W, Z, TY, MO, HEADER_H, RepetLogo, Btn, Bare, IconBtn, Link, Icon, I, ScrollProgress, lockScroll, PAD, GAP } from "../ui.jsx";
 import { openA11y } from "../A11y.jsx";
 import { PUBLIC, go, openSpace } from "./router.js";
 import { AccountMenu, AccountActions, WithdrawDialog, accountOf, runAccountAction, helpHash } from "./AccountMenu.jsx";
@@ -30,7 +30,7 @@ const INTENT_MS = 120, CLOSE_MS = 250;
 /* Styles propres à l'en-tête (menu déroulant « Mon compte », bascule des sous-menus), à côté du composant pour ne
    pas toucher la feuille commune (src/ui/GStyle.jsx). Valeurs issues des jetons uniquement. */
 const NAV_CSS = `
-.rp-account-menu{position:absolute;right:0;top:calc(100% + 8px);width:320px;max-width:calc(100vw - 32px);max-height:calc(100vh - ${HEADER_H + 16}px);overflow-y:auto;overscroll-behavior:contain;background:${T.surface};border:1px solid ${T.line};padding:4px 4px 8px;z-index:${Z.nav + 1};animation:rsMenu ${MO.base} ${MO.ease} both}
+.rp-account-menu{position:absolute;right:0;top:calc(100% + 8px);width:320px;max-width:calc(100vw - 32px);max-height:calc(100vh - ${HEADER_H + 16}px);max-height:calc(100dvh - ${HEADER_H + 16}px);overflow-y:auto;overscroll-behavior:contain;background:${T.surface};border:1px solid ${T.line};padding:4px 4px 8px;z-index:${Z.nav + 1};animation:rsMenu ${MO.base} ${MO.ease} both}
 .rp-account-menu[hidden]{display:none}
 .rp-acct-chev svg{transition:transform ${MO.base} ${MO.ease}}
 [aria-expanded=true] .rp-acct-chev svg{transform:rotate(180deg)}
@@ -106,7 +106,7 @@ export function Nav({ route, s }) {
   return (<>
     <style>{NAV_CSS}</style>
     <header className="noprint rp-header" style={{ position: "sticky", top: 0, zIndex: Z.nav, background: menu ? T.bg : T.glass, backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", borderBottom: `1px solid ${T.line}` }}>
-      <div className="rp-nav" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px", height: HEADER_H, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+      <div className="rp-nav" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap, height: HEADER_H, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 20, minWidth: 0 }}>
           <a href="#/" onClick={e => { e.preventDefault(); go("#/"); }} aria-label="La Répét', accueil" className="rp-head-logo" style={{ display: "flex", alignItems: "center", minHeight: 44, flexShrink: 0 }}>
             <RepetLogo s={17} tagline={false} />
@@ -133,16 +133,16 @@ export function Nav({ route, s }) {
             {LINKS.map(([h, l, r]) => <MobileItem key={h} href={h} label={l} id={r} on={activeOf(route.role) === r} />)}
           </nav>
           {acc && (
-            <div className="rs-macct" style={{ marginTop: 24, display: "grid", gap: 4 }}>
+            <div className="rs-macct" style={{ marginTop: GAP.grid, display: "grid", gap: 4 }}>
               <div style={{ ...TY.overline, color: T.muted }}>Mon compte</div>
               <AccountActions acc={acc} label="Mon compte" onAction={k => { setMenu(false); runAccountAction(k, { ...acc, onWithdraw: () => setConfirm(true) }); }} />
             </div>
           )}
-          <div style={{ display: "grid", gap: 12, marginTop: 24 }}>
+          <div style={{ display: "grid", gap: 12, marginTop: GAP.grid }}>
             <Btn kind="secondary" full onClick={() => { setMenu(false); contact[1](); }}>{contact[0]}</Btn>
             <Btn kind="ghost" full icon={I.a11y} onClick={() => { setMenu(false); openA11y(); }}>Options d'accessibilité</Btn>
           </div>
-          <nav aria-label="Vos données" onClick={() => setMenu(false)} style={{ marginTop: 24, display: "grid", gap: 4 }}>
+          <nav aria-label="Vos données" onClick={() => setMenu(false)} style={{ marginTop: GAP.grid, display: "grid", gap: 4 }}>
             <div style={{ ...TY.overline, color: T.muted }}>Vos données</div>
             {DATA_LINKS.map(([h, l]) => <Link key={h} href={h} style={{ minHeight: 44, display: "inline-flex", alignItems: "center" }}>{l}</Link>)}
           </nav>

@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useFocusOnChange, focusMainHeading } from "./lib/hooks.js";
 import { flushSync } from "react-dom";
-import { T, W, TY, BrandLoader, Notice, GStyle } from "./ui.jsx";
+import { T, W, TY, BrandLoader, Notice, GStyle, PAD } from "./ui.jsx";
 import { dismissLoader } from "./Loader.jsx";
 import LegalPage, { LegalModal } from "./Legal.jsx";
 import Home from "./home/index.jsx";
@@ -110,7 +110,7 @@ export default function App() {
       <Nav route={route} s={s} />
       {/* Stockage plein ou indisponible (ARC-01) : jamais de perte silencieuse */}
       {getStorageError() && (
-        <div className="noprint" style={{ maxWidth: W.page, margin: "16px auto 0", padding: "0 24px", width: "100%" }}>
+        <div className="noprint" style={{ maxWidth: W.page, margin: "16px auto 0", padding: PAD.wrap, width: "100%" }}>
           <Notice tone="error">Cet appareil ne peut plus enregistrer. Libérez de la place ou téléchargez vos entretiens, puis réessayez.</Notice>
         </div>
       )}

@@ -1,5 +1,5 @@
 import React from "react";
-import { T, HL, RAD, SH, Tag, Card, I, Icon, TY, Section, IconTile } from "../ui.jsx";
+import { T, HL, RAD, SH, Tag, Card, I, Icon, TY, Section, IconTile, PAD, GAP } from "../ui.jsx";
 import { ON, GRAD_DOOR_BLUE, GRAD_DOOR_GREEN, GRAD_DOOR_VIOLET } from "../tokens.js";
 import { spaceHash } from "../app/router.js";
 import { useReducedMotion, useInView, Reveal, stagger } from "../motion.jsx";
@@ -53,7 +53,7 @@ export function Features() {
             </span>
             <Tag tone="muted" icon={I.mic}>Voix seule</Tag>
           </div>
-          <div className="rs-wave" style={{ marginTop: 24, justifyContent: "center" }}>
+          <div className="rs-wave" style={{ marginTop: GAP.grid, justifyContent: "center" }}>
             {Array.from({ length: 22 }, (_, i) => <i key={i} style={{ animationDelay: `${(i * 137) % 900}ms`, height: `${30 + ((i * 53) % 60)}%` }} />)}
           </div>
         </FCard>
@@ -128,8 +128,8 @@ export function ForWho({ go, openSpace }) {
       <div className="rs-g3">
         {doors.map((x, i) => (
           <Reveal key={x.t} delay={i * 90} style={{ height: "100%" }}>
-            <a className="rs-door" href={x.href()} onClick={e => { e.preventDefault(); x.on(); }}
-              style={{ background: x.bg, color: ON.text, borderRadius: RAD.lg, boxShadow: SH.sm, padding: 24, height: "100%", display: "flex", flexDirection: "column", gap: 12, textDecoration: "none" }}>
+            <a className="rs-door rp-pad-md" href={x.href()} onClick={e => { e.preventDefault(); x.on(); }}
+              style={{ background: x.bg, color: ON.text, borderRadius: RAD.lg, boxShadow: SH.sm, padding: PAD.md, height: "100%", display: "flex", flexDirection: "column", gap: 12, textDecoration: "none" }}>
               <h3 style={{ ...TY.h2, margin: 0, color: ON.text }}>{x.t}</h3>
               <p style={{ ...TY.body, color: ON.text, margin: 0, flex: 1 }}>{x.d}</p>
               <span style={{ ...TY.bodyStrong, color: ON.text, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, minHeight: 44 }}>
@@ -156,7 +156,7 @@ export const REASSURE = [
 export function Reassurance() {
   return (
     <section aria-label="L'essentiel" className="rs-reassure">
-      <ul className="rs-g4" style={{ listStyle: "none", margin: 0, padding: "16px 24px", background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, boxShadow: SH.xs }}>
+      <ul className="rs-g4" style={{ listStyle: "none", margin: 0, padding: PAD.row, background: T.surface, border: `1px solid ${T.line}`, borderRadius: RAD.lg, boxShadow: SH.xs }}>
         {REASSURE.map(([ic, t, d], i) => (
           <Reveal as="li" key={t} delay={i * 90} style={{ display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}>
             <IconTile icon={ic} />

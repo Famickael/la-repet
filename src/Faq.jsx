@@ -1,5 +1,5 @@
 import React from "react";
-import { T, TY, W, Btn, I, Icon, PageHero, Section, Accordion } from "./ui.jsx";
+import { T, TY, W, Btn, I, Icon, PageHero, Section, Accordion, PAD } from "./ui.jsx";
 import { useSectionScroll } from "./motion.jsx";
 import { FinalBand } from "./home/FinalBand.jsx";
 import { FAQ } from "./content/faq.js";
@@ -20,7 +20,7 @@ export default function Faq({ go, section }) {
           {FAQ.map(g => <a key={g.id} href={`#/ressources/faq/${g.id}`} className="rs-chip" style={{ textDecoration: "none" }}><Icon d={ICONS[g.id]} s={16} /> {g.title}</a>)}
         </nav>
       </PageHero>
-      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: "0 24px" }}>
+      <div className="rs-pad" style={{ maxWidth: W.page, margin: "0 auto", padding: PAD.wrap }}>
         {FAQ.map((g, i) => (
           <Section key={g.id} id={g.id} first={i === 0} eyebrow="Questions fréquentes" title={g.title}>
             <div style={{ maxWidth: W.read }}><Accordion idPrefix={`faq-${g.id}`} items={g.items} /></div>

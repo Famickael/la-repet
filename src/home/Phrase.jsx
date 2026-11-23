@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { T, GRAD_ACCROCHE, TY, W, HEADER_H, HEADER_H_M } from "../ui.jsx";
+import { T, GRAD_ACCROCHE, TY, W, HEADER_H, HEADER_H_M, PAD, GAP } from "../ui.jsx";
 import { useReducedMotion } from "../motion.jsx";
 
 /* ─── Grande phrase qui se colore mot par mot au fil du défilement ─── */
@@ -52,9 +52,9 @@ export function Phrase() {
   }, [reduced, words.length]);
 
   const text = (
-    <div className="rs-pad" style={{ maxWidth: W.page, width: "100%", margin: "0 auto", padding: "0 24px" }}>
+    <div className="rs-pad" style={{ maxWidth: W.page, width: "100%", margin: "0 auto", padding: PAD.wrap }}>
       <p className="rs-sr">{words.map(w => w[0]).join(" ")} {PHRASE_SUB}</p>
-      <div aria-hidden style={{ maxWidth: W.wide, display: "grid", gap: 24 }}>
+      <div aria-hidden style={{ maxWidth: W.wide, display: "grid", gap: GAP.grid }}>
         <div className="rs-phrase-t" style={{ ...TY.display, color: T.navy }}>
           {words.map(([w, key], i) => {
             const on = i < lit;
@@ -71,7 +71,7 @@ export function Phrase() {
       </div>
     </div>
   );
-  if (reduced) return <section className="rs-section rs-phrase-r" style={{ paddingTop: 80 }}>{text}</section>;
+  if (reduced) return <section className="rs-section rs-phrase-r" style={{ paddingTop: GAP.section }}>{text}</section>;
   return (
     <section ref={sec} className="rs-phrase" style={{ height: small ? "110vh" : "180vh" }}>
       <div className="rs-phrase-in">{text}</div>

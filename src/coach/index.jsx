@@ -10,6 +10,8 @@ import { List } from "./List.jsx";
 import { Create, Created } from "./Create.jsx";
 import { Parcours } from "./Parcours.jsx";
 import { Review } from "./Review.jsx";
+import { Compare } from "./Compare.jsx";
+import { comparable } from "../lib/compare.js";
 
 export default function Counselor({ sub = "" }) {
   const s = useStore();
@@ -20,16 +22,18 @@ export default function Counselor({ sub = "" }) {
   const [modal, setModal] = useState(null); // null | { step: "create" } | { step: "created", code }
   const [gone, setGone] = useState("");
   /* Parcours ou réponse supprimés ailleurs (autre onglet, retrait de l'accord) : retour à la liste avec un message (BUG-09). */
-  const missing = (view.name === "parcours" && !s.parcours[view.code]) || (view.name === "review" && (!s.parcours[view.code] || !s.takes[view.takeId]));
+  const cmpTakes = view.name === "compare" ? [s.takes[view.a], s.takes[view.b]] : [];
+  const missing = (view.name === "parcours" && !s.parcours[view.code]) || (view.name === "review" && (!s.parcours[view.code] || !s.takes[view.takeId]))
+    || (view.name === "compare" && (!s.parcours[view.code] || view.a === view.b || !cmpTakes.every(t => t && t.code === view.code)));
   useEffect(() => {
     if (!missing) return;
-    if (view.name === "review" && s.parcours[view.code]) { setGone("Cet entretien n'existe plus."); setView({ name: "parcours", code: view.code }, true); }
+    if (view.name !== "parcours" && s.parcours[view.code]) { setGone("Cet entretien n'existe plus."); setView({ name: "parcours", code: view.code }, true); }
     else { setGone("Ce parcours n'existe plus."); setView({ name: "list" }, true); }
   }, [missing]); // eslint-disable-line
   useEffect(() => { if (!missing && gone) { const t = setTimeout(() => setGone(""), 8000); return () => clearTimeout(t); } }, [view]); // eslint-disable-line
   /* Un titre de page et un h1 propres à chaque vue (A11Y-06, A11Y-07), focus sur le titre au changement de vue (A11Y-02). */
-  useTitle(view.name === "list" ? "Mes parcours" : view.name === "parcours" ? `Parcours de ${s.parcours[view.code]?.prenom || ""}` : "Relecture");
-  useFocusOnChange(`${view.name}-${view.code || ""}-${view.takeId || ""}`);
+  useTitle(view.name === "list" ? "Mes parcours" : view.name === "parcours" ? `Parcours de ${s.parcours[view.code]?.prenom || ""}` : view.name === "compare" ? "Comparaison de deux entretiens" : "Relecture");
+  useFocusOnChange(`${view.name}-${view.code || ""}-${view.takeId || ""}-${view.a || ""}-${view.b || ""}`);
   if (!s.counselor) return null; // sans connexion, App affiche « Mon espace » (connexion intégrée)
 
   return (
@@ -46,9 +50,13 @@ export default function Counselor({ sub = "" }) {
         </div>
       </div>
       {gone && <Notice tone="info" role="status">{gone}</Notice>}
-      <div key={view.name + (view.code || "") + (view.takeId || "")} className="up">
+      <div key={view.name + (view.code || "") + (view.takeId || "") + (view.a || "") + (view.b || "")} className="up">
         {view.name === "list" && <List s={s} open={code => setView({ name: "parcours", code })} create={() => setModal({ step: "create" })} />}
-        {view.name === "parcours" && s.parcours[view.code] && <Parcours s={s} p={s.parcours[view.code]} back={() => setView({ name: "list" })} review={takeId => setView({ name: "review", code: view.code, takeId })} />}
+        {view.name === "parcours" && s.parcours[view.code] && <Parcours s={s} p={s.parcours[view.code]} back={() => setView({ name: "list" })} review={takeId => setView({ name: "review", code: view.code, takeId })} compare={(a, b) => setView({ name: "compare", code: view.code, a, b })} />}
+        {/* Comparaison : seulement deux entretiens envoyés, avec leur analyse. Un entretien non envoyé (ou repris) n'est jamais affiché. */}
+        {view.name === "compare" && !missing && (cmpTakes.every(t => t.shared && comparable(t))
+          ? <Compare p={s.parcours[view.code]} a={cmpTakes[0]} b={cmpTakes[1]} back={() => setView({ name: "parcours", code: view.code })} review={takeId => setView({ name: "review", code: view.code, takeId })} />
+          : <Withdrawn back={() => setView({ name: "parcours", code: view.code })} />)}
         {view.name === "review" && s.takes[view.takeId] && (s.takes[view.takeId].shared
           ? <Review s={s} p={s.parcours[view.code]} take={s.takes[view.takeId]} back={() => setView({ name: "parcours", code: view.code })} />
           : <Withdrawn back={() => setView({ name: "parcours", code: view.code })} />)}

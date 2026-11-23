@@ -100,6 +100,19 @@ export function textCompliant(text, level = "strict") {
   return true;
 }
 
+/* Comparaison de deux entretiens (« Ce qui a changé », src/lib/compare.js) : en plus du filtre strict, aucun mot qui
+   juge l'écart entre deux entretiens (« mieux », « meilleur », « moins bien », « progrès », « amélioré », « régressé »),
+   aucun pourcentage, aucune évolution chiffrée. On décrit un changement, on ne le qualifie pas. Ce filtre ne porte que
+   sur les phrases de la synthèse : la promesse du site (« mesurer votre progression ») n'y passe pas. */
+export const JUDGEMENT = rx([
+  `${L}mieux${E}`, `${L}meilleure?s?${E}`, `${L}moins bien${E}`, `${L}moins bon(?:ne)?s?${E}`, `${L}pires?${E}`,
+  `${L}progr[èe]s${E}`, `${L}progress\\p{L}*`, `${L}am[ée]lior\\p{L}*`, `${L}r[ée]gress\\p{L}*`, `${L}d[ée]grad\\p{L}*`,
+  `${L}r[ée]ussi\\p{L}*`, `${L}rat[ée]e?s?${E}`, `${L}[ée]chou\\p{L}*`, `${L}[ée]chec${E}`,
+  `${L}trop${E}`, `${L}pas assez${E}`, `${L}bien jou[ée]${E}`, `${L}f[ée]licit\\p{L}*`, `${L}dommage${E}`,
+  `\\d\\s*%`, `${L}pour\\s?cent${E}`, `${L}points? de (?:plus|moins)${E}`, `${L}(?:en hausse|en baisse|en progression)${E}`,
+]);
+export const changeCompliant = text => textCompliant(text, "strict") && !JUDGEMENT.test(normText(text));
+
 /* Retour structuré (analyse locale ou modèle de langage) : textes conformes et forme attendue. */
 export function feedbackCompliant(a) {
   if (!a || typeof a.synthese !== "string" || !Array.isArray(a.dimensions)) return false;

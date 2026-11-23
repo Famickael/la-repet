@@ -1,11 +1,13 @@
 /* Test de l'analyse descriptive et du garde-fou (sans navigateur) : npm run test:analysis */
 import assert from "assert/strict";
 import { localAnalysis, isCompliant, reconcile, parseFeedback } from "../src/lib/analysis.js";
-import { textCompliant } from "../src/lib/compliance.js";
+import { textCompliant, changeCompliant } from "../src/lib/compliance.js";
+import { whatChanged, compareRows, counterpartOf, questionTheme, sameKind, forCoach, reconcileChanges, comparable } from "../src/lib/compare.js";
+import { trialTakes } from "../src/lib/trial.js";
 import { assistantCompliant } from "../src/lib/assistant.js";
 import { EYE_KEYS } from "../src/lib/gazeKeys.js";
 import { cleanRepetitions } from "../src/lib/repetitions.js";
-import { llmBody, LLM_TIMEOUT_MS, FEEDBACK_SYSTEM_PROMPT, FEEDBACK_LIMITS, feedbackMessages, feedbackRequest } from "../src/lib/llm.js";
+import { llmBody, LLM_TIMEOUT_MS, FEEDBACK_SYSTEM_PROMPT, FEEDBACK_LIMITS, feedbackMessages, feedbackRequest, COMPARE_SYSTEM_PROMPT, compareMessages } from "../src/lib/llm.js";
 import { readdirSync } from "fs";
 import { readFileSync } from "fs";
 import { parse } from "@babel/parser";
@@ -254,8 +256,82 @@ for (const f of readdirSync(new URL("transcriptions/", ESSAI)).filter(x => x.end
 }
 
 /* C6, C7 : la tâche est envoyée au point d'accès ; délais du navigateur par tâche. */
-for (const task of ["chat", "feedback", "coach"]) assert.equal(llmBody(task, { messages: [] }).task, task);
-assert.deepEqual(LLM_TIMEOUT_MS, { chat: 20000, coach: 20000, feedback: 30000 });
+for (const task of ["chat", "feedback", "coach", "compare"]) assert.equal(llmBody(task, { messages: [] }).task, task);
+assert.deepEqual(LLM_TIMEOUT_MS, { chat: 20000, coach: 20000, feedback: 30000, compare: 20000 });
+
+/* ─── Comparaison de deux entretiens : synthèse « Ce qui a changé » (src/lib/compare.js) ─── */
+{
+  const [t1, t2] = trialTakes("REPETE"); // les deux entretiens du parcours d'essai, sur la même question
+  assert.ok(comparable(t1) && comparable(t2) && isCompliant(t1.analysis) && isCompliant(t2.analysis), "entretiens d'essai : analyses conformes");
+  assert.equal(counterpartOf(t2, [t1, t2]).id, t1.id, "l'entretien précédent sur la même question est proposé");
+  assert.equal(counterpartOf(t1, [t1, t2]).id, t2.id, "sans précédent, l'entretien suivant est proposé");
+  const { changes, same } = whatChanged(t1, t2);
+  const txt = id => changes.find(c => c.id === id)?.text || "";
+  const plain = s => s.replace(/[\u00A0\u202F]/g, " ");
+  assert.match(plain(txt("exemples")), /^Vous avez ajouté 2 passages avec un exemple concret : « J'ai travaillé trois ans/);
+  assert.equal(plain(txt("conclusion")), "Vous terminez maintenant par une phrase de conclusion.");
+  assert.equal(plain(txt("petits-mots")), "Vous avez dit 3 petits mots répétés, au lieu de 10.");
+  assert.equal(plain(txt("pauses")), "Vous avez fait 2 pauses de plus de 2 secondes, au lieu de 5.");
+  assert.equal(plain(txt("duree")), "Votre entretien est plus long : 1 min 08, au lieu de 58 s.");
+  assert.ok(same.includes("rythme de parole"), "un écart de moins de 10 mots par minute n'est pas présenté comme un changement");
+  assert.match(txt("petits-mots"), /3\u00A0petits/, "espace insécable entre le nombre et son mot");
+  /* Dans l'autre sens : mêmes faits, toujours sans jugement. */
+  const back = whatChanged(t2, t1).changes;
+  assert.equal(plain(back.find(c => c.id === "duree").text), "Votre entretien est plus court : 58 s, au lieu de 1 min 08.");
+  assert.match(plain(back.find(c => c.id === "exemples").text), /^Aucun exemple concret n'est repéré dans cet entretien\./);
+  /* Règles absolues : chaque phrase passe le filtre strict et le filtre de jugement ; aucun pourcentage, aucune note,
+     aucun « mieux », aucun tiret cadratin ; le tableau ne contient aucun pourcentage non plus. */
+  const JUGE = /mieux|meilleur|moins bien|pire|progr|amélior|régress|bravo|réussi|trop\b|%|\/\s?\d|score|\bnote\b|\u2014/i;
+  for (const c of [...changes, ...back, ...changes.map(x => ({ text: forCoach(x.text) }))]) {
+    assert.ok(textCompliant(c.text, "strict") && changeCompliant(c.text), `phrase conforme : ${c.text}`);
+    assert.ok(!JUGE.test(c.text), `phrase neutre : ${c.text}`);
+  }
+  const rows = compareRows(t1, t2);
+  assert.deepEqual(rows.map(r => r.id), ["duree", "debit", "pauses", "petits-mots", "exemples", "debut", "developpement", "conclusion"], "indicateurs factuels, regard absent s'il n'a pas été mesuré");
+  for (const r of rows) assert.ok(!JUGE.test(`${r.before} ${r.after}`) && textCompliant(`${r.label} ${r.before} ${r.after}`, "strict"), `ligne neutre : ${r.label}`);
+  /* Regard : une tranche en mots, jamais un pourcentage. */
+  const g = (toward) => ({ samples: 40, downRatio: 1 - toward, sideRatio: 0, absentRatio: 0 });
+  const withGaze = whatChanged({ ...t1, gaze: g(0.45) }, { ...t2, gaze: g(0.8) });
+  assert.equal(plain(withGaze.changes.find(c => c.id === "regard").text), "Regard : vers l'écran la plus grande partie du temps. Dans l'entretien précédent : vers l'écran environ la moitié du temps.");
+  assert.ok(compareRows({ ...t1, gaze: g(0.45) }, t2).some(r => r.id === "regard" && !/%/.test(r.before + r.after)));
+  /* Deux entretiens identiques : aucune phrase inventée. */
+  assert.equal(whatChanged(t1, { ...t1, id: "x" }).changes.length, 0);
+  /* Une citation que le filtre refuse (mot d'émotion dit par la personne) : la phrase reste, sans la citation. */
+  const stressed = { ...t2, analysis: { ...t2.analysis, metrics: { ...t2.analysis.metrics, concreteText: "Par exemple quand j'étais stressée au guichet" } } };
+  assert.equal(plain(whatChanged(t1, stressed).changes.find(c => c.id === "exemples").text), "Vous avez ajouté 2 passages avec un exemple concret.");
+  /* Même type de question : thème de la banque, quel que soit le poste ; une question personnelle ne se rapproche que d'elle-même. */
+  assert.equal(questionTheme("Pourquoi ce poste d'agent d'accueil vous intéresse-t-il ?"), "Motivation");
+  assert.ok(sameKind({ question: "Pourquoi ce poste de serveur vous intéresse-t-il ?" }, { question: "Que savez-vous de notre entreprise et de notre secteur ?" }));
+  assert.ok(!sameKind({ question: "Ma question à moi ?" }, { question: "Une autre question ?" }));
+  assert.equal(counterpartOf({ ...t2, analysis: { source: "none", dimensions: [] } }, [t1, t2]), null, "sans analyse de l'assistant, rien à comparer");
+  /* Version coach : troisième personne. */
+  assert.equal(plain(forCoach(txt("petits-mots"))), "La personne a dit 3 petits mots répétés, au lieu de 10.");
+  /* Reformulation par l'IA : gardée seulement si elle est neutre et garde les mêmes nombres ; sinon la phrase locale reste. */
+  const r = reconcileChanges({ changements: [
+    { id: "petits-mots", texte: "Vous dites maintenant 3 petits mots répétés, au lieu de 10." },
+    { id: "pauses", texte: "Bravo, c'est beaucoup mieux : 2 pauses au lieu de 5." },
+    { id: "duree", texte: "Votre entretien dure 20 % de plus." },
+    { id: "conclusion", texte: "Vous terminez par une conclusion, vous semblez plus à l'aise." },
+    { id: "inconnu", texte: "Vous avez progressé." },
+  ] }, changes);
+  const got = id => plain(r.changes.find(c => c.id === id).text);
+  assert.equal(r.kept, 1); assert.equal(r.changes.length, changes.length, "aucune phrase ajoutée ni retirée par le modèle");
+  assert.equal(got("petits-mots"), "Vous dites maintenant 3 petits mots répétés, au lieu de 10.");
+  assert.equal(got("pauses"), plain(txt("pauses"))); assert.equal(got("duree"), plain(txt("duree"))); assert.equal(got("conclusion"), plain(txt("conclusion")));
+  assert.equal(reconcileChanges({ changements: "non" }, changes), null); assert.equal(reconcileChanges(null, changes), null);
+  /* Requête « compare » : seulement du texte déjà calculé, jamais la transcription ; interdits rappelés au modèle. */
+  const msgs = compareMessages({ poste: "agent d'accueil", questionBefore: t1.question, questionAfter: t2.question, changes });
+  assert.deepEqual(msgs.map(m => m.role), ["system", "user"]);
+  assert.ok(!msgs[1].content.includes("je cherche un poste") && msgs[1].content.includes("<changements>"), "la transcription n'est pas envoyée");
+  for (const w of ["mieux", "pourcentage", "émotion", "note"]) assert.ok(COMPARE_SYSTEM_PROMPT.includes(w), `prompt de comparaison : interdit « ${w} » rappelé`);
+  assert.ok(!COMPARE_SYSTEM_PROMPT.includes("\u2014"));
+  /* Filtre de jugement : ciblé, il ne touche pas au filtre des analyses ni à la promesse du site. */
+  for (const bad of ["C'est mieux qu'avant.", "Vous avez progressé.", "Votre rythme s'est amélioré.", "Une meilleure conclusion.", "C'est moins bien.", "Vous parlez trop vite.", "10 % de pauses en moins.", "Votre note passe de 3 à 4 sur 5.", "Vous êtes plus détendue."]) assert.ok(!changeCompliant(bad), `refusé dans la synthèse : ${bad}`);
+  const PROMESSE = "Comparez vos différents entraînements pour mesurer votre progression";
+  assert.ok(textCompliant(PROMESSE, "strict") && textCompliant(PROMESSE, "assistant"), "la promesse du site passe le filtre des analyses et de l'assistant");
+  assert.ok(textCompliant("La comparaison mesure des faits : durée, rythme de parole, pauses, exemples. Elle ne donne aucune appréciation chiffrée.", "strict"));
+  assert.ok(!textCompliant("Votre progression : 7 sur 10.", "strict") && !textCompliant("Progression : réussite 80 %", "strict"), "une note reste refusée, même à côté du mot « progression »");
+}
 
 /* SEC-06 : le suivi du regard ne lit que les coefficients de direction des yeux. */
 assert.ok(EYE_KEYS.length > 0 && EYE_KEYS.every(k => k.startsWith("eyeLook")), "seuls les coefficients eyeLook* sont lus");

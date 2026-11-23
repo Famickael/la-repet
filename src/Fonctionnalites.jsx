@@ -20,6 +20,7 @@ const GROUPS = [
     [I.sparkle, "Un assistant qui analyse, sans noter", "Rythme de parole, pauses, exemples, petits mots répétés, regard. Ce qui fonctionne déjà est présenté en premier."],
     [I.layers, "À lire ou à regarder", "Lire le retour, ou se revoir avec les repères placés au bon moment de la vidéo."],
     [I.note, "Le texte de l'entretien", "L'entretien mis par écrit, ligne par ligne, avec le moment de chaque phrase."],
+    [I.layers, "Comparer ses entraînements", "Comparez vos différents entraînements pour mesurer votre progression : deux entretiens côte à côte, les mêmes indicateurs (durée, rythme de parole, pauses, exemples) et ce qui a changé. Des faits, sans note ni courbe."],
   ] },
   { id: "garder-la-main", title: "Pour garder la main", items: [
     [I.lock, "Accès par code, sans compte", "Un code d'accès de 6 caractères remis par le coach. Ni adresse électronique, ni mot de passe."],
@@ -30,6 +31,7 @@ const GROUPS = [
     [I.plus, "Un parcours vite créé", "Prénom et initiale, métier visé : le code et le lien sont prêts à transmettre."],
     [I.list, "Entretiens à relire", "Une liste claire des entretiens reçus, avec le message de la personne."],
     [I.note, "Remarques placées dans la vidéo", "Mettez en pause, écrivez : la remarque se place à ce moment de la vidéo."],
+    [I.layers, "Comparer deux entretiens reçus", "Deux entretiens envoyés par la personne, côte à côte, avec ce qui a changé. Jamais ceux qu'elle n'a pas envoyés."],
     [I.chat, "Nuancer l'assistant", "Confirmer, nuancer ou contredire chaque repère. La lecture du coach prime."],
     [I.sparkle, "Assistant de rédaction du rapport", "Des propositions de formulation, que le coach relit, modifie ou écarte."],
     [I.print, "Support de débriefing", "Rapport imprimable ou exportable en PDF pour l'atelier ou le rendez-vous."],

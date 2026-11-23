@@ -18,12 +18,15 @@ import { Choose } from "./Choose.jsx";
 import { TakeReport } from "./TakeReport.jsx";
 import { Sent, Share } from "./Share.jsx";
 import { Recap } from "./Recap.jsx";
+import { Compare } from "./Compare.jsx";
+import { comparable } from "../lib/compare.js";
 import Interlocutor, { VignetteSwitch } from "./Interlocutor.jsx";
 
 /* Écran demandé par l'ancre : rouvert s'il ne dépend d'aucun état gardé en mémoire (BUG-07). Un enregistrement en
    cours, une série ou une préparation ne survivent pas à un rechargement : retour à l'accueil de l'espace. */
 function restorable(t, ctx, takes) {
   if (TAKE_VIEWS.includes(t.view)) return !!takes[t.takeId];
+  if (t.view === "compare") return !!t.compare && t.compare[0] !== t.compare[1] && t.compare.every(id => comparable(takes[id]));
   if (t.view === "record") return !!ctx.question;
   if (t.view === "processing") return !!ctx.recording;
   if (t.view === "recap") return !!ctx.queue?.length;
@@ -38,7 +41,7 @@ export default function Beneficiary({ initialCode, sub = "", setModal, onCode })
   const [view, setView] = useState(boot.view);
   const [lost, setLost] = useState(boot.lost ? LOST : "");
   const [speaking, setSpeaking] = useState(false); // le recruteur lit la question : l'enregistrement attend
-  const [ctx, setCtx] = useState(() => (boot.takeId ? { takeId: boot.takeId, mode: boot.mode } : {})); // question, recording, takeId, mode ; série : queue (textes), qi (rang), selection, preselect
+  const [ctx, setCtx] = useState(() => (boot.takeId ? { takeId: boot.takeId, mode: boot.mode } : boot.compare ? { compare: boot.compare } : {})); // question, recording, takeId, mode ; série : queue (textes), qi (rang), selection, preselect
   const hashFor = (v, c) => { const sb = benefSub(v, c); return `#/s/${code}${sb ? `/${sb}` : ""}`; };
   const p0 = code ? s.parcours[code] || getState().parcours[code] : null; // instantané éventuellement antérieur à la création du parcours d'essai
   const p = p0 && { ...p0, counselor: p0.counselor || s.counselor?.name || "" }; // nom du coach affiché
@@ -53,25 +56,27 @@ export default function Beneficiary({ initialCode, sub = "", setModal, onCode })
   useEffect(() => { if (p && !p.consent) { setView("home"); setCtx({}); if (code) writeHash(hashFor("home", {}), true); } }, [p?.consent]); // eslint-disable-line
   const take = ctx.takeId ? s.takes[ctx.takeId] : null;
   /* Réponse supprimée (autre onglet, retrait de l'accord) alors qu'un écran l'affichait : retour à l'accueil (BUG-03). */
-  const orphan = ["choose", "report", "share"].includes(view) && !take;
+  const pair = view === "compare" && ctx.compare ? ctx.compare.map(id => s.takes[id]) : null;
+  const orphan = (["choose", "report", "share"].includes(view) && !take) || (view === "compare" && !(pair && pair.every(t => t && t.code === code && comparable(t))));
   useEffect(() => { if (orphan) { setView("home"); setCtx(c => ({ ...c, takeId: null })); writeHash(hashFor("home", {}), true); } }, [orphan]); // eslint-disable-line
   /* Précédent, Suivant ou adresse modifiée : l'écran suit l'ancre (BUG-07). */
   useEffect(() => {
     if (!p?.consent) return;
     const t = parseBenefSub(sub);
-    const same = t.view === view && (!TAKE_VIEWS.includes(t.view) || (t.takeId === ctx.takeId && (t.view !== "report" || t.mode === (ctx.mode || "simple"))));
+    const same = t.view === view && (t.view !== "compare" || (t.compare || []).join() === (ctx.compare || []).join()) && (!TAKE_VIEWS.includes(t.view) || (t.takeId === ctx.takeId && (t.view !== "report" || t.mode === (ctx.mode || "simple"))));
     if (same) return;
     if (!restorable(t, ctx, s.takes)) { setLost(LOST); setView("home"); writeHash(hashFor("home", ctx), true); return; }
     setLost("");
     if (TAKE_VIEWS.includes(t.view)) setCtx(c => ({ ...c, takeId: t.takeId, mode: t.mode }));
+    if (t.view === "compare") setCtx(c => ({ ...c, compare: t.compare }));
     setView(t.view);
     window.scrollTo({ top: 0 });
   }, [sub]); // eslint-disable-line
   /* Titre du document et focus propres à chaque écran (A11Y-02, A11Y-06) ; après un retrait de l'accord, le focus
      va sur « Avant de commencer » (BUG-03). */
   const screen = !p ? "code" : !p.consent ? "consent" : view;
-  useTitle({ code: "Code d'accès", consent: "Avant de commencer", home: "Mon espace", warmup: "Échauffement", pick: "Choix des questions", record: "Votre réponse", processing: "Préparation", choose: "Lire ou revoir", report: take?.report ? "Rapport de votre coach" : "Votre retour", share: "Envoyer à mon coach", sent: "Entretien envoyé", recap: "Récapitulatif" }[screen]);
-  useFocusOnChange(`${screen}-${ctx.qi || 0}-${ctx.takeId || ""}-${ctx.mode || ""}`);
+  useTitle({ code: "Code d'accès", consent: "Avant de commencer", home: "Mon espace", warmup: "Échauffement", pick: "Choix des questions", record: "Votre réponse", processing: "Préparation", choose: "Lire ou revoir", report: take?.report ? "Rapport de votre coach" : "Votre retour", share: "Envoyer à mon coach", sent: "Entretien envoyé", recap: "Récapitulatif", compare: "Comparer mes entraînements" }[screen]);
+  useFocusOnChange(`${screen}-${ctx.qi || 0}-${ctx.takeId || ""}-${ctx.mode || ""}-${view === "compare" ? (ctx.compare || []).join() : ""}`);
 
   if (!p) return <main className="rp-page" style={PAGE}><CodeEntry initial={initialCode} invalid={!!initialCode && !findParcours(initialCode)} onOk={c => { setCode(c); setView("home"); }} /></main>;
   if (!p.consent) return <main className="rp-page" style={PAGE}><Consent p={p} onBack={() => setCode(null)} /></main>;
@@ -95,7 +100,7 @@ export default function Beneficiary({ initialCode, sub = "", setModal, onCode })
   const back = () => (ctx.from === "recap" ? go("recap", { takeId: null }) : go("home", { queue: null }));
   const stopSeries = () => (series?.full ? go("recap") : go("home", { queue: null, qi: 0 }));
 
-  const asstCtx = { warmup: "warmup", record: "record", processing: "record", choose: "feedback", report: "feedback", share: "feedback" }[view] || "general";
+  const asstCtx = { warmup: "warmup", record: "record", processing: "record", choose: "feedback", report: "feedback", share: "feedback", compare: "feedback" }[view] || "general";
   return (
     <main className="rp-page rp-has-fab" style={PAGE}>
       <AssistantDock poste={p.poste} context={asstCtx} />
@@ -128,6 +133,7 @@ export default function Beneficiary({ initialCode, sub = "", setModal, onCode })
         {view === "share" && take && <Share p={p} take={take} go={go} setModal={setModal} />}
         {view === "sent" && <Sent p={p} go={go} series={series} nextQuestion={nextQuestion} />}
         {view === "recap" && <Recap p={p} ctx={ctx} s={s} go={go} />}
+        {view === "compare" && pair && !orphan && <Compare p={p} a={pair[0]} b={pair[1]} go={go} from={ctx.cmpFrom} />}
       </div>
     </main>
   );

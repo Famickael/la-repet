@@ -146,9 +146,11 @@ const text = c => (typeof c === "string" ? c : Array.isArray(c) ? c.map(p => (ty
 /* Tâche : champ « task » explicite s'il est fourni, sinon déduite de la requête.
    - feedback : response_format JSON (src/lib/analysis.js) ;
    - coach : prompt système qui commence par « Tu aides un coach » (src/lib/coachAssistant.js) ;
+   - compare : seulement par le champ « task » (src/lib/compare.js, reformulation de « Ce qui a changé ») ; mêmes modèle,
+     plafond et délai que « chat » ;
    - chat : tout le reste (src/lib/assistant.js). Une erreur de détection ne change que le modèle utilisé. */
 export function detectTask(body) {
-  if (["chat", "feedback", "coach"].includes(body.task)) return body.task;
+  if (["chat", "feedback", "coach", "compare"].includes(body.task)) return body.task;
   if (body.response_format && /json/.test(String(body.response_format.type || ""))) return "feedback";
   const sys = (body.messages || []).filter(m => m?.role === "system").map(m => text(m.content)).join("\n");
   if (/^\s*Tu aides un coach/i.test(sys)) return "coach";

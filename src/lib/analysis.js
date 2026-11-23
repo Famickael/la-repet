@@ -30,6 +30,9 @@ const CONCRETE = /\b(\d+|un|deux|trois|quatre|cinq|six|sept|huit|neuf|dix|onze|d
    « j'ai 2 ans d'expérience » reste un élément précis. */
 const AGE = /\bj'ai\s+[\p{L}\d-]+\s+ans\b(?!\s+d['’e])/giu;
 const isConcrete = text => CONCRETE.test(String(text).replace(AGE, " "));
+/* Nombre de passages (segments) qui contiennent un exemple concret : sert à la comparaison de deux entretiens
+   (src/lib/compare.js). Les mesures gardées avec l'analyse ne changent pas. */
+export const countConcrete = segments => cleanRepetitions(segments || []).segments.filter(s => isConcrete(s.text)).length;
 const CLOSING = /\b(c'est pour(quoi| ça)|en résumé|pour conclure|voilà pourquoi|c'est la raison|donc je)\b/i;
 
 /* Ordre de priorité des pistes dans la synthèse : le fond avant la forme. */

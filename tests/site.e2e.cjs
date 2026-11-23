@@ -139,6 +139,23 @@ async function run(b, vw, vh, opts = {}) {
     }
     await p.mouse.move(vw / 2, vh / 2);
   }
+  /* Fond de l'accueil (défilement, souris et tactile, demande du propriétaire du 23 novembre 2026) : parallaxe douce,
+     le violet et le bleu se déplacent en sens opposés selon la position dans la page. Immobile en mouvement réduit. */
+  {
+    const masses = () => p.evaluate(() => ["i", "b"].map(s => { const m = new DOMMatrix(getComputedStyle(document.querySelector(".rs-glow " + s)).transform); return [m.m41, m.m42]; }));
+    await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(1500);
+    const haut = await masses();
+    await p.evaluate(y => scrollTo(0, y), Math.round(vh * 1.9)); await p.waitForTimeout(1800);
+    const bas = await masses();
+    await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300);
+    const [dv, db] = bas.map((m, i) => [m[0] - haut[i][0], m[1] - haut[i][1]]);
+    if (opts.reduced) check([...dv, ...db].every(v => v === 0), `[${tag}] fond de l'accueil : rien ne doit bouger au défilement en mouvement réduit (${JSON.stringify([haut, bas])})`);
+    else {
+      check(Math.abs(dv[0] + db[0]) < 2 && Math.abs(dv[1] + db[1]) < 2, `[${tag}] fond de l'accueil : au défilement, le violet et le bleu doivent se déplacer en sens opposés (${JSON.stringify([dv, db])})`);
+      check(Math.hypot(...dv) >= Math.min(vw, vh) * 0.08, `[${tag}] fond de l'accueil : déplacement au défilement trop faible pour se voir (${JSON.stringify(dv)})`);
+      check(Math.abs(dv[0]) <= vw * 0.3 && Math.abs(dv[1]) <= vh * 0.3, `[${tag}] fond de l'accueil : déplacement au défilement trop fort (${JSON.stringify(dv)})`);
+    }
+  }
 
   if (!opts.reduced) {
     // Phrase qui se colore

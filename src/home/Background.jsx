@@ -3,10 +3,13 @@
    Souris : rien ne suit le pointeur ; les deux masses reçoivent toujours des décalages opposés. Sur la diagonale qui
    les relie, elles s'écartent l'une de l'autre dès que le pointeur s'approche de l'une d'elles ; sur l'autre diagonale,
    elles glissent en sens contraires. La zone claire du milieu reste ainsi autour du pointeur.
+   Défilement (souris et tactile, demande du propriétaire du 23 novembre 2026) : parallaxe douce et amortie, les deux
+   masses se déplacent en sens opposés selon la position dans la page (scrolled), en plus de la souris et de la dérive.
 
    Rendu pensé pour Safari (mesuré sous WebKit, 22 novembre 2026) : chaque masse est une petite image pré-rendue une
    seule fois (dégradé radial de 256 px dessiné dans un canevas aux couleurs GLOW), agrandie par CSS. Safari la pose
-   telle quelle sur le compositeur (couche image, sans zone à repeindre), et le mouvement ne touche que `transform`
+   telle quelle sur le compositeur (couche image, sans zone à repeindre). Chaque masse est posée à 1/GLOW_SCALE de sa
+   taille et agrandie par transform : couche composée plus petite, même rendu (moins de composition sous Chromium). Et le mouvement ne touche que `transform`
    et `opacity` : aucun dégradé ni masque recalculé à chaque image. L'ancien masque de fondu (variable --fy réécrite
    à chaque image) et les grands dégradés CSS faisaient repeindre tout l'écran sous WebKit.
    Mouvement amorti (inertie calée sur le temps écoulé, pas sur le nombre d'images), écrit directement dans le style
@@ -15,13 +18,20 @@
    Immobile en mouvement réduit, masqué en mode concentration. Aucun capteur d'orientation. */
 import React, { useEffect, useRef } from "react";
 import { GLOW } from "../ui.jsx";
+import { GLOW_SCALE } from "../tokens.js";
 import { useReducedMotion } from "../motion.jsx";
 
 const U = [0.56, -0.83];          // du centre vers le violet (le bleu est à l'opposé) ; W = [0.83, 0.56] lui est perpendiculaire
 const SPREAD = 0.42, SLIDE = 0.30; // écartement le long de U et glissement le long de W, en part de la fenêtre (0,26 et 0,17
                                    // jusqu'au 22 novembre 2026 : encore trop peu visible sous Safari, thème clair)
 const SOFT = 0.35;                // arrondi de l'écartement autour du centre : aucun rebond quand le pointeur le traverse
-const TAU = 220;                  // constante de temps de l'amorti, en ms
+const TAU = 220;                  // constante de temps de l'amorti de la souris, en ms
+const TAU_SCROLL = 450;           // amorti du défilement, plus doux : les masses suivent la page avec un léger retard
+/* Défilement : parallaxe douce et continue. Phase = défilement en hauteurs de fenêtre / PERIOD. Le violet se rapproche
+   du centre le long de leur diagonale (jusqu'à APPROACH) et glisse sur l'autre diagonale (jusqu'à SWAY) ; le bleu fait
+   l'inverse. Bornée (aucune dérive sur une longue page) ; en haut de page, même composition qu'avant (TOP_Y). */
+const PERIOD = 1.2, APPROACH = 0.2, SWAY = 0.16;
+const TOP_Y = -0.12;              // en haut de page, le violet est un peu plus haut et le bleu plus bas (composition validée)
 const CORE = 0.45;                // part du rayon où la masse garde sa pleine intensité (0,30 jusqu'au 22 novembre 2026) : plus de présence,
                                   // sans dépasser l'intensité maximale fixée par thème (contraste du texte, GStyle)
 
@@ -31,6 +41,12 @@ export function opposed(mx, my) {
   const s = mx * U[0] + my * U[1], t = mx * -U[1] + my * U[0];
   const e = (Math.hypot(s, SOFT) - SOFT) * SPREAD, g = t * SLIDE;
   return [U[0] * e - U[1] * g, U[1] * e + U[0] * g];
+}
+
+/* Décalage du violet pour un défilement de h hauteurs de fenêtre (le bleu reçoit l'opposé). */
+export function scrolled(h) {
+  const a = h / PERIOD, e = -APPROACH * (1 - Math.cos(a)) / 2, g = SWAY * Math.sin(a);
+  return [U[0] * e - U[1] * g, U[1] * e + U[0] * g + TOP_Y];
 }
 
 /* Profil d'intensité de 0 (centre) à 1 (bord) : plein jusqu'à CORE, puis décroissance douce (smoothstep), sans arête. */
@@ -65,9 +81,9 @@ export function Background() {
     const [iv, ib] = el.querySelectorAll("img");
     if (iv && !iv.getAttribute("src")) iv.src = massImage(GLOW.violet);
     if (ib && !ib.getAttribute("src")) ib.src = massImage(GLOW.blue);
-    /* (tx, ty) : décalage visé du violet, en part de la fenêtre ; (x, y) : décalage lissé ; sy : part du défilement. */
-    let tx = 0, ty = 0, x = 0, y = 0, sy = 0, raf = 0, last = 0, vw = window.innerWidth, vh = window.innerHeight;
-    const fine = !window.matchMedia || window.matchMedia("(pointer: fine)").matches;
+    /* Décalages du violet, en part de la fenêtre (le bleu reçoit l'opposé) : (tx, ty) visé et (x, y) lissé pour la
+       souris ; (ux, uy) visé et (sx, sy) lissé pour le défilement. */
+    let tx = 0, ty = 0, x = 0, y = 0, ux = 0, uy = 0, sx = 0, sy = 0, raf = 0, last = 0, vw = window.innerWidth, vh = window.innerHeight;
     /* Position du pied de page mémorisée (PERF-05) : relue au redimensionnement seulement, pas à chaque image. */
     let footTop = null, lastT = "", lastO = "";
     const measure = () => {
@@ -75,39 +91,37 @@ export function Background() {
       vw = window.innerWidth; vh = window.innerHeight;
     };
     measure();
-    const paint = () => {
+    const paint = scrollY => {
       /* Fondu avant le pied de page : pleine intensité tant que son haut est sous le bas de l'écran, nulle quand il
          atteint le tiers supérieur. Opacité du calque seulement (compositeur). */
-      const fy = footTop != null ? footTop - window.scrollY : vh * 2;
+      const fy = footTop != null ? footTop - scrollY : vh * 2;
       const o = Math.max(0, Math.min(1, (fy - vh * 0.33) / (vh * 0.67))).toFixed(3);
       if (o !== lastO) { el.style.opacity = o; lastO = o; }
-      const dx = (x * vw).toFixed(1), dy = ((y + sy) * vh).toFixed(1), t = dx + "," + dy;
+      const dx = ((x + sx) * vw).toFixed(1), dy = ((y + sy) * vh).toFixed(1), t = dx + "," + dy;
       if (t === lastT) return;
       lastT = t;
-      violet.style.transform = `translate3d(${dx}px,${dy}px,0)`;
-      blue.style.transform = `translate3d(${-dx}px,${-dy}px,0)`;
+      violet.style.transform = `translate3d(${dx}px,${dy}px,0) scale(${GLOW_SCALE})`;
+      blue.style.transform = `translate3d(${-dx}px,${-dy}px,0) scale(${GLOW_SCALE})`;
     };
-    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(() => { measure(); paint(); }) : null;
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(() => { measure(); paint(window.scrollY); }) : null;
     ro?.observe(document.body);
-    /* Défilement : les deux masses glissent doucement (souris seulement ; sur tactile, le défilement est géré hors du
-       fil principal par Safari et un décalage écrit en JavaScript y saccaderait : la dérive CSS suffit). */
-    const target = () => {
-      if (reduced || !fine) return 0;
-      const max = Math.max(1, document.documentElement.scrollHeight - vh);
-      return (window.scrollY / max - 0.5) * 0.24;
-    };
-    let ts = target(); sy = ts;
+    /* Une seule lecture de scrollY par image, dans requestAnimationFrame (aucune mise en page forcée) ; l'écouteur de
+       défilement, passif, ne fait que demander une image. Souris et tactile. */
     const tick = now => {
-      const k = 1 - Math.exp(-Math.min(64, now - (last || now - 16)) / TAU); last = now;
-      x += (tx - x) * k; y += (ty - y) * k; sy += (ts - sy) * k;
-      paint();
-      if (Math.abs(tx - x) + Math.abs(ty - y) + Math.abs(ts - sy) > 0.0005) raf = requestAnimationFrame(tick);
+      const k = 1 - Math.exp(-Math.min(64, now - (last || now - 16)) / TAU);
+      const ks = 1 - Math.exp(-Math.min(64, now - (last || now - 16)) / TAU_SCROLL); last = now;
+      const scrollY = window.scrollY;
+      [ux, uy] = reduced ? [0, 0] : scrolled(scrollY / vh);
+      x += (tx - x) * k; y += (ty - y) * k; sx += (ux - sx) * ks; sy += (uy - sy) * ks;
+      paint(scrollY);
+      if (Math.abs(tx - x) + Math.abs(ty - y) + Math.abs(ux - sx) + Math.abs(uy - sy) > 0.0005) raf = requestAnimationFrame(tick);
       else { raf = 0; last = 0; }
     };
     const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
-    paint();
-    const onScroll = () => { ts = target(); if (reduced || !fine) paint(); else kick(); };
-    const onResize = () => { measure(); paint(); };
+    if (!reduced) { [ux, uy] = scrolled(window.scrollY / vh); sx = ux; sy = uy; }
+    paint(window.scrollY);
+    const onScroll = () => kick();
+    const onResize = () => { measure(); kick(); };
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize, { passive: true });
     const mv = e => {

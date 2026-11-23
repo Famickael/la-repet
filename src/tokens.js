@@ -122,6 +122,10 @@ export const GRAD_HERO = `linear-gradient(180deg, ${T.surface} 0%, ${T.primaryBg
 export const GRAD_SECTION = `linear-gradient(180deg, ${T.bg} 0%, ${T.primaryBg} 50%, ${T.bg} 100%)`; // fond d'une section clé (strate)
 /* Lueurs colorées diffuses (halos derrière les photos et les visuels), décor seulement. */
 export const GLOW = { blue: "rgba(56,147,205,.22)", violet: "rgba(92,75,185,.20)" };
+/* Fond de l'accueil : chaque masse est posée à 1/GLOW_SCALE de sa taille, puis agrandie par transform (scale). Le
+   navigateur garde alors une couche composée petite, agrandie à l'affichage : le dégradé (image de 256 px) ne perd
+   rien, la composition coûte moins (mesuré sous Chromium, tests/perf-check.cjs, 23 novembre 2026). */
+export const GLOW_SCALE = 4;
 /* Pages secondaires (v4) : en-tête de page du bleu teinté au violet teinté (les deux teintes du logo), filet de marque
    dessous ; une section sur deux posée sur une bande teintée. Fonds opaques : les contrastes sont ceux de PAIRS. */
 export const GRAD_PAGE = `linear-gradient(100deg, ${T.primaryBg} 0%, ${T.surface} 55%, ${T.violetBg} 100%)`;   // fond de PageHero

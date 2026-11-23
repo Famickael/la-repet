@@ -25,9 +25,9 @@ export function Home({ p, takes, go, counselor }) {
             </ChoiceTile>
             <ChoiceTile icon={I.play} title="Entraînement" tipLabel="En savoir plus sur l'entraînement" tipId="tip-training"
               tip={p.consent.ai
-                ? "Vos réponses sont enregistrées sur votre appareil. L'assistant les décrit, sans les noter. Vous décidez ensuite, réponse par réponse, de les envoyer ou non à votre coach."
-                : "Vos réponses sont enregistrées sur votre appareil, pour que vous puissiez vous revoir. Vous avez choisi de ne pas recevoir le retour de l'assistant. Vous décidez, réponse par réponse, de les envoyer ou non à votre coach."}
-              text={p.consent.ai ? "Vous choisissez vos questions et vous enregistrez vos réponses. L'assistant décrit ensuite chaque réponse." : "Vous choisissez vos questions et vous enregistrez vos réponses."}>
+                ? "Vos entretiens sont enregistrés sur votre appareil. L'assistant les analyse, sans les noter. Vous décidez ensuite, entretien par entretien, de les envoyer ou non à votre coach."
+                : "Vos entretiens sont enregistrés sur votre appareil, pour que vous puissiez vous revoir. Vous avez choisi de ne pas recevoir le retour de l'assistant. Vous décidez, entretien par entretien, de les envoyer ou non à votre coach."}
+              text={p.consent.ai ? "Vous choisissez vos questions et vous y répondez à voix haute. L'assistant analyse ensuite chaque entretien, sans le noter." : "Vous choisissez vos questions et vous y répondez à voix haute."}>
               <Btn kind="objective" onClick={() => go("pick", { queue: null, selection: null, preselect: null })} iconRight={I.arrow}>Commencer l'entraînement</Btn>
             </ChoiceTile>
           </div>
@@ -36,23 +36,23 @@ export function Home({ p, takes, go, counselor }) {
 
       {reports.length > 0 && (
         <Notice tone="success">
-          {counselor || "Votre coach"} vous a envoyé {reports.length > 1 ? `${reports.length} rapports` : "un rapport"}. Ouvrez la réponse marquée « Rapport reçu » pour le lire.
+          {counselor || "Votre coach"} vous a envoyé {reports.length > 1 ? `${reports.length} rapports` : "un rapport"}. Ouvrez l'entretien marqué « Rapport reçu » pour le lire.
         </Notice>
       )}
 
       <section style={stack(16)}>
-        <Txt v="h2" as="h2" color={T.navy}>Mes réponses</Txt>
-        {takes.length === 0 && <Empty icon={I.play} text="Vous n'avez pas encore de réponse enregistrée. Commencez quand vous voulez." />}
+        <Txt v="h2" as="h2" color={T.navy}>Mes entretiens</Txt>
+        {takes.length === 0 && <Empty icon={I.play} text="Vous n'avez pas encore d'entretien enregistré. Commencez quand vous voulez." />}
         {pick.can && (
           <div className="rp-actions" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-            <Txt v="small" color={T.body} style={{ flex: 1, minWidth: 200 }}>Comparez deux entretiens pour mesurer votre progression : des faits côte à côte, sans note.</Txt>
+            <Txt v="small" color={T.body} style={{ flex: 1, minWidth: 200 }}>Comparez vos différents entraînements pour mesurer votre progression : des faits côte à côte, sans note.</Txt>
             {!pick.on && <Btn kind="secondary" size="sm" icon={I.layers} onClick={pick.start}>Comparer deux entretiens</Btn>}
           </div>
         )}
         {takes.length > 0 && (
           <div style={stack(GAP.stack)}>
             {takes.map(t => {
-              const st = t.report ? ["Rapport reçu", "success"] : t.shared ? ["Envoyée à votre coach", "primary"] : ["Gardée sur cet appareil", "muted"];
+              const st = t.report ? ["Rapport reçu", "success"] : t.shared ? ["Envoyé à votre coach", "primary"] : ["Gardé sur cet appareil", "muted"];
               return (
                 <Card key={t.id} pad="sm" style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
                   <IconTile icon={hasMedia(t) && !isAudio(t) ? I.play : I.mic} />
@@ -61,7 +61,7 @@ export function Home({ p, takes, go, counselor }) {
                     <div style={{ ...TY.caption, color: T.muted }}>{dateFr(t.createdAt)} · {dur(t.duration)}</div>
                   </div>
                   <Tag tone={st[1]}>{st[0]}</Tag>
-                  <PickBox pick={pick} take={t} label={`Choisir l'entretien du ${dateFr(t.createdAt)} : ${t.question}`} />
+                  <PickBox pick={pick} take={t} label={`Choisir l'entretien du ${dateFr(t.createdAt)} : ${t.question}`} />
                   <Btn kind="secondary" size="sm" onClick={() => { const [v, mode] = openView(t); go(v, { takeId: t.id, mode, queue: null, from: null }); }}>Ouvrir</Btn>
                 </Card>
               );
@@ -94,7 +94,7 @@ function MyData({ p, takes }) {
   return (
     <section aria-labelledby="mes-donnees" style={stack(12)}>
       <Txt v="h2" as="h2" id="mes-donnees" color={T.navy}>Mes données</Txt>
-      <Txt v="small" color={T.body}>Un fichier lisible avec votre parcours, vos réponses, leurs textes, les retours de l'assistant et les rapports de votre coach. Il est créé sur cet appareil : rien n'est envoyé. Les vidéos et enregistrements de voix se téléchargent à part.</Txt>
+      <Txt v="small" color={T.body}>Un fichier lisible avec votre parcours, vos entretiens, leurs textes, les retours de l'assistant et les rapports de votre coach. Il est créé sur cet appareil : rien n'est envoyé. Les vidéos et enregistrements de voix se téléchargent à part.</Txt>
       <div className="rp-actions" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <Btn kind="secondary" size="sm" icon={I.download} onClick={() => setStatus(downloadData(p.code) ? "Le fichier de vos données est dans vos téléchargements." : "Le fichier n'a pas pu être créé.")}>Télécharger mes données</Btn>
         {media > 0 && <Btn kind="ghost" size="sm" icon={I.download} disabled={busy} onClick={getMedia}>{media > 1 ? `Télécharger mes ${media} enregistrements` : "Télécharger mon enregistrement"}</Btn>}

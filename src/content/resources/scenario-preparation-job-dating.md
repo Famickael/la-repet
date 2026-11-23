@@ -29,7 +29,7 @@ Le coach inviterait chaque personne à noter le métier qu’elle recherche, une
 
 La personne pourrait essayer sa présentation avec un autre membre du groupe ou se servir de La Répét’ dans son espace. Elle choisirait une question adaptée, puis la caméra ou la voix seule selon ce qu’elle souhaite travailler. Un essai sans enregistrement pourrait aussi se faire avec le coach en dehors de l’outil. Chaque personne déciderait si elle veut consulter le retour de l’assistant et, lorsque celui-ci est disponible, commencer par le texte ou la relecture.
 
-Après l’essai, le coach proposerait de repérer une phrase qui permet de comprendre le rôle de la personne. Si elle souhaite envoyer sa réponse à son coach, elle pourrait ajouter un message sur le point qu’elle souhaite discuter. La relecture se ferait dans le même navigateur et sur le même appareil. La personne pourrait également garder l’enregistrement dans son espace et parler de son exemple de vive voix.
+Après l’essai, le coach proposerait de repérer une phrase qui permet de comprendre le rôle de la personne. Si elle souhaite envoyer son entretien à son coach, elle pourrait ajouter un message sur le point qu’elle souhaite discuter. La personne pourrait également garder l’enregistrement dans son espace et parler de son exemple de vive voix.
 
 Pour finir, chacun pourrait reprendre sa présentation avec un changement choisi, par exemple nommer plus tôt l’action principale. Le coach pourrait proposer une relance sur le poste pour s’entraîner à reprendre la parole. Le groupe se retrouverait ensuite pour préparer les questions à poser et organiser l’arrivée sur le lieu du job dating.
 
@@ -44,4 +44,4 @@ Le coach pourrait recueillir ce que les personnes souhaitent conserver juste apr
 
 ## Pour aller plus loin
 
-Le guide [Se présenter en deux minutes](#/ressources/se-presenter-en-deux-minutes) propose une trame pour choisir un exemple et le relier au poste. Si vous préparez un échange après l’entraînement, consultez aussi [Animer un débriefing à partir d’une réponse enregistrée](#/ressources/animer-un-debriefing-a-partir-d-une-reponse).
+Le guide [Se présenter en deux minutes](#/ressources/se-presenter-en-deux-minutes) propose une trame pour choisir un exemple et le relier au poste. Si vous préparez un échange après l’entraînement, consultez aussi [Animer un débriefing à partir d’un entretien enregistré](#/ressources/animer-un-debriefing-a-partir-d-une-reponse).

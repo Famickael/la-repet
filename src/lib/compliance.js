@@ -109,7 +109,7 @@ export const JUDGEMENT = rx([
   `${L}progr[èe]s${E}`, `${L}progress\\p{L}*`, `${L}am[ée]lior\\p{L}*`, `${L}r[ée]gress\\p{L}*`, `${L}d[ée]grad\\p{L}*`,
   `${L}r[ée]ussi\\p{L}*`, `${L}rat[ée]e?s?${E}`, `${L}[ée]chou\\p{L}*`, `${L}[ée]chec${E}`,
   `${L}trop${E}`, `${L}pas assez${E}`, `${L}bien jou[ée]${E}`, `${L}f[ée]licit\\p{L}*`, `${L}dommage${E}`,
-  `\\d\\s*%`, `${L}pour ?cent${E}`, `${L}points? de (?:plus|moins)${E}`, `${L}(?:en hausse|en baisse|en progression)${E}`,
+  `\\d\\s*%`, `${L}pour\\s?cent${E}`, `${L}points? de (?:plus|moins)${E}`, `${L}(?:en hausse|en baisse|en progression)${E}`,
 ]);
 export const changeCompliant = text => textCompliant(text, "strict") && !JUDGEMENT.test(normText(text));
 

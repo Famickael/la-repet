@@ -13,7 +13,7 @@ export function Compare({ p, a, b, go, from }) {
     <div style={{ ...wrap(W.wide), ...stack(GAP.grid) }}>
       <Card pad="none" level={2}>
         <GradHead tag={sameQuestion(before, after) ? "Même question, deux entretiens" : "Même type de question, deux entretiens"} title="Comparer mes entraînements"
-          sub="Vos deux entretiens côte à côte : ce que l'assistant a mesuré, et ce qui a changé. Aucune note."
+          sub="Vos deux entretiens côte à côte : ce que l'assistant a mesuré, et ce qui a changé. Aucune note."
           action={<Btn kind="ghostDark" size="sm" className="noprint" onClick={() => go("home", { queue: null })}>Choisir d'autres entretiens</Btn>} />
       </Card>
       <CompareBody before={before} after={after} role="benef" poste={p.poste} ai={!!p.consent?.ai} open={open} />

@@ -37,11 +37,10 @@ console.log("content.test : OK");
 const { PHRASES } = await import("../src/content/legal.js");
 for (const k of ["contactDemo", "contactInfo"]) assert.ok(!/recontact|enregistrée/i.test(PHRASES[k]), `${k} promet un envoi : ${PHRASES[k]}`);
 /* Formulaire de contact : aucun envoi, message exact demandé par le propriétaire. */
-assert.equal(PHRASES.contactDemo, "Aucune demande envoyée : l'envoi en ligne n'est pas encore ouvert");
+assert.equal(PHRASES.contactDemo, "Aucune demande envoyée, version de démonstration");
 assert.match(PHRASES.contactSent, /recontacte/);
-/* RED-07 : sans serveur, l'envoi est décrit comme local (version d'essai, même navigateur). */
-assert.match(PHRASES.sameDevice, /^Sur ce site, /);
-assert.match(PHRASES.sameDevice, /même navigateur/);
+/* Décision du 22 novembre 2026 : le site se présente comme pleinement fonctionnel, plus de phrase « même navigateur ». */
+assert.equal(PHRASES.sameDevice, undefined);
 /* Panel bénéficiaires : textes de l'espace réécrits (vocabulaire simple, annulation explicite, employeur nommé). */
 const { SUMMARY } = await import("../src/content/legal.js");
 assert.match(PHRASES.sent, /annuler l'envoi/);
@@ -135,3 +134,23 @@ for (const f of walk(new URL("../src", import.meta.url).pathname).filter(f => /\
 }
 assert.equal(typoErrors.length, 0, `espaces ordinaires à remplacer par des insécables :\n${typoErrors.slice(0, 40).join("\n")}`);
 console.log("content.test : typographie française OK");
+
+/* Décisions du propriétaire du 22 novembre 2026 (CLAUDE.md, docs/redaction.md 1.2 quater) : le site se présente comme
+   pleinement fonctionnel, et ce que l'on enregistre, envoie, garde ou supprime s'appelle « entretien ». Textes visibles
+   seulement (chaînes, JSX, articles, page d'accueil statique et image d'aperçu), pas les commentaires. */
+const visibleSpans = [];
+for (const f of walk(new URL("../src", import.meta.url).pathname).filter(f => /\.(jsx?|md)$/.test(f) && !TYPO_SKIP.test(f))) {
+  const src = readFileSync(f, "utf8");
+  for (const s of f.endsWith(".md") ? mdTextSpans(src) : jsTextSpans(src)) visibleSpans.push([f.replace(/.*\/src\//, "src/"), s.text]);
+}
+for (const f of ["../index.html", "../scripts/og-image.html"]) {
+  const html = readFileSync(new URL(f, import.meta.url), "utf8").replace(/<!--[\s\S]*?-->/g, "").replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/g, m => /ld\+json/.test(m) ? m : "");
+  visibleSpans.push([f.slice(3), html.replace(/<[^>]+>/g, " ")]);
+}
+const TRIAL = /version d['’]essai|prototype|(?:dans )?ce même navigateur|même navigateur/i;
+const trialLeft = visibleSpans.filter(([, t]) => TRIAL.test(t)).map(([f, t]) => `${f} : « ${t.match(new RegExp(`.{0,40}${TRIAL.source}.{0,20}`, "i"))[0]} »`);
+assert.equal(trialLeft.length, 0, `mention d'une version d'essai visible :\n${trialLeft.join("\n")}`);
+const ACTION = /\b(?:Supprimer|Envoyer|Garder|Annuler l['’]envoi(?: de)?|Relire|Ouvrir|Télécharger|Recommencer|Revoir|Réécouter)\s+(?:cette|ma|la|votre|une|vos|mes|les)\s+réponses?\b|\bMes réponses\b|\bRéponses? (?:envoyée|gardée|à relire|reçues?)\b/;
+const actionLeft = visibleSpans.filter(([, t]) => ACTION.test(t)).map(([f, t]) => `${f} : « ${t.match(ACTION)[0]} »`);
+assert.equal(actionLeft.length, 0, `« réponse » dans un libellé d'action sur un entretien (écrire « entretien ») :\n${actionLeft.join("\n")}`);
+console.log("content.test : « entretien », aucune mention de version d'essai OK");

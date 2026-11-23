@@ -70,7 +70,7 @@ async function run(b, vw, vh, opts = {}) {
   const homeTxt = (await p.locator("main").innerText()).replace(/[\u00A0\u202F]/g, " ");
   check(await p.getByRole("button", { name: "Voir comment ça marche" }).count() === 0 && !homeTxt.includes("Pas de compte à créer"), `[${tag}] accueil : bouton « Voir comment ça marche » ou ligne « Pas de compte à créer » encore présents`);
   check(["Avec votre coach", "Assisté par IA", "Sans avatar"].every(t => homeTxt.includes(t)) && !/\bSans note\b|Assistant IA\n|Lancer ma première répétition/.test(homeTxt), `[${tag}] accueil : pastilles « Avec votre coach », « Assisté par IA », « Sans avatar » attendues`);
-  check(/entraînez-vous autant de fois que vous voulez/.test(homeTxt) && /propose des pistes/.test(homeTxt) && /Comparez vos différents entraînements pour mesurer votre progression/.test(homeTxt) && /ce qui a changé, sans note/.test(homeTxt) && !/\banalyse votre réponse\b/i.test(homeTxt), `[${tag}] accueil : sous-titre du héros (entraînement sans avatar, pistes, promesse de comparaison, sans note) attendu`);
+  check(/entraînez-vous autant de fois que vous voulez/.test(homeTxt) && /propose des pistes/.test(homeTxt) && /Comparez vos différents entraînements pour mesurer votre progression/.test(homeTxt) && !/\banalyse votre réponse\b/i.test(homeTxt), `[${tag}] accueil : sous-titre du héros (entraînement sans avatar, pistes, promesse de comparaison, sans note) attendu`);
   const reassure = await p.locator(".rs-reassure li").allInnerTexts();
   check(["Sans frais pour vous", "Démarrage rapide", "Sécurisé", "Confidentiel"].every((t, i) => (reassure[i] || "").startsWith(t)), `[${tag}] accueil : bandeau des quatre engagements attendu (${JSON.stringify(reassure)})`);
   check(await p.locator("main").evaluate(m => { const r = m.querySelector(".rs-reassure"), ph = m.querySelector(".rs-phrase, .rs-phrase-r"), st = m.querySelector("#comment-ca-marche"); return !!(r && ph && st && (r.compareDocumentPosition(ph) & 4) && (ph.compareDocumentPosition(st) & 4)); }), `[${tag}] accueil : la phrase doit suivre le bandeau et précéder la strate`);
@@ -244,10 +244,10 @@ async function run(b, vw, vh, opts = {}) {
   await p.getByRole("button", { name: "Lire la méthode outillée" }).click(); await p.waitForTimeout(600);
   check(p.url().endsWith("#/solutions/methode"), `[${tag}] À propos : le bouton « Lire la méthode outillée » ne mène pas à #/solutions/methode (${p.url()})`);
   check(await p.locator("main ol > li").count() >= 12, `[${tag}] Méthode : les cinq temps et les sept étapes doivent être listés`);
-  /* Méthode et Recherche : contenu attendu (retour qui décrit, rôle du coach, références) ; références justes sur
+  /* Méthode et Recherche : contenu attendu (assistant qui analyse sans noter, rôle du coach, références) ; références justes sur
      les trois pages. Apparition au défilement sur À propos, Recherche et Méthode : tous les blocs, éléments de liste
      compris (Reveal as="li"), avec des délais décalés ; en mouvement réduit, tout est visible sans attendre. */
-  for (const id of ["Pourquoi le retour décrit au lieu de noter", "Le rôle irremplaçable du coach"]) check(await p.getByRole("heading", { name: id }).count() === 1, `[${tag}] Méthode : section « ${id} » absente`);
+  for (const id of ["Pourquoi l'assistant analyse sans noter", "Le rôle irremplaçable du coach"]) check(await p.getByRole("heading", { name: id }).count() === 1, `[${tag}] Méthode : section « ${id} » absente`);
   const refs = { "#/a-propos": ["Clot", "Vermersch", "Rogers", "Le Bossé", "Bandura", "Schön", "Hattie"], "#/solutions/recherche": ["Ericsson", "Dowrick", "Kluger", "Hattie", "Bandura", "Kanfer", "Liu", "Schön", "Baldwin"], "#/solutions/methode": ["Bandura", "Clot", "Hattie", "Schön"] };
   for (const [h, names] of Object.entries(refs)) {
     await visit(h);
@@ -325,7 +325,7 @@ async function run(b, vw, vh, opts = {}) {
   // Nous contacter (formulaire destiné aux commanditaires : acteurs publics, entreprises)
   await visit("#/demo"); await shot("13-demo");
   const status = p.getByTestId("demo-status");
-  const DEMO_MSG = "Aucune demande envoyée : l'envoi en ligne n'est pas encore ouvert";
+  const DEMO_MSG = "Aucune demande envoyée, version de démonstration";
   check(await p.getByRole("checkbox").count() === 0, `[${tag}] formulaire : aucune case de recontact ne doit être obligatoire`);
   check(await p.getByRole("radio", { name: "Acteur public" }).count() === 1 && await p.getByRole("radio", { name: "Entreprise" }).count() === 1, `[${tag}] formulaire : type de structure absent`);
   check((await p.locator("main").innerText()).indexOf(DEMO_MSG) < 0, `[${tag}] formulaire : le message de démonstration ne doit pas s'afficher avant l'envoi`);

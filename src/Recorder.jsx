@@ -26,7 +26,7 @@ function pickMime(audioOnly) {
 /* Enregistreur : caméra + micro, ou micro seul.
    onDone({ blob, duration, gaze, audioOnly }) est appelé quand la personne valide sa prise.
    beforeStart : appelé au démarrage (le recruteur oral se tait, BUG-10) ; speaking : la question est en cours de lecture. */
-export default function Recorder({ onDone, onCancel, trackGaze = true, setModal, validateLabel = "Garder cette réponse", speaking = false, beforeStart }) {
+export default function Recorder({ onDone, onCancel, trackGaze = true, setModal, validateLabel = "Garder cet entretien", speaking = false, beforeStart }) {
   const liveRef = useRef(null), streamRef = useRef(null), recRef = useRef(null), chunks = useRef([]);
   const gazeRef = useRef(null), t0 = useRef(0), urlRef = useRef(null), alive = useRef(true), unwatch = useRef(null);
   const [phase, setPhase] = useState("idle"); // idle | live | recording | stopping | done | error

@@ -32,7 +32,7 @@ export function useComparePick(takes) {
 }
 export function PickBox({ pick, take, label }) {
   if (!pick.on) return null;
-  if (!comparable(take)) return <span style={{ ...TY.caption, color: T.muted }}>Sans analyse : ne se compare pas</span>;
+  if (!comparable(take)) return <span style={{ ...TY.caption, color: T.muted }}>Sans analyse : ne se compare pas</span>;
   const sel = pick.sel.includes(take.id);
   return <Chip role="checkbox" pressed={sel} disabled={!sel && pick.sel.length >= 2} aria-label={label} onClick={() => pick.toggle(take.id)}>{sel ? "Choisi" : "Choisir"}</Chip>;
 }
@@ -150,7 +150,7 @@ function Side({ take, other, when, open, openLabel, delay }) {
   };
   return (
     <Reveal delay={delay} style={{ minWidth: 0 }}>
-      <Card as="section" label={`${when} : ${takeLabel(take, other)}`} style={stack(16)}>
+      <Card as="section" label={`${when} : ${takeLabel(take, other)}`} style={stack(16)}>
         <div style={stack(8)}>
           <div><Tag tone={when === "Avant" ? "muted" : "primary"}>{when}</Tag></div>
           <h3 className="ty-h2" style={{ ...TY.h2, color: T.navy, margin: 0 }}>{takeLabel(take, other)}</h3>

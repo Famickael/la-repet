@@ -33,7 +33,7 @@ export function Hero({ openSpace }) {
               </span>
             </h1>
             <p className="ty-lead" style={{ ...TY.lead, color: T.body, maxWidth: 520, margin: 0 }}>
-              À voix haute, sans avatar, entraînez-vous autant de fois que vous voulez ! Un assistant IA <strong style={{ color: T.navy }}>décrit votre réponse, sans la noter</strong>, et vous propose des pistes : rythme, pauses, exemples concrets. Comparez vos différents entraînements pour mesurer votre progression, avec le soutien de votre coach à chaque étape.
+              À voix haute, sans avatar, entraînez-vous autant de fois que vous voulez ! Un assistant IA <strong style={{ color: T.navy }}>analyse votre entretien, sans le noter</strong>, et vous propose des pistes : rythme, pauses, exemples concrets. Comparez vos différents entraînements pour mesurer votre progression, avec le soutien de votre coach à chaque étape.
             </p>
             <div className="rp-wide-m rs-hero-cta" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {/* Connecté : l'espace de la personne (ou l'espace coach), jamais la page de connexion (src/app/router.js, spaceHash) */}
@@ -59,7 +59,7 @@ export const SCENES = [
     bubble: { who: "Consigne 2 sur 7", text: "« Redites-la un peu plus lentement. »" }, bubbleTop: "56%", card: "warmup",
   },
   {
-    ending: "avec vos mots.", src: "heros-transcription.webp", pos: "66% 50%", alt: "Un homme explique quelque chose en faisant un geste de la main.", label: "Votre réponse mise par écrit, avec vos mots",
+    ending: "avec vos mots.", src: "heros-transcription.webp", pos: "66% 50%", alt: "Un homme explique quelque chose en faisant un geste de la main.", label: "Votre entretien mis par écrit, avec vos mots",
     bubble: { who: "Mise par écrit", text: "« J'ai travaillé deux ans à l'accueil d'une mairie. »", live: 12 }, bubbleTop: "58%", card: "transcript",
   },
   {
@@ -161,7 +161,7 @@ export const TranscriptCard = () => {
   const rows = [["0:08", "Bonjour, je m'appelle Sami."], ["0:12", "J'ai travaillé deux ans à l'accueil d'une mairie."], ["0:18", "J'aime orienter les gens."]];
   return (
     <div style={{ background: T.surface, borderRadius: RAD.md, padding: 16, boxShadow: SH.glow, display: "grid", gap: 8 }}>
-      <div className="rs-line" style={{ display: "flex", alignItems: "center", gap: 8, ...TY.overline, color: T.primary, ...lineStyle(0, 4) }}><Icon d={I.note} s={12} c={T.primary} /> Votre réponse, mise par écrit</div>
+      <div className="rs-line" style={{ display: "flex", alignItems: "center", gap: 8, ...TY.overline, color: T.primary, ...lineStyle(0, 4) }}><Icon d={I.note} s={12} c={T.primary} /> Votre entretien, mis par écrit</div>
       {rows.map(([t, x], k) => (
         <div key={t} className="rs-line" style={{ display: "flex", gap: 8, alignItems: "baseline", ...lineStyle(k + 1, 4) }}>
           <span style={{ ...TY.time, color: T.muted, minWidth: 32 }}>{t}</span>
@@ -189,7 +189,7 @@ export const RapportCard = () => (
     <div style={{ width: 40, height: 40, borderRadius: "50%", background: T.successBg, display: "grid", placeItems: "center", flexShrink: 0 }}><Icon d={I.check} s={20} c={T.successDk} /></div>
     <div>
       <div style={{ ...TY.h4, color: T.navy }}>Rapport de votre coach reçu</div>
-      <div style={{ ...TY.caption, color: T.muted }}>Ses remarques, placées au bon moment de votre réponse</div>
+      <div style={{ ...TY.caption, color: T.muted }}>Ses remarques, placées au bon moment de votre entretien</div>
     </div>
   </div>
 );

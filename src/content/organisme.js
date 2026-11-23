@@ -32,7 +32,7 @@ export const ORG = {
   llmProvider: "prestataire de modèle de langage hébergé en France, à désigner (exemple)",     // prestataire du modèle de langage et pays, si VITE_LLM_ENDPOINT est utilisé
   sttProvider: "prestataire de transcription hébergé en France, à désigner (exemple)",     // prestataire de la transcription serveur et pays, si VITE_STT_ENDPOINT est utilisé
   /* Durées de conservation validées par le DPO (proposition dans docs/conformite.md, 2.8) */
-  retention: "vidéos et réponses gardées sur votre appareil jusqu'à ce que vous les supprimiez ; réponses envoyées au coach et rapports : 6 mois après la fin de l'accompagnement ; compte coach : 1 an après le dernier accès (durées types, à valider par le délégué à la protection des données)",       // texte ou tableau des durées validées
+  retention: "vidéos et entretiens gardés sur votre appareil jusqu'à ce que vous les supprimiez ; entretiens envoyés au coach et rapports : 6 mois après la fin de l'accompagnement ; compte coach : 1 an après le dernier accès (durées types, à valider par le délégué à la protection des données)",       // texte ou tableau des durées validées
   demoRetention: "3 mois après notre réponse (durée type, à valider)",   // durée de conservation des demandes des commanditaires (page « Nous contacter »)
   /* Base légale retenue par le DPO (consentement ou mission d'intérêt public, écart R6) */
   legalBasis: "Votre accord (consentement, article 6.1.a du RGPD). Base légale type, à valider par le délégué à la protection des données.",

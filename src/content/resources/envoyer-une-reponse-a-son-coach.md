@@ -1,8 +1,8 @@
 ---
-title: Envoyer une réponse à votre coach
+title: Envoyer un entretien à votre coach
 category: guides
 type: guide
-summary: Choisissez la réponse à envoyer, ajoutez une demande d’avis et retrouvez le rapport de votre coach dans votre espace.
+summary: Choisissez l’entretien à envoyer, ajoutez une demande d’avis et retrouvez le rapport de votre coach dans votre espace.
 image: categories/guides.webp
 imageAlt:
 date: 2026-11-21
@@ -11,22 +11,22 @@ featured: false
 order: 26
 ---
 
-Lorsque vous vous entraînez avec La Répét’, vous choisissez si vous souhaitez envoyer une réponse à votre coach. Vous pouvez écouter ou relire ce que vous avez préparé, puis indiquer le passage sur lequel vous aimeriez avoir un avis. L’envoi concerne la réponse que vous avez ouverte.
+Lorsque vous vous entraînez avec La Répét’, vous choisissez si vous souhaitez envoyer un entretien à votre coach. Vous pouvez écouter ou relire ce que vous avez préparé, puis indiquer le passage sur lequel vous aimeriez avoir un avis. L’envoi concerne l’entretien que vous avez ouvert.
 
-## Choisir la réponse que vous souhaitez envoyer
+## Choisir l’entretien que vous souhaitez envoyer
 
-Après avoir gardé un enregistrement, ouvrez votre retour ou la page de votre réponse. Vous pouvez aussi y revenir depuis votre espace. Vérifiez la question et la date indiquées. Si vous avez répondu plusieurs fois à la même question, ouvrez l’essai dont vous voulez parler avec votre coach. Vous pouvez écouter le début ou revoir le passage qui vous intéresse lorsque l’enregistrement est disponible.
+Après avoir gardé un enregistrement, ouvrez votre retour ou la page de votre entretien. Vous pouvez aussi y revenir depuis votre espace. Vérifiez la question et la date indiquées. Si vous avez répondu plusieurs fois à la même question, ouvrez l’entretien dont vous voulez parler avec votre coach. Vous pouvez écouter le début ou revoir le passage qui vous intéresse lorsque l’enregistrement est disponible.
 
-Demandez-vous ce que vous souhaitez travailler ensemble. Vous pouvez envoyer une réponse dont vous voulez conserver un détail, ou un exemple que vous souhaitez expliquer plus clairement. Si vous ne savez pas encore quel avis demander, vous pouvez simplement indiquer la question que vous avez travaillée et laisser votre coach choisir un passage avec vous.
+Demandez-vous ce que vous souhaitez travailler ensemble. Vous pouvez envoyer un entretien dont vous voulez conserver un détail, ou un exemple que vous souhaitez expliquer plus clairement. Si vous ne savez pas encore quel avis demander, vous pouvez simplement indiquer la question que vous avez travaillée et laisser votre coach choisir un passage avec vous.
 
 > [!exemple] Choisir un passage à discuter
 > Vous avez répondu à une question sur le travail en équipe. Vous souhaitez savoir si l’on comprend ce que vous avez fait vous-même. Réécoutez le moment où vous décrivez votre rôle, puis indiquez ce passage dans le message à votre coach.
 
 ## Ouvrir l’écran d’envoi et vérifier le destinataire
 
-Sur la page de la réponse, sélectionnez « Envoyer à mon coach ». Ce premier bouton ouvre l’écran d’envoi. Vérifiez que le nom affiché correspond à la personne avec laquelle vous travaillez. Si vous changez d’avis à cette étape, « Je la garde pour moi » vous ramène à la réponse. Vous pouvez y revenir plus tard.
+Sur la page de l’entretien, sélectionnez « Envoyer à mon coach ». Ce premier bouton ouvre l’écran d’envoi. Vérifiez que le nom affiché correspond à la personne avec laquelle vous travaillez. Si vous changez d’avis à cette étape, « Je le garde pour moi » vous ramène à l'entretien. Vous pouvez y revenir plus tard.
 
-Le lien « Que devient ma vidéo ? » ouvre les informations sur l’enregistrement. Sur ce site, votre coach lit ce que vous envoyez **sur le même appareil et dans le même navigateur**. Si vous préparez un débriefing, convenez avec votre coach du moment où vous pourrez utiliser cet appareil ensemble. Pour revenir à votre espace, gardez votre code.
+Le lien « Que devient ma vidéo ? » ouvre les informations sur l’enregistrement. Votre coach lit l’entretien que vous lui envoyez. Pour revenir à votre espace et lire son rapport, gardez votre code.
 
 ## Ajouter un message si vous le souhaitez
 
@@ -43,9 +43,9 @@ Vous pouvez aussi demander un avis sur une piste affichée dans votre retour. Re
 
 ## Confirmer ou annuler votre envoi
 
-Quand vous voulez, sélectionnez « Envoyer à mon coach » sur l’écran d’envoi. La confirmation « Réponse envoyée » vous indique que cette réponse est envoyée à votre coach. Si vous avez choisi plusieurs questions, vous pouvez passer à la suivante. Vous pouvez aussi choisir « Revenir à mon espace ».
+Quand vous voulez, sélectionnez « Envoyer à mon coach » sur l’écran d’envoi. La confirmation « Entretien envoyé » vous indique que cet entretien est envoyé à votre coach. Si vous avez choisi plusieurs questions, vous pouvez passer à la suivante. Vous pouvez aussi choisir « Revenir à mon espace ».
 
-Tant que le coach n’a pas envoyé son rapport, vous pouvez rouvrir la réponse et choisir « Annuler l’envoi ». Vous pourrez décider ensuite si vous souhaitez envoyer de nouveau cette réponse, par exemple après avoir reformulé la demande d’avis. Si un rapport est déjà arrivé, ouvrez-le depuis votre espace pour retrouver les remarques.
+Tant que le coach n’a pas envoyé son rapport, vous pouvez rouvrir l’entretien et choisir « Annuler l’envoi ». Vous pourrez décider ensuite si vous souhaitez envoyer de nouveau cet entretien, par exemple après avoir reformulé la demande d’avis. Si un rapport est déjà arrivé, ouvrez-le depuis votre espace pour retrouver les remarques.
 
 ## Préparer le débriefing à partir du rapport
 
@@ -54,4 +54,4 @@ Lorsque votre coach a envoyé son rapport, vous le retrouvez dans votre espace. 
 Vous pouvez garder un point à réutiliser et choisir une nouvelle question pour faire un essai. Le guide [Comprendre les points d’appui et les pistes à explorer](#/ressources/comprendre-son-retour-points-d-appui-et-pistes) vous aide à choisir quoi reprendre de votre retour. Si vous avez répondu en voix seule, le guide [S’entraîner en voix seule](#/ressources/s-entrainer-en-voix-seule) rappelle comment réécouter la réponse.
 
 > [!a-retenir] Avant de confirmer l’envoi
-> Vérifiez la réponse et le destinataire. Si vous avez une question pour votre coach, ajoutez-la au message. Prévoyez d’utiliser le même appareil et le même navigateur pour la relecture.
+> Vérifiez l’entretien et le destinataire. Si vous avez une question pour votre coach, ajoutez-la au message.

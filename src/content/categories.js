@@ -7,7 +7,7 @@ export const CATEGORIES = [
   { id: "questions", title: "Questions de recruteurs", desc: "Les questions fréquentes, comment y répondre, et celles à poser à votre tour.", icon: "chat" },
   { id: "visio", title: "Entretien en visio", desc: "Matériel, cadre, regard et attitude pour un entretien à distance.", icon: "monitor" },
   { id: "guides", title: "Guides La Répét'", desc: "Utiliser La Répét' pas à pas, quand on s'entraîne.", icon: "book" },
-  { id: "coachs", title: "Pour les coachs", desc: "Créer des parcours, relire les réponses, animer un débriefing.", icon: "users" },
+  { id: "coachs", title: "Pour les coachs", desc: "Créer des parcours, relire les entretiens, animer un débriefing.", icon: "users" },
   { id: "commanditaires", title: "Pour les commanditaires", desc: "Confier un accompagnement : acteurs publics de l'emploi et entreprises.", icon: "building" },
 ];
 

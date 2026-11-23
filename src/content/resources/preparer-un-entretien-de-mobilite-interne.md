@@ -70,6 +70,6 @@ Après l'échange, notez les informations reçues et les questions nouvelles. Si
 
 Demandez à votre coach un accès à l'entraînement « Mobilité ou évolution professionnelle », puis ouvrez [Mon espace](#/espace). Vous pourrez préparer une réponse sur votre projet et une autre sur les compétences de votre poste actuel. Le choix de ce type d'entraînement est préparé avec votre coach.
 
-Commencez par dire votre réponse avec vos mots. Vous pouvez utiliser la caméra ou la voix seule, lire le retour de l'assistant IA et reprendre un passage si vous le souhaitez. Le retour décrit votre réponse, sans la noter. Il ne décide pas si la mobilité vous convient.
+Commencez par dire votre réponse avec vos mots. Vous pouvez utiliser la caméra ou la voix seule, lire le retour de l'assistant IA et reprendre un passage si vous le souhaitez. L'assistant analyse votre entretien, sans le noter. Il ne décide pas si la mobilité vous convient.
 
-Votre employeur ne voit ni vos vidéos ni les retours de l'assistant. Vous choisissez les réponses que vous envoyez à votre coach. Pour préparer le rendez-vous réel, vous pouvez ensuite discuter avec lui d'une question qui vous reste difficile à formuler.
+Votre employeur ne voit ni vos vidéos ni les retours de l'assistant. Vous choisissez les entretiens que vous envoyez à votre coach. Pour préparer le rendez-vous réel, vous pouvez ensuite discuter avec lui d'une question qui vous reste difficile à formuler.

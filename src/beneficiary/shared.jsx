@@ -23,7 +23,7 @@ export const PAGE = { padding: PAD.page };
 export function EmotionNote({ setModal }) {
   return (
     <Notice tone="ai" icon={I.shield}>
-      <strong>L'assistant ne cherche pas à deviner vos émotions.</strong> Il décrit seulement ce qui se voit et ce qui s'entend.{" "}
+      <strong>L'assistant ne cherche pas à deviner vos émotions.</strong> Il analyse seulement ce qui se voit et ce qui s'entend.{" "}
       <Link onClick={() => setModal("assistant")}>En savoir plus sur ce choix</Link>
     </Notice>
   );

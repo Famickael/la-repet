@@ -4,7 +4,7 @@
    à la création. Aucun enregistrement n'est fourni : seuls le texte et l'analyse existent. */
 import { localAnalysis } from "./analysis.js";
 
-const QUESTION = "Pouvez-vous vous présenter en deux minutes ?";
+const QUESTION = "Pouvez-vous vous présenter en deux minutes ?";
 const SAMPLES = [
   { id: "essai-12-mars", day: "03-12T10:05:00", duration: 58, segments: [
     [0, 6, "Bonjour, euh, je m'appelle Camille et, euh, je cherche un poste d'agent d'accueil."],
@@ -20,7 +20,7 @@ const SAMPLES = [
     [19.5, 31, "Par exemple, lors de la période des soldes, j'ai organisé la file d'attente et, euh, renseigné les personnes une par une, ce qui a réduit l'attente à la caisse."],
     [31.5, 41, "J'aime renseigner, orienter et répondre au téléphone, et du coup je garde toujours un carnet pour noter les demandes."],
     [44, 53, "Je suis disponible rapidement, je peux travailler le samedi et je connais bien les logiciels de bureau."],
-    [53.5, 64, "C'est pour ça que ce poste d'agent d'accueil me correspond : euh, il réunit le contact et l'organisation."],
+    [53.5, 64, "C'est pour ça que ce poste d'agent d'accueil me correspond : euh, il réunit le contact et l'organisation."],
   ] },
 ];
 

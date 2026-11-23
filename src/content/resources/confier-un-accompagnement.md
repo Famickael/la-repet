@@ -22,21 +22,21 @@ La Répét' appartient à notre organisme d'accompagnement. Nous ne la vendons p
 
 - **Ils accompagnent** chaque personne, en rendez-vous individuels ou en ateliers collectifs.
 - **Ils ouvrent un parcours** dans La Répét' et transmettent un code d'accès. La personne s'entraîne seule, à son rythme, autant de fois qu'elle veut.
-- **Ils relisent** seulement les réponses que la personne choisit de leur envoyer, ajoutent leurs remarques et préparent le débriefing.
+- **Ils relisent** seulement les entretiens que la personne choisit de leur envoyer, ajoutent leurs remarques et préparent le débriefing.
 
 ## Ce que vit la personne accompagnée
 
 - Un échauffement sans enregistrement, puis des questions adaptées au métier visé ou à l'entretien de mobilité préparé.
-- Un retour de l'assistant IA qui **décrit sans noter** : rythme de parole, pauses, exemples, regard. Aucune émotion devinée.
-- La liberté de garder une réponse pour soi, de l'envoyer à son coach ou de tout supprimer.
+- Un retour de l'assistant IA qui **analyse sans noter** : rythme de parole, pauses, exemples, regard. Aucune émotion devinée.
+- La liberté de garder un entretien pour soi, de l'envoyer à son coach ou de tout supprimer.
 
 > [!conseil] La confidentialité, une condition de réussite
-> Pour un collaborateur, s'entraîner suppose de pouvoir se tromper sans que l'employeur le voie. Les réponses restent entre la personne et son coach. Le commanditaire reçoit un bilan d'ensemble, jamais une mesure individuelle.
+> Pour un collaborateur, s'entraîner suppose de pouvoir se tromper sans que l'employeur le voie. Les entretiens restent entre la personne et son coach. Le commanditaire reçoit un bilan d'ensemble, jamais une mesure individuelle.
 
 ## Ce que vous recevez
 
 - Une proposition d'accompagnement adaptée à votre public, à votre calendrier et au nombre de personnes.
-- Un bilan d'ensemble, défini avec vous avant le démarrage : par exemple le nombre de parcours ouverts, de réponses relues et de rapports envoyés.
+- Un bilan d'ensemble, défini avec vous avant le démarrage : par exemple le nombre de parcours ouverts, d'entretiens relus et de rapports envoyés.
 - Les informations nécessaires sur le cadre : AI Act, RGPD, analyse d'impact menée par notre organisme avant tout démarrage.
 
 ## Les étapes

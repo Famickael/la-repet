@@ -325,7 +325,7 @@ export function exportData(code, s = state) {
   return {
     fichier: "Vos données de La Répét'",
     exporteLe: new Date().toISOString(),
-    aSavoir: "Ce fichier a été créé sur votre appareil, à partir des données gardées dans ce navigateur. Les vidéos et enregistrements de voix sont des fichiers à part.",
+    aSavoir: "Ce fichier a été créé sur votre appareil, à partir des données qui y sont gardées. Les vidéos et enregistrements de voix sont des fichiers à part.",
     parcours: {
       code: p.code, prenom: p.prenom, metierOuPosteVise: p.poste || "", typeEntretien: p.type === "mobilite" ? "mobilité" : "embauche",
       coach: p.counselor || "", creeLe: p.createdAt || null, ouvertLe: p.openedAt || null,

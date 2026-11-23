@@ -315,7 +315,7 @@ const POSITIVE_GENERIC = [
   "Vous parlez de votre expérience avec des mots précis.",
   "On comprend bien ce que vous avez fait dans votre parcours.",
   "Vous reliez votre réponse au poste visé.",
-  "Vous avez choisi de m'envoyer cette réponse : c'est une bonne base pour en parler ensemble.",
+  "Vous avez choisi de m'envoyer cet entretien : c'est une bonne base pour en parler ensemble.",
   "Votre réponse donne envie d'en savoir plus sur votre expérience.",
 ];
 
@@ -328,10 +328,10 @@ export function introIdeas({ prenom, question, poste, dims = [] }) {
   const q = question ? `« ${question} »` : "cette question";
   const job = poste ? ` pour le poste ${dePoste(poste)}` : "";
   return keep([
-    `${hi}merci de m'avoir envoyé votre réponse à ${q}. Je l'ai regardée avec attention et je vous propose quelques repères pour la suite.`,
-    `${hi}j'ai relu votre réponse à ${q}. ${ap ? `Je retiens d'abord un point d'appui : ${ap.titre.toLowerCase()}. ` : ""}Vous trouverez mes remarques à côté de chaque repère.`,
+    `${hi}merci de m'avoir envoyé votre entretien sur ${q}. Je l'ai regardé avec attention et je vous propose quelques repères pour la suite.`,
+    `${hi}j'ai relu votre entretien sur ${q}. ${ap ? `Je retiens d'abord un point d'appui : ${ap.titre.toLowerCase()}. ` : ""}Vous trouverez mes remarques à côté de chaque repère.`,
     `${hi}merci pour cet entraînement${job}. ${ex ? `Je vous propose de travailler en priorité sur un point : ${ex.titre.toLowerCase()}. ` : ""}Nous pourrons en reparler ensemble lors de notre prochain rendez-vous.`,
-    `${hi}vous avez fait la démarche de vous entraîner et de m'envoyer votre réponse : c'est précieux. Voici ce que j'ai observé, avec une ou deux pistes concrètes.`,
+    `${hi}vous avez fait la démarche de vous entraîner et de m'envoyer votre entretien : c'est précieux. Voici ce que j'ai observé, avec une ou deux pistes concrètes.`,
     `${hi}voici mes remarques sur votre réponse à ${q}. Les repères de l'assistant sont complétés par mes remarques : prenez ce qui vous est utile.`,
     `${hi}j'ai regardé votre vidéo. J'ai ajouté des remarques à certains moments précis : cliquez sur un repère pour revoir le passage.`,
     `${hi}merci pour votre envoi. Mon conseil pour la prochaine fois tient en une phrase, vous la trouverez plus bas. Le reste est déjà une bonne base.`,

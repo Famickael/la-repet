@@ -23,8 +23,8 @@ export function Choose({ take, go, series, back }) {
       <div className="rp-stack" style={{ alignItems: "stretch" }}>
         {opt("simple", "Lire mon retour", "Sans me revoir", "Vous lisez ce que l'assistant a remarqué. Pratique si vous n'aimez pas vous revoir.", "Lire")}
         {isAudio(take)
-          ? opt("video", "Me réécouter", "Avec les repères au bon moment", "Vous réécoutez votre réponse. Chaque repère est placé au bon moment : touchez-le pour y aller.", "Me réécouter", true)
-          : opt("video", "Me revoir en vidéo", "Avec les repères au bon moment", "Vous revoyez votre réponse. Chaque repère est placé au bon moment : touchez-le pour y aller.", "Me revoir", true)}
+          ? opt("video", "Me réécouter", "Avec les repères au bon moment", "Vous réécoutez votre entretien. Chaque repère est placé au bon moment : touchez-le pour y aller.", "Me réécouter", true)
+          : opt("video", "Me revoir en vidéo", "Avec les repères au bon moment", "Vous revoyez votre entretien. Chaque repère est placé au bon moment : touchez-le pour y aller.", "Me revoir", true)}
       </div>
       <div><Back onClick={back} /></div>
     </div>

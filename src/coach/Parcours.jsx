@@ -44,7 +44,7 @@ export function Parcours({ s, p, back, review, compare }) {
                   <div style={{ ...TY.caption, color: T.muted }}>Envoyé le {dateFr(t.sharedAt)} · {duration(t.duration)}{t.report ? ` · rapport envoyé le ${dateFr(t.report.sentAt)}` : ""}</div>
                 </div>
                 <Tag tone={t.report ? "success" : "warning"}>{t.report ? "Rapport envoyé" : "À relire"}</Tag>
-                <PickBox pick={pick} take={t} label={`Choisir l'entretien envoyé le ${dateFr(t.sharedAt)} : ${t.question}`} />
+                <PickBox pick={pick} take={t} label={`Choisir l'entretien envoyé le ${dateFr(t.sharedAt)} : ${t.question}`} />
                 <Btn kind={t.report ? "secondary" : "objective"} size="sm" onClick={() => review(t.id)}>{t.report ? "Modifier le rapport" : "Relire"}</Btn>
               </Card>
             ))}

@@ -12,7 +12,7 @@ export function Compare({ p, a, b, back, review }) {
     <div style={stack(GAP.grid)}>
       <Card level={2} style={stack(4)}>
         <h1 className="ty-h2" style={{ ...TY.h2, color: T.navy, margin: 0 }}>Comparer deux entretiens de {p.prenom}</h1>
-        <div style={{ ...TY.small, color: T.body }}>Deux entretiens que {p.prenom} vous a envoyés, côte à côte : ce que l'assistant a mesuré, et ce qui a changé. Aucune note.</div>
+        <div style={{ ...TY.small, color: T.body }}>Deux entretiens que {p.prenom} vous a envoyés, côte à côte : ce que l'assistant a mesuré, et ce qui a changé. Aucune note.</div>
       </Card>
       <CompareBody before={before} after={after} role="coach" poste={p.poste} open={t => review(t.id)} openLabel="Relire cet entretien" />
       <div className="noprint"><Back onClick={back}>Retour au parcours</Back></div>

@@ -88,9 +88,9 @@ export function facts(t) {
     { id: "pauses", label: "Pauses", n: nP, value: nP ? `${pl(nP, "pause")} de plus de 2${NB}secondes` : "aucune pause de plus de 2\u00A0secondes" },
     { id: "petits-mots", label: "Petits mots répétés", n: m.fillerTotal || 0, value: m.fillerTotal ? `${m.fillerTotal}${NB}: ${top}` : "aucun repéré" },
     { id: "exemples", label: "Exemples concrets", n: nEx, ex: m.concreteText || null, value: nEx ? `${pl(nEx, "passage")} ${nEx > 1 ? "repérés" : "repéré"}` : "aucun repéré" },
-    { id: "debut", label: "Construction : début", n: norm(first), value: first ? quote(first, 60) : "non repéré" },
-    { id: "developpement", label: "Construction : développement", n: m.avgSentence || 0, s: m.sentences || 0, value: `${pl(m.sentences || 0, "phrase")}, ${m.avgSentence || 0}${NB}mots en moyenne par phrase` },
-    { id: "conclusion", label: "Construction : conclusion", n: m.hasClosing ? 1 : 0, value: m.hasClosing ? "phrase de conclusion repérée" : "pas de phrase de conclusion repérée" },
+    { id: "debut", label: "Construction : début", n: norm(first), value: first ? quote(first, 60) : "non repéré" },
+    { id: "developpement", label: "Construction : développement", n: m.avgSentence || 0, s: m.sentences || 0, value: `${pl(m.sentences || 0, "phrase")}, ${m.avgSentence || 0}${NB}mots en moyenne par phrase` },
+    { id: "conclusion", label: "Construction : conclusion", n: m.hasClosing ? 1 : 0, value: m.hasClosing ? "phrase de conclusion repérée" : "pas de phrase de conclusion repérée" },
     { id: "regard", label: "Regard", n: g ? g.k : null, value: g ? g.text : "non mesuré (voix seule ou caméra coupée)" },
   ];
 }
@@ -110,7 +110,7 @@ export function whatChanged(before, after) {
   const A = Object.fromEntries(facts(before).map(f => [f.id, f])), B = Object.fromEntries(facts(after).map(f => [f.id, f]));
   const out = [], same = [];
   const add = (id, text) => out.push({ id, text });
-  const keep = id => same.push(A[id].label.replace(/^Construction : /, "").toLowerCase());
+  const keep = id => same.push(A[id].label.replace(/^Construction[\s\u00A0]: /, "").toLowerCase());
 
   // Exemples concrets
   if (!A.exemples.n && B.exemples.n) {

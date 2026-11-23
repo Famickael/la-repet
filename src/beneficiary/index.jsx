@@ -32,7 +32,7 @@ function restorable(t, ctx, takes) {
   if (t.view === "recap") return !!ctx.queue?.length;
   return true;
 }
-const LOST = "La page a été rechargée : la réponse en cours n'a pas été gardée. Vos réponses déjà enregistrées sont dans « Mes réponses ».";
+const LOST = "La page a été rechargée : l'entretien en cours n'a pas été gardé. Vos entretiens déjà enregistrés sont dans « Mes entretiens ».";
 
 export default function Beneficiary({ initialCode, sub = "", setModal, onCode }) {
   const s = useStore();
@@ -75,7 +75,7 @@ export default function Beneficiary({ initialCode, sub = "", setModal, onCode })
   /* Titre du document et focus propres à chaque écran (A11Y-02, A11Y-06) ; après un retrait de l'accord, le focus
      va sur « Avant de commencer » (BUG-03). */
   const screen = !p ? "code" : !p.consent ? "consent" : view;
-  useTitle({ code: "Code d'accès", consent: "Avant de commencer", home: "Mon espace", warmup: "Échauffement", pick: "Choix des questions", record: "Votre réponse", processing: "Préparation", choose: "Lire ou revoir", report: take?.report ? "Rapport de votre coach" : "Votre retour", share: "Envoyer à mon coach", sent: "Réponse envoyée", recap: "Récapitulatif", compare: "Comparer mes entraînements" }[screen]);
+  useTitle({ code: "Code d'accès", consent: "Avant de commencer", home: "Mon espace", warmup: "Échauffement", pick: "Choix des questions", record: "Votre réponse", processing: "Préparation", choose: "Lire ou revoir", report: take?.report ? "Rapport de votre coach" : "Votre retour", share: "Envoyer à mon coach", sent: "Entretien envoyé", recap: "Récapitulatif", compare: "Comparer mes entraînements" }[screen]);
   useFocusOnChange(`${screen}-${ctx.qi || 0}-${ctx.takeId || ""}-${ctx.mode || ""}-${view === "compare" ? (ctx.compare || []).join() : ""}`);
 
   if (!p) return <main className="rp-page" style={PAGE}><CodeEntry initial={initialCode} invalid={!!initialCode && !findParcours(initialCode)} onOk={c => { setCode(c); setView("home"); }} /></main>;
@@ -91,7 +91,7 @@ export default function Beneficiary({ initialCode, sub = "", setModal, onCode })
     window.scrollTo({ top: 0 });
   };
   /* Sans retour de l'assistant (BUG-05) : trois étapes, pas de « Préparation » ni de « Retour ». */
-  const flowSteps = p.consent.ai ? ["Questions", "Réponse", "Préparation", "Retour"] : ["Questions", "Réponse", "Réponse gardée"];
+  const flowSteps = p.consent.ai ? ["Questions", "Réponse", "Préparation", "Retour"] : ["Questions", "Réponse", "Entretien gardé"];
   const flowIdx = (p.consent.ai ? { pick: 0, record: 1, processing: 2, choose: 3, report: 3 } : { pick: 0, record: 1, processing: 2, choose: 2, report: 2 })[view];
   const total = ctx.from === "recap" ? 0 : ctx.queue?.length || 0; // réponse rouverte depuis le récapitulatif : pas de suite de série
   const series = total ? { i: ctx.qi || 0, n: total, hasNext: (ctx.qi || 0) < total - 1, full: !!ctx.full, step: ctx.steps?.[ctx.qi || 0] } : null;
@@ -120,7 +120,7 @@ export default function Beneficiary({ initialCode, sub = "", setModal, onCode })
             <RecruiterVoice key={`${ctx.qi || 0}-${ctx.question}`} label={series?.full ? `Le recruteur · ${series.step}` : "Question du recruteur"} text={series?.full && series.i === 0 ? `${FULL_INTRO} ${ctx.question}` : ctx.question} onSpeaking={setSpeaking} />
             <Interlocutor speaking={speaking} />
             <Recorder speaking={speaking} beforeStart={() => { try { window.speechSynthesis?.cancel(); } catch { /* rien */ } }} setModal={setModal} onCancel={() => go("pick")}
-              trackGaze={!!p.consent.ai} validateLabel={p.consent.ai ? "Voir mon retour" : "Garder cette réponse"}
+              trackGaze={!!p.consent.ai} validateLabel={p.consent.ai ? "Voir mon retour" : "Garder cet entretien"}
               onDone={rec => go("processing", { recording: rec })} />
             <VignetteSwitch />
             {/* Sous la caméra (UI-13) : la caméra reste au-dessus de la ligne de flottaison sur téléphone */}

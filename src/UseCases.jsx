@@ -76,7 +76,7 @@ const BENEF = [
   [I.lock, "Accès par code, sans compte", "Un code d'accès de 6 caractères donné par votre coach. Ni adresse électronique, ni mot de passe."],
   [I.mic, "Échauffement sans enregistrement", "Des phrases à dire à voix haute, avec une consigne, pour vous lancer. Rien n'est enregistré."],
   [I.target, "Questions adaptées au métier", "Des questions selon le poste que vous visez. Vous pouvez aussi ajouter les vôtres."],
-  [I.video, "Caméra ou voix seule", "3 minutes au plus par réponse. Vous vous revoyez avant de garder l'entretien. Vous recommencez autant que vous voulez, et vous voyez ce qui a changé."],
+  [I.video, "Caméra ou voix seule", "3 minutes au plus par réponse. Vous vous revoyez avant de garder l'entretien. Vous recommencez autant que vous voulez, puis vous comparez vos entraînements pour mesurer votre progression."],
   [I.sparkle, "Un assistant qui analyse, sans noter", "Rythme de parole, pauses, exemples, petits mots répétés, regard. Ce qui fonctionne déjà est présenté en premier."],
   [I.layers, "Un retour à lire ou à regarder", "Lisez le retour, ou revoyez-vous avec les repères placés au bon moment de la vidéo."],
   [I.chat, "Un assistant de préparation d'entretien", "Il répond à vos questions sur l'entretien, sans remplacer votre coach. Un entraînement complet suit l'ordre d'un vrai entretien."],

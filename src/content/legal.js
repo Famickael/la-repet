@@ -151,6 +151,9 @@ export const FULL = {
         ? "L'assistant est un programme. Pour mettre votre entretien par écrit, le son est envoyé au service de transcription de votre organisme d'accompagnement. La direction de votre regard est calculée sur cet appareil."
         : "L'assistant est un programme. Il transforme votre voix en texte et regarde la direction de votre regard. Tout cela se passe sur cet appareil.",
       ...(REMOTE_LLM ? [`Pour mieux rédiger le retour, le texte de votre entretien est envoyé à un service d'IA${ORG.llmProvider ? ` (${ORG.llmProvider})` : ""}. Jamais votre image. Jamais votre voix.`] : []),
+      REMOTE_LLM
+        ? "Quand vous comparez deux entretiens, la comparaison est calculée sur cet appareil. Les phrases qui disent ce qui a changé peuvent être envoyées à ce même service d'IA pour être reformulées : du texte seulement, jamais votre image ni votre voix."
+        : "Quand vous comparez deux entretiens, tout est calculé sur cet appareil. Rien n'est envoyé.",
     ] },
     { h: "3. Vous gardez votre vidéo pour vous.", p: ["Si vous ne faites rien, votre vidéo reste sur cet appareil. Personne d'autre ne la voit. Vous pouvez la revoir ou la supprimer."] },
     { h: "4. Vous décidez de l'envoyer à votre coach, ou non.", p: ["Vous envoyez un entretien avec le bouton « Envoyer à mon coach ». Seul votre coach peut alors le voir. Vous pouvez annuler l'envoi tant que votre coach ne vous a pas répondu."] },

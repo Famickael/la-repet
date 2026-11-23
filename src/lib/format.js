@@ -28,3 +28,10 @@ export function dateLong(iso) {
   const d = new Date(iso);
   return isNaN(d) ? "" : nbspDay(d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }));
 }
+
+/* Jour seul : « 12 mars » (titre d'un entretien dans la comparaison). */
+export function dateDay(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return isNaN(d) ? "" : nbspDay(d.toLocaleDateString("fr-FR", { day: "numeric", month: "long" }));
+}

@@ -8,7 +8,7 @@ export const STEPS = [
   { k: "S'entraîner", t: "Vous vous entraînez quand vous voulez", d: "Choisissez une question liée au métier que vous visez. Répondez à voix haute, face à la caméra ou en voix seule. Pas d'avatar en face de vous.", V: VisCamera },
   { k: "Recevoir un retour", t: "L'assistant analyse votre entretien", d: "Rythme de parole, pauses, exemples : il dit ce qu'il a remarqué, et à quel moment. Il commence par ce qui fonctionne déjà, puis propose des pistes. Vous recommencez quand vous voulez.", V: VisReport },
   { k: "Envoyer", t: "Vous décidez de ce que vous envoyez", d: "Votre vidéo reste sur votre appareil. Votre coach la voit seulement si vous la lui envoyez, entretien par entretien.", V: VisShare },
-  { k: "En parler", t: "Votre coach vous répond, vous en parlez ensemble", d: "Votre coach regarde votre entretien et ajoute ses remarques. Ensemble, vous voyez ce qui a changé d'un entretien à l'autre, sans note, et vous choisissez la suite.", V: VisCoach },
+  { k: "En parler", t: "Votre coach vous répond, vous en parlez ensemble", d: "Votre coach regarde votre entretien et ajoute ses remarques. Comparez vos différents entraînements pour mesurer votre progression : des faits côte à côte et ce qui a changé, sans note. Vous choisissez la suite ensemble.", V: VisCoach },
 ];
 
 export function Strate() {
@@ -124,7 +124,7 @@ export function Strate() {
             <div className="rs-visbox" style={{ position: "relative", height: 440 }} aria-hidden>
               {/* Pile de cartes : chaque étape est sa propre carte, qui glisse et se superpose à la précédente */}
               {STEPS.map(({ V, k }, i) => (
-                <div key={k} className={`rs-vcard ${active === i ? "on" : i < active ? "past" : "next"}`} style={{ zIndex: i + 1 }}><V play={active === i} /></div>
+                <div key={k} className={`rs-vcard ${active === i ? "on" : i < active ? "past" : "next"}`} style={{ zIndex: i + 1 }}><div className="rs-vcard-in"><V play={active === i} /></div></div>
               ))}
             </div>
           </div>

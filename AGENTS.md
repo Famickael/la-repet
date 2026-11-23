@@ -59,6 +59,8 @@ npm run test:cas      # cas limites (deux onglets, retrait de l'accord, voix seu
 
 Hors suite, moteur de Safari : `PLAYWRIGHT_BROWSERS_PATH=$HOME/pw-webkit node tests/webkit-check.cjs [adresse]` mesure sous WebKit la continuité de l'écran de chargement et la fluidité du fond de l'accueil, puis donne un verdict (installation de WebKit en tête du fichier).
 
+Hors suite, fluidité sous Chromium (moteur d'Edge) : `CHROMIUM_PATH=/opt/pw-browsers/chromium node tests/perf-check.cjs [adresse]` rejoue les scénarios (chargement, accueil, pages, menus, changement de page, accessibilité, assistant) processeur ralenti ×4 et donne, pour chacun, la part d'images à moins de 16,7 ms, les tâches longues et un verdict (réglages `PERF_*` en tête du fichier).
+
 Chromium : `playwright` est figé en 1.65.1 (Chromium 1255). Dans les sessions distantes où le Chromium fourni est
 plus ancien, ne pas lancer `playwright install` : passer son chemin, `CHROMIUM_PATH=/opt/pw-browsers/chromium`.
 Les pull requests sont vérifiées par `.github/workflows/verifier.yml` (mêmes commandes).

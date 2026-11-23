@@ -3,13 +3,15 @@ import { T, TY, GAP, Card, Tag, Btn, Back, I, Txt, Empty, ConfirmDialog } from "
 import { deleteParcours, takesOf } from "../lib/store.js";
 import { duration } from "../lib/format.js";
 import { CopyBtn, actions, dateFr, linkFor, stack } from "./shared.jsx";
+import { useComparePick, PickBox, PickBar } from "../Compare.jsx";
 
-export function Parcours({ s, p, back, review }) {
+export function Parcours({ s, p, back, review, compare }) {
   const takes = takesOf(p.code, s);
   const shared = takes.filter(t => t.shared);
   const [confirmDel, setConfirmDel] = useState(false);
   const del = async () => { await deleteParcours(p.code); setConfirmDel(false); back(); };
   const priv = takes.length - shared.length;
+  const pick = useComparePick(shared); // seuls les entretiens envoyés se comparent ici
   return (
     <div style={stack(GAP.block)}>
       <Card level={2} style={actions}>
@@ -31,6 +33,7 @@ export function Parcours({ s, p, back, review }) {
             {priv > 0 ? (priv > 1 ? `${priv} autres entretiens n'ont pas été envoyés : vous ne les voyez pas.` : "1 autre entretien n'a pas été envoyé : vous ne le voyez pas.") : "Vous voyez ici seulement les entretiens que la personne vous a envoyés."}
           </Txt>
         </div>
+        {pick.can && !pick.on && <div><Btn kind="secondary" size="sm" icon={I.layers} onClick={pick.start}>Comparer deux entretiens</Btn></div>}
         {shared.length === 0 && <Empty icon={I.send} text="Aucun entretien reçu pour le moment." />}
         {shared.length > 0 && (
           <div style={stack(GAP.stack)}>
@@ -41,11 +44,13 @@ export function Parcours({ s, p, back, review }) {
                   <div style={{ ...TY.caption, color: T.muted }}>Envoyé le {dateFr(t.sharedAt)} · {duration(t.duration)}{t.report ? ` · rapport envoyé le ${dateFr(t.report.sentAt)}` : ""}</div>
                 </div>
                 <Tag tone={t.report ? "success" : "warning"}>{t.report ? "Rapport envoyé" : "À relire"}</Tag>
+                <PickBox pick={pick} take={t} label={`Choisir l'entretien envoyé le ${dateFr(t.sharedAt)} : ${t.question}`} />
                 <Btn kind={t.report ? "secondary" : "objective"} size="sm" onClick={() => review(t.id)}>{t.report ? "Modifier le rapport" : "Relire"}</Btn>
               </Card>
             ))}
           </div>
         )}
+        <PickBar pick={pick} onCompare={compare} />
       </section>
       <div><Back onClick={back} /></div>
       {confirmDel && (

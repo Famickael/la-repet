@@ -3,7 +3,7 @@
 import React from "react";
 import {
   GAP_MOBILE, T, ON, GLOW, GRAD, GRAD_MAIN, GRAD_COACH, GRAD_AI, GRAD_SOFT, GRAD_PAGE, FD, FB, FM, TY, PAD, PAD_MOBILE, GAP, W, RAD, SH, MO, Z,
-  TONE, HEADER_H, HEADER_H_M, TY_MOBILE, GRAD_AI_BORDER, FONT_STACKS, MASK, GRAD_LOGO, FADE_FOOT,
+  TONE, HEADER_H, HEADER_H_M, TY_MOBILE, GRAD_AI_BORDER, FONT_STACKS, MASK, GRAD_LOGO, FADE_FOOT, GLOW_SCALE,
 } from "../tokens.js";
 
 /* ─── STYLES GLOBAUX ─── */
@@ -280,9 +280,11 @@ export const GStyle = () => (
        vient de la taille du cœur plein et de l'amplitude, pas d'une teinte plus dense. */
     .rs-glow{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
     .rs-glow>span{position:absolute;inset:0;transform-origin:50% 50%;will-change:transform;animation:rsDrift 18s ${MO.soft} infinite alternate}
-    .rs-glow i,.rs-glow b{position:absolute;display:block;will-change:transform}
-    .rs-glow i{left:77.3%;top:10.3%;width:67.2vmax;height:67.2vmax;margin:-33.6vmax 0 0 -33.6vmax}
-    .rs-glow b{left:22.7%;top:89.7%;width:78.4vmax;height:78.4vmax;margin:-39.2vmax 0 0 -39.2vmax}
+    /* Masses : 67,2 et 78,4 vmax de diamètre à l'écran, posées à 1/GLOW_SCALE et agrandies (scale, centre fixe) : couche
+       composée réduite d'autant de côté, même rendu. Le JavaScript écrit translate3d(…) scale(GLOW_SCALE). */
+    .rs-glow i,.rs-glow b{position:absolute;display:block;will-change:transform;transform:scale(${GLOW_SCALE})}
+    .rs-glow i{left:77.3%;top:10.3%;width:${67.2 / GLOW_SCALE}vmax;height:${67.2 / GLOW_SCALE}vmax;margin:${-33.6 / GLOW_SCALE}vmax 0 0 ${-33.6 / GLOW_SCALE}vmax}
+    .rs-glow b{left:22.7%;top:89.7%;width:${78.4 / GLOW_SCALE}vmax;height:${78.4 / GLOW_SCALE}vmax;margin:${-39.2 / GLOW_SCALE}vmax 0 0 ${-39.2 / GLOW_SCALE}vmax}
     .rs-glow img{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none;user-select:none}
     .rs-glow i img{opacity:${Math.min(GLOW_LIGHT_MAX, glowAlpha(GLOW.violet))}}.rs-glow b img{opacity:${Math.min(GLOW_LIGHT_MAX, glowAlpha(GLOW.blue))}}
     html[data-theme=dark] .rs-glow i img{opacity:${glowAlpha(GLOW.violet)}}html[data-theme=dark] .rs-glow b img{opacity:${glowAlpha(GLOW.blue)}}

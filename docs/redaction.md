@@ -483,6 +483,20 @@ Lecture du tableau : **P1** = à traiter d'abord (héros, navigation, boutons, t
 | lib/analysis.js, conseil pauses | Quelques pauses rythment le propos et laissent le temps de réfléchir. C'est une ressource. | Quelques pauses rythment la réponse et laissent le temps de réfléchir. Vous pouvez les garder. | « C'est une ressource » est du jargon. |
 | lib/analysis.js, conseil pauses | Les pauses sont nombreuses. Préparer deux ou trois mots-clés par question peut aider à enchaîner. | Préparer deux ou trois mots-clés par question peut aider à enchaîner. | « Nombreuses » évalue. Le repère donne déjà le nombre. |
 
+### 2.9 bis Analyse d'un entretien : textes alignés sur les promesses du site (22 novembre 2026)
+
+Le site promet : l'assistant IA analyse l'entretien, sans le noter ; il commence par les points d'appui, puis propose des pistes. Textes et consignes mis en accord, après l'essai de `docs/essai-analyse/`.
+
+| Élément | Avant | Maintenant | Raison |
+|---|---|---|---|
+| lib/analysis.js, synthèse | Vos points d'appui : (liste). Les autres repères sont des pistes, à explorer si vous le souhaitez. | Vos points d'appui : (liste). Une piste pour votre prochain essai : (une seule). Les autres pistes sont à explorer si vous le souhaitez. | Une priorité nommée, donc une action possible. |
+| lib/analysis.js, synthèse sans point d'appui | Les repères ci-dessous décrivent votre réponse. | Les repères ci-dessous analysent votre entretien, sans le noter. Une piste pour votre prochain essai : (une seule). | Lexique du 22 novembre. |
+| lib/analysis.js, conseils | Préparer deux ou trois mots-clés par question peut aider à enchaîner. ; Marquer un temps de silence à la place […] suffit souvent. | Avant de commencer, vous pouvez noter deux ou trois mots-clés […]. ; Au prochain essai, vous pouvez marquer un court silence à la place […]. | Chaque piste dit quoi faire, et quand. |
+| lib/analysis.js, nouveau repère | (absent) | Durée : Vous parlez pendant 0:18. En entretien, une réponse dure souvent entre 1 et 2 minutes. […] | Un entretien très court ne recevait que des points d'appui de forme. |
+| Report.jsx, groupes | cartes à la suite | Vos points d'appui (Ce qui fonctionne déjà. Vous pouvez le garder.) puis Vos pistes à explorer (Des propositions pour le prochain essai. Ce ne sont pas des erreurs.) | L'ordre promis se lit à l'écran. |
+| legal.js `feedbackLlm` | Texte rédigé avec l'aide d'une IA. | Texte rédigé avec l'aide d'une IA, à partir de ce qui a été mesuré dans l'entretien, puis vérifié par un filtre. Le coach peut le nuancer ou le contredire. | Mention placée sous le résumé, côté personne et côté coach. |
+| lib/llm.js, consigne envoyée au modèle | Reformule le retour […] | Prompt système `FEEDBACK_SYSTEM_PROMPT` : « entretien », « analyse », points d'appui puis une piste, pistes actionnables, longueurs, interdits | Le texte du modèle suit la même charte que le site. Non visible à l'écran. |
+
 ### 2.10 Envoi au coach (Beneficiary.jsx `Share`, `Sent`) et assistant (Assistant.jsx)
 
 | Fichier et élément | Texte actuel exact | Proposition | Raison |

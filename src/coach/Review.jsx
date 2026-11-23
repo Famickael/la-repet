@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useState } from "react";
 import { T, TY, GAP, Card, Btn, Back, IconBtn, I, Txt, Confirm, Input, Textarea, TimeChip } from "../ui.jsx";
 import { sendReport, saveDraft as storeDraft } from "../lib/store.js";
-import { Player, DimCard, markersOf, useVideoUrl, Transcript } from "../Report.jsx";
+import { Player, DimCard, DimGroups, Synthese, markersOf, useVideoUrl, Transcript } from "../Report.jsx";
 import { fmt } from "../lib/analysis.js";
 import CoachAssistantDock from "../CoachAssistant.jsx";
 import { isAudio, noFeedback } from "../lib/takes.js";
@@ -110,12 +110,14 @@ export function Review({ s, p, take, back }) {
             <Txt v="caption" color={T.muted}>Confirmez, nuancez ou contredisez : votre lecture prime sur celle de l'assistant.</Txt>
           </div>
           {A.dimensions.length === 0 && <Card><Txt v="small" color={T.body}>{noFeedback(take) ? "La personne a choisi de ne pas recevoir le retour de l'assistant." : A.synthese || "L'assistant n'a pas de repère pour cet entretien."}</Txt></Card>}
-          {A.dimensions.map(d => (
+          {/* Le coach lit ce que la personne a lu : le résumé, puis les points d'appui et les pistes, dans le même ordre. */}
+          {A.dimensions.length > 0 && A.synthese && <Synthese analysis={A} />}
+          <DimGroups dims={A.dimensions} as="h3" titles={{ appui: "Points d'appui", explorer: "Pistes à explorer" }} render={d => (
             <div key={d.id} style={stack(8)}>
               <DimCard d={d} active={active === d.id} onClick={() => seek(d.t, d.id)} />
               <Input value={comments[d.id] || ""} onChange={e => setComments(c => ({ ...c, [d.id]: e.target.value }))} onBlur={() => saveDraft()} placeholder="Votre remarque sur ce repère (facultatif)" aria-label={`Votre remarque sur le repère : ${d.titre}`} />
             </div>
-          ))}
+          )} />
           <Btn kind="objective" full onClick={send} disabled={empty} icon={I.send} aria-describedby="review-send-h">{take.report ? "Renvoyer le rapport" : "Envoyer le rapport"}</Btn>
           <Txt v="caption" color={T.muted} style={{ textAlign: "center" }} id="review-send-h">{empty ? "Écrivez au moins un mot pour la personne : une introduction, une remarque ou un commentaire. " : ""}Rien n'est envoyé à la personne tant que vous n'avez pas envoyé le rapport. Vos saisies sont enregistrées en brouillon.</Txt>
         </div>

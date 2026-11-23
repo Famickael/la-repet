@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { T, TY, W, Card, Btn, Back, Icon, I, GradHead, Chip, ConfirmDialog, Menu } from "../ui.jsx";
 import { openAssistant, nudgeAssistant } from "../lib/bus.js";
 import { ReportBody } from "../Report.jsx";
-import { unshareTake, deleteTake } from "../lib/store.js";
+import { unshareTake, deleteTake, takesOf } from "../lib/store.js";
 import { PHRASES } from "../content/legal.js";
 import { hasMedia, isAudio, noFeedback } from "../lib/takes.js";
-import { actions, dateFr, downloadTake, dur, stack, wrap } from "./shared.jsx";
+import { actions, dateFr, downloadTake, dur, openView, stack, wrap } from "./shared.jsx";
 
 /* ─── Rapport + actions ─── */
 export function TakeReport({ p, take, mode, go, series, nextQuestion, stopSeries, back }) {
@@ -18,12 +18,16 @@ export function TakeReport({ p, take, mode, go, series, nextQuestion, stopSeries
     if (series?.hasNext) nextQuestion(); else go("home", { queue: null });
   };
   const nofb = noFeedback(take);
+  /* « Vous recommencez, vous voyez ce qui a changé » : l'autre entretien sur la même question (le précédent, sinon le
+     suivant) s'ouvre d'ici, pour relire les deux analyses l'une après l'autre. Aucune comparaison chiffrée, aucune courbe. */
+  const same = takesOf(p.code).filter(t => t.question === take.question && t.id !== take.id);
+  const other = same.find(t => t.createdAt < take.createdAt) || same[same.length - 1] || null;
   const head = (t, d) => <div style={stack(4)}><div style={{ ...TY.h3, color: T.navy }}>{t}</div><div style={{ ...TY.small, color: T.body }}>{d}</div></div>;
   return (
     <div style={{ ...wrap(mode === "video" ? W.wide : W.read), ...stack(16) }}>
       <Card pad="none" level={2}>
         <GradHead tag={take.report ? "Rapport de votre coach" : nofb ? "Votre entretien" : "Votre retour"} title={take.question}
-          sub={`${dateFr(take.createdAt)} · ${dur(take.duration)}.${nofb ? " Vous avez choisi de ne pas recevoir le retour de l'assistant." : ` ${PHRASES.feedback}`}${take.analysis?.source === "llm" ? ` ${PHRASES.feedbackLlm}` : ""}`}
+          sub={`${dateFr(take.createdAt)} · ${dur(take.duration)}.${nofb ? " Vous avez choisi de ne pas recevoir le retour de l'assistant." : ` ${PHRASES.feedback}`}`}
           action={hasMedia(take) && !nofb && (
             <Btn kind="ghostDark" size="sm" className="noprint" onClick={() => go("report", { mode: mode === "video" ? "simple" : "video" })}>
               {mode === "video" ? "Lire mon retour" : isAudio(take) ? "Me réécouter" : "Me revoir en vidéo"}
@@ -41,6 +45,15 @@ export function TakeReport({ p, take, mode, go, series, nextQuestion, stopSeries
               : series.full ? <Btn kind="objective" onClick={() => go("recap")} iconRight={I.arrow}>Voir le récapitulatif</Btn>
               : <Btn kind="secondary" size="sm" onClick={stopSeries}>Revenir à mon espace</Btn>}
           </div>
+        </Card>
+      )}
+      {other && !series?.hasNext && (
+        <Card style={{ ...actions, gap: 16 }} className="noprint">
+          {head(other.createdAt < take.createdAt ? "Vous avez déjà répondu à cette question" : "Vous avez répondu de nouveau à cette question",
+            `Relisez votre entretien du ${dateFr(other.createdAt)} pour voir ce qui a changé : un exemple ajouté, un autre rythme, une conclusion.`)}
+          <Btn kind="secondary" size="sm" onClick={() => { const [v, m] = openView(other); go(v, { takeId: other.id, mode: m, queue: null, from: null }); }}>
+            {other.createdAt < take.createdAt ? "Relire l'entretien précédent" : "Relire l'entretien suivant"}
+          </Btn>
         </Card>
       )}
       <Card style={{ ...actions, gap: 16 }} className="noprint">

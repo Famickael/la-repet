@@ -3,6 +3,7 @@ import { T, ON, TY, RAD, SH, PAD, GAP, MO, TONE, ringOf, Card, Tag, Bare, Notice
 import { loadVideoUrl } from "./lib/store.js";
 import { fmt } from "./lib/analysis.js";
 import { hasMedia, isAudio, noFeedback } from "./lib/takes.js";
+import { PHRASES } from "./content/legal.js";
 
 const toneOf = d => (d.type === "appui" ? T.accent : T.violet);
 
@@ -140,6 +141,35 @@ export function DimCard({ d, comment, active, onClick }) {
   return <div style={st}>{body}</div>;
 }
 
+/* Repères groupés comme le site le promet : les points d'appui d'abord, puis les pistes à explorer, chaque groupe
+   sous son titre. render(d) dessine un repère (carte seule, ou carte et champ de remarque côté coach). */
+export const DIM_GROUPS = [["appui", "Vos points d'appui", "Ce qui fonctionne déjà. Vous pouvez le garder."], ["explorer", "Vos pistes à explorer", "Des propositions pour le prochain essai. Ce ne sont pas des erreurs."]];
+export function DimGroups({ dims, render, as: H = "h2", titles = {} }) {
+  return DIM_GROUPS.map(([type, titre, aide]) => {
+    const list = dims.filter(d => d.type === type);
+    if (!list.length) return null;
+    return (
+      <section key={type} aria-label={titles[type] || titre} style={{ display: "grid", gap: GAP.stack }}>
+        <div style={{ display: "grid", gap: 4, marginTop: 8 }}>
+          <H style={{ ...TY.h4, color: T.navy, margin: 0 }}>{titles[type] || titre}</H>
+          {!titles[type] && <p style={{ ...TY.caption, color: T.muted, margin: 0 }}>{aide}</p>}
+        </div>
+        {list.map(render)}
+      </section>
+    );
+  });
+}
+
+/* Résumé de l'analyse, avec la mention du texte rédigé avec l'aide d'une IA quand c'est le cas (transparence). */
+export function Synthese({ analysis, style }) {
+  return (
+    <Notice tone="info" icon={I.sparkle} style={style}>
+      <strong>En résumé.</strong> {analysis.synthese}
+      {analysis.source === "llm" && <span style={{ display: "block", ...TY.caption, color: T.muted, marginTop: 8 }}>{PHRASES.feedbackLlm}</span>}
+    </Notice>
+  );
+}
+
 /* Texte de la réponse, pour la personne comme pour le coach (A11Y-03, référentiel 8 : transcription à côté de la vidéo).
    onSeek : chaque phrase devient un bouton qui place la lecture à ce moment. */
 export function Transcript({ take, onSeek }) {
@@ -188,7 +218,7 @@ export function ReportBody({ take, mode, counselorName }) {
     </Card>
   );
   /* Sans retour de l'assistant (BUG-05) : ni synthèse ni repères, seulement la réponse et, s'il existe, le rapport du coach. */
-  const synth = noFeedback(take) ? null : <Notice tone="info" icon={I.sparkle} style={{ ...TY.bodyLg }}><strong>En résumé.</strong> {A.synthese}</Notice>;
+  const synth = noFeedback(take) ? null : <Synthese analysis={A} style={{ ...TY.bodyLg }} />;
   if (mode === "video" && !A.dimensions.length) {
     return (
       <div style={{ display: "grid", gap: GAP.stack }}>
@@ -204,7 +234,7 @@ export function ReportBody({ take, mode, counselorName }) {
     return (
       <div style={{ display: "grid", gap: GAP.stack }}>
         {intro}{synth}
-        {A.dimensions.map(d => <DimCard key={d.id} d={d} comment={rep?.comments?.[d.id]} />)}
+        <DimGroups dims={A.dimensions} render={d => <DimCard key={d.id} d={d} comment={rep?.comments?.[d.id]} />} />
         {notes}
         <Transcript take={take} />
       </div>
@@ -221,7 +251,7 @@ export function ReportBody({ take, mode, counselorName }) {
           <Transcript take={take} onSeek={t => seekTo(t)} />
         </div>
         <div style={{ display: "grid", gap: GAP.stack }}>
-          {A.dimensions.map(d => <DimCard key={d.id} d={d} comment={rep?.comments?.[d.id]} active={active === d.id} onClick={() => seekTo(d.t, d.id)} />)}
+          <DimGroups dims={A.dimensions} render={d => <DimCard key={d.id} d={d} comment={rep?.comments?.[d.id]} active={active === d.id} onClick={() => seekTo(d.t, d.id)} />} />
         </div>
       </div>
     </div>

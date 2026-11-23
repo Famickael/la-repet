@@ -53,6 +53,8 @@ Si le texte du prompt change dans `src/`, la détection peut se tromper : seul l
   "choices": [{ "index": 0, "message": { "role": "assistant", "content": "…" }, "finish_reason": "stop" }] }
 ```
 
+**Requête d'analyse (`feedback`).** Depuis le 22 novembre 2026, `feedbackRequest` (`src/lib/llm.js`) envoie deux messages : le prompt système (`FEEDBACK_SYSTEM_PROMPT` : ton, structure « points d'appui puis pistes », longueurs, interdits) et un message de données balisées (`<poste>`, `<question>`, `<transcription>` horodatée, `<mesures>`, `<reperes>`), avec `task: "feedback"` et `response_format: json_object`. Le proxy n'a pas changé : le prompt système part dans le champ `system`. Un exemple complet, côté site et côté fournisseur, est gardé dans `docs/essai-analyse/requetes/`.
+
 Toute autre issue renvoie un code d'erreur (`403`, `413`, `429`, `502`, `504`…) avec `{ "error": { "message": "…" } }`. Le site traite tout code autre que 2xx comme une panne et **retombe sur son moteur local** : la personne a toujours une réponse.
 
 **Ce que fait la traduction vers Anthropic** (API Messages, `POST /v1/messages`) :
@@ -63,7 +65,7 @@ Toute autre issue renvoie un code d'erreur (`403`, `413`, `429`, `502`, `504`…
 - aucun paramètre d'échantillonnage (`temperature` est refusé par ces modèles) ;
 - lecture des blocs `text` uniquement (un bloc de réflexion peut précéder le texte) ; `stop_reason` `refusal` ou `max_tokens` renvoient une erreur, donc le repli local.
 
-**Filtrage.** Le proxy ne juge pas le contenu. La vérification de conformité (aucune note, aucun score, aucune inférence d'émotion) reste dans le navigateur, `src/lib/compliance.js` : toute sortie refusée est remplacée par le texte du moteur local.
+**Filtrage.** Le proxy ne juge pas le contenu. La vérification de conformité (aucune note, aucun score, aucune inférence d'émotion) reste dans le navigateur, `src/lib/compliance.js` : toute sortie refusée est remplacée par le texte du moteur local (pour l'analyse d'un entretien : champ par champ).
 
 **Données.** Le proxy ne garde rien. Il journalise une ligne par appel, **sans contenu** : tâche, modèle, issue (`ok`, `erreur`, `rejet`, `reseau`) et code HTTP. Les journaux de Cloudflare (`npx wrangler tail`) ne montrent donc ni prompt ni réponse.
 
